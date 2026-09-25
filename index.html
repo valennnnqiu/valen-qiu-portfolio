@@ -174,6 +174,7 @@ a{color:inherit;text-decoration:none}
 .hs-t2{left:61%;top:29%;width:15cqw;height:8cqw}
 .hs-chips{display:flex;flex-direction:column;align-items:flex-start;gap:1.2cqw;pointer-events:none}
 .hs-chips.on{pointer-events:auto}
+.hs-chips.gone{display:none}
 .hs-chips .hs-chip{opacity:0;transform:scale(.4) translateY(2cqw);transform-origin:0 50%}
 .hs-chips.on .hs-chip{animation:hspop .55s cubic-bezier(.34,1.56,.64,1) forwards}
 .hs-chips.on .hs-chip:nth-child(2){animation-delay:.14s}.hs-chips.on .hs-chip:nth-child(3){animation-delay:.28s}
@@ -4270,14 +4271,14 @@ if(initNf) initNf.classList.add('active');
   let run=0;
   async function typeText(text,id,ms){ for(let c=1;c<=text.length&&id===run;c++){typeEl.textContent=text.slice(0,c);await sleep(ms)} }
   async function say(text,hold){
-    const id=++run; b2w.classList.add('reply');
+    const id=++run; b2w.classList.add('reply'); chips.classList.remove('on'); chips.classList.add('gone');
     while(typeEl.textContent.length&&id===run){typeEl.textContent=typeEl.textContent.slice(0,-3);await sleep(8)}
     typeEl.textContent=''; await typeText(text,id,16);
     if(id!==run) return; await sleep(hold||3200);
-    if(id!==run) return; typeEl.textContent=''; await typeText(MAIN,id,14); b2w.classList.remove('reply');
+    if(id!==run) return; typeEl.textContent=''; await typeText(MAIN,id,14); b2w.classList.remove('reply'); chips.classList.remove('gone'); void chips.offsetWidth; chips.classList.add('on');
   }
   const replies={
-    what:()=>say('Designing AI products at Wander, running ZEPTOLAB, teaching at OCAD.',4200),
+    what:()=>say('Product designer at Wander, an AI social app. I rebuilt its posting system, lifting post usage 36%, and ship straight through code. At OCAD I teach branding strategy, data visualization, internship and speculative design.',7500),
     zepto:()=>say('ZEPTOLAB is my design studio: a boutique consultancy that turns ideas into market-ready brands, products, UI/UX and toys. 15+ companies, 6 industries.',6500),
     dj:()=>{say('I DJ in Toronto and I am building Come DJ with Valen. Message me on Instagram for the music and upcoming events.',5500); window.open('https://www.instagram.com/valennnnq/?hl=en','_blank')}
   };
