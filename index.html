@@ -140,8 +140,50 @@ a{color:inherit;text-decoration:none}
 .hero-folder:nth-child(even){margin-left:clamp(1rem,5vw,2.75rem)}
 .hero-folder-icon{height:clamp(28px,7vw,58px);width:auto;display:block;transition:transform .25s var(--ease);filter:drop-shadow(0 6px 10px rgba(13,13,12,.12))}
 .hero-folder:hover .hero-folder-icon{transform:scale(1.06) translateY(-3px)}
-.hero-photo{grid-column:2}
-.hero-photo img{width:auto;height:auto;max-width:45.6vw;max-height:58.1vh;display:block}
+.hero-photo{grid-column:2;width:min(45.6vw,calc(58.1vh * 1.1146));will-change:transform}
+.hs{position:relative;aspect-ratio:3531/3168;container-type:inline-size;width:100%}
+.hs-par{position:absolute;transform:translate3d(calc(var(--px,0) * var(--d,0) * 1cqw),calc(var(--py,0) * var(--d,0) * .6cqw),0)}
+.hs-personwrap{left:0;top:0;width:59.61%;height:100%;--d:-.7}
+.hs-person,.hs-pose{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;user-select:none}
+.hs-pose{opacity:0;transition:opacity .35s}
+.hs-pose.on{opacity:1}
+.hs-b1w{left:75.05%;top:19.6%;width:23.8%;height:8.9%;--d:1.2}
+.hs-b2w{left:43.6%;top:29.4%;width:56.4%;--d:1.4}
+.hs-bub{position:absolute;inset:0;background:#0A84FF;color:#fff;font-family:-apple-system,'SF Pro Text','Helvetica Neue',var(--sans);font-size:2.4cqw;line-height:1.28;border-radius:4.4cqw;display:flex;align-items:center;justify-content:center;transform:scale(.4);opacity:0;transform-origin:100% 100%;transition:transform .55s cubic-bezier(.34,1.56,.64,1),opacity .2s}
+.hs-bub.on{transform:none;opacity:1}
+.hs-b2w .hs-bub{position:relative;inset:auto;min-height:14.4cqw;justify-content:flex-start;padding:2.3cqw 2.6cqw;border-radius:4.4cqw;display:block;background:#0A84FF}
+.hs-b2w .hs-bub::before{content:'';position:absolute;right:-.7cqw;bottom:0;width:2.4cqw;height:2.6cqw;background:#0A84FF;border-bottom-left-radius:2.4cqw 2.2cqw}
+.hs-b2w .hs-bub::after{content:'';position:absolute;right:-1.7cqw;bottom:0;width:1.8cqw;height:2.6cqw;background:var(--bg);border-bottom-left-radius:1.4cqw}
+.hs-pre{display:block;opacity:.95}
+.hs-b2w.reply .hs-pre{display:none}
+.hs-type{display:inline}
+.hs-caret{display:inline-block;width:.25cqw;height:2.2cqw;background:#fff;margin-left:.3cqw;vertical-align:-.35cqw;animation:hsblink 1s steps(2) infinite}
+@keyframes hsblink{50%{opacity:0}}
+.hs-typing{position:absolute;display:flex;gap:.9cqw;align-items:center;justify-content:center;background:#E5E5EA;border-radius:4.4cqw;opacity:0;transform:scale(.6);transform-origin:0 100%;transition:opacity .2s,transform .3s cubic-bezier(.34,1.56,.64,1)}
+.hs-typing.on{opacity:1;transform:none}
+.hs-typing i{width:1.3cqw;height:1.3cqw;border-radius:50%;background:#8E8E93;animation:hsdot 1s ease-in-out infinite}
+.hs-typing i:nth-child(2){animation-delay:.15s}.hs-typing i:nth-child(3){animation-delay:.3s}
+@keyframes hsdot{0%,60%,100%{transform:translateY(0);opacity:.5}30%{transform:translateY(-.8cqw);opacity:1}}
+.hs-t1{left:75.05%;top:19.6%;width:11cqw;height:8.9cqw}
+.hs-t2{left:43.6%;top:29.4%;width:11cqw;height:8.9cqw}
+.hs-chipsw{left:43.6%;top:48%;width:56.4%;--d:1.6}
+.hs-chips{display:flex;flex-wrap:wrap;gap:1.2cqw;opacity:0;transform:translateY(1.5cqw);transition:opacity .5s,transform .5s}
+.hs-chips.on{opacity:1;transform:none}
+.hs-chip{font:500 1.95cqw/1 -apple-system,'SF Pro Text','Helvetica Neue',var(--sans);color:#0A84FF;background:#fff;border:.18cqw solid #D1D1D6;border-radius:3cqw;padding:1.2cqw 2cqw;cursor:pointer;transition:background .2s,transform .2s,color .2s}
+.hs-chip:hover{background:#0A84FF;color:#fff;transform:translateY(-.3cqw)}
+.hs-zone{position:absolute;left:17.5%;top:47%;width:21%;height:39%;border-radius:3.5cqw;border:.35cqw dashed var(--pink);opacity:0;transition:opacity .25s,background .25s,transform .25s;pointer-events:none}
+.hs.dragging .hs-zone{opacity:.65}
+.hs.dragging .hs-zone.over{opacity:1;background:rgba(232,25,110,.14);transform:scale(1.03)}
+.hero-folder.drag{position:relative;z-index:60;cursor:grabbing;transition:none}
+.hero-folder.drag .hero-folder-icon{transform:scale(1.12);filter:drop-shadow(0 14px 18px rgba(13,13,12,.22))}
+.hero-folder.back{transition:transform .45s cubic-bezier(.34,1.56,.64,1)}
+.hero-folder.swallow{transition:transform .28s ease-in,opacity .28s ease-in;opacity:0}
+@media(pointer:fine){.hero-folder{touch-action:none;cursor:grab}}
+.hero.beat::before{animation:hsbeat .52s ease-in-out infinite}
+@keyframes hsbeat{0%,100%{background-size:28px 28px;opacity:1}50%{background-size:32px 32px;opacity:.55}}
+.hero::after{content:'';position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(circle,rgba(232,25,110,.75) 1.6px,transparent 1.8px);background-size:28px 28px;-webkit-mask-image:radial-gradient(circle 170px at var(--mx,-999px) var(--my,-999px),#000 0,transparent 100%);mask-image:radial-gradient(circle 170px at var(--mx,-999px) var(--my,-999px),#000 0,transparent 100%)}
+.hero-card{position:relative;z-index:1}
+@media(prefers-reduced-motion:reduce){.hs-bub,.hs-typing,.hs-chips{transition:none}}
 
 /* ── HERO MARQUEE ── */
 .hero-marquee{width:calc(100% + 2 * var(--pg));margin:.5rem calc(-1 * var(--pg)) 0;overflow:hidden;border-top:1px solid var(--border);padding:.85rem 0}
@@ -150,6 +192,31 @@ a{color:inherit;text-decoration:none}
 .hero-marquee-item span{font-family:var(--sans);font-weight:700;font-size:clamp(1rem,2.1vw,1.5rem);color:var(--ink)}
 .hero-marquee-item .hero-marquee-dot{color:var(--pink);font-weight:400}
 @keyframes heroMarquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+
+/* ── OCAD photo desk ── */
+.ocad-desk{position:relative;height:clamp(440px,54vw,760px);margin-top:1rem}
+.ocad-hint{position:absolute;right:.5rem;bottom:.2rem;font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+.ocad-pic{position:absolute;left:var(--l);top:var(--t);width:var(--w);margin:0;background:#fff;padding:.55rem .55rem 1.4rem;border-radius:4px;box-shadow:0 10px 26px rgba(20,20,30,.2),0 2px 6px rgba(20,20,30,.12);transform:translate(var(--x,0px),var(--y,0px)) rotate(var(--r,0deg));transition:box-shadow .3s,transform .35s cubic-bezier(.2,.9,.3,1.3);cursor:grab;touch-action:pan-y;user-select:none}
+.ocad-pic img{width:100%;display:block;pointer-events:none;border-radius:2px}
+.ocad-pic:hover{box-shadow:0 18px 38px rgba(20,20,30,.28),0 3px 8px rgba(20,20,30,.14)}
+.ocad-pic.drag{cursor:grabbing;transition:box-shadow .2s;transform:translate(var(--x),var(--y)) rotate(0deg) scale(1.05);box-shadow:0 26px 50px rgba(20,20,30,.34)}
+@media(max-width:700px){
+  .ocad-desk{height:150vw}
+  .ocad-pic{width:50%!important}
+  .ocad-pic:nth-of-type(1){--l:4%!important;--t:2%!important}
+  .ocad-pic:nth-of-type(2){--l:46%!important;--t:16%!important}
+  .ocad-pic:nth-of-type(3){--l:6%!important;--t:34%!important}
+  .ocad-pic:nth-of-type(4){--l:44%!important;--t:50%!important}
+  .ocad-pic:nth-of-type(5){--l:10%!important;--t:68%!important}
+}
+.pic-lb{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;gap:2.5vw;padding:5vh 5vw;background:rgba(15,15,20,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:0;pointer-events:none;transition:opacity .3s}
+.pic-lb.on{opacity:1;pointer-events:auto}
+.pic-lb img{max-width:min(62vw,900px);max-height:82vh;border:.6rem solid #fff;border-bottom-width:1.6rem;border-radius:4px;box-shadow:0 30px 80px rgba(0,0,0,.5);transform:scale(.86) rotate(-2deg);transition:transform .55s cubic-bezier(.2,.9,.3,1.2)}
+.pic-lb.on img{transform:none}
+.pic-lb-b{align-self:flex-start;margin-top:14vh;max-width:min(24vw,300px);background:#0A84FF;color:#fff;font:400 1.05rem/1.35 -apple-system,'SF Pro Text','Helvetica Neue',var(--sans);padding:.85rem 1.15rem;border-radius:1.4rem;border-bottom-left-radius:.35rem;transform:scale(.3);opacity:0;transform-origin:0 100%;transition:transform .5s cubic-bezier(.34,1.56,.64,1) .25s,opacity .2s .25s}
+.pic-lb.on .pic-lb-b{transform:none;opacity:1}
+@media(max-width:700px){.pic-lb{flex-direction:column;gap:1.2rem}.pic-lb img{max-width:88vw;max-height:60vh}.pic-lb-b{align-self:center;margin-top:0;max-width:80vw}}
 
 /* ── SHARED SECTION ── */
 .section{padding:5rem var(--pg);border-top:1px solid var(--border)}
@@ -1900,9 +1967,19 @@ body.on-zepto{scrollbar-color:#fff transparent}
           <img class="hero-folder-icon" src="images/home/folder-dj.png" alt="Come DJ with Valen">
         </button>
       </div>
-      <div class="hero-photo">
-        <img src="images/home/hero-photo.png" alt="Valen Qiu">
-      </div>
+      <div class="hero-photo"><div class="hs" id="hs">
+        <div class="hs-par hs-personwrap"><img class="hs-person" src="images/about/hero.png" alt="Valen Qiu"></div>
+        <div class="hs-zone" id="hs-zone"></div>
+        <div class="hs-typing hs-t1 hs-par" style="--d:1.2"><i></i><i></i><i></i></div>
+        <div class="hs-par hs-b1w"><div class="hs-bub" id="hs-b1">Valen Qiu</div></div>
+        <div class="hs-typing hs-t2 hs-par" style="--d:1.4"><i></i><i></i><i></i></div>
+        <div class="hs-par hs-b2w" id="hs-b2w"><div class="hs-bub" id="hs-b2"><span class="hs-pre">I'm a</span><span class="hs-type" id="hs-type"></span><i class="hs-caret"></i></div></div>
+        <div class="hs-par hs-chipsw"><div class="hs-chips" id="hs-chips">
+          <button class="hs-chip" data-a="what">What do you do?</button>
+          <button class="hs-chip" data-a="work">See my work</button>
+          <button class="hs-chip" data-a="dj">DJ together?</button>
+        </div></div>
+      </div></div>
     </div>
 
     <div class="hero-marquee">
@@ -2043,23 +2120,15 @@ body.on-zepto{scrollbar-color:#fff transparent}
         <h2 class="section-title">I teach at OCAD &amp; mentor<br>from time to time.</h2>
       </div>
 
-      <div class="ocad-grid">
-        <div class="ocad-photo ocad-ph-1">
-          <img src="images/teaching/ocad-4.jpg" alt="Teaching at OCAD" class="ocad-photo-img">
-        </div>
-        <div class="ocad-photo ocad-ph-2">
-          <img src="images/teaching/ocad-2.jpg" alt="Teaching at OCAD" class="ocad-photo-img">
-        </div>
-        <div class="ocad-photo ocad-ph-3">
-          <img src="images/teaching/ocad-3.jpg" alt="Teaching at OCAD" class="ocad-photo-img">
-        </div>
-        <div class="ocad-photo ocad-ph-4">
-          <img src="images/teaching/ocad-1.jpg" alt="Teaching at OCAD" class="ocad-photo-img">
-        </div>
-        <div class="ocad-photo ocad-ph-5">
-          <img src="images/teaching/ocad-5.webp" alt="Teaching at OCAD" class="ocad-photo-img">
-        </div>
-      </div>
+      <div class="ocad-desk" id="ocad-desk">
+<div class="ocad-hint">drag the photos · tap to zoom</div>
+<figure class="ocad-pic" style="--r:-5deg;--l:3%;--t:6%;--w:27%" data-cap="2025 · 1PEAR Workshop · Speaking"><img src="images/teaching/ocad-4.jpg" alt="Teaching at OCAD" draggable="false"></figure>
+<figure class="ocad-pic" style="--r:3deg;--l:27%;--t:30%;--w:27%" data-cap="Workshop · Sticky-note ideation"><img src="images/teaching/ocad-2.jpg" alt="Teaching at OCAD" draggable="false"></figure>
+<figure class="ocad-pic" style="--r:-3deg;--l:54%;--t:3%;--w:27%" data-cap="2025 · Mentors & students in the room"><img src="images/teaching/ocad-3.jpg" alt="Teaching at OCAD" draggable="false"></figure>
+<figure class="ocad-pic" style="--r:5deg;--l:62%;--t:40%;--w:28%" data-cap="Studio session · Talking it through"><img src="images/teaching/ocad-1.jpg" alt="Teaching at OCAD" draggable="false"></figure>
+<figure class="ocad-pic" style="--r:-4deg;--l:33%;--t:56%;--w:26%" data-cap="2025 · 1PEAR Workshop · ID to UX"><img src="images/teaching/ocad-5.webp" alt="Teaching at OCAD" draggable="false"></figure>
+</div>
+</div>
   </div>
 
 </section><!-- /builds -->
@@ -4187,4 +4256,127 @@ const initNb=document.getElementById('nav-home');
 if(initNb) initNb.classList.add('active');
 const initNf=document.getElementById('nav-float-home');
 if(initNf) initNf.classList.add('active');
+
+// ── HERO: live iMessage, parallax, dot glow, draggable folders, folder poses ──
+(function(){
+  const hero=document.querySelector('.hero'), hs=document.getElementById('hs'); if(!hero||!hs) return;
+  const $=id=>document.getElementById(id), sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  const b1=$('hs-b1'), b2=$('hs-b2'), b2w=$('hs-b2w'), typeEl=$('hs-type'), chips=$('hs-chips');
+  const t1=hs.querySelector('.hs-t1'), t2=hs.querySelector('.hs-t2');
+  const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  const roles=['Product Designer','DJ','Studio Founder','Educator'];
+  let run=0;
+  async function roleLoop(id){
+    let i=0;
+    while(id===run){
+      const w=roles[i++%roles.length];
+      for(let c=1;c<=w.length&&id===run;c++){typeEl.textContent=w.slice(0,c);await sleep(70)}
+      if(id!==run) return; await sleep(1400);
+      for(let c=w.length-1;c>=0&&id===run;c--){typeEl.textContent=w.slice(0,c);await sleep(34)}
+      await sleep(260);
+    }
+  }
+  async function say(text,ms){
+    const id=++run; b2w.classList.add('reply');
+    while(typeEl.textContent.length&&id===run){typeEl.textContent=typeEl.textContent.slice(0,-1);await sleep(12)}
+    for(let c=1;c<=text.length&&id===run;c++){typeEl.textContent=text.slice(0,c);await sleep(26)}
+    if(id!==run) return; await sleep(ms||4200);
+    if(id!==run) return; b2w.classList.remove('reply'); typeEl.textContent=''; roleLoop(++run);
+  }
+  const replies={
+    what:()=>say('Designing AI products at Wander, running ZEPTOLAB, teaching at OCAD.',5200),
+    work:()=>{say('Here you go ↓',2500); setTimeout(()=>goToSection('work-section'),350)},
+    dj:()=>{say('Say hi on Instagram 🎧',3500); window.open('https://www.instagram.com/valennnnq/?hl=en','_blank')}
+  };
+  chips.addEventListener('click',e=>{const c=e.target.closest('.hs-chip'); if(c) replies[c.dataset.a]()});
+  (async function intro(){
+    if(reduce){b1.classList.add('on');b2.classList.add('on');chips.classList.add('on');typeEl.textContent=roles[0];return}
+    await sleep(700); t1.classList.add('on'); await sleep(950); t1.classList.remove('on'); await sleep(120); b1.classList.add('on');
+    await sleep(650); t2.classList.add('on'); await sleep(1150); t2.classList.remove('on'); await sleep(120); b2.classList.add('on');
+    await sleep(500); roleLoop(++run); await sleep(1600); chips.classList.add('on');
+  })();
+
+  // parallax + dot glow
+  let tx=0,ty=0,cx=0,cy=0,raf=0;
+  hero.addEventListener('mousemove',e=>{
+    const r=hero.getBoundingClientRect();
+    hero.style.setProperty('--mx',(e.clientX-r.left)+'px'); hero.style.setProperty('--my',(e.clientY-r.top)+'px');
+    tx=(e.clientX/innerWidth-.5)*2; ty=(e.clientY/innerHeight-.5)*2; if(!raf) raf=requestAnimationFrame(tick);
+  });
+  hero.addEventListener('mouseleave',()=>{tx=ty=0;hero.style.setProperty('--mx','-999px');hero.style.setProperty('--my','-999px');if(!raf)raf=requestAnimationFrame(tick)});
+  function tick(){
+    cx+=(tx-cx)*.08; cy+=(ty-cy)*.08; hs.style.setProperty('--px',cx.toFixed(3)); hs.style.setProperty('--py',cy.toFixed(3));
+    raf=(Math.abs(tx-cx)>.002||Math.abs(ty-cy)>.002)?requestAnimationFrame(tick):0;
+  }
+  // scroll: the figure recedes as the hero leaves
+  const photo=hero.querySelector('.hero-photo');
+  addEventListener('scroll',()=>{const p=Math.max(0,Math.min(1,scrollY/innerHeight));photo.style.transform=p?`translateY(${p*36}px) scale(${1-p*.16})`:'';photo.style.opacity=1-p*.5},{passive:true});
+
+  // poses: hover folder -> alternate photo (only if the image file exists)
+  const poseMap={2:'playground',3:'reflection',4:'dj'};
+  const folders=[...hero.querySelectorAll('.hero-folder')], wrap=hs.querySelector('.hs-personwrap');
+  Object.entries(poseMap).forEach(([idx,name])=>{
+    const im=new Image(); im.src=`images/home/pose-${name}.png`; im.className='hs-pose';
+    im.onload=()=>{ wrap.appendChild(im); const f=folders[idx];
+      const on=()=>im.classList.add('on'), off=()=>im.classList.remove('on');
+      f.addEventListener('mouseenter',on); f.addEventListener('mouseleave',off); f.addEventListener('focus',on); f.addEventListener('blur',off); };
+  });
+  // DJ folder: dots pulse to a beat
+  folders[4]&&(folders[4].addEventListener('mouseenter',()=>hero.classList.add('beat')),folders[4].addEventListener('mouseleave',()=>hero.classList.remove('beat')));
+
+  // drag a folder into the phone to open it
+  const zone=$('hs-zone');
+  folders.forEach(f=>{
+    let sx,sy,drag=false,id=null,sup=false;
+    f.addEventListener('pointerdown',e=>{ if(e.pointerType!=='mouse'||e.button!==0||innerWidth<=700) return; sx=e.clientX;sy=e.clientY;drag=false;id=e.pointerId; f.setPointerCapture(id); f.classList.remove('back'); });
+    f.addEventListener('pointermove',e=>{
+      if(id!==e.pointerId) return; const dx=e.clientX-sx, dy=e.clientY-sy;
+      if(!drag&&Math.hypot(dx,dy)>6){drag=true;f.classList.add('drag');hs.classList.add('dragging')}
+      if(!drag) return; f.style.transform=`translate(${dx}px,${dy}px)`;
+      const z=zone.getBoundingClientRect(); zone.classList.toggle('over',e.clientX>z.left&&e.clientX<z.right&&e.clientY>z.top&&e.clientY<z.bottom);
+    });
+    const end=e=>{
+      if(id!==e.pointerId) return; id=null; const wasDrag=drag; drag=false;
+      if(!wasDrag) return; sup=true; setTimeout(()=>sup=false,50);
+      const over=zone.classList.contains('over'); hs.classList.remove('dragging'); zone.classList.remove('over'); f.classList.remove('drag');
+      if(over){
+        const z=zone.getBoundingClientRect(), r0=f.getBoundingClientRect();
+        const dx=(z.left+z.width/2)-(r0.left+r0.width/2), dy=(z.top+z.height/2)-(r0.top+r0.height/2);
+        const cur=new DOMMatrixReadOnly(getComputedStyle(f).transform);
+        f.classList.add('swallow'); f.style.transform=`translate(${cur.m41+dx}px,${cur.m42+dy}px) scale(.15)`;
+        setTimeout(()=>{ f.click(); f.classList.remove('swallow'); f.style.transform=''; f.style.opacity='0'; requestAnimationFrame(()=>{f.style.transition='opacity .5s';f.style.opacity=''; setTimeout(()=>f.style.transition='',600)}) },300);
+      } else { f.classList.add('back'); f.style.transform=''; }
+    };
+    f.addEventListener('pointerup',end); f.addEventListener('pointercancel',end);
+    f.addEventListener('click',e=>{ if(sup){e.preventDefault();e.stopImmediatePropagation()} },true);
+  });
+})();
+
+// ── OCAD photo desk: drag, stack, tap to zoom with iMessage caption ──
+(function(){
+  const desk=document.getElementById('ocad-desk'); if(!desk) return;
+  const pics=[...desk.querySelectorAll('.ocad-pic')]; let z=10;
+  const lb=document.createElement('div'); lb.className='pic-lb';
+  lb.innerHTML='<img alt=""><div class="pic-lb-b"></div>'; document.body.appendChild(lb);
+  const lbImg=lb.querySelector('img'), lbB=lb.querySelector('.pic-lb-b');
+  const close=()=>lb.classList.remove('on');
+  lb.addEventListener('click',close); addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+  pics.forEach(p=>{
+    let sx,sy,ox,oy,id=null,moved=false;
+    p.addEventListener('pointerdown',e=>{
+      if(e.button!==0) return; if(e.pointerType==='touch'){id=e.pointerId;sx=e.clientX;sy=e.clientY;moved=false;return}
+      id=e.pointerId; p.setPointerCapture(id); sx=e.clientX;sy=e.clientY; ox=parseFloat(p.style.getPropertyValue('--x'))||0; oy=parseFloat(p.style.getPropertyValue('--y'))||0; moved=false;
+      p.style.zIndex=++z;
+    });
+    p.addEventListener('pointermove',e=>{
+      if(id!==e.pointerId||e.pointerType==='touch') return; const dx=e.clientX-sx, dy=e.clientY-sy;
+      if(!moved&&Math.hypot(dx,dy)>5){moved=true;p.classList.add('drag')}
+      if(moved){p.style.setProperty('--x',ox+dx+'px');p.style.setProperty('--y',oy+dy+'px')}
+    });
+    const up=e=>{ if(id!==e.pointerId) return; id=null; p.classList.remove('drag');
+      if(e.type==='pointerup'&&!moved){ lbImg.src=p.querySelector('img').src; lbB.textContent=p.dataset.cap; lb.classList.add('on'); }
+    };
+    p.addEventListener('pointerup',up); p.addEventListener('pointercancel',up);
+  });
+})();
 </script>
