@@ -224,10 +224,8 @@ a{color:inherit;text-decoration:none}
 .writing-grid .article-body{padding:0 .3rem;gap:.7rem}
 .writing-grid .article-title{font-size:1rem}
 .writing-grid .article-tags{gap:.6rem;margin-top:.3rem}
-.writing-grid .article-tag{background:transparent;color:var(--pink);border:1.5px solid var(--pink);border-radius:4px;padding:.28rem .6rem .3rem;font-family:var(--mono);font-size:.68rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;box-shadow:none;opacity:.82;transform:rotate(-3deg);transition:transform .35s cubic-bezier(.34,1.56,.64,1),background .2s,color .2s,opacity .2s}
-.writing-grid .article-tag:nth-child(2){transform:rotate(2deg)}
-.writing-grid .article-card:hover .article-tag{background:var(--pink);color:#fff;opacity:1;transform:rotate(0deg) scale(1.06)}
-.writing-grid .article-card:hover .article-tag:nth-child(2){transition-delay:.06s}
+.writing-grid .article-tag{background:var(--bg2);color:var(--ink2);border:none;border-radius:999px;padding:.35rem .9rem;font-family:var(--sans);font-size:.82rem;font-weight:500;letter-spacing:0;text-transform:none;box-shadow:none;opacity:1;transform:none;transition:background .2s,color .2s}
+.writing-grid .article-card:hover .article-tag{background:var(--pink-bg);color:var(--pink);transform:none}
 /* Build = an app on a phone */
 .build-stage{position:relative;display:flex;align-items:center;justify-content:center}
 .phone{position:relative;flex:0 0 auto;width:clamp(300px,30vw,400px);aspect-ratio:394/714;background:url(images/home/iphone.png) center/100% 100% no-repeat;opacity:0;transform:translateY(110px);transition:transform .9s var(--ease),opacity .7s}
