@@ -4269,10 +4269,18 @@ if(initNf) initNf.classList.add('active');
   const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
   const MAIN="Product Designer, DJ, Studio Founder & Educator.";
   let run=0;
-  async function typeText(text,id,ms){ for(let c=1;c<=text.length&&id===run;c++){typeEl.textContent=text.slice(0,c);await sleep(ms)} }
+  async function typeText(text,id,ms){ // always ~1s, however long the line is
+    const t0=performance.now(), T=1000, n=text.length;
+    while(id===run){
+      const k=Math.min(n,Math.ceil(n*(performance.now()-t0)/T));
+      typeEl.textContent=text.slice(0,k);
+      if(k>=n) break;
+      await new Promise(r=>requestAnimationFrame(r));
+    }
+  }
   async function say(text,hold){
     const id=++run; b2w.classList.add('reply');
-    while(typeEl.textContent.length&&id===run){typeEl.textContent=typeEl.textContent.slice(0,-3);await sleep(8)}
+    while(typeEl.textContent.length&&id===run){typeEl.textContent=typeEl.textContent.slice(0,-8);await sleep(8)}
     typeEl.textContent=''; await typeText(text,id,16);
     if(id!==run) return; await sleep(hold||3200);
     if(id!==run) return; typeEl.textContent=''; await typeText(MAIN,id,14); b2w.classList.remove('reply');
