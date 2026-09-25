@@ -4087,11 +4087,12 @@ function openApp(i){
   const t=wrap.querySelector('.fun-t'), ps=[...wrap.querySelectorAll('.fun-p')]; let tk=0;
   function upd(){tk=0; const r=wrap.getBoundingClientRect(), vh=innerHeight, span=Math.max(1,r.height-vh);
     t.style.setProperty('--o',Math.max(0,Math.min(1,(vh-r.top)/(vh*.7))).toFixed(3));
-    const p=Math.max(0,Math.min(1,-r.top/span)); ps.forEach(el=>{const on=p>=parseFloat(el.dataset.at); el.classList.toggle('on',on); if(on&&el.dataset.txt&&!el.dataset.done){el.dataset.done=1; stream(el)}})}
-  async function stream(el){const w=el.dataset.txt.split(' '), sl=ms=>new Promise(r=>setTimeout(r,ms)); const cur=document.createElement('i'); cur.className='fun-caret';
-    if(matchMedia('(prefers-reduced-motion:reduce)').matches){w.length=0}
-    let out=''; for(const x of w){out+=(out?' ':'')+x; el.textContent=out; el.appendChild(cur); await sl(120)}
-    el.innerHTML=el.dataset.txt.replace('impossible','<span class="im">im</span>possible'); el.appendChild(cur); await sl(550); el.classList.add('x'); await sl(1600); cur.remove()}
+    const p=Math.max(0,Math.min(1,-r.top/span)); ps.forEach(el=>{const on=p>=parseFloat(el.dataset.at); el.classList.toggle('on',on);
+      if(el.dataset.txt){ if(on&&!el.dataset.done){el.dataset.done=1; stream(el)} else if(!on&&el.dataset.done){el.dataset.done=''; el._id=(el._id||0)+1; el.textContent=''; el.classList.remove('x')} }})}
+  async function stream(el){const id=el._id=(el._id||0)+1, txt=el.dataset.txt, sl=ms=>new Promise(r=>setTimeout(r,ms)); const cur=document.createElement('i'); cur.className='fun-caret';
+    el.textContent=''; el.appendChild(cur); await sl(350);
+    if(!matchMedia('(prefers-reduced-motion:reduce)').matches){for(let k=1;k<=txt.length;k++){if(el._id!==id)return; el.textContent=txt.slice(0,k); el.appendChild(cur); await sl(48)}}
+    if(el._id!==id)return; el.innerHTML=txt.replace('impossible','<span class="im">im</span>possible'); el.appendChild(cur); await sl(600); if(el._id!==id)return; el.classList.add('x'); await sl(1800); if(el._id===id)cur.remove()}
   addEventListener('scroll',()=>{if(!tk)tk=requestAnimationFrame(upd)},{passive:true}); addEventListener('resize',upd); upd();
 })();
 
