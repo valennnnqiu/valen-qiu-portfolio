@@ -4271,11 +4271,11 @@ if(initNf) initNf.classList.add('active');
   let run=0;
   async function typeText(text,id,ms){ for(let c=1;c<=text.length&&id===run;c++){typeEl.textContent=text.slice(0,c);await sleep(ms)} }
   async function say(text,hold){
-    const id=++run; b2w.classList.add('reply'); chips.classList.remove('on'); chips.classList.add('gone');
+    const id=++run; b2w.classList.add('reply');
     while(typeEl.textContent.length&&id===run){typeEl.textContent=typeEl.textContent.slice(0,-3);await sleep(8)}
     typeEl.textContent=''; await typeText(text,id,16);
     if(id!==run) return; await sleep(hold||3200);
-    if(id!==run) return; typeEl.textContent=''; await typeText(MAIN,id,14); b2w.classList.remove('reply'); chips.classList.remove('gone'); void chips.offsetWidth; chips.classList.add('on');
+    if(id!==run) return; typeEl.textContent=''; await typeText(MAIN,id,14); b2w.classList.remove('reply');
   }
   const replies={
     what:()=>say('Product designer at an AI social startup, wearing many hats and shipping straight to code. I also teach branding and design at OCAD.',5500),
