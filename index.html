@@ -150,37 +150,36 @@ a{color:inherit;text-decoration:none}
 .hs-pose{opacity:0;transition:opacity .35s}
 .hs-pose.on{opacity:1}
 .hs-b1w{left:61%;top:19%;--d:3.6}
-.hs-b2w{left:61%;top:27.5%;display:flex;flex-direction:column;gap:1.8cqw;--d:4.4}
+.hs-b2w{left:61%;top:29%;display:flex;flex-direction:column;gap:1.8cqw;--d:4.4}
 .hs-bub{background:#fff;color:var(--ink);font-family:var(--sans);border:.15cqw solid rgba(13,13,12,.08);box-shadow:0 .8cqw 3cqw rgba(13,13,12,.09);transform:scale(.92) translateY(1.6cqw);opacity:0;transform-origin:0 100%;transition:transform .5s cubic-bezier(.2,.9,.3,1.2),opacity .3s}
 .hs-bub.on{transform:none;opacity:1;animation:hsfloat 6s ease-in-out .6s infinite}
 @keyframes hsfloat{50%{translate:0 -.8cqw}}
-.hs-b1w .hs-bub{display:inline-flex;align-items:center;gap:1.2cqw;padding:.9cqw 2.8cqw .9cqw .9cqw;border-radius:999px;font-size:3cqw;font-weight:700;letter-spacing:-.01em;white-space:nowrap}
-.hs-av{width:4.6cqw;height:4.6cqw;border-radius:50%;display:block}
-.hs-live{width:1.1cqw;height:1.1cqw;border-radius:50%;background:#22C55E;box-shadow:0 0 0 .5cqw rgba(34,197,94,.22);margin-left:.5cqw}
-.hs-b2w .hs-bub{width:54cqw;min-height:12cqw;padding:2.5cqw 3.4cqw;border-radius:3.2cqw;font-size:3.2cqw;line-height:1.45;font-weight:500;display:block;white-space:normal}
-.hs-b2w .hs-bub::before{content:'\2726';color:var(--pink);font-size:3cqw;margin-right:1.2cqw;vertical-align:.1cqw}
+.hs-b1w .hs-bub{display:inline-flex;align-items:center;gap:1.2cqw;padding:.9cqw 2.8cqw .9cqw .9cqw;border-radius:999px;font-size:3.9cqw;font-weight:700;letter-spacing:-.01em;white-space:nowrap}
+.hs-av{width:5.8cqw;height:5.8cqw;border-radius:50%;display:block}
+.hs-live{width:1.4cqw;height:1.4cqw;border-radius:50%;background:#22C55E;box-shadow:0 0 0 .5cqw rgba(34,197,94,.22);margin-left:.5cqw}
+.hs-b2w .hs-bub{width:60cqw;min-height:14cqw;padding:2.8cqw 3.8cqw;border-radius:3.6cqw;font-size:4cqw;line-height:1.42;font-weight:500;display:block;white-space:normal}
+.hs-b2w .hs-bub::before{content:'\2726';color:var(--pink);font-size:3.8cqw;margin-right:1.2cqw;vertical-align:.1cqw}
 .hs-pre{display:inline}.hs-pre::after{content:' '}
 .hs-b2w.reply .hs-pre{display:none}
+.hs-b2w.reply .hs-bub{font-size:3.5cqw;line-height:1.38}
 .hs-type{display:inline}
-.hs-caret{display:inline-block;width:.9cqw;height:3.2cqw;background:var(--pink);border-radius:.2cqw;margin-left:.4cqw;vertical-align:-.55cqw;animation:hsblink 1s steps(2) infinite}
+.hs-caret{display:inline-block;width:1cqw;height:4cqw;background:var(--pink);border-radius:.2cqw;margin-left:.4cqw;vertical-align:-.55cqw;animation:hsblink 1s steps(2) infinite}
 @keyframes hsblink{50%{opacity:0}}
 .hs-typing{position:absolute;display:flex;gap:1cqw;align-items:center;justify-content:center;background:#fff;border:.15cqw solid rgba(13,13,12,.08);box-shadow:0 .8cqw 3cqw rgba(13,13,12,.09);border-radius:999px;opacity:0;transform:scale(.7);transform-origin:0 100%;transition:opacity .2s,transform .3s cubic-bezier(.34,1.56,.64,1)}
 .hs-typing.on{opacity:1;transform:none}
 .hs-typing i{width:1.4cqw;height:1.4cqw;border-radius:50%;background:var(--pink);animation:hsdot 1s ease-in-out infinite}
 .hs-typing i:nth-child(2){animation-delay:.15s}.hs-typing i:nth-child(3){animation-delay:.3s}
 @keyframes hsdot{0%,60%,100%{transform:translateY(0);opacity:.35}30%{transform:translateY(-.8cqw);opacity:1}}
-.hs-t1{left:61%;top:19%;width:13cqw;height:6.4cqw}
-.hs-t2{left:61%;top:27.5%;width:13cqw;height:6.4cqw}
+.hs-t1{left:61%;top:19%;width:15cqw;height:8cqw}
+.hs-t2{left:61%;top:29%;width:15cqw;height:8cqw}
 .hs-chips{display:flex;flex-direction:column;align-items:flex-start;gap:1.2cqw;pointer-events:none}
 .hs-chips.on{pointer-events:auto}
 .hs-chips .hs-chip{opacity:0;transform:scale(.4) translateY(2cqw);transform-origin:0 50%}
 .hs-chips.on .hs-chip{animation:hspop .55s cubic-bezier(.34,1.56,.64,1) forwards}
 .hs-chips.on .hs-chip:nth-child(2){animation-delay:.14s}.hs-chips.on .hs-chip:nth-child(3){animation-delay:.28s}
 @keyframes hspop{to{opacity:1;transform:none}}
-.hs-chip{font:600 3.1cqw/1.1 var(--sans);color:#111;background:#fff;border:.15cqw solid rgba(13,13,12,.08);border-radius:999px;padding:1.6cqw 3.4cqw;box-shadow:0 .3cqw 1.2cqw rgba(13,13,12,.06);cursor:pointer;transition:background .2s,color .2s,box-shadow .2s;white-space:nowrap}
-.hs-chip::after{content:'\2197';margin-left:1cqw;color:var(--pink);transition:color .2s}
-.hs-chip:hover{background:var(--pink);border-color:var(--pink);color:#fff;box-shadow:0 .8cqw 2cqw rgba(232,25,110,.32)}
-.hs-chip:hover::after{color:#fff}
+.hs-chip{font:600 3.1cqw/1.1 var(--sans);color:#111;background:#fff;border:.25cqw solid rgba(13,13,12,.08);border-radius:999px;padding:1.6cqw 3.4cqw;box-shadow:0 .3cqw 1.2cqw rgba(13,13,12,.06);cursor:pointer;transition:background .2s,color .2s,box-shadow .2s;white-space:nowrap}
+.hs-chip:hover{background:#fff;border-color:var(--pink);box-shadow:0 .8cqw 2cqw rgba(232,25,110,.18)}
 .hs-zone{position:absolute;left:17.5%;top:47%;width:21%;height:39%;border-radius:3.5cqw;border:.35cqw dashed var(--pink);opacity:0;transition:opacity .25s,background .25s,transform .25s;pointer-events:none}
 .hs.dragging .hs-zone{opacity:.65}
 .hs.dragging .hs-zone.over{opacity:1;background:rgba(232,25,110,.14);transform:scale(1.03)}
@@ -1979,8 +1978,8 @@ body.on-zepto{scrollbar-color:#fff transparent}
         <div class="hs-par hs-b2w" id="hs-b2w"><div class="hs-bub" id="hs-b2"><span class="hs-type" id="hs-type"></span><i class="hs-caret"></i></div>
         <div class="hs-chips" id="hs-chips">
           <button class="hs-chip" data-a="what">What do you do?</button>
-          <button class="hs-chip" data-a="work">See my work</button>
-          <button class="hs-chip" data-a="dj">DJ together?</button>
+          <button class="hs-chip" data-a="zepto">What is ZEPTOLAB?</button>
+          <button class="hs-chip" data-a="dj">What do you play?</button>
         </div></div>
         
       </div></div>
@@ -4279,8 +4278,8 @@ if(initNf) initNf.classList.add('active');
   }
   const replies={
     what:()=>say('Designing AI products at Wander, running ZEPTOLAB, teaching at OCAD.',4200),
-    work:()=>{say('Here you go ↓',1800); setTimeout(()=>goToSection('work-section'),300)},
-    dj:()=>{say('Say hi on Instagram 🎧',2600); window.open('https://www.instagram.com/valennnnq/?hl=en','_blank')}
+    zepto:()=>say('ZEPTOLAB is my design studio: a boutique consultancy that turns ideas into market-ready brands, products, UI/UX and toys. 15+ companies, 6 industries.',6500),
+    dj:()=>{say('I DJ in Toronto and I am building Come DJ with Valen. Message me on Instagram for the music and upcoming events.',5500); window.open('https://www.instagram.com/valennnnq/?hl=en','_blank')}
   };
   chips.addEventListener('click',e=>{const c=e.target.closest('.hs-chip'); if(c) replies[c.dataset.a]()});
   (async function intro(){
