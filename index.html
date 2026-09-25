@@ -4278,9 +4278,9 @@ if(initNf) initNf.classList.add('active');
     if(id!==run) return; typeEl.textContent=''; await typeText(MAIN,id,14); b2w.classList.remove('reply'); chips.classList.remove('gone'); void chips.offsetWidth; chips.classList.add('on');
   }
   const replies={
-    what:()=>say('Product designer at Wander, an AI startup where I wear many hats and skip the handoff: I design it, build it, ship it. Off the clock, I teach branding strategy, data visualization, internship, and speculative design at OCAD.',7500),
-    zepto:()=>say('ZEPTOLAB is my design studio, built to turn ideas into things people want: brands, products, interfaces, and toys. Boutique in size, broad in range. 15+ companies, 6 industries.',6500),
-    dj:()=>say('I play fast: bounce, tech house, DnB. Brand events, restaurants, private events, shows, raves. If a Toronto room needs energy, I am on the decks.',6000)
+    what:()=>say('One designer at an AI startup, wearing many hats and shipping straight to code. I also teach branding and design at OCAD.',5000),
+    zepto:()=>say('ZEPTOLAB is my studio: brands, products, UI/UX and toys for 15+ companies.',4500),
+    dj:()=>say('I play bounce, tech house and DnB at Toronto events, restaurants, shows and raves.',4500)
   };
   chips.addEventListener('click',e=>{const c=e.target.closest('.hs-chip'); if(c) replies[c.dataset.a]()});
   (async function intro(){
