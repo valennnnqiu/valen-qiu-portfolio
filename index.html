@@ -133,49 +133,54 @@ a{color:inherit;text-decoration:none}
 .pcard:hover .pcard-btn{background:#333;gap:.75rem}
 
 /* ── HERO DESKTOP (folders + photo) ── */
-.hero-desktop{position:relative;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;column-gap:clamp(.4rem,2vw,1.5rem);width:100%;min-height:clamp(140px,26vw,280px);padding:1rem 0 1.25rem;animation:fadeUp .8s var(--ease) .1s both;margin-left:var(--hero-shift,0px)}
+.hero-desktop{position:relative;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;column-gap:clamp(.8rem,8vw,8.5rem);width:100%;min-height:clamp(140px,26vw,280px);padding:1rem 0 1.25rem;animation:fadeUp .8s var(--ease) .1s both;margin-left:var(--hero-shift,0px)}
 .hero-folders{grid-column:1;justify-self:end;display:flex;flex-direction:column;gap:clamp(.4rem,1.8vw,.9rem)}
 .hero-folder{display:flex;background:none;border:none;cursor:pointer;padding:0;font-family:var(--sans);width:fit-content}
 .hero-folder:nth-child(odd){margin-left:0}
 .hero-folder:nth-child(even){margin-left:clamp(1rem,5vw,2.75rem)}
-.hero-folder-icon{height:clamp(28px,7vw,58px);width:auto;display:block;transition:transform .25s var(--ease);filter:drop-shadow(0 6px 10px rgba(13,13,12,.12))}
+.hero-folder-icon{-webkit-user-drag:none;user-select:none;height:clamp(28px,7vw,58px);width:auto;display:block;transition:transform .25s var(--ease);filter:drop-shadow(0 6px 10px rgba(13,13,12,.12))}
 .hero-folder:hover .hero-folder-icon{transform:scale(1.06) translateY(-3px)}
 .hero-photo{grid-column:2;width:min(45.6vw,calc(58.1vh * 1.1146));will-change:transform}
 .hs{position:relative;aspect-ratio:3531/3168;container-type:inline-size;width:100%}
-.hs-par{position:absolute;transform:translate3d(calc(var(--px,0) * var(--d,0) * 1cqw),calc(var(--py,0) * var(--d,0) * .6cqw),0)}
-.hs-personwrap{left:0;top:0;width:59.61%;height:100%;--d:-.7}
+.hs-par{position:absolute;transform:translate3d(calc(var(--px,0) * var(--d,0) * 1cqw),calc(var(--py,0) * var(--d,0) * .8cqw),0)}
+.hs-personwrap{left:0;top:0;width:59.61%;height:100%;--d:-1.6}
+.hs-lower{clip-path:inset(46.8% 0 0 0)}
+.hs-torso{clip-path:inset(0 0 51% 0);transform-origin:50% 47.5%;transform:perspective(650px) rotateX(calc(var(--py,0) * -11deg)) rotateY(calc(var(--px,0) * 13deg)) scale(1.015)}
 .hs-person,.hs-pose{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;user-select:none}
 .hs-pose{opacity:0;transition:opacity .35s}
 .hs-pose.on{opacity:1}
-.hs-b1w{right:1.15%;top:20%;--d:1.2}
-.hs-b2w{right:1.15%;top:31%;max-width:56.4%;--d:1.4}
-.hs-bub{position:absolute;inset:0;background:#0A84FF;color:#fff;font-family:-apple-system,'SF Pro Text','Helvetica Neue',var(--sans);font-size:3.5cqw;line-height:1.25;border-radius:4.4cqw;display:flex;align-items:center;justify-content:center;transform:scale(.4);opacity:0;transform-origin:100% 100%;transition:transform .55s cubic-bezier(.34,1.56,.64,1),opacity .2s}
-.hs-bub.on{transform:none;opacity:1}
-.hs-b1w .hs-bub{position:relative;inset:auto;padding:1.7cqw 3.6cqw;white-space:nowrap}
-.hs-b2w .hs-bub{position:relative;inset:auto;width:54cqw;min-height:13cqw;justify-content:flex-start;padding:1.9cqw 3.6cqw;border-radius:4.4cqw;display:block;background:#0A84FF;white-space:normal;transform-origin:100% 100%}
-.hs-b2w .hs-bub::before{content:'';position:absolute;right:-.7cqw;bottom:0;width:2.4cqw;height:2.6cqw;background:#0A84FF;border-bottom-left-radius:2.4cqw 2.2cqw}
-.hs-b2w .hs-bub::after{content:'';position:absolute;right:-1.7cqw;bottom:0;width:1.8cqw;height:2.6cqw;background:var(--bg);border-bottom-left-radius:1.4cqw}
+.hs-b1w{left:61%;top:19%;--d:3.6}
+.hs-b2w{left:61%;top:27.5%;display:flex;flex-direction:column;gap:1.8cqw;--d:4.4}
+.hs-bub{background:#fff;color:var(--ink);font-family:var(--sans);border:.15cqw solid rgba(13,13,12,.08);box-shadow:0 .8cqw 3cqw rgba(13,13,12,.09);transform:scale(.92) translateY(1.6cqw);opacity:0;transform-origin:0 100%;transition:transform .5s cubic-bezier(.2,.9,.3,1.2),opacity .3s}
+.hs-bub.on{transform:none;opacity:1;animation:hsfloat 6s ease-in-out .6s infinite}
+@keyframes hsfloat{50%{translate:0 -.8cqw}}
+.hs-b1w .hs-bub{display:inline-flex;align-items:center;gap:1.2cqw;padding:.9cqw 2.8cqw .9cqw .9cqw;border-radius:999px;font-size:3cqw;font-weight:700;letter-spacing:-.01em;white-space:nowrap}
+.hs-av{width:4.6cqw;height:4.6cqw;border-radius:50%;display:block}
+.hs-live{width:1.1cqw;height:1.1cqw;border-radius:50%;background:#22C55E;box-shadow:0 0 0 .5cqw rgba(34,197,94,.22);margin-left:.5cqw}
+.hs-b2w .hs-bub{width:54cqw;min-height:12cqw;padding:2.5cqw 3.4cqw;border-radius:3.2cqw;font-size:3.2cqw;line-height:1.45;font-weight:500;display:block;white-space:normal}
+.hs-b2w .hs-bub::before{content:'\2726';color:var(--pink);font-size:3cqw;margin-right:1.2cqw;vertical-align:.1cqw}
 .hs-pre{display:inline}.hs-pre::after{content:' '}
 .hs-b2w.reply .hs-pre{display:none}
 .hs-type{display:inline}
-.hs-caret{display:inline-block;width:.35cqw;height:3.1cqw;background:#fff;margin-left:.3cqw;vertical-align:-.5cqw;animation:hsblink 1s steps(2) infinite}
+.hs-caret{display:inline-block;width:.9cqw;height:3.2cqw;background:var(--pink);border-radius:.2cqw;margin-left:.4cqw;vertical-align:-.55cqw;animation:hsblink 1s steps(2) infinite}
 @keyframes hsblink{50%{opacity:0}}
-.hs-typing{position:absolute;display:flex;gap:.9cqw;align-items:center;justify-content:center;background:#E5E5EA;border-radius:4.4cqw;opacity:0;transform:scale(.6);transform-origin:0 100%;transition:opacity .2s,transform .3s cubic-bezier(.34,1.56,.64,1)}
+.hs-typing{position:absolute;display:flex;gap:1cqw;align-items:center;justify-content:center;background:#fff;border:.15cqw solid rgba(13,13,12,.08);box-shadow:0 .8cqw 3cqw rgba(13,13,12,.09);border-radius:999px;opacity:0;transform:scale(.7);transform-origin:0 100%;transition:opacity .2s,transform .3s cubic-bezier(.34,1.56,.64,1)}
 .hs-typing.on{opacity:1;transform:none}
-.hs-typing i{width:1.3cqw;height:1.3cqw;border-radius:50%;background:#8E8E93;animation:hsdot 1s ease-in-out infinite}
+.hs-typing i{width:1.4cqw;height:1.4cqw;border-radius:50%;background:var(--pink);animation:hsdot 1s ease-in-out infinite}
 .hs-typing i:nth-child(2){animation-delay:.15s}.hs-typing i:nth-child(3){animation-delay:.3s}
-@keyframes hsdot{0%,60%,100%{transform:translateY(0);opacity:.5}30%{transform:translateY(-.8cqw);opacity:1}}
-.hs-t1{left:75%;top:20%;width:13cqw;height:9cqw}
-.hs-t2{left:62%;top:31%;width:13cqw;height:9cqw}
-.hs-chipsw{left:44.85%;top:47%;--d:1.6}
+@keyframes hsdot{0%,60%,100%{transform:translateY(0);opacity:.35}30%{transform:translateY(-.8cqw);opacity:1}}
+.hs-t1{left:61%;top:19%;width:13cqw;height:6.4cqw}
+.hs-t2{left:61%;top:27.5%;width:13cqw;height:6.4cqw}
 .hs-chips{display:flex;flex-direction:column;align-items:flex-start;gap:1.2cqw;pointer-events:none}
 .hs-chips.on{pointer-events:auto}
-.hs-chips .hs-chip{opacity:0;transform:scale(.4) translateY(2cqw);transform-origin:0 100%}
+.hs-chips .hs-chip{opacity:0;transform:scale(.4) translateY(2cqw);transform-origin:0 50%}
 .hs-chips.on .hs-chip{animation:hspop .55s cubic-bezier(.34,1.56,.64,1) forwards}
 .hs-chips.on .hs-chip:nth-child(2){animation-delay:.14s}.hs-chips.on .hs-chip:nth-child(3){animation-delay:.28s}
 @keyframes hspop{to{opacity:1;transform:none}}
-.hs-chip{font:500 3.1cqw/1.1 -apple-system,'SF Pro Text','Helvetica Neue',var(--sans);color:#111;background:#E9E9EB;border:none;border-radius:4cqw;border-bottom-left-radius:.9cqw;padding:1.6cqw 3.3cqw;cursor:pointer;transition:background .2s,color .2s,box-shadow .2s;white-space:nowrap}
-.hs-chip:hover{background:#0A84FF;color:#fff;box-shadow:0 .8cqw 2cqw rgba(10,132,255,.35)}
+.hs-chip{font:600 3.1cqw/1.1 var(--sans);color:#111;background:#fff;border:.15cqw solid rgba(13,13,12,.08);border-radius:999px;padding:1.6cqw 3.4cqw;box-shadow:0 .3cqw 1.2cqw rgba(13,13,12,.06);cursor:pointer;transition:background .2s,color .2s,box-shadow .2s;white-space:nowrap}
+.hs-chip::after{content:'\2197';margin-left:1cqw;color:var(--pink);transition:color .2s}
+.hs-chip:hover{background:var(--pink);border-color:var(--pink);color:#fff;box-shadow:0 .8cqw 2cqw rgba(232,25,110,.32)}
+.hs-chip:hover::after{color:#fff}
 .hs-zone{position:absolute;left:17.5%;top:47%;width:21%;height:39%;border-radius:3.5cqw;border:.35cqw dashed var(--pink);opacity:0;transition:opacity .25s,background .25s,transform .25s;pointer-events:none}
 .hs.dragging .hs-zone{opacity:.65}
 .hs.dragging .hs-zone.over{opacity:1;background:rgba(232,25,110,.14);transform:scale(1.03)}
@@ -1950,33 +1955,34 @@ body.on-zepto{scrollbar-color:#fff transparent}
     <div class="hero-desktop">
       <div class="hero-folders">
         <button class="hero-folder" onclick="goToSection('work-section')">
-          <img class="hero-folder-icon" src="images/home/folder-recent-work.png" alt="Recent Work">
+          <img class="hero-folder-icon" draggable="false" src="images/home/folder-recent-work.png" alt="Recent Work">
         </button>
         <button class="hero-folder" onclick="goto('zepto')">
-          <img class="hero-folder-icon" src="images/home/folder-client-work.png" alt="Client Work – ZEPTOLAB">
+          <img class="hero-folder-icon" draggable="false" src="images/home/folder-client-work.png" alt="Client Work – ZEPTOLAB">
         </button>
         <button class="hero-folder" onclick="goToSection('builds-section')">
-          <img class="hero-folder-icon" src="images/home/folder-playground.png" alt="Playground">
+          <img class="hero-folder-icon" draggable="false" src="images/home/folder-playground.png" alt="Playground">
         </button>
         <button class="hero-folder" onclick="goToSection('writing-section')">
-          <img class="hero-folder-icon" src="images/home/folder-design-reflection.png" alt="Design Reflection">
+          <img class="hero-folder-icon" draggable="false" src="images/home/folder-design-reflection.png" alt="Design Reflection">
         </button>
         <button class="hero-folder" onclick="window.open('https://www.instagram.com/valennnnq/?hl=en','_blank')">
-          <img class="hero-folder-icon" src="images/home/folder-dj.png" alt="Come DJ with Valen">
+          <img class="hero-folder-icon" draggable="false" src="images/home/folder-dj.png" alt="Come DJ with Valen">
         </button>
       </div>
       <div class="hero-photo"><div class="hs" id="hs">
-        <div class="hs-par hs-personwrap"><img class="hs-person" src="images/about/hero.png" alt="Valen Qiu"></div>
+        <div class="hs-par hs-personwrap"><img class="hs-person hs-lower" src="images/about/hero.png" alt="Valen Qiu"><img class="hs-person hs-torso" src="images/about/hero.png" alt="" aria-hidden="true"></div>
         <div class="hs-zone" id="hs-zone"></div>
-        <div class="hs-typing hs-t1 hs-par" style="--d:1.2"><i></i><i></i><i></i></div>
-        <div class="hs-par hs-b1w"><div class="hs-bub" id="hs-b1">Valen Qiu</div></div>
-        <div class="hs-typing hs-t2 hs-par" style="--d:1.4"><i></i><i></i><i></i></div>
-        <div class="hs-par hs-b2w" id="hs-b2w"><div class="hs-bub" id="hs-b2"><span class="hs-type" id="hs-type"></span><i class="hs-caret"></i></div></div>
-        <div class="hs-par hs-chipsw"><div class="hs-chips" id="hs-chips">
+        <div class="hs-typing hs-t1 hs-par" style="--d:3.6"><i></i><i></i><i></i></div>
+        <div class="hs-par hs-b1w"><div class="hs-bub" id="hs-b1"><img class="hs-av" src="images/favicon-192.png" alt=""><span>Valen Qiu</span><i class="hs-live"></i></div></div>
+        <div class="hs-typing hs-t2 hs-par" style="--d:4.4"><i></i><i></i><i></i></div>
+        <div class="hs-par hs-b2w" id="hs-b2w"><div class="hs-bub" id="hs-b2"><span class="hs-type" id="hs-type"></span><i class="hs-caret"></i></div>
+        <div class="hs-chips" id="hs-chips">
           <button class="hs-chip" data-a="what">What do you do?</button>
           <button class="hs-chip" data-a="work">See my work</button>
           <button class="hs-chip" data-a="dj">DJ together?</button>
         </div></div>
+        
       </div></div>
     </div>
 
@@ -4298,7 +4304,7 @@ if(initNf) initNf.classList.add('active');
   }
   // scroll: the figure recedes as the hero leaves
   const photo=hero.querySelector('.hero-photo');
-  addEventListener('scroll',()=>{const p=Math.max(0,Math.min(1,scrollY/innerHeight));photo.style.transform=p?`translateY(${p*36}px) scale(${1-p*.16})`:'';photo.style.opacity=1-p*.5},{passive:true});
+  addEventListener('scroll',()=>{const p=Math.max(0,Math.min(1,scrollY/innerHeight));photo.style.transform=p?`translateY(${p*70}px) scale(${1-p*.3})`:'';photo.style.opacity=1-p*.75},{passive:true});
 
   // poses: hover folder -> alternate photo (only if the image file exists)
   const poseMap={2:'playground',3:'reflection',4:'dj'};
@@ -4314,12 +4320,13 @@ if(initNf) initNf.classList.add('active');
 
   // drag a folder into the phone to open it
   const zone=$('hs-zone');
+  hero.addEventListener('dragstart',e=>{ if(e.target.closest&&e.target.closest('.hero-folder')) e.preventDefault() });
   folders.forEach(f=>{
     let sx,sy,drag=false,id=null,sup=false;
     f.addEventListener('pointerdown',e=>{ if(e.pointerType!=='mouse'||e.button!==0||innerWidth<=700) return; sx=e.clientX;sy=e.clientY;drag=false;id=e.pointerId; f.setPointerCapture(id); f.classList.remove('back'); });
     f.addEventListener('pointermove',e=>{
       if(id!==e.pointerId) return; const dx=e.clientX-sx, dy=e.clientY-sy;
-      if(!drag&&Math.hypot(dx,dy)>6){drag=true;f.classList.add('drag');hs.classList.add('dragging')}
+      if(!drag&&Math.hypot(dx,dy)>4){drag=true;f.classList.add('drag');hs.classList.add('dragging')}
       if(!drag) return; f.style.transform=`translate(${dx}px,${dy}px)`;
       const z=zone.getBoundingClientRect(); zone.classList.toggle('over',e.clientX>z.left&&e.clientX<z.right&&e.clientY>z.top&&e.clientY<z.bottom);
     });
