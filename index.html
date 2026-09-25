@@ -205,6 +205,62 @@ a{color:inherit;text-decoration:none}
 
 
 /* ── OCAD photo desk ── */
+/* build / write / teach: same level, no white cards */
+.proj-card,.writing-card{background:transparent!important;border:none!important;box-shadow:none!important;margin-top:6rem}
+.proj-card>.section-title{margin-bottom:2rem}
+.writing-card-hd{margin-bottom:2.5rem}
+/* Write: printed pages taped to the desk, tags as sticky notes */
+.writing-grid{gap:2.4rem!important;padding-top:1rem}
+.writing-grid .article-card{position:relative;background:#fff;padding:.85rem .85rem 1.3rem;border-radius:3px;box-shadow:0 10px 26px rgba(20,20,30,.16),0 2px 5px rgba(20,20,30,.1);transform:rotate(var(--r,-2deg));transform-origin:50% 0;transition:transform .45s var(--ease),box-shadow .45s}
+.writing-grid .article-card:nth-child(1){--r:-2.2deg}
+.writing-grid .article-card:nth-child(2){--r:1.6deg;margin-top:1.4rem}
+.writing-grid .article-card:nth-child(3){--r:-1.2deg;margin-top:.4rem}
+.writing-grid .article-card::before{content:'';position:absolute;top:-.85rem;left:50%;width:5.2rem;height:1.6rem;margin-left:-2.6rem;background:rgba(232,212,160,.72);box-shadow:0 1px 3px rgba(20,20,30,.12);transform:rotate(-3deg);z-index:2}
+.writing-grid .article-card:nth-child(2)::before{transform:rotate(4deg)}
+.writing-grid .article-card:hover{transform:rotate(0deg) translateY(-12px) scale(1.02);box-shadow:0 26px 50px rgba(20,20,30,.24),0 4px 10px rgba(20,20,30,.12)}
+.writing-grid .article-cover{border-radius:2px;margin-bottom:.9rem;transform:none;box-shadow:none;filter:grayscale(.25) contrast(1.02);transition:filter .4s}
+.writing-grid .article-cover::before,.writing-grid .article-cover-img{border-radius:2px}
+.writing-grid .article-card:hover .article-cover{filter:none}
+.writing-grid .article-body{padding:0 .3rem;gap:.7rem}
+.writing-grid .article-title{font-size:1rem}
+.writing-grid .article-tags{gap:.6rem;margin-top:.3rem}
+.writing-grid .article-tag{background:#FFE98A;color:#5a4a00;border-radius:2px;padding:.45rem .8rem .55rem;font-size:.8rem;font-weight:600;box-shadow:0 3px 6px rgba(20,20,30,.16);transform:rotate(-3deg);transition:transform .35s var(--ease),background .2s}
+.writing-grid .article-tag:nth-child(2){background:#FFC2DA;color:#7a1a45;transform:rotate(2.5deg)}
+.writing-grid .article-card:hover .article-tag{background:#FFE98A;color:#5a4a00;transform:rotate(0deg) translateY(-3px)}
+.writing-grid .article-card:hover .article-tag:nth-child(2){background:#FFC2DA;color:#7a1a45}
+/* Build = an app on a phone */
+.build-stage{display:flex;align-items:center;gap:clamp(2rem,6vw,5rem)}
+.phone{position:relative;flex:0 0 auto;width:clamp(230px,24vw,300px);aspect-ratio:9/18.5;background:#111;border-radius:14% / 6.8%;padding:2.6%;box-shadow:0 30px 70px rgba(20,20,30,.3),inset 0 0 0 2px #2a2a2a;opacity:0;transform:translateY(110px) rotate(2deg);transition:transform .9s var(--ease),opacity .7s}
+.phone.in{opacity:1;transform:translateY(0) rotate(-1.5deg)}
+.phone-screen{position:relative;width:100%;height:100%;border-radius:11.5% / 5.6%;overflow:hidden;background:linear-gradient(160deg,#ffd9e8,#fff3e2 55%,#e6ecff)}
+.phone-notch{position:absolute;z-index:6;top:3.6%;left:50%;width:26%;height:2.6%;margin-left:-13%;background:#111;border-radius:99px}
+.phone-home{position:absolute;inset:0;padding:16% 9% 0;transition:opacity .35s,transform .35s}
+.phone-home.off{opacity:0;transform:scale(.92);pointer-events:none}
+.phone-time{font:700 clamp(1.6rem,3.4vw,2.4rem)/1 var(--sans);color:#111;text-align:center;margin-bottom:12%;letter-spacing:-.03em}
+.phone-apps{display:grid;grid-template-columns:repeat(3,1fr);gap:8% 4%}
+.app-ic{display:flex;flex-direction:column;align-items:center;gap:.4rem;background:none;border:none;cursor:pointer;font:600 .68rem var(--sans);color:#111;padding:0}
+.app-tile{width:100%;aspect-ratio:1;border-radius:24%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:1.7rem;box-shadow:0 5px 12px rgba(20,20,30,.16);transition:transform .25s var(--ease)}
+.app-ic:hover .app-tile{transform:scale(1.1) rotate(-4deg)}
+.app-ic:active .app-tile{transform:scale(.94)}
+.phone-app{position:absolute;inset:0;background:#fff;opacity:0;transform:scale(.6);border-radius:11.5% / 5.6%;pointer-events:none;transition:opacity .35s,transform .45s var(--ease)}
+.phone-app.on{opacity:1;transform:scale(1);pointer-events:auto}
+.phone-app img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.phone-appbar{position:absolute;z-index:3;left:0;right:0;top:0;padding:10% 6% 4%;display:flex;align-items:center;gap:.5rem;background:linear-gradient(#fff 55%,rgba(255,255,255,0));font:700 .95rem var(--sans);color:var(--pink)}
+.phone-appbar button{background:none;border:none;font-size:1.3rem;line-height:1;cursor:pointer;color:var(--pink);padding:0 .2rem}
+.phone-homebar{position:absolute;z-index:6;bottom:2.2%;left:50%;width:34%;height:.32rem;margin-left:-17%;background:#111;border-radius:99px;cursor:pointer;opacity:.75}
+.build-side{max-width:26rem;display:flex;flex-direction:column;gap:1rem}
+.build-side p{font-size:clamp(1rem,1.8vw,1.25rem);line-height:1.6;color:var(--ink2)}
+.build-side a{font-weight:600;color:var(--ink);text-decoration:none;border-bottom:2px solid var(--pink);align-self:flex-start;padding-bottom:.1rem}
+.build-side a[hidden]{display:none}
+@media(max-width:700px){.build-stage{flex-direction:column;align-items:center;text-align:center}.build-side a{align-self:center}}
+/* one continuous desk: dot lattice behind all three blocks */
+#builds-section{background-image:radial-gradient(circle,rgba(13,13,12,.075) 1px,transparent 1px);background-size:28px 28px}
+.writing-grid:not(.in) .article-card{opacity:0;transform:translateX(110px) rotate(calc(var(--r,-2deg)*4))}
+.writing-grid .article-card{transition:transform .8s var(--ease),opacity .6s,box-shadow .45s}
+.writing-grid.in .article-card:hover{transition:transform .45s var(--ease),box-shadow .45s}
+.writing-grid .article-card:nth-child(2){transition-delay:.12s}.writing-grid .article-card:nth-child(3){transition-delay:.24s}
+.writing-grid.in .article-card:hover{transition-delay:0s}
+.nav-pill-wrap{background:rgba(255,255,255,.62)!important;-webkit-backdrop-filter:blur(14px) saturate(1.4);backdrop-filter:blur(14px) saturate(1.4)}
 .teaching-card{background:transparent!important;border:none!important;box-shadow:none!important;height:100vh;height:100dvh;min-height:520px;display:flex;flex-direction:column;box-sizing:border-box;margin-top:0}
 .teaching-card-hd{flex:0 0 auto}
 .ocad-desk{position:relative;flex:1 1 auto;min-height:0;margin-top:1rem}
@@ -2010,46 +2066,31 @@ body.on-zepto{scrollbar-color:#fff transparent}
       </div>
     </div>
 
-    <!-- Project switcher -->
+    <!-- Build: apps on a phone -->
     <div class="proj-switcher">
-      <!-- Main display -->
       <div class="proj-display proj-card">
-        <div class="proj-panel active" id="proj-0" onclick="window.open('https://lucky-fit.vercel.app/','_blank')" style="cursor:pointer">
-          <div class="proj-panel-text">
-            <div class="build-name">Lucky Fit</div>
-            <p class="build-desc">Never wonder what to wear again.</p>
+        <h2 class="section-title">I build.</h2>
+        <div class="build-stage">
+          <div class="phone" id="phone">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+              <div class="phone-home" id="phone-home">
+                <div class="phone-time">9:41</div>
+                <div class="phone-apps">
+                  <button class="app-ic" onclick="openApp(0)" aria-label="Open Lucky Fit"><span class="app-tile">🎲</span>Lucky Fit</button>
+                  <button class="app-ic" onclick="openApp(1)" aria-label="Open Loop"><span class="app-tile">📈</span>Loop</button>
+                </div>
+              </div>
+              <div class="phone-app" id="phone-app-0"><img src="images/home/lucky-fit.png" alt="Lucky Fit" style="object-position:38% 50%"><div class="phone-appbar"><button onclick="openApp(-1)" aria-label="Back">‹</button>Lucky Fit</div></div>
+              <div class="phone-app" id="phone-app-1"><img src="images/home/loop-coming-soon.jpg" alt="Loop, coming soon" style="object-position:center 45%"><div class="phone-appbar"><button onclick="openApp(-1)" aria-label="Back">‹</button>Loop</div></div>
+              <i class="phone-homebar" onclick="openApp(-1)"></i>
+            </div>
           </div>
-          <div class="proj-panel-img work-thumb">
-            <img src="images/home/lucky-fit.png" alt="Lucky Fit" class="work-thumb-img">
+          <div class="build-side">
+            <p id="build-desc">Tap an app to open it.</p>
+            <a id="build-link" href="https://lucky-fit.vercel.app/" target="_blank" rel="noopener" hidden>Try it ↗</a>
           </div>
         </div>
-        <div class="proj-panel" id="proj-1">
-          <div class="proj-panel-text">
-            <div class="build-name">Loop</div>
-            <p class="build-desc">Review the past, manage the present, predict the future.</p>
-          </div>
-          <div class="proj-panel-img work-thumb">
-            <img src="images/home/loop-coming-soon.jpg" alt="Loop — coming soon" class="work-thumb-img" style="object-position:center 45%">
-          </div>
-        </div>
-      </div>
-
-      <!-- Icon tabs -->
-      <div class="proj-tabs">
-        <button class="proj-tab active" onclick="switchProj(0)" aria-label="Lucky Fit">
-          <span class="proj-tab-icon">🎲</span>
-          <div class="proj-tab-tooltip">
-            <span class="proj-tab-tooltip-name">Lucky Fit</span>
-            <span class="proj-tab-tooltip-desc">Never wonder what to wear again</span>
-          </div>
-        </button>
-        <button class="proj-tab" onclick="switchProj(1)" aria-label="Loop">
-          <span class="proj-tab-icon">📈</span>
-          <div class="proj-tab-tooltip">
-            <span class="proj-tab-tooltip-name">Loop</span>
-            <span class="proj-tab-tooltip-desc">Review the past, manage the present, predict the future</span>
-          </div>
-        </button>
       </div>
     </div>
 
@@ -4012,10 +4053,16 @@ function copyEmail(){
 }
 
 // ── PROJECT SWITCHER ──
-function switchProj(idx){
-  document.querySelectorAll('.proj-panel').forEach((p,i)=>p.classList.toggle('active',i===idx));
-  document.querySelectorAll('.proj-tab').forEach((t,i)=>t.classList.toggle('active',i===idx));
+const APPS=[{d:'Never wonder what to wear again.',l:'https://lucky-fit.vercel.app/'},{d:'Review the past, manage the present, predict the future. Coming soon.',l:''}];
+function openApp(i){
+  document.getElementById('phone-home').classList.toggle('off',i>=0);
+  APPS.forEach((_,k)=>document.getElementById('phone-app-'+k).classList.toggle('on',k===i));
+  const d=document.getElementById('build-desc'), a=document.getElementById('build-link');
+  d.textContent=i>=0?APPS[i].d:'Tap an app to open it.';
+  if(i>=0&&APPS[i].l){a.href=APPS[i].l;a.hidden=false}else a.hidden=true;
 }
+(function(){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.25});
+  ['phone'].forEach(id=>{const el=document.getElementById(id);el&&io.observe(el)}); document.querySelectorAll('.writing-grid').forEach(el=>io.observe(el))})();
 
 // ── GO TO SECTION ──
 function goToSection(id){
