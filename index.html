@@ -4293,9 +4293,9 @@ if(initNf) initNf.classList.add('active');
   chips.addEventListener('click',e=>{const c=e.target.closest('.hs-chip'); if(c) replies[c.dataset.a]()});
   (async function intro(){
     if(reduce){b1.classList.add('on');b2.classList.add('on');chips.classList.add('on');typeEl.textContent=MAIN;return}
-    await sleep(350); t1.classList.add('on'); await sleep(550); t1.classList.remove('on'); await sleep(60); b1.classList.add('on');
-    await sleep(350); t2.classList.add('on'); await sleep(600); t2.classList.remove('on'); await sleep(60); b2.classList.add('on');
-    await sleep(250); const id=++run; await typeText(MAIN,id,28); chips.classList.add('on');
+    await sleep(150); t1.classList.add('on'); await sleep(320); t1.classList.remove('on'); await sleep(40); b1.classList.add('on');
+    await sleep(200); t2.classList.add('on'); await sleep(380); t2.classList.remove('on'); await sleep(40); b2.classList.add('on');
+    await sleep(120); const id=++run; await typeText(MAIN,id,28); chips.classList.add('on');
   })();
 
   // parallax + dot glow
