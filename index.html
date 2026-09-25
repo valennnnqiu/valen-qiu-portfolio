@@ -290,32 +290,47 @@ a{color:inherit;text-decoration:none}
 .medium-link:hover{color:var(--pink);border-color:var(--pink);gap:.9rem}
 
 
-/* ── WORK CAROUSEL ── */
-#work-section{background:var(--wk-bg,#DCE7FB);transition:background .6s var(--ease);padding-left:0;padding-right:0}
-#work-section .home-card{background:transparent;border:none;padding:2.5rem 0}
-#work-section .section-hd{padding:0 var(--pg)}
-.wk-dots{display:flex;justify-content:center;gap:.5rem;margin:1rem 0 2.25rem}
-.wk-dot{width:28px;height:8px;border-radius:8px;border:none;background:rgba(13,13,12,.18);cursor:pointer;padding:0;transition:background .3s,width .3s}
-.wk-dot.active{background:var(--ink);width:44px}
-.wk-track{display:flex;gap:2.5vw;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:0 calc(50vw - min(31vw,300px));cursor:grab;-webkit-overflow-scrolling:touch}
-.wk-track::-webkit-scrollbar{display:none}
-.wk-track.drag{cursor:grabbing;scroll-snap-type:none}
-.wk-slide{flex:0 0 min(62vw,600px);scroll-snap-align:center;text-decoration:none;color:var(--ink);opacity:.35;transform:scale(.92);transform-origin:center top;transition:opacity .5s var(--ease),transform .5s var(--ease);user-select:none}
-.wk-slide.active{opacity:1;transform:none}
-.wk-media{aspect-ratio:16/10;border-radius:14px;overflow:hidden;background:rgba(13,13,12,.08)}
-.wk-media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s var(--ease);pointer-events:none}
-.wk-slide:hover .wk-media img{transform:scale(1.04)}
-.wk-year{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;margin-top:1.5rem;opacity:.55}
-.wk-name{font-family:var(--sans);font-weight:800;font-size:clamp(2rem,5vw,4rem);letter-spacing:-.04em;line-height:1;margin:.4rem 0 .8rem}
-.wk-desc{font-size:clamp(.95rem,1.5vw,1.15rem);line-height:1.65;max-width:520px;color:var(--ink2)}
-.wk-cta{display:inline-block;margin-top:1.1rem;font-weight:600;font-size:.9rem;border-bottom:1.5px solid var(--ink);padding-bottom:2px}
-.wk-nav{display:flex;justify-content:center;gap:.75rem;margin-top:2.25rem}
-.wk-arrow{width:46px;height:46px;border-radius:50%;border:1.5px solid var(--ink);background:transparent;color:var(--ink);font-size:1.1rem;cursor:pointer;transition:background .2s,color .2s}
-.wk-arrow:hover{background:var(--ink);color:#fff}
+/* ── WORK SHOWCASE (vertical, Robin-Noguier-style) ── */
+#work-section{position:relative;height:100vh;min-height:640px;padding:0;background:#F6F7FC;overflow:hidden;border-top:none;--acc:#E8196E;--H:clamp(240px,56vh,520px);--gap:6vh}
+.wk-bar{position:absolute;left:0;top:0;bottom:0;width:12px;background:var(--acc);transition:background .7s;z-index:3}
+.wk-eyebrow{position:absolute;left:var(--pg);top:112px;font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);z-index:3;display:flex;gap:.6rem}
+.wk-eyebrow .section-num{color:var(--acc);transition:color .7s}
+.wk-d{position:absolute;inset:0}
+.wk-left{position:absolute;left:var(--pg);top:50%;width:min(48vw,680px);transform:translateY(-46%);display:grid;z-index:2}
+.wk-info{grid-area:1/1;opacity:0;visibility:hidden;transform:translateY(34px);transition:opacity .35s ease,transform .35s ease,visibility .35s}
+.wk-info.active{opacity:1;visibility:visible;transform:none;transition:opacity .7s ease .45s,transform .8s cubic-bezier(.2,.8,.2,1) .45s,visibility 0s .45s}
+.wk-name{font-family:var(--sans);font-weight:800;font-size:clamp(3rem,8.2vw,8rem);letter-spacing:-.055em;line-height:.95;color:var(--acc);transition:color .7s}
+.wk-desc{font-size:clamp(1rem,1.55vw,1.4rem);line-height:1.6;color:var(--ink);margin:1.6rem 0 2.2rem;max-width:560px}
+.wk-cta{font-weight:700;font-size:.85rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);text-decoration:none;display:inline-flex;gap:.8rem;align-items:center;cursor:pointer;background:none;border:none;font-family:var(--sans);padding:0}
+.wk-cta i{font-style:normal;color:var(--acc);font-size:1.2rem;transition:transform .3s,color .7s}
+.wk-cta:hover i{transform:translateX(6px)}
+.wk-thumb{position:absolute;left:var(--pg);bottom:8vh;width:clamp(170px,16vw,250px);aspect-ratio:16/10;border:4px solid var(--acc);border-radius:4px;overflow:hidden;background:#fff;cursor:pointer;transition:border-color .7s,transform .4s;z-index:2}
+.wk-thumb:hover{transform:translateY(-4px)}
+.wk-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:opacity .4s}
+.wk-thumb span{position:absolute;left:0;bottom:0;background:var(--acc);color:#fff;font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;padding:.25rem .55rem;transition:background .7s}
+.wk-right{position:absolute;right:7vw;top:0;bottom:0;width:min(46vw,760px)}
+.wk-rail{position:absolute;left:0;right:0;top:50%;height:0;transform:translateY(calc(var(--i,0) * (var(--H) + var(--gap)) * -1));transition:transform 1.05s cubic-bezier(.7,0,.15,1)}
+.wk-s{position:absolute;left:0;width:100%;height:var(--H);top:calc(var(--k) * (var(--H) + var(--gap)) - var(--H) / 2);cursor:pointer}
+.wk-sk{position:absolute;inset:0;overflow:hidden;transform:skew(-9deg,-4deg) scale(.93);filter:grayscale(1);opacity:.42;transition:transform 1.05s cubic-bezier(.7,0,.15,1),filter .9s,opacity .9s;box-shadow:0 30px 60px rgba(20,20,40,0)}
+.wk-sk img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.22);transition:transform 1.3s cubic-bezier(.2,.7,.2,1);pointer-events:none}
+.wk-s.active .wk-sk{transform:skew(-9deg,-4deg) scale(1);filter:none;opacity:1;box-shadow:0 30px 60px rgba(20,20,40,.18)}
+.wk-s.active .wk-sk img{transform:scale(1.02)}
+#work-section.moving .wk-s.active .wk-sk{transform:skew(-9deg,-9deg) scale(1.01)}
+.wk-dots{position:absolute;right:2.2vw;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:14px;z-index:3}
+.wk-dot{width:9px;height:24px;border-radius:9px;border:none;background:#b9bbc6;cursor:pointer;padding:0;transition:background .4s,height .4s}
+.wk-dot.active{background:var(--acc);height:34px}
+.wk-m{display:none}
 @media(max-width:700px){
-  .wk-track{padding:0 9vw;gap:4vw}
-  .wk-slide{flex-basis:82vw}
-  .wk-nav{display:none}
+  #work-section{height:auto;min-height:0;background:#F6F7FC;overflow:visible;padding:4.5rem 0 3rem}
+  .wk-bar{width:8px}
+  .wk-eyebrow{position:static;padding:0 var(--pg);margin-bottom:1.5rem}
+  .wk-d{display:none}
+  .wk-m{display:flex;flex-direction:column;gap:3rem;padding:0 var(--pg)}
+  .wk-mc{text-decoration:none;color:var(--ink);display:block}
+  .wk-mc .wk-msk{aspect-ratio:16/10;overflow:hidden;transform:skew(-6deg,-2.5deg);margin:0 4% 1.8rem}
+  .wk-mc img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.15)}
+  .wk-mc .wk-name{font-size:clamp(2.6rem,13vw,4rem)}
+  .wk-mc .wk-desc{margin:1rem 0 1.2rem;font-size:1rem}
 }
 
 /* ── WORK CARD CURSOR FOLLOWER ── */
@@ -1899,13 +1914,10 @@ body.on-zepto{scrollbar-color:#fff transparent}
     </div>
   </div></section>
 
-  <section class="section reveal" id="work-section" style="border-top:none">
-    <div class="home-card">
-      <div class="section-hd">
-        <div class="section-eyebrow"><span class="section-num">01</span><h2 class="section-title">Some recent work</h2></div>
-      </div>
-      <div id="work-container"></div>
-    </div>
+  <section class="section" id="work-section">
+    <div class="wk-bar"></div>
+    <div class="wk-eyebrow"><span class="section-num">01</span> Some recent work</div>
+    <div id="work-container"></div>
   </section>
 
   <section class="section section-alt reveal" id="builds-section">
@@ -3855,59 +3867,65 @@ function zlFilter(tag) {
 // ── WORK CARDS DATA ──
 const WORK_DATA=[
   {year:'2025',projects:[
-    {id:'01',name:'Wander Social',desc:'Built from zero. Rebuilt the post ecosystem to surface better matched hangout and people in your city.',tags:['social','ai','product design'],href:'#',page:'wander',img:'images/work/wander.webp',bg:'#DCE7FB'},
+    {id:'01',name:'Wander Social',desc:'Built from zero. Rebuilt the post ecosystem to surface better matched hangout and people in your city.',tags:['social','ai','product design'],href:'#',page:'wander',img:'images/work/wander.webp',bg:'#DCE7FB',acc:'#E8196E'},
   ]},
   {year:'2024',projects:[
-    {id:'02',name:'Gauth',desc:'Designed an AI-powered keyword card system for high school students to search, learn, and retain key concepts faster.',tags:['edtech','mobile'],href:'#',page:'gauth',img:'images/work/gauth.webp',bg:'#E6DFFB'},
-    {id:'03',name:'Scotiabank',desc:'Envisioned the future of personalized banking. Exploring how the young generation using AI to achieve financial wellbeing.',tags:['fintech','ux strategy'],href:'#',page:'scotia',img:'images/work/scotia.webp',bg:'#FBDFD8'},
+    {id:'02',name:'Gauth',desc:'Designed an AI-powered keyword card system for high school students to search, learn, and retain key concepts faster.',tags:['edtech','mobile'],href:'#',page:'gauth',img:'images/work/gauth.webp',bg:'#E6DFFB',acc:'#5B4CF5'},
+    {id:'03',name:'Scotiabank',desc:'Envisioned the future of personalized banking. Exploring how the young generation using AI to achieve financial wellbeing.',tags:['fintech','ux strategy'],href:'#',page:'scotia',img:'images/work/scotia.webp',bg:'#FBDFD8',acc:'#E4141C'},
   ]},
   {year:'2023',projects:[
-    {id:'04',name:'Phoenix Haier OS',desc:'Designed a calm, intentional smart home system that brings meaning and wellbeing to everyday domestic life.',tags:['iot','system design'],href:'#',page:'phoenix',img:'images/work/phoenix.webp',bg:'#DAEEE3'},
+    {id:'04',name:'Phoenix Haier OS',desc:'Designed a calm, intentional smart home system that brings meaning and wellbeing to everyday domestic life.',tags:['iot','system design'],href:'#',page:'phoenix',img:'images/work/phoenix.webp',bg:'#DAEEE3',acc:'#178F62'},
   ]},
 ];
 
-// Build work carousel (Robin-Noguier-style horizontal track)
+// Build work showcase (vertical rail + skewed slides, wheel-stepped)
 const wc = document.getElementById('work-container');
 if(wc){
-  const items=[];
-  WORK_DATA.forEach(g=>g.projects.forEach(p=>items.push({...p,year:g.year})));
-  wc.innerHTML=`<div class="wk-dots">${items.map((_,i)=>`<button class="wk-dot" aria-label="Project ${i+1}"></button>`).join('')}</div>
-  <div class="wk-track">${items.map((p,i)=>`<a href="#" onclick="goto('${p.page}');return false;" class="wk-slide" data-i="${i}">
-    <div class="wk-media"><img src="${p.img}" alt="${p.name}" draggable="false"></div>
-    <div class="wk-year">${p.year}</div>
-    <div class="wk-name">${p.name}</div>
-    <p class="wk-desc">${p.desc}</p>
-    <span class="wk-cta">Open case study →</span></a>`).join('')}</div>
-  <div class="wk-nav"><button class="wk-arrow" data-d="-1" aria-label="Previous">←</button><button class="wk-arrow" data-d="1" aria-label="Next">→</button></div>`;
+  const items=[]; WORK_DATA.forEach(g=>g.projects.forEach(p=>items.push({...p,year:g.year})));
+  const n=items.length;
+  wc.innerHTML=`<div class="wk-d">
+    <div class="wk-left">${items.map((p,i)=>`<div class="wk-info" data-i="${i}"><h3 class="wk-name">${p.name}</h3><p class="wk-desc">${p.desc}</p><button class="wk-cta" onclick="goto('${p.page}')">Open case study <i>→</i></button></div>`).join('')}</div>
+    <div class="wk-thumb" title="Next project"><img alt=""><span>Next</span></div>
+    <div class="wk-right"><div class="wk-rail">${items.map((p,i)=>`<div class="wk-s" style="--k:${i}" data-i="${i}"><div class="wk-sk"><img src="${p.img}" alt="${p.name}" draggable="false"></div></div>`).join('')}</div></div>
+    <div class="wk-dots">${items.map((_,i)=>`<button class="wk-dot" aria-label="Project ${i+1}"></button>`).join('')}</div>
+  </div>
+  <div class="wk-m">${items.map(p=>`<a class="wk-mc" href="#" onclick="goto('${p.page}');return false;"><div class="wk-msk"><img src="${p.img}" alt="${p.name}"></div><h3 class="wk-name" style="color:${p.acc}">${p.name}</h3><p class="wk-desc">${p.desc}</p><span class="wk-cta">Open case study <i style="color:${p.acc}">→</i></span></a>`).join('')}</div>`;
   const sec=document.getElementById('work-section');
-  const track=wc.querySelector('.wk-track'), slides=[...wc.querySelectorAll('.wk-slide')], dots=[...wc.querySelectorAll('.wk-dot')];
-  let cur=-1;
+  const infos=[...wc.querySelectorAll('.wk-info')], slides=[...wc.querySelectorAll('.wk-s')], dots=[...wc.querySelectorAll('.wk-dot')];
+  const thumb=wc.querySelector('.wk-thumb'), thumbImg=thumb.querySelector('img');
+  let cur=-1, locked=false, snapping=false;
   function setActive(i){
-    if(i===cur) return; cur=i;
+    if(i===cur) return; const first=cur<0; cur=i;
+    sec.style.setProperty('--i',i); sec.style.setProperty('--acc',items[i].acc);
+    wc.querySelector('.wk-rail').style.setProperty('--i',i);
+    infos.forEach((el,k)=>el.classList.toggle('active',k===i));
     slides.forEach((el,k)=>el.classList.toggle('active',k===i));
     dots.forEach((el,k)=>el.classList.toggle('active',k===i));
-    sec.style.setProperty('--wk-bg',items[i].bg);
+    thumbImg.style.opacity=0; setTimeout(()=>{thumbImg.src=items[(i+1)%n].img;thumbImg.style.opacity=1},first?0:350);
+    if(!first){ sec.classList.add('moving'); setTimeout(()=>sec.classList.remove('moving'),650); }
   }
-  function nearest(){
-    const c=track.scrollLeft+track.clientWidth/2; let best=0,bd=1e9;
-    slides.forEach((el,k)=>{const d=Math.abs(el.offsetLeft+el.offsetWidth/2-c); if(d<bd){bd=d;best=k}});
-    return best;
-  }
-  function go(i){
-    i=Math.max(0,Math.min(slides.length-1,i)); const el=slides[i];
-    track.scrollTo({left:el.offsetLeft-(track.clientWidth-el.offsetWidth)/2,behavior:'smooth'});
-  }
-  track.addEventListener('scroll',()=>setActive(nearest()),{passive:true});
-  dots.forEach((d,i)=>d.addEventListener('click',()=>go(i)));
-  wc.querySelectorAll('.wk-arrow').forEach(b=>b.addEventListener('click',()=>go(nearest()+ +b.dataset.d)));
-  // mouse drag to scroll (touch/trackpad use native scrolling)
-  let down=false,sx=0,sl=0,moved=false;
-  track.addEventListener('mousedown',e=>{down=true;moved=false;sx=e.pageX;sl=track.scrollLeft;track.classList.add('drag')});
-  window.addEventListener('mousemove',e=>{if(!down)return;const dx=e.pageX-sx;if(Math.abs(dx)>4)moved=true;track.scrollLeft=sl-dx});
-  window.addEventListener('mouseup',()=>{if(!down)return;down=false;track.classList.remove('drag');if(moved)go(nearest())});
-  track.addEventListener('click',e=>{if(moved){e.preventDefault();e.stopPropagation();moved=false}},true);
-  requestAnimationFrame(()=>{go(0);setActive(0)});
-  window.addEventListener('resize',()=>go(nearest()));
+  function step(d){ const t=cur+d; if(t<0||t>=n||locked) return false; locked=true; setActive(t); setTimeout(()=>locked=false,1050); return true; }
+  const canStep=d=>{const t=cur+d;return t>=0&&t<n};
+  const aligned=()=>Math.abs(sec.getBoundingClientRect().top)<6;
+  window.addEventListener('wheel',e=>{
+    if(innerWidth<=700||Math.abs(e.deltaY)<4) return;
+    const r=sec.getBoundingClientRect(), d=e.deltaY>0?1:-1;
+    if(snapping){e.preventDefault();return}
+    if(aligned()&&canStep(d)){e.preventDefault();step(d);return}
+    if(aligned()&&locked){e.preventDefault();return}
+    // magnetic snap when the section is mostly in view
+    const vis=Math.min(r.bottom,innerHeight)-Math.max(r.top,0);
+    if(vis>innerHeight*.55&&((d>0&&r.top>6&&r.top<innerHeight*.45)||(d<0&&r.top<-6&&r.bottom>innerHeight*.55))){
+      e.preventDefault(); snapping=true; sec.scrollIntoView({behavior:'smooth',block:'start'});
+      setTimeout(()=>snapping=false,750);
+    }
+  },{passive:false});
+  window.addEventListener('keydown',e=>{ if(!aligned()||innerWidth<=700) return; if(e.key==='ArrowDown'||e.key==='ArrowUp'){ const d=e.key==='ArrowDown'?1:-1; if(canStep(d)){e.preventDefault();step(d)} } });
+  let ty=0; sec.addEventListener('touchstart',e=>{ty=e.touches[0].clientY},{passive:true});
+  dots.forEach((dt,i)=>dt.addEventListener('click',()=>{locked=false;setActive(i)}));
+  slides.forEach((el,i)=>el.addEventListener('click',()=>{ if(i===cur) goto(items[i].page); else {locked=false;setActive(i)} }));
+  thumb.addEventListener('click',()=>{locked=false;setActive((cur+1)%n)});
+  setActive(0);
 }
 
 // ── COPY EMAIL ──
