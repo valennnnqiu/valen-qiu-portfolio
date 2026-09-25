@@ -230,10 +230,10 @@ a{color:inherit;text-decoration:none}
 .writing-grid .article-card:hover .article-tag:nth-child(2){background:#FFC2DA;color:#7a1a45}
 /* Build = an app on a phone */
 .build-stage{display:flex;align-items:center;gap:clamp(2rem,6vw,5rem)}
-.phone{position:relative;flex:0 0 auto;width:clamp(230px,24vw,300px);aspect-ratio:9/18.5;background:#111;border-radius:14% / 6.8%;padding:2.6%;box-shadow:0 30px 70px rgba(20,20,30,.3),inset 0 0 0 2px #2a2a2a;opacity:0;transform:translateY(110px) rotate(2deg);transition:transform .9s var(--ease),opacity .7s}
-.phone.in{opacity:1;transform:translateY(0) rotate(-1.5deg)}
-.phone-screen{position:relative;width:100%;height:100%;border-radius:11.5% / 5.6%;overflow:hidden;background:linear-gradient(160deg,#ffd9e8,#fff3e2 55%,#e6ecff)}
-.phone-notch{position:absolute;z-index:6;top:3.6%;left:50%;width:26%;height:2.6%;margin-left:-13%;background:#111;border-radius:99px}
+.phone{position:relative;flex:0 0 auto;width:clamp(300px,30vw,400px);aspect-ratio:394/714;background:url(images/home/iphone.png) center/100% 100% no-repeat;opacity:0;transform:translateY(110px);transition:transform .9s var(--ease),opacity .7s}
+.phone.in{opacity:1;transform:translateY(0)}
+.phone-screen{position:absolute;left:15.48%;top:8.54%;width:69.04%;height:82.63%;border-radius:14% / 6.4%;overflow:hidden;background:linear-gradient(160deg,#ffd9e8,#fff3e2 55%,#e6ecff)}
+.phone-notch{position:absolute;z-index:6;top:8.54%;left:50%;width:20%;height:3.1%;margin:2% 0 0 -10%;background:#000;border-radius:99px}
 .phone-home{position:absolute;inset:0;padding:16% 9% 0;transition:opacity .35s,transform .35s}
 .phone-home.off{opacity:0;transform:scale(.92);pointer-events:none}
 .phone-time{font:700 clamp(1.6rem,3.4vw,2.4rem)/1 var(--sans);color:#111;text-align:center;margin-bottom:12%;letter-spacing:-.03em}
@@ -242,7 +242,7 @@ a{color:inherit;text-decoration:none}
 .app-tile{width:100%;aspect-ratio:1;border-radius:24%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:1.7rem;box-shadow:0 5px 12px rgba(20,20,30,.16);transition:transform .25s var(--ease)}
 .app-ic:hover .app-tile{transform:scale(1.1) rotate(-4deg)}
 .app-ic:active .app-tile{transform:scale(.94)}
-.phone-app{position:absolute;inset:0;background:#fff;opacity:0;transform:scale(.6);border-radius:11.5% / 5.6%;pointer-events:none;transition:opacity .35s,transform .45s var(--ease)}
+.phone-app{position:absolute;inset:0;background:#fff;opacity:0;transform:scale(.6);border-radius:14% / 6.4%;pointer-events:none;transition:opacity .35s,transform .45s var(--ease)}
 .phone-app.on{opacity:1;transform:scale(1);pointer-events:auto}
 .phone-app img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .phone-appbar{position:absolute;z-index:3;left:0;right:0;top:0;padding:10% 6% 4%;display:flex;align-items:center;gap:.5rem;background:linear-gradient(#fff 55%,rgba(255,255,255,0));font:700 .95rem var(--sans);color:var(--pink)}
@@ -268,6 +268,17 @@ a{color:inherit;text-decoration:none}
 .fun-t{font-size:clamp(2.6rem,7vw,6rem);opacity:var(--o,0);transform:translateY(calc((1 - var(--o,0))*40px))}
 .fun-p{font-size:clamp(1.15rem,2.2vw,1.7rem);color:var(--ink2);line-height:1.5;max-width:40rem;opacity:0;transform:translateY(26px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
 .fun-p.on{opacity:1;transform:none}
+.fun-w{display:inline-block;cursor:default}
+.fun-w i{display:inline-block;font-style:normal;transform-origin:50% 80%}
+.fun-w:hover i{animation:funJelly .7s cubic-bezier(.34,1.56,.64,1)}
+.fun-w:hover i:nth-child(2){animation-delay:.07s}.fun-w:hover i:nth-child(3){animation-delay:.14s}
+@keyframes funJelly{0%{transform:none}25%{transform:translateY(-.22em) rotate(-9deg) scale(1.25,.85)}55%{transform:translateY(.03em) rotate(6deg) scale(.88,1.15)}80%{transform:translateY(-.06em) rotate(-2deg) scale(1.05,.97)}100%{transform:none}}
+.fun-caret{display:inline-block;width:.09em;height:1.05em;margin-left:.12em;vertical-align:-.15em;background:var(--pink);animation:funBlink 1s steps(1) infinite}
+@keyframes funBlink{50%{opacity:0}}
+.fun-ans{min-height:1.5em}
+.fun-ans .im{position:relative;display:inline-block}
+.fun-ans .im::after{content:'';position:absolute;left:-6%;right:-6%;top:54%;height:.14em;background:var(--pink);border-radius:99px;transform:scaleX(0) rotate(-4deg);transform-origin:0 50%;transition:transform .45s cubic-bezier(.6,0,.2,1)}
+.fun-ans.x .im::after{transform:scaleX(1) rotate(-4deg)}
 .proj-card,.writing-card{min-height:100vh;min-height:100dvh;margin-top:0!important;display:flex;flex-direction:column;justify-content:center;box-sizing:border-box}
 .teaching-card{margin-top:0!important}
 @media(max-width:700px){.fun-in{padding:0 .5rem;width:100%}}
@@ -2069,9 +2080,9 @@ body.on-zepto{scrollbar-color:#fff transparent}
 
   <section class="section section-alt reveal" id="builds-section">
     <div class="fun-intro" id="fun-intro"><div class="fun-pin"><div class="fun-in">
-      <h2 class="section-title fun-t">Some fun things I do</h2>
+      <h2 class="section-title fun-t">Some <span class="fun-w" aria-label="fun"><i>f</i><i>u</i><i>n</i></span> things I do</h2>
       <p class="fun-p" data-at=".22">Something I get asked a lot is: Valen, why do you have so much time outside of work?</p>
-      <p class="fun-p" data-at=".55">My answer is: with AI, nothing is impossible.</p>
+      <p class="fun-p fun-ans" data-at=".55" data-txt="My answer is: with AI, nothing is impossible."></p>
     </div></div></div>
 
     <!-- Build: apps on a phone -->
@@ -2080,7 +2091,6 @@ body.on-zepto{scrollbar-color:#fff transparent}
         <h2 class="section-title">I build. Ideas into apps.</h2>
         <div class="build-stage">
           <div class="phone" id="phone">
-            <div class="phone-notch"></div>
             <div class="phone-screen">
               <div class="phone-home" id="phone-home">
                 <div class="phone-time">9:41</div>
@@ -2093,6 +2103,7 @@ body.on-zepto{scrollbar-color:#fff transparent}
               <div class="phone-app" id="phone-app-1"><img src="images/home/loop-coming-soon.jpg" alt="Loop, coming soon" style="object-position:center 45%"><div class="phone-appbar"><button onclick="openApp(-1)" aria-label="Back">‹</button>Loop</div></div>
               <i class="phone-homebar" onclick="openApp(-1)"></i>
             </div>
+            <div class="phone-notch"></div>
           </div>
           <div class="build-side">
             <p id="build-desc">Tap an app to open it.</p>
@@ -4076,7 +4087,11 @@ function openApp(i){
   const t=wrap.querySelector('.fun-t'), ps=[...wrap.querySelectorAll('.fun-p')]; let tk=0;
   function upd(){tk=0; const r=wrap.getBoundingClientRect(), vh=innerHeight, span=Math.max(1,r.height-vh);
     t.style.setProperty('--o',Math.max(0,Math.min(1,(vh-r.top)/(vh*.7))).toFixed(3));
-    const p=Math.max(0,Math.min(1,-r.top/span)); ps.forEach(el=>el.classList.toggle('on',p>=parseFloat(el.dataset.at)))}
+    const p=Math.max(0,Math.min(1,-r.top/span)); ps.forEach(el=>{const on=p>=parseFloat(el.dataset.at); el.classList.toggle('on',on); if(on&&el.dataset.txt&&!el.dataset.done){el.dataset.done=1; stream(el)}})}
+  async function stream(el){const w=el.dataset.txt.split(' '), sl=ms=>new Promise(r=>setTimeout(r,ms)); const cur=document.createElement('i'); cur.className='fun-caret';
+    if(matchMedia('(prefers-reduced-motion:reduce)').matches){w.length=0}
+    let out=''; for(const x of w){out+=(out?' ':'')+x; el.textContent=out; el.appendChild(cur); await sl(120)}
+    el.innerHTML=el.dataset.txt.replace('impossible','<span class="im">im</span>possible'); el.appendChild(cur); await sl(550); el.classList.add('x'); await sl(1600); cur.remove()}
   addEventListener('scroll',()=>{if(!tk)tk=requestAnimationFrame(upd)},{passive:true}); addEventListener('resize',upd); upd();
 })();
 
