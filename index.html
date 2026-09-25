@@ -292,22 +292,21 @@ a{color:inherit;text-decoration:none}
 
 /* ── WORK SHOWCASE (vertical, Robin-Noguier-style) ── */
 #work-section{position:relative;height:100vh;min-height:640px;padding:0;background:#F6F7FC;overflow:hidden;border-top:none;--acc:#E8196E;--H:clamp(240px,56vh,520px);--gap:6vh}
-.wk-bar{position:absolute;left:0;top:0;bottom:0;width:12px;background:var(--acc);transition:background .7s;z-index:3}
-.wk-eyebrow{position:absolute;left:var(--pg);top:112px;font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);z-index:3;display:flex;gap:.6rem}
-.wk-eyebrow .section-num{color:var(--acc);transition:color .7s}
+.wk-bar{display:none}
+.wk-eyebrow{position:absolute;left:var(--pg);top:112px;font-family:var(--mono);font-size:.9rem;letter-spacing:.2em;color:var(--ink);z-index:3}
 .wk-d{position:absolute;inset:0}
 .wk-left{position:absolute;left:var(--pg);top:50%;width:min(38vw,560px);transform:translateY(-46%);display:grid;z-index:2}
 .wk-info{grid-area:1/1;opacity:0;visibility:hidden;transform:translateY(34px);transition:opacity .35s ease,transform .35s ease,visibility .35s}
 .wk-info.active{opacity:1;visibility:visible;transform:none;transition:opacity .7s ease .45s,transform .8s cubic-bezier(.2,.8,.2,1) .45s,visibility 0s .45s}
-.wk-name{font-family:var(--sans);font-weight:800;font-size:clamp(2.8rem,6.4vw,6.4rem);letter-spacing:-.055em;line-height:.95;color:var(--acc);transition:color .7s}
+.wk-name{font-family:var(--sans);font-weight:800;font-size:clamp(2rem,4.4vw,4.4rem);letter-spacing:-.05em;line-height:1;color:var(--ink)}
 .wk-desc{font-size:clamp(1rem,1.55vw,1.4rem);line-height:1.6;color:var(--ink);margin:1.6rem 0 2.2rem;max-width:560px}
 .wk-cta{font-weight:700;font-size:.85rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);text-decoration:none;display:inline-flex;gap:.8rem;align-items:center;cursor:pointer;background:none;border:none;font-family:var(--sans);padding:0}
-.wk-cta i{font-style:normal;color:var(--acc);font-size:1.2rem;transition:transform .3s,color .7s}
+.wk-cta i{font-style:normal;color:var(--ink);font-size:1.2rem;transition:transform .3s,color .7s}
 .wk-cta:hover i{transform:translateX(6px)}
-.wk-thumb{position:absolute;left:var(--pg);bottom:8vh;width:clamp(170px,16vw,250px);aspect-ratio:16/10;border:4px solid var(--acc);border-radius:4px;overflow:hidden;background:#fff;cursor:pointer;transition:border-color .7s,transform .4s;z-index:2}
+.wk-thumb{position:absolute;left:var(--pg);bottom:8vh;width:clamp(170px,16vw,250px);aspect-ratio:16/10;border:4px solid var(--ink);border-radius:4px;overflow:hidden;background:#fff;cursor:pointer;transition:transform .4s;z-index:2}
 .wk-thumb:hover{transform:translateY(-4px)}
 .wk-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:opacity .4s}
-.wk-thumb span{position:absolute;left:0;bottom:0;background:var(--acc);color:#fff;font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;padding:.25rem .55rem;transition:background .7s}
+.wk-thumb span{position:absolute;left:0;bottom:0;background:var(--ink);color:#fff;font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;padding:.25rem .55rem}
 .wk-right{position:absolute;right:7vw;top:0;bottom:0;width:min(46vw,760px)}
 .wk-rail{position:absolute;left:0;right:0;top:50%;height:0;transform:translateY(calc(var(--i,0) * (var(--H) + var(--gap)) * -1));transition:transform 1.05s cubic-bezier(.7,0,.15,1)}
 .wk-s{position:absolute;left:0;width:100%;height:var(--H);top:calc(var(--k) * (var(--H) + var(--gap)) - var(--H) / 2);cursor:pointer}
@@ -1916,7 +1915,7 @@ body.on-zepto{scrollbar-color:#fff transparent}
 
   <section class="section" id="work-section">
     <div class="wk-bar"></div>
-    <div class="wk-eyebrow"><span class="section-num">01</span> Some recent work</div>
+    <div class="wk-eyebrow" id="wk-year"></div>
     <div id="work-container"></div>
   </section>
 
@@ -3889,7 +3888,7 @@ if(wc){
     <div class="wk-right"><div class="wk-rail">${items.map((p,i)=>`<div class="wk-s" style="--k:${i}" data-i="${i}"><div class="wk-sk"><img src="${p.img}" alt="${p.name}" draggable="false"></div></div>`).join('')}</div></div>
     <div class="wk-dots">${items.map((_,i)=>`<button class="wk-dot" aria-label="Project ${i+1}"></button>`).join('')}</div>
   </div>
-  <div class="wk-m">${items.map(p=>`<a class="wk-mc" href="#" onclick="goto('${p.page}');return false;"><div class="wk-msk"><img src="${p.img}" alt="${p.name}"></div><h3 class="wk-name" style="color:${p.acc}">${p.name}</h3><p class="wk-desc">${p.desc}</p><span class="wk-cta">Open case study <i style="color:${p.acc}">→</i></span></a>`).join('')}</div>`;
+  <div class="wk-m">${items.map(p=>`<a class="wk-mc" href="#" onclick="goto('${p.page}');return false;"><div class="wk-msk"><img src="${p.img}" alt="${p.name}"></div><h3 class="wk-name">${p.name}</h3><p class="wk-desc">${p.desc}</p><span class="wk-cta">Open case study <i>→</i></span></a>`).join('')}</div>`;
   const sec=document.getElementById('work-section');
   const infos=[...wc.querySelectorAll('.wk-info')], slides=[...wc.querySelectorAll('.wk-s')], dots=[...wc.querySelectorAll('.wk-dot')];
   const thumb=wc.querySelector('.wk-thumb'), thumbImg=thumb.querySelector('img');
@@ -3901,23 +3900,32 @@ if(wc){
     infos.forEach((el,k)=>el.classList.toggle('active',k===i));
     slides.forEach((el,k)=>el.classList.toggle('active',k===i));
     dots.forEach((el,k)=>el.classList.toggle('active',k===i));
-    thumbImg.style.opacity=0; setTimeout(()=>{thumbImg.src=items[(i+1)%n].img;thumbImg.style.opacity=1},first?0:350);
+    document.getElementById('wk-year').textContent=items[i].year;
+    const nextSrc=items[(i+1)%n].img;
+    if(first){ thumbImg.src=nextSrc; } else {
+      const P='perspective(700px) ';
+      thumb.animate([{transform:P+'rotateX(0deg)'},{transform:P+'rotateX(-90deg)'}],{duration:300,easing:'cubic-bezier(.5,0,.9,.5)',fill:'forwards'}).onfinish=()=>{
+        thumbImg.src=nextSrc;
+        thumb.animate([{transform:P+'rotateX(90deg)'},{transform:P+'rotateX(0deg)'}],{duration:450,easing:'cubic-bezier(.15,.7,.3,1)',delay:120,fill:'both'});
+      };
+    }
     if(!first){ sec.classList.add('moving'); setTimeout(()=>sec.classList.remove('moving'),650); }
   }
-  function step(d){ const t=cur+d; if(t<0||t>=n||locked) return false; locked=true; setActive(t); setTimeout(()=>locked=false,1050); return true; }
+  function step(d){ const t=cur+d; if(t<0||t>=n||locked) return false; locked=true; setActive(t); if(Math.abs(sec.getBoundingClientRect().top)>1) sec.scrollIntoView({block:'start'}); setTimeout(()=>locked=false,1050); return true; }
   const canStep=d=>{const t=cur+d;return t>=0&&t<n};
-  const aligned=()=>Math.abs(sec.getBoundingClientRect().top)<6;
+  const aligned=()=>{const r=sec.getBoundingClientRect();return r.top<=40&&r.top>=-40&&r.bottom>=innerHeight-40};
   window.addEventListener('wheel',e=>{
-    if(innerWidth<=700||Math.abs(e.deltaY)<4) return;
+    if(innerWidth<=700||Math.abs(e.deltaY)<3) return;
     const r=sec.getBoundingClientRect(), d=e.deltaY>0?1:-1;
     if(snapping){e.preventDefault();return}
-    if(aligned()&&canStep(d)){e.preventDefault();step(d);return}
-    if(aligned()&&locked){e.preventDefault();return}
-    // magnetic snap when the section is mostly in view
+    if(aligned()){
+      if(canStep(d)){ e.preventDefault(); if(!locked&&Math.abs(e.deltaY)>=8) step(d); return }
+      return; // at either end: let the page scroll on
+    }
     const vis=Math.min(r.bottom,innerHeight)-Math.max(r.top,0);
-    if(vis>innerHeight*.55&&((d>0&&r.top>6&&r.top<innerHeight*.45)||(d<0&&r.top<-6&&r.bottom>innerHeight*.55))){
+    if(vis>innerHeight*.5&&((d>0&&r.top>40)||(d<0&&r.top<-40))){
       e.preventDefault(); snapping=true; sec.scrollIntoView({behavior:'smooth',block:'start'});
-      setTimeout(()=>snapping=false,750);
+      setTimeout(()=>{snapping=false},900);
     }
   },{passive:false});
   window.addEventListener('keydown',e=>{ if(!aligned()||innerWidth<=700) return; if(e.key==='ArrowDown'||e.key==='ArrowUp'){ const d=e.key==='ArrowDown'?1:-1; if(canStep(d)){e.preventDefault();step(d)} } });
