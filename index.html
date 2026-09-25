@@ -4280,7 +4280,7 @@ if(initNf) initNf.classList.add('active');
   const replies={
     what:()=>say('Product designer at Wander, an AI social app. I rebuilt its posting system, lifting post usage 36%, and ship straight through code. At OCAD I teach branding strategy, data visualization, internship and speculative design.',7500),
     zepto:()=>say('ZEPTOLAB is my design studio: a boutique consultancy that turns ideas into market-ready brands, products, UI/UX and toys. 15+ companies, 6 industries.',6500),
-    dj:()=>{say('I DJ in Toronto and I am building Come DJ with Valen. Message me on Instagram for the music and upcoming events.',5500); window.open('https://www.instagram.com/valennnnq/?hl=en','_blank')}
+    dj:()=>say('I play fast things: bounce, tech house, DnB. In Toronto I play brand events, restaurants, private events, shows and raves.',6000)
   };
   chips.addEventListener('click',e=>{const c=e.target.closest('.hs-chip'); if(c) replies[c.dataset.a]()});
   (async function intro(){
