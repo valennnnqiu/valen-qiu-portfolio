@@ -195,14 +195,14 @@ a{color:inherit;text-decoration:none}
 
 
 /* ── OCAD photo desk ── */
-.ocad-desk{position:relative;height:clamp(440px,54vw,760px);margin-top:1rem}
-.ocad-hint{position:absolute;right:.5rem;bottom:.2rem;font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
-.ocad-pic{position:absolute;left:var(--l);top:var(--t);width:var(--w);margin:0;background:#fff;padding:.55rem .55rem 1.4rem;border-radius:4px;box-shadow:0 10px 26px rgba(20,20,30,.2),0 2px 6px rgba(20,20,30,.12);transform:translate(var(--x,0px),var(--y,0px)) rotate(var(--r,0deg));transition:box-shadow .3s,transform .35s cubic-bezier(.2,.9,.3,1.3);cursor:grab;touch-action:pan-y;user-select:none}
+.teaching-card{background:transparent!important;border:none!important;box-shadow:none!important;height:100vh;height:100dvh;min-height:520px;display:flex;flex-direction:column;box-sizing:border-box;margin-top:0}
+.teaching-card-hd{flex:0 0 auto}
+.ocad-desk{position:relative;flex:1 1 auto;min-height:0;margin-top:1rem}
+.ocad-pic{position:absolute;left:var(--l);top:var(--t);width:min(var(--w),calc((100vh - 240px) * .52));margin:0;background:#fff;padding:.55rem .55rem 1.4rem;border-radius:4px;box-shadow:0 10px 26px rgba(20,20,30,.2),0 2px 6px rgba(20,20,30,.12);transform:translate(var(--x,0px),var(--y,0px)) rotate(var(--r,0deg));transition:box-shadow .3s,transform .35s cubic-bezier(.2,.9,.3,1.3);cursor:grab;touch-action:pan-y;user-select:none}
 .ocad-pic img{width:100%;display:block;pointer-events:none;border-radius:2px}
 .ocad-pic:hover{box-shadow:0 18px 38px rgba(20,20,30,.28),0 3px 8px rgba(20,20,30,.14)}
 .ocad-pic.drag{cursor:grabbing;transition:box-shadow .2s;transform:translate(var(--x),var(--y)) rotate(0deg) scale(1.05);box-shadow:0 26px 50px rgba(20,20,30,.34)}
 @media(max-width:700px){
-  .ocad-desk{height:150vw}
   .ocad-pic{width:50%!important}
   .ocad-pic:nth-of-type(1){--l:4%!important;--t:2%!important}
   .ocad-pic:nth-of-type(2){--l:46%!important;--t:16%!important}
@@ -210,13 +210,6 @@ a{color:inherit;text-decoration:none}
   .ocad-pic:nth-of-type(4){--l:44%!important;--t:50%!important}
   .ocad-pic:nth-of-type(5){--l:10%!important;--t:68%!important}
 }
-.pic-lb{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;gap:2.5vw;padding:5vh 5vw;background:rgba(15,15,20,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:0;pointer-events:none;transition:opacity .3s}
-.pic-lb.on{opacity:1;pointer-events:auto}
-.pic-lb img{max-width:min(62vw,900px);max-height:82vh;border:.6rem solid #fff;border-bottom-width:1.6rem;border-radius:4px;box-shadow:0 30px 80px rgba(0,0,0,.5);transform:scale(.86) rotate(-2deg);transition:transform .55s cubic-bezier(.2,.9,.3,1.2)}
-.pic-lb.on img{transform:none}
-.pic-lb-b{align-self:flex-start;margin-top:14vh;max-width:min(24vw,300px);background:#0A84FF;color:#fff;font:400 1.05rem/1.35 -apple-system,'SF Pro Text','Helvetica Neue',var(--sans);padding:.85rem 1.15rem;border-radius:1.4rem;border-bottom-left-radius:.35rem;transform:scale(.3);opacity:0;transform-origin:0 100%;transition:transform .5s cubic-bezier(.34,1.56,.64,1) .25s,opacity .2s .25s}
-.pic-lb.on .pic-lb-b{transform:none;opacity:1}
-@media(max-width:700px){.pic-lb{flex-direction:column;gap:1.2rem}.pic-lb img{max-width:88vw;max-height:60vh}.pic-lb-b{align-self:center;margin-top:0;max-width:80vw}}
 
 /* ── SHARED SECTION ── */
 .section{padding:5rem var(--pg);border-top:1px solid var(--border)}
@@ -2121,12 +2114,11 @@ body.on-zepto{scrollbar-color:#fff transparent}
       </div>
 
       <div class="ocad-desk" id="ocad-desk">
-<div class="ocad-hint">drag the photos · tap to zoom</div>
 <figure class="ocad-pic" style="--r:-5deg;--l:3%;--t:6%;--w:27%" data-cap="2025 · 1PEAR Workshop · Speaking"><img src="images/teaching/ocad-4.jpg" alt="Teaching at OCAD" draggable="false"></figure>
-<figure class="ocad-pic" style="--r:3deg;--l:27%;--t:30%;--w:27%" data-cap="Workshop · Sticky-note ideation"><img src="images/teaching/ocad-2.jpg" alt="Teaching at OCAD" draggable="false"></figure>
+<figure class="ocad-pic" style="--r:3deg;--l:27%;--t:27%;--w:27%" data-cap="Workshop · Sticky-note ideation"><img src="images/teaching/ocad-2.jpg" alt="Teaching at OCAD" draggable="false"></figure>
 <figure class="ocad-pic" style="--r:-3deg;--l:54%;--t:3%;--w:27%" data-cap="2025 · Mentors & students in the room"><img src="images/teaching/ocad-3.jpg" alt="Teaching at OCAD" draggable="false"></figure>
-<figure class="ocad-pic" style="--r:5deg;--l:62%;--t:40%;--w:28%" data-cap="Studio session · Talking it through"><img src="images/teaching/ocad-1.jpg" alt="Teaching at OCAD" draggable="false"></figure>
-<figure class="ocad-pic" style="--r:-4deg;--l:33%;--t:56%;--w:26%" data-cap="2025 · 1PEAR Workshop · ID to UX"><img src="images/teaching/ocad-5.webp" alt="Teaching at OCAD" draggable="false"></figure>
+<figure class="ocad-pic" style="--r:5deg;--l:62%;--t:34%;--w:28%" data-cap="Studio session · Talking it through"><img src="images/teaching/ocad-1.jpg" alt="Teaching at OCAD" draggable="false"></figure>
+<figure class="ocad-pic" style="--r:-4deg;--l:33%;--t:38%;--w:26%" data-cap="2025 · 1PEAR Workshop · ID to UX"><img src="images/teaching/ocad-5.webp" alt="Teaching at OCAD" draggable="false"></figure>
 </div>
 </div>
   </div>
@@ -4356,11 +4348,6 @@ if(initNf) initNf.classList.add('active');
 (function(){
   const desk=document.getElementById('ocad-desk'); if(!desk) return;
   const pics=[...desk.querySelectorAll('.ocad-pic')]; let z=10;
-  const lb=document.createElement('div'); lb.className='pic-lb';
-  lb.innerHTML='<img alt=""><div class="pic-lb-b"></div>'; document.body.appendChild(lb);
-  const lbImg=lb.querySelector('img'), lbB=lb.querySelector('.pic-lb-b');
-  const close=()=>lb.classList.remove('on');
-  lb.addEventListener('click',close); addEventListener('keydown',e=>{if(e.key==='Escape')close()});
   pics.forEach(p=>{
     let sx,sy,ox,oy,id=null,moved=false;
     p.addEventListener('pointerdown',e=>{
@@ -4374,7 +4361,6 @@ if(initNf) initNf.classList.add('active');
       if(moved){p.style.setProperty('--x',ox+dx+'px');p.style.setProperty('--y',oy+dy+'px')}
     });
     const up=e=>{ if(id!==e.pointerId) return; id=null; p.classList.remove('drag');
-      if(e.type==='pointerup'&&!moved){ lbImg.src=p.querySelector('img').src; lbB.textContent=p.dataset.cap; lb.classList.add('on'); }
     };
     p.addEventListener('pointerup',up); p.addEventListener('pointercancel',up);
   });
