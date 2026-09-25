@@ -289,6 +289,35 @@ a{color:inherit;text-decoration:none}
 .medium-link{display:inline-flex;align-items:center;gap:.55rem;font-size:.78rem;color:var(--bg);border-bottom:1px solid var(--bg);padding-bottom:2px;cursor:pointer;white-space:nowrap;transition:color .2s,border-color .2s,gap .3s var(--ease);background:none;border-top:none;border-left:none;border-right:none;font-family:var(--sans)}
 .medium-link:hover{color:var(--pink);border-color:var(--pink);gap:.9rem}
 
+
+/* ── WORK CAROUSEL ── */
+#work-section{background:var(--wk-bg,#DCE7FB);transition:background .6s var(--ease);padding-left:0;padding-right:0}
+#work-section .home-card{background:transparent;border:none;padding:2.5rem 0}
+#work-section .section-hd{padding:0 var(--pg)}
+.wk-dots{display:flex;justify-content:center;gap:.5rem;margin:1rem 0 2.25rem}
+.wk-dot{width:28px;height:8px;border-radius:8px;border:none;background:rgba(13,13,12,.18);cursor:pointer;padding:0;transition:background .3s,width .3s}
+.wk-dot.active{background:var(--ink);width:44px}
+.wk-track{display:flex;gap:2.5vw;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:0 calc(50vw - min(31vw,300px));cursor:grab;-webkit-overflow-scrolling:touch}
+.wk-track::-webkit-scrollbar{display:none}
+.wk-track.drag{cursor:grabbing;scroll-snap-type:none}
+.wk-slide{flex:0 0 min(62vw,600px);scroll-snap-align:center;text-decoration:none;color:var(--ink);opacity:.35;transform:scale(.92);transform-origin:center top;transition:opacity .5s var(--ease),transform .5s var(--ease);user-select:none}
+.wk-slide.active{opacity:1;transform:none}
+.wk-media{aspect-ratio:16/10;border-radius:14px;overflow:hidden;background:rgba(13,13,12,.08)}
+.wk-media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s var(--ease);pointer-events:none}
+.wk-slide:hover .wk-media img{transform:scale(1.04)}
+.wk-year{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;margin-top:1.5rem;opacity:.55}
+.wk-name{font-family:var(--sans);font-weight:800;font-size:clamp(2rem,5vw,4rem);letter-spacing:-.04em;line-height:1;margin:.4rem 0 .8rem}
+.wk-desc{font-size:clamp(.95rem,1.5vw,1.15rem);line-height:1.65;max-width:520px;color:var(--ink2)}
+.wk-cta{display:inline-block;margin-top:1.1rem;font-weight:600;font-size:.9rem;border-bottom:1.5px solid var(--ink);padding-bottom:2px}
+.wk-nav{display:flex;justify-content:center;gap:.75rem;margin-top:2.25rem}
+.wk-arrow{width:46px;height:46px;border-radius:50%;border:1.5px solid var(--ink);background:transparent;color:var(--ink);font-size:1.1rem;cursor:pointer;transition:background .2s,color .2s}
+.wk-arrow:hover{background:var(--ink);color:#fff}
+@media(max-width:700px){
+  .wk-track{padding:0 9vw;gap:4vw}
+  .wk-slide{flex-basis:82vw}
+  .wk-nav{display:none}
+}
+
 /* ── WORK CARD CURSOR FOLLOWER ── */
 .work-follower{
   position:fixed;
@@ -3826,26 +3855,59 @@ function zlFilter(tag) {
 // ── WORK CARDS DATA ──
 const WORK_DATA=[
   {year:'2025',projects:[
-    {id:'01',name:'Wander Social',desc:'Built from zero. Rebuilt the post ecosystem to surface better matched hangout and people in your city.',tags:['social','ai','product design'],href:'#',page:'wander',img:'images/work/wander.webp'},
+    {id:'01',name:'Wander Social',desc:'Built from zero. Rebuilt the post ecosystem to surface better matched hangout and people in your city.',tags:['social','ai','product design'],href:'#',page:'wander',img:'images/work/wander.webp',bg:'#DCE7FB'},
   ]},
   {year:'2024',projects:[
-    {id:'02',name:'Gauth',desc:'Designed an AI-powered keyword card system for high school students to search, learn, and retain key concepts faster.',tags:['edtech','mobile'],href:'#',page:'gauth',img:'images/work/gauth.webp'},
-    {id:'03',name:'Scotiabank',desc:'Envisioned the future of personalized banking. Exploring how the young generation using AI to achieve financial wellbeing.',tags:['fintech','ux strategy'],href:'#',page:'scotia',img:'images/work/scotia.webp'},
+    {id:'02',name:'Gauth',desc:'Designed an AI-powered keyword card system for high school students to search, learn, and retain key concepts faster.',tags:['edtech','mobile'],href:'#',page:'gauth',img:'images/work/gauth.webp',bg:'#E6DFFB'},
+    {id:'03',name:'Scotiabank',desc:'Envisioned the future of personalized banking. Exploring how the young generation using AI to achieve financial wellbeing.',tags:['fintech','ux strategy'],href:'#',page:'scotia',img:'images/work/scotia.webp',bg:'#FBDFD8'},
   ]},
   {year:'2023',projects:[
-    {id:'04',name:'Phoenix Haier OS',desc:'Designed a calm, intentional smart home system that brings meaning and wellbeing to everyday domestic life.',tags:['iot','system design'],href:'#',page:'phoenix',img:'images/work/phoenix.webp'},
+    {id:'04',name:'Phoenix Haier OS',desc:'Designed a calm, intentional smart home system that brings meaning and wellbeing to everyday domestic life.',tags:['iot','system design'],href:'#',page:'phoenix',img:'images/work/phoenix.webp',bg:'#DAEEE3'},
   ]},
 ];
 
-// Build work cards
+// Build work carousel (Robin-Noguier-style horizontal track)
 const wc = document.getElementById('work-container');
 if(wc){
-  WORK_DATA.forEach(g=>{
-    const d=document.createElement('div');
-    d.className='year-group reveal';
-    d.innerHTML=`<div class="year-marker"><div class="year-dot"></div><span class="year-num">${g.year}</span></div><div class="work-grid">${g.projects.map(p=>`<a href="${p.href||'#'}" ${p.page?`onclick="goto('${p.page}');return false;"`:'target="_blank"'} class="work-card"><div class="work-body"><div class="work-name">${p.name}</div><p class="work-desc">${p.desc}</p></div><div class="work-thumb">${p.img?`<img src="${p.img}" alt="${p.name}" class="work-thumb-img">`:`<span class="thumb-label">${p.name}</span><span class="thumb-sub">← replace with project image / video</span>`}</div><div class="work-cta-wrap"><button class="work-cta">View case study →</button></div></a>`).join('')}</div>`;
-    wc.appendChild(d);
-  });
+  const items=[];
+  WORK_DATA.forEach(g=>g.projects.forEach(p=>items.push({...p,year:g.year})));
+  wc.innerHTML=`<div class="wk-dots">${items.map((_,i)=>`<button class="wk-dot" aria-label="Project ${i+1}"></button>`).join('')}</div>
+  <div class="wk-track">${items.map((p,i)=>`<a href="#" onclick="goto('${p.page}');return false;" class="wk-slide" data-i="${i}">
+    <div class="wk-media"><img src="${p.img}" alt="${p.name}" draggable="false"></div>
+    <div class="wk-year">${p.year}</div>
+    <div class="wk-name">${p.name}</div>
+    <p class="wk-desc">${p.desc}</p>
+    <span class="wk-cta">Open case study →</span></a>`).join('')}</div>
+  <div class="wk-nav"><button class="wk-arrow" data-d="-1" aria-label="Previous">←</button><button class="wk-arrow" data-d="1" aria-label="Next">→</button></div>`;
+  const sec=document.getElementById('work-section');
+  const track=wc.querySelector('.wk-track'), slides=[...wc.querySelectorAll('.wk-slide')], dots=[...wc.querySelectorAll('.wk-dot')];
+  let cur=-1;
+  function setActive(i){
+    if(i===cur) return; cur=i;
+    slides.forEach((el,k)=>el.classList.toggle('active',k===i));
+    dots.forEach((el,k)=>el.classList.toggle('active',k===i));
+    sec.style.setProperty('--wk-bg',items[i].bg);
+  }
+  function nearest(){
+    const c=track.scrollLeft+track.clientWidth/2; let best=0,bd=1e9;
+    slides.forEach((el,k)=>{const d=Math.abs(el.offsetLeft+el.offsetWidth/2-c); if(d<bd){bd=d;best=k}});
+    return best;
+  }
+  function go(i){
+    i=Math.max(0,Math.min(slides.length-1,i)); const el=slides[i];
+    track.scrollTo({left:el.offsetLeft-(track.clientWidth-el.offsetWidth)/2,behavior:'smooth'});
+  }
+  track.addEventListener('scroll',()=>setActive(nearest()),{passive:true});
+  dots.forEach((d,i)=>d.addEventListener('click',()=>go(i)));
+  wc.querySelectorAll('.wk-arrow').forEach(b=>b.addEventListener('click',()=>go(nearest()+ +b.dataset.d)));
+  // mouse drag to scroll (touch/trackpad use native scrolling)
+  let down=false,sx=0,sl=0,moved=false;
+  track.addEventListener('mousedown',e=>{down=true;moved=false;sx=e.pageX;sl=track.scrollLeft;track.classList.add('drag')});
+  window.addEventListener('mousemove',e=>{if(!down)return;const dx=e.pageX-sx;if(Math.abs(dx)>4)moved=true;track.scrollLeft=sl-dx});
+  window.addEventListener('mouseup',()=>{if(!down)return;down=false;track.classList.remove('drag');if(moved)go(nearest())});
+  track.addEventListener('click',e=>{if(moved){e.preventDefault();e.stopPropagation();moved=false}},true);
+  requestAnimationFrame(()=>{go(0);setActive(0)});
+  window.addEventListener('resize',()=>go(nearest()));
 }
 
 // ── COPY EMAIL ──
