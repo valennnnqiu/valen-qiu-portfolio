@@ -3956,12 +3956,12 @@ if(wc){
   const items=[]; WORK_DATA.forEach(g=>g.projects.forEach(p=>items.push({...p,year:g.year})));
   const n=items.length;
   wc.innerHTML=`<div class="wk-d">
-    <div class="wk-left">${items.map((p,i)=>`<div class="wk-info" data-i="${i}"><h3 class="wk-name">${p.name}</h3><p class="wk-desc">${p.desc}</p><button class="wk-cta" onclick="goto('${p.page}')">Open case study <i>→</i></button></div>`).join('')}</div>
+    <div class="wk-left">${items.map((p,i)=>`<div class="wk-info" data-i="${i}"><h3 class="wk-name">${p.name}</h3><p class="wk-desc">${p.desc}</p><button class="wk-cta" onclick="goto('${p.page}')">Read case study <i>→</i></button></div>`).join('')}</div>
     <div class="wk-thumb" title="Next project"><img alt=""><span>Next</span></div>
     <div class="wk-right"><div class="wk-rail">${items.map((p,i)=>`<div class="wk-s" style="--k:${i}" data-i="${i}"><div class="wk-sk"><img src="${p.img}" alt="${p.name}" draggable="false"></div></div>`).join('')}</div></div>
     <div class="wk-dots">${items.map((_,i)=>`<button class="wk-dot" aria-label="Project ${i+1}"></button>`).join('')}</div>
   </div>
-  <div class="wk-m">${items.map(p=>`<a class="wk-mc" href="#" onclick="goto('${p.page}');return false;"><div class="wk-msk"><img src="${p.img}" alt="${p.name}"></div><h3 class="wk-name">${p.name}</h3><p class="wk-desc">${p.desc}</p><span class="wk-cta">Open case study <i>→</i></span></a>`).join('')}</div>`;
+  <div class="wk-m">${items.map(p=>`<a class="wk-mc" href="#" onclick="goto('${p.page}');return false;"><div class="wk-msk"><img src="${p.img}" alt="${p.name}"></div><h3 class="wk-name">${p.name}</h3><p class="wk-desc">${p.desc}</p><span class="wk-cta">Read case study <i>→</i></span></a>`).join('')}</div>`;
   const sec=document.getElementById('work-section');
   const infos=[...wc.querySelectorAll('.wk-info')], slides=[...wc.querySelectorAll('.wk-s')], dots=[...wc.querySelectorAll('.wk-dot')];
   const thumb=wc.querySelector('.wk-thumb'), thumbImg=thumb.querySelector('img');
