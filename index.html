@@ -281,6 +281,19 @@ a{color:inherit;text-decoration:none}
 .proj-card,.writing-card{min-height:100vh;min-height:100dvh;margin-top:0!important;display:flex;flex-direction:column;justify-content:center;box-sizing:border-box}
 .teaching-card{margin-top:0!important}
 @media(max-width:700px){.fun-in{padding:0 .5rem;width:100%}}
+/* Zepto hero: microscope lens */
+.zl-hl{position:relative;width:100%;max-width:800px;--lx:-999px;--ly:-999px;--lr:0px}
+.zl-hl .zl-hero-headline{max-width:none;width:100%;margin:0}
+.zl-hl-hid{position:absolute;left:0;top:0;pointer-events:none;color:#fff;-webkit-mask-image:radial-gradient(circle var(--lr) at var(--lx) var(--ly),#000 calc(100% - 1px),transparent 100%);mask-image:radial-gradient(circle var(--lr) at var(--lx) var(--ly),#000 calc(100% - 1px),transparent 100%)}
+.zl-hl-hid span{display:inline-block;padding:0 .1em;margin:0 -.1em;background:var(--im) center/cover no-repeat;color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.55)}
+.zl-hl.lens-on #zl-wordmark{-webkit-mask-image:radial-gradient(circle var(--lr) at var(--lx) var(--ly),transparent calc(100% - 1px),#000 100%);mask-image:radial-gradient(circle var(--lr) at var(--lx) var(--ly),transparent calc(100% - 1px),#000 100%)}
+.zl-lens{position:absolute;left:0;top:0;width:calc(var(--lr)*2);height:calc(var(--lr)*2);border-radius:50%;transform:translate(calc(var(--lx) - var(--lr)),calc(var(--ly) - var(--lr)));border:1px solid rgba(255,255,255,.75);box-shadow:0 0 28px rgba(255,255,255,.14),inset 0 0 22px rgba(255,255,255,.1);pointer-events:none;opacity:0}
+.zl-hl.lens-on .zl-lens{opacity:1}
+.zl-hl .zw{display:inline-block;opacity:0;transform:translateY(.6em)}
+.zl-hl.in .zw{animation:zwUp .6s var(--ease) forwards;animation-delay:calc(var(--li,0)*100ms)}
+@keyframes zwUp{to{opacity:1;transform:none}}
+@media(hover:none){.zl-hl{touch-action:pan-y}}
+@media(prefers-reduced-motion:reduce){.zl-hl .zw{opacity:1;transform:none;animation:none!important}.zl-hl-hid,.zl-lens{display:none}.zl-hl.lens-on #zl-wordmark{-webkit-mask-image:none;mask-image:none}}
 .teaching-card{background:transparent!important;border:none!important;box-shadow:none!important;height:100vh;height:100dvh;min-height:520px;display:flex;flex-direction:column;box-sizing:border-box;margin-top:0}
 .teaching-card-hd{flex:0 0 auto}
 .ocad-desk{position:relative;flex:1 1 auto;min-height:0;margin-top:1rem}
@@ -3360,7 +3373,11 @@ body.on-zepto{scrollbar-color:#fff transparent}
   <!-- HERO -->
   <section class="zl-hero">
     <div class="zl-hero-inner">
-      <h1 class="zl-hero-headline" id="zl-wordmark">Transforming brands into tomorrow's impactful futures.</h1>
+      <div class="zl-hl" id="zl-hl">
+        <h1 class="zl-hero-headline" id="zl-wordmark">Transforming brands into tomorrow's impactful futures.</h1>
+        <div class="zl-hero-headline zl-hl-hid" id="zl-hl-hid" aria-hidden="true"><span style="--im:url(images/zepto/projects/t-soup/1.png)">Transforming</span> <span style="--im:url(images/zepto/projects/duanshelian/1.png)">brands</span> <span style="--im:url(images/zepto/projects/icicle/1.png)">into</span> <span style="--im:url(images/zepto/projects/smart-water-dispenser/1.png)">tomorrow's</span> <span style="--im:url(images/zepto/projects/samurai-shodown-blindbox/1.png)">impactful</span> <span style="--im:url(images/zepto/projects/scifi-chengdu-xiaoou/1.png)">futures.</span></div>
+        <i class="zl-lens" id="zl-lens"></i>
+      </div>
     </div>
   </section>
 
@@ -3694,12 +3711,7 @@ function scrambleText(el, finalText, duration, chars) {
 }
 
 function initZeptoScramble() {
-  // Wordmark: preserve the slash span
-  const wm = document.getElementById('zl-wordmark');
-  if(wm) {
-    const final = "Transforming brands into tomorrow's impactful futures.";
-    scrambleText(wm, final, 1.8, 'abcdefghijklmnopqrstuvwxyz ');
-  }
+  // Wordmark: handled by the lens hero (line-by-line rise), no scramble
 
   // Tagline
   const tg = document.getElementById('zl-tagline');
@@ -4092,6 +4104,53 @@ function openApp(i){
     if(!matchMedia('(prefers-reduced-motion:reduce)').matches){for(let k=1;k<=txt.length;k++){if(el._id!==id)return; el.textContent=txt.slice(0,k); el.appendChild(cur); await sl(48)}}
     if(el._id!==id)return; el.innerHTML=txt.replace('impossible','<span class="im">im</span>possible'); el.appendChild(cur); await sl(600); if(el._id!==id)return; el.classList.add('x'); await sl(1800); if(el._id===id)cur.remove()}
   addEventListener('scroll',()=>{if(!tk)tk=requestAnimationFrame(upd)},{passive:true}); addEventListener('resize',upd); upd();
+})();
+
+(function(){
+  const hl=document.getElementById('zl-hl'), h1=document.getElementById('zl-wordmark'), hid=document.getElementById('zl-hl-hid'), pg=document.getElementById('page-zepto');
+  if(!hl||!h1||!hid||!pg) return;
+  const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches, touch=matchMedia('(hover:none)').matches;
+  hid.querySelectorAll('span').forEach(sp=>{const m=/url\((.+?)\)/.exec(sp.getAttribute('style')); if(m) new Image().src=m[1]});
+  // split headline into words so lines can rise one after another
+  const txt=h1.textContent.trim(); h1.setAttribute('aria-label',txt); h1.innerHTML=txt.split(' ').map(w=>'<span class="zw" aria-hidden="true">'+w+'</span>').join(' ');
+  let cx=0,cy=0,tx=0,ty=0,k=0,tk=0,raf=0,hovering=false,auto=null;
+  const baseR=()=>innerWidth>=1600?120:innerWidth<700?78:100;
+  function setLines(){let last=null,li=-1; h1.querySelectorAll('.zw').forEach(w=>{if(w.offsetTop!==last){last=w.offsetTop;li++} w.style.setProperty('--li',li)})}
+  function frame(){
+    cx+=(tx-cx)*.13; cy+=(ty-cy)*.13; k+=(tk-k)*.16;
+    hl.style.setProperty('--lx',cx.toFixed(1)+'px'); hl.style.setProperty('--ly',cy.toFixed(1)+'px'); hl.style.setProperty('--lr',(Math.max(0,k)*baseR()).toFixed(1)+'px');
+    hl.classList.toggle('lens-on',k>.01);
+    raf=(k>.01||Math.abs(tk-k)>.01||Math.abs(tx-cx)>.3||Math.abs(ty-cy)>.3||auto)?requestAnimationFrame(frame):0;
+  }
+  const kick=()=>{if(!raf) raf=requestAnimationFrame(frame)};
+  const rel=e=>{const r=hl.getBoundingClientRect(); return [e.clientX-r.left,e.clientY-r.top]};
+  const hero=hl.closest('.zl-hero');
+  if(!reduce){
+    if(!touch){
+      hero.addEventListener('pointerenter',e=>{[tx,ty]=rel(e); if(!hovering){cx=tx;cy=ty} hovering=true; auto=null; tk=1; kick()});
+      hero.addEventListener('pointermove',e=>{[tx,ty]=rel(e); hovering=true; auto=null; const r=h1.getBoundingClientRect(); const on=e.clientX>=r.left&&e.clientX<=r.right&&e.clientY>=r.top&&e.clientY<=r.bottom; tk=on?1.15:1; kick()});
+      hero.addEventListener('pointerleave',()=>{hovering=false; tk=0; kick()});
+    }else{
+      const mv=e=>{const t=e.touches[0]; const r=hl.getBoundingClientRect(); auto=null; tx=t.clientX-r.left; ty=t.clientY-r.top; tk=1; kick()};
+      hl.addEventListener('touchstart',mv,{passive:true}); hl.addEventListener('touchmove',mv,{passive:true});
+    }
+  }
+  function intro(){
+    hl.classList.remove('in'); tk=0; k=0; hovering=false; auto=null; void hl.offsetWidth; setLines(); hl.classList.add('in');
+    if(reduce) return;
+    setTimeout(()=>{ if(!pg.classList.contains('active')||hovering) return;
+      const r=hl.getBoundingClientRect(), t0=performance.now();
+      cx=tx=r.width*.12; cy=ty=r.height*.5; tk=1;
+      // sweep across the headline once (or keep wandering on touch screens until the finger takes over)
+      auto=now=>{const p=(now-t0)/(touch?6000:1900); if(hovering||p>=1&&!touch){auto=null; if(!hovering) tk=0; kick(); return}
+        const q=touch?(p%1):p; tx=r.width*(.12+.76*q); ty=r.height*(.5+.22*Math.sin(q*Math.PI*2*(touch?2:1)))};
+      (function loop(t){ if(auto){auto(t); requestAnimationFrame(loop)} })(t0);
+      kick();
+    },1100);
+  }
+  new MutationObserver(()=>{ if(pg.classList.contains('active')) intro(); }).observe(pg,{attributes:true,attributeFilter:['class']});
+  if(pg.classList.contains('active')) intro();
+  addEventListener('resize',setLines);
 })();
 
 // ── GO TO SECTION ──
