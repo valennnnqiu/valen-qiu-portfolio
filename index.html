@@ -289,9 +289,9 @@ a{color:inherit;text-decoration:none}
 /* Zepto hero: headline made of particles */
 .zl-hl{position:relative;width:100%;max-width:800px}
 .zl-hl .zl-hero-headline{max-width:none;width:100%;margin:0}
-.zl-pt{position:absolute;left:-160px;top:-170px;width:calc(100% + 320px);height:calc(100% + 340px);pointer-events:none;display:none}
+.zl-pt{transition:opacity .3s var(--ease-out);position:absolute;left:-160px;top:-170px;width:calc(100% + 320px);height:calc(100% + 340px);pointer-events:none;display:none}
 .zl-hl.pt-on .zl-pt{display:block}
-.zl-hl.pt-on #zl-wordmark{color:transparent!important}
+.zl-hl.pt-on #zl-wordmark{color:transparent!important;transition:color .3s var(--ease-out)}
 .zl-hl.pt-on.solid #zl-wordmark{color:var(--zl-ink,#fff)!important;transition:color var(--t-base) var(--ease-out)}
 .zl-hl.solid .zl-pt{opacity:0;transition:opacity var(--t-base) var(--ease-out)}
 /* word-by-word light-up */
@@ -4131,29 +4131,31 @@ function openApp(i){
     const fs=parseFloat(cs.fontSize); o.fillStyle='#fff'; o.textBaseline='alphabetic'; o.font=cs.fontWeight+' '+fs+'px '+cs.fontFamily; if('letterSpacing' in o) o.letterSpacing='0px';
     const asc=o.measureText('M').fontBoundingBoxAscent||fs*.95, node=h1.firstChild, rg=document.createRange(), txt=node.textContent;
     for(let i=0;i<txt.length;i++){ if(txt[i]===' ') continue; rg.setStart(node,i); rg.setEnd(node,i+1); const q=rg.getBoundingClientRect(); o.fillText(txt[i],q.left-r.left+PAD_X,q.top-r.top+PAD_Y+asc) }
-    const img=o.getImageData(0,0,W,H).data, gap=Math.max(1.7,fs/46); P=[];
-    for(let y=0;y<H;y+=gap) for(let x=0;x<W;x+=gap){ if(img[((y|0)*W+(x|0))*4+3]>128) P.push({hx:x,hy:y,x:x,y:y,vx:0,vy:0,dx:(Math.random()-.3)*340,dy:150+Math.random()*420}) }
+    const img=o.getImageData(0,0,W,H).data, gap=Math.max(1.9,fs/42); P=[];
+    for(let y=0;y<H;y+=gap) for(let x=0;x<W;x+=gap){ if(img[((y|0)*W+(x|0))*4+3]>128) P.push({hx:x+(Math.random()-.5)*.5,hy:y+(Math.random()-.5)*.5,ox:0,oy:0,dl:(x/W)*750+Math.random()*250,sx:(Math.random()-.5)*36,sy:60+Math.random()*90,th:Math.random()*.5,dx:(Math.random()-.4)*260,dy:90+Math.random()*230}) }
     built=true;
   }
-  function assemble(){ // dust drifts in from all around and settles into the sentence
-    t0=performance.now(); solid=false; hl.classList.remove('solid'); calm=0;
-    P.forEach(p=>{const a=Math.random()*6.283, d=180+Math.random()*520; p.x=p.hx+Math.cos(a)*d; p.y=p.hy+Math.sin(a)*d*.6; p.vx=0; p.vy=0});
+  function assemble(){ // the sentence materialises as a wave, left to right, rising into place
+    t0=performance.now(); solid=false; hl.classList.remove('solid'); calm=0; P.forEach(p=>{p.ox=0;p.oy=0});
   }
+  const ease3=t=>1-Math.pow(1-t,3), ease2=t=>t*t*(3-2*t);
   function frame(now){
     raf=0; if(!pg.classList.contains('active')) return;
     const el=now-t0; ctx.setTransform(dpr,0,0,dpr,0,0); ctx.clearRect(0,0,W,H);
-    const R=95, s0=Math.max(0,Math.min(1,scrollY/(innerHeight*.55))), sc=s0*s0*(3-2*s0); let maxv=0;
-    const path=new Path2D();
+    const R=72, MAXD=24, sp=Math.max(0,Math.min(1,scrollY/(innerHeight*1.15))); let moving=false; const path=new Path2D();
     for(const p of P){
-      const dx=p.x-mx, dy=p.y-my, d2=dx*dx+dy*dy;
-      if(d2<R*R){const d=Math.sqrt(d2)||1, f=(1-d/R); p.vx+=dx/d*f*f*9+(Math.random()-.5)*f*3; p.vy+=dy/d*f*f*9+(Math.random()-.5)*f*3}
-      p.vx+=(p.hx+p.dx*sc-p.x)*.05; p.vy+=(p.hy+p.dy*sc-p.y)*.05; p.vx*=.86; p.vy*=.86; p.x+=p.vx; p.y+=p.vy;
-      const v=Math.abs(p.vx)+Math.abs(p.vy)+Math.abs(p.hx-p.x)*.2+Math.abs(p.hy-p.y)*.2; if(v>maxv) maxv=v;
-      path.rect(p.x,p.y,1.5,1.5);
+      const t=(el-p.dl)/1100; if(t<=0){moving=true; continue}
+      let e=1, sz=1.25; if(t<1){moving=true; e=ease3(t); sz=1.25*Math.min(1,t*4)}
+      // gentle bulge away from the pointer (bounded, never scatters)
+      let tx=0,ty=0; const dx=p.hx-mx, dy=p.hy-my, d2=dx*dx+dy*dy;
+      if(d2<R*R){const d=Math.sqrt(d2)||1, f=(1-d/R); tx+=dx/d*f*f*MAXD; ty+=dy/d*f*f*MAXD}
+      // slow, staggered dissolve on scroll
+      const q=ease2(Math.max(0,Math.min(1,(sp-p.th*.6)/.55))); tx+=p.dx*q; ty+=p.dy*q;
+      p.ox+=(tx-p.ox)*.1; p.oy+=(ty-p.oy)*.1; if(Math.abs(tx-p.ox)+Math.abs(ty-p.oy)>.15) moving=true;
+      path.rect(p.hx+p.sx*(1-e)+p.ox, p.hy+p.sy*(1-e)+p.oy, sz, sz);
     }
-    ctx.globalAlpha=Math.min(1,el/500)*(1-sc*.9); ctx.fillStyle='#fff'; ctx.fill(path); ctx.globalAlpha=1;
-    // once everything is at rest, hand over to the real, gap-free type
-    if(sc===0&&mx<-900&&maxv<.35&&el>900){ if(++calm>12&&!solid){solid=true; hl.classList.add('solid')} } else calm=0;
+    ctx.globalAlpha=1-sp*.85; ctx.fillStyle='#fff'; ctx.fill(path); ctx.globalAlpha=1;
+    if(!moving&&sp===0&&mx<-900){ if(++calm>10&&!solid){solid=true; hl.classList.add('solid')} } else calm=0;
     if(!solid) raf=requestAnimationFrame(frame);
   }
   const kick=()=>{if(!raf&&!solid) raf=requestAnimationFrame(frame)};
