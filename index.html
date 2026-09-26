@@ -288,37 +288,9 @@ a{color:inherit;text-decoration:none}
 .zl-hl .zl-hero-headline{max-width:none;width:100%;margin:0}
 .zl-pt{position:absolute;left:-160px;top:-170px;width:calc(100% + 320px);height:calc(100% + 340px);pointer-events:none;display:none}
 .zl-hl.pt-on .zl-pt{display:block}
-.zl-hl.pt-on #zl-wordmark{color:transparent!important;user-select:none}
-/* Zepto services: stacked cards with a tiny looping demo each */
-.zl-slide{transform:translateY(34px) scale(.96);transform-origin:50% 100%}
-.zl-slide.active{transform:none}
-.zl-slide.past{opacity:0;transform:translateY(-38px) scale(.94)}
-.zl-vis{position:relative;height:210px;border-radius:18px;background:#1a1718;border:1px solid rgba(255,255,255,.1);overflow:hidden;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
-.zl-vis *{animation-play-state:paused}
-.zl-slide.active .zl-vis *{animation-play-state:running}
-.v1a,.v1b,.v1c{position:absolute;width:96px;height:96px;border-radius:50%;mix-blend-mode:screen;animation:v1 6s var(--ease-io) infinite}
-.v1a{background:#E8196E;--x:-34px}.v1b{background:#3d6bff;--x:34px;animation-delay:-2s}.v1c{background:#ffc93d;--x:0px;animation-delay:-4s}
-@keyframes v1{0%,100%{transform:translate(var(--x),-26px) scale(1)}33%{transform:translate(calc(var(--x)*-1),10px) scale(1.15)}66%{transform:translate(0,30px) scale(.9)}}
-.v2{position:relative;width:84px;height:84px;transform-style:preserve-3d;animation:v2 9s linear infinite}
-.zl-vis:has(.v2){perspective:520px}
-.v2 b{position:absolute;inset:0;border:1.5px solid rgba(255,255,255,.85);background:rgba(232,25,110,.08)}
-.v2 b:nth-child(1){transform:translateZ(42px)}.v2 b:nth-child(2){transform:rotateY(180deg) translateZ(42px)}.v2 b:nth-child(3){transform:rotateY(90deg) translateZ(42px)}.v2 b:nth-child(4){transform:rotateY(-90deg) translateZ(42px)}.v2 b:nth-child(5){transform:rotateX(90deg) translateZ(42px)}.v2 b:nth-child(6){transform:rotateX(-90deg) translateZ(42px)}
-@keyframes v2{to{transform:rotateX(-24deg) rotateY(360deg)}}
-.v3{position:relative;width:230px;height:150px;border:1.5px solid rgba(255,255,255,.5);border-radius:10px}
-.v3bar{position:absolute;left:0;right:0;top:0;height:16px;border-bottom:1.5px solid rgba(255,255,255,.35)}
-.v3box,.v3l{position:absolute;border-radius:6px;background:rgba(232,25,110,.9);transform-origin:0 0;animation:v3 5s var(--ease-io) infinite}
-.v3box{left:14px;top:30px;width:90px;height:90px}
-.v3l{left:118px;top:34px;width:96px;height:10px;background:rgba(255,255,255,.8);animation-name:v3l}.v3l.l2{top:56px;width:64px;animation-delay:.2s}
-.v3cur{position:absolute;left:14px;top:30px;width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:16px solid #fff;transform:rotate(-30deg);animation:v3c 5s var(--ease-io) infinite}
-@keyframes v3{0%,8%{transform:scale(0)}30%,88%{transform:scale(1)}100%{transform:scale(0)}}
-@keyframes v3l{0%,30%{transform:scaleX(0)}55%,88%{transform:scaleX(1)}100%{transform:scaleX(0)}}
-@keyframes v3c{0%{transform:translate(0,0) rotate(-30deg)}30%{transform:translate(90px,90px) rotate(-30deg)}60%{transform:translate(200px,30px) rotate(-30deg)}100%{transform:translate(0,0) rotate(-30deg)}}
-.v4{position:relative;width:86px;height:86px;border-radius:46% 46% 40% 40%;background:#ffc93d;transform-origin:50% 100%;animation:v4 1.6s var(--ease-out) infinite;margin-top:14px}
-.v4 .eye{position:absolute;top:30px;width:11px;height:11px;border-radius:50%;background:#231F20}.v4 .eye:nth-child(1){left:22px}.v4 .eye:nth-child(2){right:22px}
-.v4sh{position:absolute;left:50%;bottom:36px;width:90px;height:12px;margin-left:-45px;border-radius:50%;background:rgba(0,0,0,.45);filter:blur(4px);animation:v4s 1.6s var(--ease-out) infinite}
-@keyframes v4{0%{transform:translateY(0) scale(1.18,.8)}18%{transform:translateY(-50px) scale(.9,1.14)}50%{transform:translateY(0) scale(1.18,.8)}100%{transform:translateY(0) scale(1.18,.8)}}
-@keyframes v4s{0%,50%,100%{transform:scaleX(1.05);opacity:.5}18%{transform:scaleX(.6);opacity:.2}}
-@media(max-width:700px){.zl-slides-wrap{height:auto}.zl-vis{height:170px}}
+.zl-hl.pt-on #zl-wordmark{color:transparent!important}
+.zl-hl.pt-on.solid #zl-wordmark{color:var(--zl-ink,#fff)!important;transition:color .5s var(--ease-out)}
+.zl-hl.solid .zl-pt{opacity:0;transition:opacity .5s var(--ease-out)}
 /* word-by-word light-up */
 .lw{opacity:.22;transition:opacity var(--t-fast) var(--ease-out)}
 .lw.on{opacity:1}
@@ -330,7 +302,7 @@ a{color:inherit;text-decoration:none}
   html .reveal.visible{opacity:1}
   .lw{opacity:1!important}
   .zl-vis *{animation:none!important}
-  .zl-slide,.zl-slide.past{transform:none!important}
+  .zl-slide,.zl-slide.past-unused{transform:none!important}
   .phone,.writing-grid .article-card{transform:none!important}
 }
 .teaching-card{background:transparent!important;border:none!important;box-shadow:none!important;height:100vh;height:100dvh;min-height:520px;display:flex;flex-direction:column;box-sizing:border-box;margin-top:0}
@@ -1705,7 +1677,7 @@ a{color:inherit;text-decoration:none}
 .zl-slides-wrap{
   padding:0;
   position:relative;
-  height:380px;
+  height:200px;
 }
 .zl-slide{
   position:absolute;inset:0;
@@ -3503,10 +3475,10 @@ body.on-zepto{scrollbar-color:#fff transparent}
         </ul>
       </div>
       <div class="zl-slides-wrap">
-        <div class="zl-slide"><span class="zl-slide-num">001</span><div class="zl-vis"><i class="v1a"></i><i class="v1b"></i><i class="v1c"></i></div><span class="zl-slide-title">Branding Strategy</span><p class="zl-slide-desc">Build brand systems designed for long-term growth, guided by a consulting mindset. We apply future and systems thinking to ensure every brand stays consistent, relevant, and scalable over time.</p></div>
-        <div class="zl-slide"><span class="zl-slide-num">002</span><div class="zl-vis"><div class="v2"><b></b><b></b><b></b><b></b><b></b><b></b></div></div><span class="zl-slide-title">Product Design</span><p class="zl-slide-desc">Design products that balance form, use, and feasibility. We stay involved from concept to production to ensure ideas are intentional and buildable.</p></div>
-        <div class="zl-slide"><span class="zl-slide-num">003</span><div class="zl-vis"><div class="v3"><i class="v3bar"></i><i class="v3box"></i><i class="v3l"></i><i class="v3l l2"></i><i class="v3cur"></i></div></div><span class="zl-slide-title">UI/UX Design</span><p class="zl-slide-desc">Design digital experiences shaped by real human behavior — from web and app interfaces to Shopify storefronts. We use clear logic and structured flows to make complex interactions feel intuitive.</p></div>
-        <div class="zl-slide"><span class="zl-slide-num">004</span><div class="zl-vis"><div class="v4"><i class="eye"></i><i class="eye"></i></div><span class="v4sh"></span></div><span class="zl-slide-title">Toy Design</span><p class="zl-slide-desc">Design toys across categories and production contexts. We work with trusted factories and certifications to turn diverse ideas into compliant products.</p></div>
+        <div class="zl-slide"><span class="zl-slide-num">001</span><span class="zl-slide-title">Branding Strategy</span><p class="zl-slide-desc">Build brand systems designed for long-term growth, guided by a consulting mindset. We apply future and systems thinking to ensure every brand stays consistent, relevant, and scalable over time.</p></div>
+        <div class="zl-slide"><span class="zl-slide-num">002</span><span class="zl-slide-title">Product Design</span><p class="zl-slide-desc">Design products that balance form, use, and feasibility. We stay involved from concept to production to ensure ideas are intentional and buildable.</p></div>
+        <div class="zl-slide"><span class="zl-slide-num">003</span><span class="zl-slide-title">UI/UX Design</span><p class="zl-slide-desc">Design digital experiences shaped by real human behavior — from web and app interfaces to Shopify storefronts. We use clear logic and structured flows to make complex interactions feel intuitive.</p></div>
+        <div class="zl-slide"><span class="zl-slide-num">004</span><span class="zl-slide-title">Toy Design</span><p class="zl-slide-desc">Design toys across categories and production contexts. We work with trusted factories and certifications to turn diverse ideas into compliant products.</p></div>
       </div>
     </div></div>
   </section>
@@ -4147,56 +4119,51 @@ function openApp(i){
 (function(){
   const hl=document.getElementById('zl-hl'), h1=document.getElementById('zl-wordmark'), cv=document.getElementById('zl-pt'), pg=document.getElementById('page-zepto');
   if(!hl||!h1||!cv||!pg||matchMedia('(prefers-reduced-motion:reduce)').matches) return;
-  const ctx=cv.getContext('2d'), PAD_X=160, PAD_Y=170; let P=[],W=0,H=0,dpr=1,mx=-999,my=-999,raf=0,t0=0,flask=null,built=false;
-  const words=h1.textContent.trim().split(' ');
-  function flaskPose(){ // flask tipped over the top-centre of the text, mouth pointing down
-    return {x:PAD_X+(W-PAD_X*2)/2+40, y:PAD_Y*0.42, a:2.55}
-  }
-  function mouth(f){const c=Math.cos(f.a),s=Math.sin(f.a); return [f.x+(0*c-(-46)*s), f.y+(0*s+(-46)*c)]}
+  const ctx=cv.getContext('2d'), PAD_X=160, PAD_Y=170; let P=[],W=0,H=0,dpr=1,mx=-999,my=-999,raf=0,t0=0,built=false,calm=0,solid=false;
   function build(){
     const r=h1.getBoundingClientRect(); dpr=Math.min(2,devicePixelRatio||1);
     W=Math.round(r.width+PAD_X*2); H=Math.round(r.height+PAD_Y*2); cv.width=W*dpr; cv.height=H*dpr;
     // place every glyph exactly where the browser laid it out
     const cs=getComputedStyle(h1), off=document.createElement('canvas'); off.width=W; off.height=H; const o=off.getContext('2d');
-    const fs=parseFloat(cs.fontSize); o.fillStyle='#fff'; o.textBaseline='alphabetic'; o.font='700 '+fs+'px '+cs.fontFamily; if('letterSpacing' in o) o.letterSpacing='0px';
+    const fs=parseFloat(cs.fontSize); o.fillStyle='#fff'; o.textBaseline='alphabetic'; o.font=cs.fontWeight+' '+fs+'px '+cs.fontFamily; if('letterSpacing' in o) o.letterSpacing='0px';
     const asc=o.measureText('M').fontBoundingBoxAscent||fs*.95, node=h1.firstChild, rg=document.createRange(), txt=node.textContent;
     for(let i=0;i<txt.length;i++){ if(txt[i]===' ') continue; rg.setStart(node,i); rg.setEnd(node,i+1); const q=rg.getBoundingClientRect(); o.fillText(txt[i],q.left-r.left+PAD_X,q.top-r.top+PAD_Y+asc) }
-    const img=o.getImageData(0,0,W,H).data, gap=Math.max(2.2,fs/34); P=[];
-    for(let y=0;y<H;y+=gap) for(let x=0;x<W;x+=gap){ if(img[((y|0)*W+(x|0))*4+3]>140) P.push({hx:x+(Math.random()-.5)*gap*.5,hy:y+(Math.random()-.5)*gap*.5,x:0,y:0,vx:0,vy:0,s:(Math.random()<.25?1.9:1.5),d:Math.random(),live:false,dx:(Math.random()-.3)*340,dy:150+Math.random()*420}) }
+    const img=o.getImageData(0,0,W,H).data, gap=Math.max(1.7,fs/46); P=[];
+    for(let y=0;y<H;y+=gap) for(let x=0;x<W;x+=gap){ if(img[((y|0)*W+(x|0))*4+3]>128) P.push({hx:x,hy:y,x:x,y:y,vx:0,vy:0,dx:(Math.random()-.3)*340,dy:150+Math.random()*420}) }
     built=true;
   }
-  function pour(){
-    flask=flaskPose(); const m=mouth(flask); t0=performance.now();
-    P.forEach(p=>{p.x=m[0];p.y=m[1];p.vx=0;p.vy=0;p.live=false; p.at=p.d*1900});
+  function assemble(){ // dust drifts in from all around and settles into the sentence
+    t0=performance.now(); solid=false; hl.classList.remove('solid'); calm=0;
+    P.forEach(p=>{const a=Math.random()*6.283, d=180+Math.random()*520; p.x=p.hx+Math.cos(a)*d; p.y=p.hy+Math.sin(a)*d*.6; p.vx=0; p.vy=0});
   }
   function frame(now){
     raf=0; if(!pg.classList.contains('active')) return;
     const el=now-t0; ctx.setTransform(dpr,0,0,dpr,0,0); ctx.clearRect(0,0,W,H);
-    const R=95, m=flask&&mouth(flask); let busy=false; const sp0=Math.max(0,Math.min(1,scrollY/(innerHeight*.55))), sc=sp0*sp0*(3-2*sp0); if(sc>0) busy=true;
-    ctx.fillStyle='#fff'; ctx.beginPath(); const hot=new Path2D(), cold=new Path2D();
+    const R=95, s0=Math.max(0,Math.min(1,scrollY/(innerHeight*.55))), sc=s0*s0*(3-2*s0); let maxv=0;
+    const path=new Path2D();
     for(const p of P){
-      if(!p.live){ if(el<p.at){busy=true; continue} p.live=true; p.vx=2.2+Math.random()*3.2; p.vy=1.2+Math.random()*2.6; }
       const dx=p.x-mx, dy=p.y-my, d2=dx*dx+dy*dy;
       if(d2<R*R){const d=Math.sqrt(d2)||1, f=(1-d/R); p.vx+=dx/d*f*f*9+(Math.random()-.5)*f*3; p.vy+=dy/d*f*f*9+(Math.random()-.5)*f*3}
-      p.vx+=(p.hx+p.dx*sc-p.x)*.03; p.vy+=(p.hy+p.dy*sc-p.y)*.03; p.vx*=.87; p.vy*=.87; p.x+=p.vx; p.y+=p.vy;
-      const sp=Math.abs(p.vx)+Math.abs(p.vy); if(sp>.25) busy=true;
-      (sp>2.5?hot:cold).rect(p.x,p.y,p.s,p.s);
+      p.vx+=(p.hx+p.dx*sc-p.x)*.05; p.vy+=(p.hy+p.dy*sc-p.y)*.05; p.vx*=.86; p.vy*=.86; p.x+=p.vx; p.y+=p.vy;
+      const v=Math.abs(p.vx)+Math.abs(p.vy)+Math.abs(p.hx-p.x)*.2+Math.abs(p.hy-p.y)*.2; if(v>maxv) maxv=v;
+      path.rect(p.x,p.y,1.5,1.5);
     }
-    ctx.globalAlpha=1-sc*.9; ctx.fillStyle='rgba(255,255,255,.92)'; ctx.fill(cold); ctx.fillStyle='#E8196E'; ctx.fill(hot); ctx.globalAlpha=1;
-    if(flask&&el<2500){ // the flask: tips, pours, then fades
-      const k=Math.min(1,el/500), fade=el>2000?1-(el-2000)/500:1;
-      ctx.save(); ctx.globalAlpha=fade*k; ctx.translate(flask.x,flask.y); ctx.rotate(flask.a*Math.min(1,.35+k*.65)); ctx.strokeStyle='#fff'; ctx.lineWidth=2; ctx.lineJoin='round';
-      ctx.beginPath(); ctx.moveTo(-9,-46); ctx.lineTo(9,-46); ctx.moveTo(-9,-46); ctx.lineTo(-9,-20); ctx.lineTo(-30,26); ctx.quadraticCurveTo(-34,36,-24,36); ctx.lineTo(24,36); ctx.quadraticCurveTo(34,36,30,26); ctx.lineTo(9,-20); ctx.lineTo(9,-46); ctx.moveTo(-14,-46); ctx.lineTo(14,-46); ctx.stroke(); ctx.restore(); busy=true;
-    } else flask=null;
-    if(busy||mx>-900) raf=requestAnimationFrame(frame);
+    ctx.globalAlpha=Math.min(1,el/500)*(1-sc*.9); ctx.fillStyle='#fff'; ctx.fill(path); ctx.globalAlpha=1;
+    // once everything is at rest, hand over to the real, gap-free type
+    if(sc===0&&mx<-900&&maxv<.35&&el>900){ if(++calm>12&&!solid){solid=true; hl.classList.add('solid')} } else calm=0;
+    if(!solid) raf=requestAnimationFrame(frame);
   }
-  const kick=()=>{if(!raf) raf=requestAnimationFrame(frame)};
-  function start(){ if(document.fonts&&document.fonts.ready){document.fonts.ready.then(go)} else go(); function go(){ build(); hl.classList.add('pt-on'); pour(); kick() } }
-  const hero=hl.closest('.zl-hero'), place=e=>{const r=cv.getBoundingClientRect(); mx=e.clientX-r.left; my=e.clientY-r.top; kick()};
-  hero.addEventListener('pointermove',place); hero.addEventListener('pointerdown',place); addEventListener('scroll',()=>{if(pg.classList.contains('active')&&built) kick()},{passive:true});
-  hero.addEventListener('pointerleave',()=>{mx=my=-999});
-  hero.addEventListener('touchmove',e=>{const t=e.touches[0]; place(t)},{passive:true}); hero.addEventListener('touchend',()=>{mx=my=-999});
-  let rt=0; addEventListener('resize',()=>{clearTimeout(rt); rt=setTimeout(()=>{if(pg.classList.contains('active')&&built){build(); P.forEach(p=>{p.x=p.hx;p.y=p.hy;p.live=true}); kick()}},200)});
+  const kick=()=>{if(!raf&&!solid) raf=requestAnimationFrame(frame)};
+  function wake(){ if(solid){solid=false; hl.classList.remove('solid')} calm=0; if(!raf) raf=requestAnimationFrame(frame) }
+  function start(){ if(document.fonts&&document.fonts.ready){document.fonts.ready.then(go)} else go(); function go(){ build(); hl.classList.add('pt-on'); assemble(); kick() } }
+  const hero=hl.closest('.zl-hero');
+  const place=e=>{const r=cv.getBoundingClientRect(), t=h1.getBoundingClientRect(); mx=e.clientX-r.left; my=e.clientY-r.top;
+    const near=e.clientX>t.left-30&&e.clientX<t.right+30&&e.clientY>t.top-30&&e.clientY<t.bottom+30; if(near) wake(); else if(!solid){mx=my=-999}};
+  hero.addEventListener('pointermove',place); hero.addEventListener('pointerdown',place);
+  hero.addEventListener('pointerleave',()=>{mx=my=-999; if(!solid) kick()});
+  hero.addEventListener('touchmove',e=>place(e.touches[0]),{passive:true}); hero.addEventListener('touchend',()=>{mx=my=-999; kick()});
+  addEventListener('scroll',()=>{ if(pg.classList.contains('active')&&built&&scrollY>2) wake() },{passive:true});
+  let rt=0; addEventListener('resize',()=>{clearTimeout(rt); rt=setTimeout(()=>{if(pg.classList.contains('active')&&built){build(); wake()}},200)});
   new MutationObserver(()=>{ if(pg.classList.contains('active')) start(); }).observe(pg,{attributes:true,attributeFilter:['class']});
   if(pg.classList.contains('active')) start();
 })();
