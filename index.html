@@ -276,9 +276,6 @@ a{color:inherit;text-decoration:none}
 .fun-p.on{opacity:1;transform:none}
 .fun-w{display:inline-block;cursor:default}
 .fun-w i{display:inline-block;font-style:normal;transform-origin:50% 80%}
-.fun-w:hover i{animation:funJelly .7s cubic-bezier(.34,1.56,.64,1)}
-.fun-w:hover i:nth-child(2){animation-delay:.07s}.fun-w:hover i:nth-child(3){animation-delay:.14s}
-@keyframes funJelly{0%{transform:none}25%{transform:translateY(-.22em) rotate(-9deg) scale(1.25,.85)}55%{transform:translateY(.03em) rotate(6deg) scale(.88,1.15)}80%{transform:translateY(-.06em) rotate(-2deg) scale(1.05,.97)}100%{transform:none}}
 .fun-caret{display:inline-block;width:.09em;height:1.05em;margin-left:.12em;vertical-align:-.15em;background:var(--pink);animation:funBlink 1s steps(1) infinite}
 @keyframes funBlink{50%{opacity:0}}
 .fun-ans{min-height:1.5em}
@@ -287,6 +284,15 @@ a{color:inherit;text-decoration:none}
 .fun-ans.x .im::after{transform:scaleX(1) rotate(-4deg)}
 .proj-card,.writing-card{min-height:100vh;min-height:100dvh;margin-top:0!important;display:flex;flex-direction:column;justify-content:center;box-sizing:border-box}
 .teaching-card{margin-top:0!important}
+/* the 24-hour "where does my time go" bar */
+.fun-clock{margin-top:.6rem;max-width:30rem}
+.fun-clock-cap{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;color:var(--muted);text-transform:lowercase;margin-bottom:.5rem;min-height:1.2em;transition:opacity .25s}
+.fun-clock-bar{display:flex;width:100%;height:.5rem;border-radius:999px;overflow:hidden;background:var(--bg2);gap:2px}
+.fc-seg{position:relative;flex:0 0 auto;width:calc(var(--w) / 24 * 100%);height:100%;overflow:hidden}
+.fc-seg::before{content:'';position:absolute;inset:0;transform:scaleX(var(--f,0));transform-origin:0 50%}
+.fc-design::before{background:var(--muted2)}
+.fc-pink::before{background:var(--pink)}
+.fc-sleep::before{background:repeating-linear-gradient(45deg,var(--muted2),var(--muted2) 3px,transparent 3px,transparent 6px)}
 @media(max-width:700px){.fun-in{padding:0 .5rem;width:100%}}
 /* Zepto hero: volumetric light/shadow through the headline, following the pointer */
 .zl-hero{position:relative}
@@ -2111,6 +2117,17 @@ body.on-zepto{scrollbar-color:#fff transparent}
       <div class="fun-lines">
         <p class="fun-p" id="fun-design" data-at=".18">Design is the day job.</p>
         <p class="fun-p" id="fun-build" data-at=".36" data-txt="Building, writing, teaching, and DJing are what I do with everything left over."></p>
+      </div>
+      <div class="fun-clock" id="fun-clock" aria-hidden="true">
+        <div class="fun-clock-cap" id="fc-cap">&nbsp;</div>
+        <div class="fun-clock-bar">
+          <span class="fc-seg fc-design" style="--w:9"></span>
+          <span class="fc-seg fc-pink" style="--w:3"></span>
+          <span class="fc-seg fc-pink" style="--w:3"></span>
+          <span class="fc-seg fc-pink" style="--w:3"></span>
+          <span class="fc-seg fc-pink" style="--w:3"></span>
+          <span class="fc-seg fc-sleep" style="--w:3"></span>
+        </div>
       </div>
     </div></div></div>
 
@@ -4112,6 +4129,8 @@ function openApp(i){
 function mixHex(c1,c2,t){t=Math.max(0,Math.min(1,t)); const p=h=>[parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)]; const a=p(c1),b=p(c2); return 'rgb('+a.map((v,i)=>Math.round(v+(b[i]-v)*t)).join(',')+')'}
 (function(){const wrap=document.getElementById('fun-intro'); if(!wrap) return;
   const t=wrap.querySelector('.fun-t'), ps=[...wrap.querySelectorAll('.fun-p')]; let tk=0;
+  const clockSegs=[...wrap.querySelectorAll('.fc-seg')], clockCap=document.getElementById('fc-cap');
+  const clockLabel=['9am–6pm · design','building','writing','teaching','djing','sleep (sometimes)'];
   function upd(){tk=0; const r=wrap.getBoundingClientRect(), vh=innerHeight, span=Math.max(1,r.height-vh);
     t.style.setProperty('--o',Math.max(0,Math.min(1,(vh-r.top)/(vh*.7))).toFixed(3));
     const p=Math.max(0,Math.min(1,-r.top/span));
@@ -4119,7 +4138,12 @@ function mixHex(c1,c2,t){t=Math.max(0,Math.min(1,t)); const p=h=>[parseInt(h.sli
     if(design) design.style.color=mixHex('#1C1C1A','#8C8A85',cs);
     kws.forEach((el,i)=>{const kp=Math.max(0,Math.min(1,(cs-i/kws.length)/(1/kws.length))); el.style.color=mixHex('#1C1C1A','#E8196E',kp)});
     ps.forEach(el=>{const on=p>=parseFloat(el.dataset.at); el.classList.toggle('on',on);
-      if(el.dataset.txt){ if(on&&!el.dataset.done){el.dataset.done=1; stream(el)} else if(!on&&el.dataset.done){el.dataset.done=''; el._id=(el._id||0)+1; el.textContent=''; el.classList.remove('x')} }})}
+      if(el.dataset.txt){ if(on&&!el.dataset.done){el.dataset.done=1; stream(el)} else if(!on&&el.dataset.done){el.dataset.done=''; el._id=(el._id||0)+1; el.textContent=''; el.classList.remove('x')} }})
+    // the 24h bar fills left to right, one segment at a time, as a literal "where did the day go"
+    const hrs=Math.max(0,Math.min(1,(p-.38)/.6))*24; let cum=0, active=-1;
+    clockSegs.forEach((el,i)=>{const w=parseFloat(el.style.getPropertyValue('--w')); const f=Math.max(0,Math.min(1,(hrs-cum)/w)); el.style.setProperty('--f',f.toFixed(3)); if(f>0) active=i; cum+=w});
+    if(clockCap) clockCap.textContent=active<0?' ':clockLabel[active];
+  }
   async function stream(el){const id=el._id=(el._id||0)+1, txt=el.dataset.txt, sl=ms=>new Promise(r=>setTimeout(r,ms)); const cur=document.createElement('i'); cur.className='fun-caret';
     el.textContent=''; el.appendChild(cur); await sl(350);
     if(!matchMedia('(prefers-reduced-motion:reduce)').matches){for(let k=1;k<=txt.length;k++){if(el._id!==id)return; el.textContent=txt.slice(0,k); el.appendChild(cur); await sl(48)}}
