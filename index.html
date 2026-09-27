@@ -4166,8 +4166,9 @@ function mixHex(c1,c2,t){t=Math.max(0,Math.min(1,t)); const p=h=>[parseInt(h.sli
     if(p>=.42){ if(!clockPlaying){clockPlaying=true; playClock()} } else if(clockPlaying){ clockPlaying=false; resetClock() }
   }
   async function stream(el){const id=el._id=(el._id||0)+1, txt=el.dataset.txt, sl=ms=>new Promise(r=>setTimeout(r,ms)); const cur=document.createElement('i'); cur.className='fun-caret';
+    const charMs=Math.max(12,(2600-350)/Math.max(1,txt.length)); // types out over the same ~2.6s the clock bar takes to fill
     el.textContent=''; el.appendChild(cur); await sl(350);
-    if(!matchMedia('(prefers-reduced-motion:reduce)').matches){for(let k=1;k<=txt.length;k++){if(el._id!==id)return; el.textContent=txt.slice(0,k); el.appendChild(cur); await sl(48)}}
+    if(!matchMedia('(prefers-reduced-motion:reduce)').matches){for(let k=1;k<=txt.length;k++){if(el._id!==id)return; el.textContent=txt.slice(0,k); el.appendChild(cur); await sl(charMs)}}
     if(el._id!==id)return;
     if(el.classList.contains('fun-ans')){
       el.innerHTML=txt.replace('impossible','<span class="im">im</span>possible'); el.appendChild(cur); await sl(600); if(el._id!==id)return; el.classList.add('x'); await sl(1800); if(el._id===id)cur.remove();
