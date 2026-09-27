@@ -4131,28 +4131,32 @@ function openApp(i){
     const fs=parseFloat(cs.fontSize); o.fillStyle='#fff'; o.textBaseline='alphabetic'; o.font=cs.fontWeight+' '+fs+'px '+cs.fontFamily; if('letterSpacing' in o) o.letterSpacing='0px';
     const asc=o.measureText('M').fontBoundingBoxAscent||fs*.95, node=h1.firstChild, rg=document.createRange(), txt=node.textContent;
     for(let i=0;i<txt.length;i++){ if(txt[i]===' ') continue; rg.setStart(node,i); rg.setEnd(node,i+1); const q=rg.getBoundingClientRect(); o.fillText(txt[i],q.left-r.left+PAD_X,q.top-r.top+PAD_Y+asc) }
-    const img=o.getImageData(0,0,W,H).data, gap=Math.max(1.9,fs/42); P=[];
-    for(let y=0;y<H;y+=gap) for(let x=0;x<W;x+=gap){ if(img[((y|0)*W+(x|0))*4+3]>128) P.push({hx:x+(Math.random()-.5)*.5,hy:y+(Math.random()-.5)*.5,ox:0,oy:0,dl:(x/W)*750+Math.random()*250,sx:(Math.random()-.5)*36,sy:60+Math.random()*90,th:Math.random()*.5,dx:(Math.random()-.4)*260,dy:90+Math.random()*230}) }
+    const img=o.getImageData(0,0,W,H).data, gap=Math.max(1.9,fs/42), N=Math.round(W*H/(gap*gap)); P=[];
+    for(let i=0;i<N;i++){ const x=Math.random()*W, y=Math.random()*H; if(img[((y|0)*W+(x|0))*4+3]>128) P.push({hx:x,hy:y,x,y,vx:0,vy:0,dl:(x/W)*700+Math.random()*260,sy:70+Math.random()*70,th:Math.random()*.5,dx:(Math.random()-.4)*260,dy:90+Math.random()*230}) }
     built=true;
   }
   function assemble(){ // the sentence materialises as a wave, left to right, rising into place
-    t0=performance.now(); solid=false; hl.classList.remove('solid'); calm=0; P.forEach(p=>{p.ox=0;p.oy=0});
+    t0=performance.now(); solid=false; hl.classList.remove('solid'); calm=0; P.forEach(p=>{p.x=p.hx;p.y=p.hy+p.sy;p.vx=0;p.vy=0});
   }
   const ease3=t=>1-Math.pow(1-t,3), ease2=t=>t*t*(3-2*t);
   function frame(now){
     raf=0; if(!pg.classList.contains('active')) return;
     const el=now-t0; ctx.setTransform(dpr,0,0,dpr,0,0); ctx.clearRect(0,0,W,H);
-    const R=72, MAXD=24, sp=Math.max(0,Math.min(1,scrollY/(innerHeight*1.15))); let moving=false; const path=new Path2D();
+    const R=55, REPEL=2.6, SPRING=.045, FRICTION=.82, sp=Math.max(0,Math.min(1,scrollY/(innerHeight*1.15)));
+    let moving=false; const path=new Path2D();
     for(const p of P){
-      const t=(el-p.dl)/1100; if(t<=0){moving=true; continue}
-      let e=1, sz=1.25; if(t<1){moving=true; e=ease3(t); sz=1.25*Math.min(1,t*4)}
-      // gentle bulge away from the pointer (bounded, never scatters)
-      let tx=0,ty=0; const dx=p.hx-mx, dy=p.hy-my, d2=dx*dx+dy*dy;
-      if(d2<R*R){const d=Math.sqrt(d2)||1, f=(1-d/R); tx+=dx/d*f*f*MAXD; ty+=dy/d*f*f*MAXD}
-      // slow, staggered dissolve on scroll
-      const q=ease2(Math.max(0,Math.min(1,(sp-p.th*.6)/.55))); tx+=p.dx*q; ty+=p.dy*q;
-      p.ox+=(tx-p.ox)*.1; p.oy+=(ty-p.oy)*.1; if(Math.abs(tx-p.ox)+Math.abs(ty-p.oy)>.15) moving=true;
-      path.rect(p.hx+p.sx*(1-e)+p.ox, p.hy+p.sy*(1-e)+p.oy, sz, sz);
+      const t=(el-p.dl)/1100, born=t>0;
+      let hx=p.hx, hy=p.hy, sz=1.3;
+      if(!born){ hy=p.hy+p.sy; sz=0; moving=true }
+      else if(t<1){ const e=ease3(t); hy=p.hy+p.sy*(1-e); sz=Math.min(1.3,1.3*t*4); moving=true }
+      const q=ease2(Math.max(0,Math.min(1,(sp-p.th*.6)/.55)));
+      hx+=p.dx*q; hy+=p.dy*q;
+      let ax=(hx-p.x)*SPRING, ay=(hy-p.y)*SPRING;
+      if(born){ const dx=p.x-mx, dy=p.y-my, d2=dx*dx+dy*dy;
+        if(d2<R*R){ const d=Math.sqrt(d2)||1, f=(R-d)/R; ax+=dx/d*f*REPEL; ay+=dy/d*f*REPEL } }
+      p.vx=(p.vx+ax)*FRICTION; p.vy=(p.vy+ay)*FRICTION; p.x+=p.vx; p.y+=p.vy;
+      if(Math.abs(p.vx)+Math.abs(p.vy)>.06) moving=true;
+      if(sz>0) path.rect(p.x,p.y,sz,sz);
     }
     ctx.globalAlpha=1-sp*.85; ctx.fillStyle='#fff'; ctx.fill(path); ctx.globalAlpha=1;
     if(!moving&&sp===0&&mx<-900){ if(++calm>10&&!solid){solid=true; hl.classList.add('solid')} } else calm=0;
