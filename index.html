@@ -4293,13 +4293,7 @@ function mixHex(c1,c2,t){t=Math.max(0,Math.min(1,t)); const p=h=>[parseInt(h.sli
   if(pg.classList.contains('active')) start();
 })();
 
-(function(){ // About: light the words up one by one as the paragraph scrolls through
-  const ps=[...document.querySelectorAll('.zl-about-body p')]; if(!ps.length) return;
-  const data=ps.map(p=>{const w=p.textContent.trim().split(/\s+/); p.setAttribute('aria-label',p.textContent.trim()); p.innerHTML=w.map(x=>'<span class="lw" aria-hidden="true">'+x+'</span>').join(' '); return {p,w:[...p.querySelectorAll('.lw')],k:0}});
-  let tk=0; const upd=()=>{tk=0; if(!document.getElementById('page-zepto').classList.contains('active')) return;
-    data.forEach(d=>{const r=d.p.getBoundingClientRect(), vh=innerHeight, a=vh*.88, b=vh*.38; const pr=Math.max(0,Math.min(1,(a-r.top)/Math.max(1,(a-b)+r.height*.6))); const k=Math.round(pr*d.w.length); if(k!==d.k){d.w.forEach((el,i)=>el.classList.toggle('on',i<k)); d.k=k}})};
-  addEventListener('scroll',()=>{if(!tk)tk=requestAnimationFrame(upd)},{passive:true}); addEventListener('resize',upd); upd();
-})();
+// About: the word-by-word scroll light-up was removed - the paragraph now just displays normally
 
 (function(){ // smooth scroll with a little inertia (skipped on touch screens and for reduced motion)
   if(matchMedia('(prefers-reduced-motion:reduce)').matches||matchMedia('(hover:none)').matches) return;
