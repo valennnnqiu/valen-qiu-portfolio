@@ -288,14 +288,13 @@ a{color:inherit;text-decoration:none}
 .proj-card,.writing-card{min-height:100vh;min-height:100dvh;margin-top:0!important;display:flex;flex-direction:column;justify-content:center;box-sizing:border-box}
 .teaching-card{margin-top:0!important}
 @media(max-width:700px){.fun-in{padding:0 .5rem;width:100%}}
-/* Zepto hero: headline made of particles */
+/* Zepto hero: volumetric light/shadow through the headline, following the pointer */
+.zl-hero{position:relative}
 .zl-hl{position:relative;width:100%;max-width:800px}
 .zl-hl .zl-hero-headline{max-width:none;width:100%;margin:0}
-.zl-pt{transition:opacity .3s var(--ease-out);position:absolute;left:-160px;top:-170px;width:calc(100% + 320px);height:calc(100% + 340px);pointer-events:none;display:none}
-.zl-hl.pt-on .zl-pt{display:block}
-.zl-hl.pt-on #zl-wordmark{color:transparent!important;transition:color .3s var(--ease-out)}
-.zl-hl.pt-on.solid #zl-wordmark{color:var(--zl-ink,#fff)!important;transition:color var(--t-base) var(--ease-out)}
-.zl-hl.solid .zl-pt{opacity:0;transition:opacity var(--t-base) var(--ease-out)}
+.zl-gl{position:absolute;inset:0;width:100%;height:100%;display:none;pointer-events:none}
+.zl-hero.gl-on .zl-gl{display:block}
+.zl-hero.gl-on #zl-wordmark{visibility:hidden}
 /* word-by-word light-up */
 .lw{opacity:.22;transition:opacity var(--t-fast) var(--ease-out)}
 .lw.on{opacity:1}
@@ -3389,11 +3388,11 @@ body.on-zepto{scrollbar-color:#fff transparent}
 <div class="page" id="page-zepto">
 
   <!-- HERO -->
-  <section class="zl-hero">
+  <section class="zl-hero" id="zl-hero">
+    <canvas class="zl-gl" id="zl-gl" aria-hidden="true"></canvas>
     <div class="zl-hero-inner">
       <div class="zl-hl" id="zl-hl">
         <h1 class="zl-hero-headline" id="zl-wordmark">Transforming brands into tomorrow's impactful futures.</h1>
-        <canvas class="zl-pt" id="zl-pt" aria-hidden="true"></canvas>
       </div>
     </div>
   </section>
@@ -4133,60 +4132,117 @@ function mixHex(c1,c2,t){t=Math.max(0,Math.min(1,t)); const p=h=>[parseInt(h.sli
   addEventListener('scroll',()=>{if(!tk)tk=requestAnimationFrame(upd)},{passive:true}); addEventListener('resize',upd); upd();
 })();
 
-(function(){
-  const hl=document.getElementById('zl-hl'), h1=document.getElementById('zl-wordmark'), cv=document.getElementById('zl-pt'), pg=document.getElementById('page-zepto');
-  if(!hl||!h1||!cv||!pg||matchMedia('(prefers-reduced-motion:reduce)').matches) return;
-  const ctx=cv.getContext('2d'), PAD_X=160, PAD_Y=170; let P=[],W=0,H=0,dpr=1,mx=-999,my=-999,raf=0,t0=0,built=false,calm=0,solid=false;
-  function build(){
-    const r=h1.getBoundingClientRect(); dpr=Math.min(2,devicePixelRatio||1);
-    W=Math.round(r.width+PAD_X*2); H=Math.round(r.height+PAD_Y*2); cv.width=W*dpr; cv.height=H*dpr;
-    // place every glyph exactly where the browser laid it out
-    const cs=getComputedStyle(h1), off=document.createElement('canvas'); off.width=W; off.height=H; const o=off.getContext('2d');
-    const fs=parseFloat(cs.fontSize); o.fillStyle='#fff'; o.textBaseline='alphabetic'; o.font=cs.fontWeight+' '+fs+'px '+cs.fontFamily; if('letterSpacing' in o) o.letterSpacing='0px';
-    const asc=o.measureText('M').fontBoundingBoxAscent||fs*.95, node=h1.firstChild, rg=document.createRange(), txt=node.textContent;
-    for(let i=0;i<txt.length;i++){ if(txt[i]===' ') continue; rg.setStart(node,i); rg.setEnd(node,i+1); const q=rg.getBoundingClientRect(); o.fillText(txt[i],q.left-r.left+PAD_X,q.top-r.top+PAD_Y+asc) }
-    const img=o.getImageData(0,0,W,H).data, gap=Math.max(1.9,fs/42), N=Math.round(W*H/(gap*gap)); P=[];
-    for(let i=0;i<N;i++){ const x=Math.random()*W, y=Math.random()*H; if(img[((y|0)*W+(x|0))*4+3]>128) P.push({hx:x,hy:y,x,y,vx:0,vy:0,dl:(x/W)*700+Math.random()*260,sy:70+Math.random()*70,th:Math.random()*.5,dx:(Math.random()-.4)*260,dy:90+Math.random()*230}) }
+(function(){ // Zepto hero: a volumetric light/shadow "torch" reveals the headline as it follows the pointer
+  const hero=document.getElementById('zl-hero'), h1=document.getElementById('zl-wordmark'), cv=document.getElementById('zl-gl'), pg=document.getElementById('page-zepto');
+  if(!hero||!h1||!cv||!pg||matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  const gl=cv.getContext('webgl',{alpha:false,antialias:false,depth:false,stencil:false,preserveDrawingBuffer:true})||cv.getContext('experimental-webgl');
+  if(!gl) return; // no WebGL: the real headline stays visible, nothing else to do
+
+  const SAMPLES=48;
+  const VERT='attribute vec2 position;\nvoid main(){ gl_Position=vec4(position,0.0,1.0); }';
+  const FRAG=
+    'precision highp float;\n'+
+    'uniform vec2 resolution; uniform vec2 mouse; uniform sampler2D src;\n'+
+    'uniform vec3 textColor; uniform vec3 bgColor; uniform vec3 shadowColor;\n'+
+    'uniform float lightSize; uniform float lightFalloff; uniform float shadowStrength;\n'+
+    'uniform float rainbow; uniform float dither; uniform float lightActive;\n'+
+    '#define PI 3.141593\n#define SAMPLES '+SAMPLES.toFixed(1)+'\n'+
+    'float hash(vec2 p){ return fract(sin(dot(p,vec2(489.,589.)))*492.)*2.-1.; }\n'+
+    'float hash(vec3 p){ return fract(sin(dot(p,vec3(489.,589.,58.)))*492.)*2.-1.; }\n'+
+    'vec2 hash2(vec3 p){ return vec2(hash(p),hash(p+1.)); }\n'+
+    'vec4 readTex(vec2 uv){ if(uv.x<0.||uv.x>1.||uv.y<0.||uv.y>1.){ return vec4(0); } return texture2D(src,uv); }\n'+
+    'vec3 spectrum(float x){ return cos((x-vec3(0,.5,1))*vec3(.6,1.,.5)*PI); }\n'+
+    'void main(){\n'+
+    '  vec2 uv=gl_FragCoord.xy/resolution;\n'+
+    '  float mask=readTex(uv).r;\n'+
+    '  if(mask>0.995){ gl_FragColor=vec4(textColor,1.0); return; }\n'+
+    '  vec2 p=uv*2.-1.; p.x*=resolution.x/resolution.y;\n'+
+    '  vec2 mp=mouse/resolution; mp=mp*2.-1.; mp.x*=resolution.x/resolution.y;\n'+
+    '  vec2 rp=p; vec2 d=(mp-p)/SAMPLES; float acc=0.;\n'+
+    '  for(float i=0.;i<SAMPLES;i++){\n'+
+    '    rp+=d; rp+=hash2(vec3(rp,i))*0.5/SAMPLES;\n'+
+    '    vec2 uv2=rp; uv2.x/=resolution.x/resolution.y; uv2=uv2*0.5+0.5;\n'+
+    '    acc+=readTex(uv2).r/SAMPLES;\n'+
+    '  }\n'+
+    '  float lm=length(p-mp);\n'+
+    '  float falloff=smoothstep(0.,1.,pow(lightSize/lm,lightFalloff));\n'+
+    '  float shade=acc*shadowStrength*falloff*lightActive;\n'+
+    '  vec3 rainbowCol=spectrum(cos(acc*3.5))*acc*rainbow*falloff*lightActive;\n'+
+    '  vec3 c=shadowColor*shade+rainbowCol;\n'+
+    '  c-=hash(vec3(uv.xyy))*dither;\n'+
+    '  float a=clamp(shade+acc*rainbow*falloff*lightActive,0.0,1.0);\n'+
+    '  vec3 col=mix(bgColor,clamp(c,0.0,1.0),a);\n'+
+    '  gl_FragColor=vec4(mix(col,textColor,mask),1.0);\n'+
+    '}';
+
+  function compile(type,source){ const sh=gl.createShader(type); gl.shaderSource(sh,source); gl.compileShader(sh); if(!gl.getShaderParameter(sh,gl.COMPILE_STATUS)){ gl.deleteShader(sh); return null } return sh }
+  const vs=compile(gl.VERTEX_SHADER,VERT), fs=compile(gl.FRAGMENT_SHADER,FRAG);
+  if(!vs||!fs) return;
+  const prog=gl.createProgram(); gl.attachShader(prog,vs); gl.attachShader(prog,fs); gl.linkProgram(prog);
+  gl.deleteShader(vs); gl.deleteShader(fs);
+  if(!gl.getProgramParameter(prog,gl.LINK_STATUS)) return;
+  gl.useProgram(prog);
+  const buf=gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1, 3,-1, -1,3]),gl.STATIC_DRAW);
+  const ploc=gl.getAttribLocation(prog,'position'); gl.enableVertexAttribArray(ploc); gl.vertexAttribPointer(ploc,2,gl.FLOAT,false,0,0);
+  const tex=gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D,tex);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
+  const U={}; ['resolution','mouse','src','textColor','bgColor','shadowColor','lightSize','lightFalloff','shadowStrength','rainbow','dither','lightActive'].forEach(n=>U[n]=gl.getUniformLocation(prog,n));
+
+  let W=0,H=0,built=false; const mask=document.createElement('canvas');
+  function buildMask(){ // paint the headline, exactly as laid out, into a mask texture the shader reads
+    const r=hero.getBoundingClientRect(); if(r.width<=0||r.height<=0) return;
+    const dpr=Math.min(2,devicePixelRatio||1);
+    W=Math.max(1,Math.round(r.width)); H=Math.max(1,Math.round(r.height));
+    cv.width=Math.round(W*dpr); cv.height=Math.round(H*dpr); gl.viewport(0,0,cv.width,cv.height);
+    mask.width=Math.round(W*dpr); mask.height=Math.round(H*dpr);
+    const o=mask.getContext('2d'); o.setTransform(dpr,0,0,dpr,0,0);
+    o.clearRect(0,0,W,H); o.fillStyle='#fff'; o.textBaseline='alphabetic';
+    const cs=getComputedStyle(h1), fsz=parseFloat(cs.fontSize);
+    o.font=cs.fontWeight+' '+fsz+'px '+cs.fontFamily; if('letterSpacing' in o) o.letterSpacing='0px';
+    const asc=o.measureText('M').fontBoundingBoxAscent||fsz*.95;
+    const node=h1.firstChild, txt=node?node.textContent:'', rg=document.createRange();
+    for(let i=0;i<txt.length;i++){ if(txt[i]===' ') continue; rg.setStart(node,i); rg.setEnd(node,i+1); const q=rg.getBoundingClientRect(); o.fillText(txt[i], q.left-r.left, q.top-r.top+asc) }
+    gl.bindTexture(gl.TEXTURE_2D,tex); gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,true);
+    gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,mask);
     built=true;
   }
-  function assemble(){ // the sentence materialises as a wave, left to right, rising into place
-    t0=performance.now(); solid=false; hl.classList.remove('solid'); calm=0; P.forEach(p=>{p.x=p.hx;p.y=p.hy+p.sy;p.vx=0;p.vy=0});
+
+  let tx=0,ty=0,lx=0,ly=0,tActive=0,active=0,raf=0;
+  function render(){
+    raf=0; if(!pg.classList.contains('active')||!built) return;
+    const k=.12; lx+=(tx-lx)*k; ly+=(ty-ly)*k; active+=(tActive-active)*k;
+    const sx=cv.width/Math.max(1,W), sy=cv.height/Math.max(1,H);
+    gl.uniform2f(U.resolution, cv.width, cv.height);
+    gl.uniform2f(U.mouse, lx*sx, ly*sy);
+    gl.uniform3f(U.textColor, 1,1,1);
+    gl.uniform3f(U.bgColor, .137,.121,.125); // --zl-bg #231F20
+    gl.uniform3f(U.shadowColor, .58,.06,.29); // brand pink, darkened, so it actually shows against the near-black bg
+    gl.uniform1f(U.lightActive, active);
+    gl.uniform1f(U.lightSize, .14);
+    gl.uniform1f(U.lightFalloff, .55);
+    gl.uniform1f(U.shadowStrength, 2.6);
+    gl.uniform1f(U.rainbow, .3); // kept subtle on purpose, this is a brand page not a rave flyer
+    gl.uniform1f(U.dither, .015);
+    gl.uniform1i(U.src, 0);
+    gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D,tex);
+    gl.drawArrays(gl.TRIANGLES,0,3);
+    if(active>.001||tActive>0||Math.abs(tx-lx)>.3||Math.abs(ty-ly)>.3) raf=requestAnimationFrame(render);
   }
-  const ease3=t=>1-Math.pow(1-t,3), ease2=t=>t*t*(3-2*t);
-  function frame(now){
-    raf=0; if(!pg.classList.contains('active')) return;
-    const el=now-t0; ctx.setTransform(dpr,0,0,dpr,0,0); ctx.clearRect(0,0,W,H);
-    const R=55, REPEL=2.6, SPRING=.045, FRICTION=.82, sp=Math.max(0,Math.min(1,scrollY/(innerHeight*1.15)));
-    let moving=false; const path=new Path2D();
-    for(const p of P){
-      const t=(el-p.dl)/1100, born=t>0;
-      let hx=p.hx, hy=p.hy, sz=1.3;
-      if(!born){ hy=p.hy+p.sy; sz=0; moving=true }
-      else if(t<1){ const e=ease3(t); hy=p.hy+p.sy*(1-e); sz=Math.min(1.3,1.3*t*4); moving=true }
-      const q=ease2(Math.max(0,Math.min(1,(sp-p.th*.6)/.55)));
-      hx+=p.dx*q; hy+=p.dy*q;
-      let ax=(hx-p.x)*SPRING, ay=(hy-p.y)*SPRING;
-      if(born){ const dx=p.x-mx, dy=p.y-my, d2=dx*dx+dy*dy;
-        if(d2<R*R){ const d=Math.sqrt(d2)||1, f=(R-d)/R; ax+=dx/d*f*REPEL; ay+=dy/d*f*REPEL } }
-      p.vx=(p.vx+ax)*FRICTION; p.vy=(p.vy+ay)*FRICTION; p.x+=p.vx; p.y+=p.vy;
-      if(Math.abs(p.vx)+Math.abs(p.vy)>.06) moving=true;
-      if(sz>0) path.rect(p.x,p.y,sz,sz);
-    }
-    ctx.globalAlpha=1-sp*.85; ctx.fillStyle='#fff'; ctx.fill(path); ctx.globalAlpha=1;
-    if(!moving&&sp===0&&mx<-900){ if(++calm>10&&!solid){solid=true; hl.classList.add('solid')} } else calm=0;
-    if(!solid) raf=requestAnimationFrame(frame);
-  }
-  const kick=()=>{if(!raf&&!solid) raf=requestAnimationFrame(frame)};
-  function wake(){ if(solid){solid=false; hl.classList.remove('solid')} calm=0; if(!raf) raf=requestAnimationFrame(frame) }
-  function start(){ if(document.fonts&&document.fonts.ready){document.fonts.ready.then(go)} else go(); function go(){ build(); hl.classList.add('pt-on'); assemble(); kick() } }
-  const hero=hl.closest('.zl-hero');
-  const place=e=>{const r=cv.getBoundingClientRect(), t=h1.getBoundingClientRect(); mx=e.clientX-r.left; my=e.clientY-r.top;
-    const near=e.clientX>t.left-30&&e.clientX<t.right+30&&e.clientY>t.top-30&&e.clientY<t.bottom+30; if(near) wake(); else if(!solid){mx=my=-999}};
-  hero.addEventListener('pointermove',place); hero.addEventListener('pointerdown',place);
-  hero.addEventListener('pointerleave',()=>{mx=my=-999; if(!solid) kick()});
-  hero.addEventListener('touchmove',e=>place(e.touches[0]),{passive:true}); hero.addEventListener('touchend',()=>{mx=my=-999; kick()});
-  addEventListener('scroll',()=>{ if(pg.classList.contains('active')&&built&&scrollY>2) wake() },{passive:true});
-  let rt=0; addEventListener('resize',()=>{clearTimeout(rt); rt=setTimeout(()=>{if(pg.classList.contains('active')&&built){build(); wake()}},200)});
+  const kick=()=>{ if(!raf) raf=requestAnimationFrame(render) };
+  function setTarget(clientX,clientY){ const r=hero.getBoundingClientRect(); tx=clientX-r.left; ty=r.height-(clientY-r.top) }
+  const onMove=e=>{ setTarget(e.clientX,e.clientY); tActive=1; kick() };
+  const onLeave=()=>{ tActive=0; kick() };
+  hero.addEventListener('pointermove',onMove); hero.addEventListener('pointerdown',onMove);
+  hero.addEventListener('pointerleave',onLeave);
+  hero.addEventListener('touchmove',e=>{ if(e.touches[0]) onMove(e.touches[0]) },{passive:true});
+  hero.addEventListener('touchend',onLeave);
+
+  function start(){ const go=()=>{ buildMask(); if(built){ hero.classList.add('gl-on'); kick() } }; if(document.fonts&&document.fonts.ready) document.fonts.ready.then(go); else go(); }
+  let rt=0; const scheduleResize=()=>{ clearTimeout(rt); rt=setTimeout(()=>{ if(pg.classList.contains('active')){ buildMask(); kick() } },150) };
+  addEventListener('resize',scheduleResize);
+  if(typeof ResizeObserver!=='undefined') new ResizeObserver(scheduleResize).observe(hero);
   new MutationObserver(()=>{ if(pg.classList.contains('active')) start(); }).observe(pg,{attributes:true,attributeFilter:['class']});
   if(pg.classList.contains('active')) start();
 })();
