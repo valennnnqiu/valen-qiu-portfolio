@@ -269,6 +269,7 @@ a{color:inherit;text-decoration:none}
 .fun-intro{height:260vh;margin:-5rem calc(var(--pg)*-1) 0;position:relative}
 .fun-pin{position:sticky;top:0;height:100vh;height:100dvh;display:flex;align-items:center}
 .fun-in{width:90%;margin:0 auto;padding:0 2.5rem;display:flex;flex-direction:column;gap:1.4rem}
+.fun-lines{display:flex;flex-direction:column;gap:.3rem}
 .fun-t{font-size:clamp(2.6rem,7vw,6rem);opacity:var(--o,0);transform:translateY(calc((1 - var(--o,0))*40px))}
 .fun-p{font-size:clamp(1.15rem,2.2vw,1.7rem);color:var(--ink2);line-height:1.5;max-width:40rem;opacity:0;transform:translateY(26px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
 .fun-p.on{opacity:1;transform:none}
@@ -2107,8 +2108,11 @@ body.on-zepto{scrollbar-color:#fff transparent}
   <section class="section section-alt reveal" id="builds-section">
     <div class="fun-intro" id="fun-intro"><div class="fun-pin"><div class="fun-in">
       <h2 class="section-title fun-t">Some <span class="fun-w" aria-label="fun"><i>f</i><i>u</i><i>n</i></span> things I do</h2>
-      <p class="fun-p" data-at=".22">Design is the day job. Building, writing and teaching are what I do with everything left over.</p>
-      <p class="fun-p fun-ans" data-at=".55" data-txt="How? With AI, nothing is impossible."></p>
+      <div class="fun-lines">
+        <p class="fun-p" data-at=".18">Design is the day job.</p>
+        <p class="fun-p" data-at=".36" data-txt="Building, writing and teaching are what I do with everything left over."></p>
+      </div>
+      <p class="fun-p fun-ans" data-at=".62" data-txt="How? With AI, nothing is impossible."></p>
     </div></div></div>
 
     <!-- Build: apps on a phone -->
@@ -4115,7 +4119,12 @@ function openApp(i){
   async function stream(el){const id=el._id=(el._id||0)+1, txt=el.dataset.txt, sl=ms=>new Promise(r=>setTimeout(r,ms)); const cur=document.createElement('i'); cur.className='fun-caret';
     el.textContent=''; el.appendChild(cur); await sl(350);
     if(!matchMedia('(prefers-reduced-motion:reduce)').matches){for(let k=1;k<=txt.length;k++){if(el._id!==id)return; el.textContent=txt.slice(0,k); el.appendChild(cur); await sl(48)}}
-    if(el._id!==id)return; el.innerHTML=txt.replace('impossible','<span class="im">im</span>possible'); el.appendChild(cur); await sl(600); if(el._id!==id)return; el.classList.add('x'); await sl(1800); if(el._id===id)cur.remove()}
+    if(el._id!==id)return;
+    if(el.classList.contains('fun-ans')){
+      el.innerHTML=txt.replace('impossible','<span class="im">im</span>possible'); el.appendChild(cur); await sl(600); if(el._id!==id)return; el.classList.add('x'); await sl(1800); if(el._id===id)cur.remove();
+    }else{
+      el.textContent=txt; el.appendChild(cur); await sl(900); if(el._id===id)cur.remove();
+    }}
   addEventListener('scroll',()=>{if(!tk)tk=requestAnimationFrame(upd)},{passive:true}); addEventListener('resize',upd); upd();
 })();
 
