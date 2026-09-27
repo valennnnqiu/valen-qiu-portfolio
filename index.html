@@ -1530,7 +1530,7 @@ a{color:inherit;text-decoration:none}
 }
 
 /* ══ ZEPTO LAB ══ */
-.zl-hero{min-height:85vh;display:flex;align-items:center;justify-content:center;padding:3rem var(--pg) 5rem;border-bottom:1px solid var(--border)}
+.zl-hero{min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:3rem var(--pg) 5rem;border-bottom:1px solid var(--border);margin-top:-88px;padding-top:calc(3rem + 88px);box-sizing:border-box}
 @media(max-width:700px){
   .zl-hero{min-height:auto;align-items:center;padding:2.5rem var(--pg) 3rem}
 }
@@ -1899,7 +1899,9 @@ a{color:inherit;text-decoration:none}
 /* Nav overrides for zepto page */
 body.on-zepto{background:#231F20 !important}
 body.on-zepto .nav{
-  background:#231F20 !important;
+  background:rgba(35,31,32,.4) !important;
+  -webkit-backdrop-filter:blur(16px);
+  backdrop-filter:blur(16px);
   border-bottom-color:transparent !important;
 }
 body.on-zepto .nav-logo{color:#fff}
