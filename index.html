@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Mono:wght@300;400&family=Caveat:wght@500;700&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -284,16 +284,18 @@ a{color:inherit;text-decoration:none}
 .fun-ans.x .im::after{transform:scaleX(1) rotate(-4deg)}
 .proj-card,.writing-card{min-height:100vh;min-height:100dvh;margin-top:0!important;display:flex;flex-direction:column;justify-content:center;box-sizing:border-box}
 .teaching-card{margin-top:0!important}
-/* the 24-hour "where does my time go" bar */
-.fun-clock{margin-top:.6rem;max-width:30rem}
-.fun-clock-cap{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;color:var(--muted);text-transform:lowercase;margin-bottom:.5rem;min-height:1.2em;transition:opacity .25s}
+/* the 24-hour "where does my time go" bar: full-bleed, sits lower under the text */
+.fun-clock{margin-top:5rem;width:100vw;position:relative;left:50%;transform:translateX(-50%);padding:0 var(--pg);box-sizing:border-box}
+.fun-clock-labels{position:relative;height:1.6rem;margin-bottom:.6rem}
+.fc-lab{position:absolute;left:calc(var(--l) / 24 * 100%);bottom:0;font-family:'Caveat',cursive;font-weight:600;font-size:1.35rem;line-height:1;color:var(--muted);white-space:nowrap;opacity:0;transform:translateY(6px);transition:opacity .5s var(--ease-out),transform .5s var(--ease-out)}
+.fc-lab.on{opacity:1;transform:none}
 .fun-clock-bar{display:flex;width:100%;height:.5rem;border-radius:999px;overflow:hidden;background:var(--bg2);gap:2px}
 .fc-seg{position:relative;flex:0 0 auto;width:calc(var(--w) / 24 * 100%);height:100%;overflow:hidden}
 .fc-seg::before{content:'';position:absolute;inset:0;transform:scaleX(var(--f,0));transform-origin:0 50%}
 .fc-design::before{background:var(--muted2)}
 .fc-pink::before{background:var(--pink)}
 .fc-sleep::before{background:repeating-linear-gradient(45deg,var(--muted2),var(--muted2) 3px,transparent 3px,transparent 6px)}
-@media(max-width:700px){.fun-in{padding:0 .5rem;width:100%}}
+@media(max-width:700px){.fun-in{padding:0 .5rem;width:100%}.fc-lab{font-size:1.1rem}}
 /* Zepto hero: volumetric light/shadow through the headline, following the pointer */
 .zl-hero{position:relative}
 .zl-hl{position:relative;width:100%;max-width:800px}
@@ -1528,7 +1530,7 @@ a{color:inherit;text-decoration:none}
 }
 
 /* ══ ZEPTO LAB ══ */
-.zl-hero{min-height:85vh;display:flex;align-items:flex-end;padding:3rem var(--pg) 5rem;border-bottom:1px solid var(--border)}
+.zl-hero{min-height:85vh;display:flex;align-items:center;justify-content:center;padding:3rem var(--pg) 5rem;border-bottom:1px solid var(--border)}
 @media(max-width:700px){
   .zl-hero{min-height:auto;align-items:center;padding:2.5rem var(--pg) 3rem}
 }
@@ -2119,7 +2121,14 @@ body.on-zepto{scrollbar-color:#fff transparent}
         <p class="fun-p" id="fun-build" data-at=".36" data-txt="Building, writing, teaching, and DJing are what I do with everything left over."></p>
       </div>
       <div class="fun-clock" id="fun-clock" aria-hidden="true">
-        <div class="fun-clock-cap" id="fc-cap">&nbsp;</div>
+        <div class="fun-clock-labels">
+          <i class="fc-lab" style="--l:0">design</i>
+          <i class="fc-lab" style="--l:9">building</i>
+          <i class="fc-lab" style="--l:12">writing</i>
+          <i class="fc-lab" style="--l:15">teaching</i>
+          <i class="fc-lab" style="--l:18">djing</i>
+          <i class="fc-lab" style="--l:21">sleep (sometimes)</i>
+        </div>
         <div class="fun-clock-bar">
           <span class="fc-seg fc-design" style="--w:9"></span>
           <span class="fc-seg fc-pink" style="--w:3"></span>
@@ -4129,8 +4138,7 @@ function openApp(i){
 function mixHex(c1,c2,t){t=Math.max(0,Math.min(1,t)); const p=h=>[parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)]; const a=p(c1),b=p(c2); return 'rgb('+a.map((v,i)=>Math.round(v+(b[i]-v)*t)).join(',')+')'}
 (function(){const wrap=document.getElementById('fun-intro'); if(!wrap) return;
   const t=wrap.querySelector('.fun-t'), ps=[...wrap.querySelectorAll('.fun-p')]; let tk=0;
-  const clockSegs=[...wrap.querySelectorAll('.fc-seg')], clockCap=document.getElementById('fc-cap');
-  const clockLabel=['9am–6pm · design','building','writing','teaching','djing','sleep (sometimes)'];
+  const clockSegs=[...wrap.querySelectorAll('.fc-seg')], clockLabs=[...wrap.querySelectorAll('.fc-lab')];
   function upd(){tk=0; const r=wrap.getBoundingClientRect(), vh=innerHeight, span=Math.max(1,r.height-vh);
     t.style.setProperty('--o',Math.max(0,Math.min(1,(vh-r.top)/(vh*.7))).toFixed(3));
     const p=Math.max(0,Math.min(1,-r.top/span));
@@ -4139,10 +4147,11 @@ function mixHex(c1,c2,t){t=Math.max(0,Math.min(1,t)); const p=h=>[parseInt(h.sli
     kws.forEach((el,i)=>{const kp=Math.max(0,Math.min(1,(cs-i/kws.length)/(1/kws.length))); el.style.color=mixHex('#1C1C1A','#E8196E',kp)});
     ps.forEach(el=>{const on=p>=parseFloat(el.dataset.at); el.classList.toggle('on',on);
       if(el.dataset.txt){ if(on&&!el.dataset.done){el.dataset.done=1; stream(el)} else if(!on&&el.dataset.done){el.dataset.done=''; el._id=(el._id||0)+1; el.textContent=''; el.classList.remove('x')} }})
-    // the 24h bar fills left to right, one segment at a time, as a literal "where did the day go"
-    const hrs=Math.max(0,Math.min(1,(p-.38)/.6))*24; let cum=0, active=-1;
-    clockSegs.forEach((el,i)=>{const w=parseFloat(el.style.getPropertyValue('--w')); const f=Math.max(0,Math.min(1,(hrs-cum)/w)); el.style.setProperty('--f',f.toFixed(3)); if(f>0) active=i; cum+=w});
-    if(clockCap) clockCap.textContent=active<0?' ':clockLabel[active];
+    // the 24h bar fills left to right, one segment at a time, as a literal "where did the day go";
+    // each label sits at the start of its own block and, once reached, stays lit - by the end all of them are on
+    const hrs=Math.max(0,Math.min(1,(p-.38)/.6))*24; let cum=0;
+    clockSegs.forEach((el)=>{const w=parseFloat(el.style.getPropertyValue('--w')); const f=Math.max(0,Math.min(1,(hrs-cum)/w)); el.style.setProperty('--f',f.toFixed(3)); cum+=w});
+    clockLabs.forEach(el=>{const l=parseFloat(el.style.getPropertyValue('--l')); el.classList.toggle('on',hrs>=l)});
   }
   async function stream(el){const id=el._id=(el._id||0)+1, txt=el.dataset.txt, sl=ms=>new Promise(r=>setTimeout(r,ms)); const cur=document.createElement('i'); cur.className='fun-caret';
     el.textContent=''; el.appendChild(cur); await sl(350);
@@ -4162,20 +4171,19 @@ function mixHex(c1,c2,t){t=Math.max(0,Math.min(1,t)); const p=h=>[parseInt(h.sli
   const gl=cv.getContext('webgl',{alpha:false,antialias:false,depth:false,stencil:false,preserveDrawingBuffer:true})||cv.getContext('experimental-webgl');
   if(!gl) return; // no WebGL: the real headline stays visible, nothing else to do
 
-  const SAMPLES=48;
+  const SAMPLES=64;
   const VERT='attribute vec2 position;\nvoid main(){ gl_Position=vec4(position,0.0,1.0); }';
   const FRAG=
     'precision highp float;\n'+
     'uniform vec2 resolution; uniform vec2 mouse; uniform sampler2D src;\n'+
-    'uniform vec3 textColor; uniform vec3 bgColor; uniform vec3 shadowColor;\n'+
+    'uniform vec3 textColor; uniform vec3 bgColor; uniform vec3 glowColor;\n'+
     'uniform float lightSize; uniform float lightFalloff; uniform float shadowStrength;\n'+
-    'uniform float rainbow; uniform float dither; uniform float lightActive;\n'+
-    '#define PI 3.141593\n#define SAMPLES '+SAMPLES.toFixed(1)+'\n'+
+    'uniform float dither; uniform float lightActive;\n'+
+    '#define SAMPLES '+SAMPLES.toFixed(1)+'\n'+
     'float hash(vec2 p){ return fract(sin(dot(p,vec2(489.,589.)))*492.)*2.-1.; }\n'+
     'float hash(vec3 p){ return fract(sin(dot(p,vec3(489.,589.,58.)))*492.)*2.-1.; }\n'+
     'vec2 hash2(vec3 p){ return vec2(hash(p),hash(p+1.)); }\n'+
     'vec4 readTex(vec2 uv){ if(uv.x<0.||uv.x>1.||uv.y<0.||uv.y>1.){ return vec4(0); } return texture2D(src,uv); }\n'+
-    'vec3 spectrum(float x){ return cos((x-vec3(0,.5,1))*vec3(.6,1.,.5)*PI); }\n'+
     'void main(){\n'+
     '  vec2 uv=gl_FragCoord.xy/resolution;\n'+
     '  float mask=readTex(uv).r;\n'+
@@ -4184,19 +4192,19 @@ function mixHex(c1,c2,t){t=Math.max(0,Math.min(1,t)); const p=h=>[parseInt(h.sli
     '  vec2 mp=mouse/resolution; mp=mp*2.-1.; mp.x*=resolution.x/resolution.y;\n'+
     '  vec2 rp=p; vec2 d=(mp-p)/SAMPLES; float acc=0.;\n'+
     '  for(float i=0.;i<SAMPLES;i++){\n'+
-    '    rp+=d; rp+=hash2(vec3(rp,i))*0.5/SAMPLES;\n'+
+    '    rp+=d; rp+=hash2(vec3(rp,i))*0.32/SAMPLES;\n'+
     '    vec2 uv2=rp; uv2.x/=resolution.x/resolution.y; uv2=uv2*0.5+0.5;\n'+
     '    acc+=readTex(uv2).r/SAMPLES;\n'+
     '  }\n'+
     '  float lm=length(p-mp);\n'+
-    '  float falloff=smoothstep(0.,1.,pow(lightSize/lm,lightFalloff));\n'+
-    '  float shade=acc*shadowStrength*falloff*lightActive;\n'+
-    '  vec3 rainbowCol=spectrum(cos(acc*3.5))*acc*rainbow*falloff*lightActive;\n'+
-    '  vec3 c=shadowColor*shade+rainbowCol;\n'+
-    '  c-=hash(vec3(uv.xyy))*dither;\n'+
-    '  float a=clamp(shade+acc*rainbow*falloff*lightActive,0.0,1.0);\n'+
-    '  vec3 col=mix(bgColor,clamp(c,0.0,1.0),a);\n'+
-    '  gl_FragColor=vec4(mix(col,textColor,mask),1.0);\n'+
+    // a plain, always-round halo around the pointer (this is what actually reads as "glowing")
+    '  float glow=smoothstep(0.,1.,pow(lightSize/max(lm,0.0008),lightFalloff));\n'+
+    // letters between the pointer and the light throw a bit of extra colour on top, as a texture accent
+    '  float shade=acc*shadowStrength*glow;\n'+
+    '  float amt=clamp(glow*0.85+shade*0.65,0.0,1.0)*lightActive;\n'+
+    '  vec3 col=mix(bgColor,glowColor,amt);\n'+
+    '  col-=hash(vec3(uv.xyy))*dither;\n'+
+    '  gl_FragColor=vec4(mix(clamp(col,0.0,1.0),textColor,mask),1.0);\n'+
     '}';
 
   function compile(type,source){ const sh=gl.createShader(type); gl.shaderSource(sh,source); gl.compileShader(sh); if(!gl.getShaderParameter(sh,gl.COMPILE_STATUS)){ gl.deleteShader(sh); return null } return sh }
@@ -4212,7 +4220,7 @@ function mixHex(c1,c2,t){t=Math.max(0,Math.min(1,t)); const p=h=>[parseInt(h.sli
   const tex=gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D,tex);
   gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
   gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
-  const U={}; ['resolution','mouse','src','textColor','bgColor','shadowColor','lightSize','lightFalloff','shadowStrength','rainbow','dither','lightActive'].forEach(n=>U[n]=gl.getUniformLocation(prog,n));
+  const U={}; ['resolution','mouse','src','textColor','bgColor','glowColor','lightSize','lightFalloff','shadowStrength','dither','lightActive'].forEach(n=>U[n]=gl.getUniformLocation(prog,n));
 
   let W=0,H=0,built=false; const mask=document.createElement('canvas');
   function buildMask(){ // paint the headline, exactly as laid out, into a mask texture the shader reads
@@ -4242,13 +4250,12 @@ function mixHex(c1,c2,t){t=Math.max(0,Math.min(1,t)); const p=h=>[parseInt(h.sli
     gl.uniform2f(U.mouse, lx*sx, ly*sy);
     gl.uniform3f(U.textColor, 1,1,1);
     gl.uniform3f(U.bgColor, .137,.121,.125); // --zl-bg #231F20
-    gl.uniform3f(U.shadowColor, .58,.06,.29); // brand pink, darkened, so it actually shows against the near-black bg
+    gl.uniform3f(U.glowColor, .82,.14,.46); // brand pink (#E8196E), the halo colour itself
     gl.uniform1f(U.lightActive, active);
-    gl.uniform1f(U.lightSize, .14);
-    gl.uniform1f(U.lightFalloff, .55);
-    gl.uniform1f(U.shadowStrength, 2.6);
-    gl.uniform1f(U.rainbow, .3); // kept subtle on purpose, this is a brand page not a rave flyer
-    gl.uniform1f(U.dither, .015);
+    gl.uniform1f(U.lightSize, .10);
+    gl.uniform1f(U.lightFalloff, 1.7); // tight, contained falloff so the halo reads as one clean glow, not a wide smear
+    gl.uniform1f(U.shadowStrength, 1.0);
+    gl.uniform1f(U.dither, .004);
     gl.uniform1i(U.src, 0);
     gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D,tex);
     gl.drawArrays(gl.TRIANGLES,0,3);
