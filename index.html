@@ -323,13 +323,21 @@ a{color:inherit;text-decoration:none}
 .ocad-pic img{width:100%;display:block;pointer-events:none;border-radius:2px}
 .ocad-pic:hover{box-shadow:0 18px 38px rgba(20,20,30,.28),0 3px 8px rgba(20,20,30,.14)}
 .ocad-pic.drag{cursor:grabbing;transition:box-shadow .2s;transform:translate(var(--x),var(--y)) rotate(0deg) scale(1.05);box-shadow:0 26px 50px rgba(20,20,30,.34)}
+.ab2-desk{position:relative;width:100%;min-height:620px;margin-top:2rem}
 @media(max-width:700px){
-  .ocad-pic{width:50%!important}
-  .ocad-pic:nth-of-type(1){--l:4%!important;--t:2%!important}
-  .ocad-pic:nth-of-type(2){--l:46%!important;--t:16%!important}
-  .ocad-pic:nth-of-type(3){--l:6%!important;--t:34%!important}
-  .ocad-pic:nth-of-type(4){--l:44%!important;--t:50%!important}
-  .ocad-pic:nth-of-type(5){--l:10%!important;--t:68%!important}
+  #ocad-desk .ocad-pic{width:50%!important}
+  #ocad-desk .ocad-pic:nth-of-type(1){--l:4%!important;--t:2%!important}
+  #ocad-desk .ocad-pic:nth-of-type(2){--l:46%!important;--t:16%!important}
+  #ocad-desk .ocad-pic:nth-of-type(3){--l:6%!important;--t:34%!important}
+  #ocad-desk .ocad-pic:nth-of-type(4){--l:44%!important;--t:50%!important}
+  #ocad-desk .ocad-pic:nth-of-type(5){--l:10%!important;--t:68%!important}
+  .ab2-desk{min-height:840px}
+  #ab2-desk .ocad-pic{width:54%!important}
+  #ab2-desk .ocad-pic:nth-of-type(1){--l:2%!important;--t:1%!important}
+  #ab2-desk .ocad-pic:nth-of-type(2){--l:40%!important;--t:15%!important}
+  #ab2-desk .ocad-pic:nth-of-type(3){--l:4%!important;--t:32%!important}
+  #ab2-desk .ocad-pic:nth-of-type(4){--l:38%!important;--t:49%!important}
+  #ab2-desk .ocad-pic:nth-of-type(5){--l:8%!important;--t:66%!important}
 }
 
 /* ── SHARED SECTION ── */
@@ -1368,36 +1376,7 @@ a{color:inherit;text-decoration:none}
 
 
 /* ── ABOUT PHOTO GRID ── */
-.ab2-photo-grid{
-  display:grid;
-  grid-template-columns:1fr 1.5fr 1fr;
-  grid-template-rows:auto auto;
-  gap:.75rem;
-  margin-top:2rem;
-}
-.ab2-photo{
-  aspect-ratio:1/1;
-  background:var(--bg3);
-  border-radius:12px;
-  display:flex;align-items:center;justify-content:center;
-  overflow:hidden;
-  position:relative;
-  min-width:0;
-  min-height:0;
-}
-.ab2-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
-.ab2-photo-main{grid-column:2;grid-row:1 / span 2;aspect-ratio:auto}
-.ab2-photo:nth-child(2){grid-column:1;grid-row:1}
-.ab2-photo:nth-child(3){grid-column:1;grid-row:2}
-.ab2-photo:nth-child(4){grid-column:3;grid-row:1}
-.ab2-photo:nth-child(5){grid-column:3;grid-row:2}
 @media(max-width:700px){
-  .ab2-photo-grid{grid-template-columns:1fr 1fr}
-  .ab2-photo-main{grid-column:1 / span 2;grid-row:1;aspect-ratio:4/3}
-  .ab2-photo:nth-child(2){grid-column:1;grid-row:2}
-  .ab2-photo:nth-child(3){grid-column:2;grid-row:2}
-  .ab2-photo:nth-child(4){grid-column:1;grid-row:3}
-  .ab2-photo:nth-child(5){grid-column:2;grid-row:3}
   /* hover-only tooltip has no touch equivalent — hide to avoid off-screen bleed */
   .proj-tab-tooltip{display:none}
 }
@@ -2355,7 +2334,7 @@ body.on-zepto{scrollbar-color:#fff transparent}
 
   <!-- HERO BIO -->
   <section class="ab2-hero ab2-reveal">
-    <h1 class="ab2-headline" style="color:var(--pink)">Hi (你好/侬好), stranger.</h1>
+    <h1 class="ab2-headline" id="ab2-headline" style="color:var(--pink)">Hi (你好/侬好), stranger.</h1>
     <div class="ab2-bio">
       <p>I grew up across Shanghai, Melbourne, San Francisco, and now Toronto. A Third Culture Kid who never quite fit one room, but somehow felt at home in all of them.</p>
       <p>For a while, I followed the expected path. I studied Industrial Design at California College of the Arts.</p>
@@ -2404,13 +2383,13 @@ body.on-zepto{scrollbar-color:#fff transparent}
       <div class="ab2-outside-block"><p class="ab2-outside-text">🎨&nbsp; I help aspiring high school students and professionals level up their design thinking.</p></div>
     </div>
 
-    <!-- PHOTO GRID -->
-    <div class="ab2-photo-grid">
-      <div class="ab2-photo ab2-photo-main"><img src="images/about/outside/1.png" alt="Outside of work"></div>
-      <div class="ab2-photo"><img src="images/about/outside/2.jpg" alt="Outside of work"></div>
-      <div class="ab2-photo"><img src="images/about/outside/3.webp" alt="Outside of work"></div>
-      <div class="ab2-photo"><img src="images/about/outside/4.webp" alt="Outside of work"></div>
-      <div class="ab2-photo"><img src="images/about/outside/5.avif" alt="Outside of work"></div>
+    <!-- PHOTO DESK: same draggable polaroids as the OCAD desk on the home page -->
+    <div class="ab2-desk" id="ab2-desk">
+      <figure class="ocad-pic" style="--r:-4deg;--l:2%;--t:3%;--w:30%"><img src="images/about/outside/2.jpg" alt="Outside of work" draggable="false"></figure>
+      <figure class="ocad-pic" style="--r:3deg;--l:35%;--t:0%;--w:34%"><img src="images/about/outside/1.png" alt="Outside of work" draggable="false"></figure>
+      <figure class="ocad-pic" style="--r:-3deg;--l:71%;--t:6%;--w:27%"><img src="images/about/outside/3.webp" alt="Outside of work" draggable="false"></figure>
+      <figure class="ocad-pic" style="--r:4deg;--l:8%;--t:52%;--w:30%"><img src="images/about/outside/4.webp" alt="Outside of work" draggable="false"></figure>
+      <figure class="ocad-pic" style="--r:-5deg;--l:60%;--t:55%;--w:31%"><img src="images/about/outside/5.avif" alt="Outside of work" draggable="false"></figure>
     </div>
   </section>
 
@@ -3765,39 +3744,19 @@ function initZeptoScramble() {
   }
 }
 
-function initAboutScramble() {
-  const el = document.getElementById('about-headline');
+function initAboutTypewriter() {
+  const el = document.getElementById('ab2-headline');
   if(!el) return;
-  const final1 = 'i design with my hands,';
-  const final2 = 'think with my whole life.';
-  let f = 0, steps = 50;
-  const chars = 'abcdefghijklmnopqrstuvwxyz,. ';
-  const iv = setInterval(() => {
-    f++;
-    const progress = f / steps;
-    const fullText = final1 + ' ' + final2;
-    const revealed = Math.floor(progress * fullText.length);
-    let out1 = '', out2 = '';
-    for(let i = 0; i < final1.length; i++) {
-      if(final1[i] === ' ' || final1[i] === ',') out1 += final1[i];
-      else if(i < revealed) out1 += final1[i];
-      else out1 += chars[Math.floor(Math.random() * chars.length)];
-    }
-    const offset = final1.length + 1;
-    for(let i = 0; i < final2.length; i++) {
-      const gi = i + offset;
-      if(final2[i] === ' ' || final2[i] === '.') out2 += final2[i];
-      else if(gi < revealed) out2 += final2[i];
-      else out2 += chars[Math.floor(Math.random() * chars.length)];
-    }
-    const wholeIdx = out2.indexOf('whole');
-    if(f >= steps) {
-      el.innerHTML = final1 + '<br>think with my <em>whole life.</em>';
-      clearInterval(iv);
-    } else {
-      el.innerHTML = out1 + '<br>think with my <em>' + out2.slice(out2.indexOf('w') >= 0 ? out2.indexOf('w') : 0) + '</em>';
-    }
-  }, 1000 / 30);
+  const id = el._id = (el._id||0)+1, txt = el.dataset.txt || (el.dataset.txt = el.textContent);
+  const cur = document.createElement('i'); cur.className = 'fun-caret';
+  el.textContent = ''; el.appendChild(cur);
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches){ el.textContent = txt; return; }
+  const charMs = Math.max(20, 1300/txt.length);
+  (async () => {
+    await new Promise(r=>setTimeout(r,200));
+    for(let k=1;k<=txt.length;k++){ if(el._id!==id) return; el.textContent = txt.slice(0,k); el.appendChild(cur); await new Promise(r=>setTimeout(r,charMs)); }
+    await new Promise(r=>setTimeout(r,900)); if(el._id===id) cur.remove();
+  })();
 }
 
 // ZL MARQUEE DUPLICATE
@@ -4511,7 +4470,7 @@ function goto(page,animate=true){
 
   setTimeout(initReveal,80);
   if(['wander','gauth','scotia','phoenix'].includes(page)) setTimeout(()=>initCsToc(page),100);
-  if(page==='about'){setTimeout(initAboutParallax,50);setTimeout(initAboutReveal,80);}
+  if(page==='about'){setTimeout(initAboutParallax,50);setTimeout(initAboutReveal,80);setTimeout(initAboutTypewriter,50);}
   if(page==='zepto') { setTimeout(()=>{initZlScrollBatch();},100); setTimeout(initZlServices,200); setTimeout(initZlCounters,300); setTimeout(initZeptoScramble,50); }
 }
 
@@ -4648,25 +4607,28 @@ if(initNf) initNf.classList.add('active');
   });
 })();
 
-// ── OCAD photo desk: drag, stack, tap to zoom with iMessage caption ──
+// ── Draggable photo desks: OCAD (home) and About-me, same scattered-polaroid mechanics ──
 (function(){
-  const desk=document.getElementById('ocad-desk'); if(!desk) return;
-  const pics=[...desk.querySelectorAll('.ocad-pic')]; let z=10;
-  pics.forEach(p=>{
-    let sx,sy,ox,oy,id=null,moved=false;
-    p.addEventListener('pointerdown',e=>{
-      if(e.button!==0) return; if(e.pointerType==='touch'){id=e.pointerId;sx=e.clientX;sy=e.clientY;moved=false;return}
-      id=e.pointerId; p.setPointerCapture(id); sx=e.clientX;sy=e.clientY; ox=parseFloat(p.style.getPropertyValue('--x'))||0; oy=parseFloat(p.style.getPropertyValue('--y'))||0; moved=false;
-      p.style.zIndex=++z;
+  function bindDesk(desk){
+    if(!desk||desk.dataset.bound) return; desk.dataset.bound='1';
+    const pics=[...desk.querySelectorAll('.ocad-pic')]; let z=10;
+    pics.forEach(p=>{
+      let sx,sy,ox,oy,id=null,moved=false;
+      p.addEventListener('pointerdown',e=>{
+        if(e.button!==0) return; if(e.pointerType==='touch'){id=e.pointerId;sx=e.clientX;sy=e.clientY;moved=false;return}
+        id=e.pointerId; p.setPointerCapture(id); sx=e.clientX;sy=e.clientY; ox=parseFloat(p.style.getPropertyValue('--x'))||0; oy=parseFloat(p.style.getPropertyValue('--y'))||0; moved=false;
+        p.style.zIndex=++z;
+      });
+      p.addEventListener('pointermove',e=>{
+        if(id!==e.pointerId||e.pointerType==='touch') return; const dx=e.clientX-sx, dy=e.clientY-sy;
+        if(!moved&&Math.hypot(dx,dy)>5){moved=true;p.classList.add('drag')}
+        if(moved){p.style.setProperty('--x',ox+dx+'px');p.style.setProperty('--y',oy+dy+'px')}
+      });
+      const up=e=>{ if(id!==e.pointerId) return; id=null; p.classList.remove('drag');
+      };
+      p.addEventListener('pointerup',up); p.addEventListener('pointercancel',up);
     });
-    p.addEventListener('pointermove',e=>{
-      if(id!==e.pointerId||e.pointerType==='touch') return; const dx=e.clientX-sx, dy=e.clientY-sy;
-      if(!moved&&Math.hypot(dx,dy)>5){moved=true;p.classList.add('drag')}
-      if(moved){p.style.setProperty('--x',ox+dx+'px');p.style.setProperty('--y',oy+dy+'px')}
-    });
-    const up=e=>{ if(id!==e.pointerId) return; id=null; p.classList.remove('drag');
-    };
-    p.addEventListener('pointerup',up); p.addEventListener('pointercancel',up);
-  });
+  }
+  ['ocad-desk','ab2-desk'].forEach(id=>bindDesk(document.getElementById(id)));
 })();
 </script>
