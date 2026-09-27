@@ -311,6 +311,7 @@ a{color:inherit;text-decoration:none}
 .ocad-pic:hover{box-shadow:0 18px 38px rgba(20,20,30,.28),0 3px 8px rgba(20,20,30,.14)}
 .ocad-pic.drag{cursor:grabbing;transition:box-shadow .2s;transform:translate(var(--x),var(--y)) rotate(0deg) scale(1.05);box-shadow:0 26px 50px rgba(20,20,30,.34)}
 .ab2-desk{position:relative;width:100%;min-height:620px;margin-top:2rem}
+#ab2-desk .ocad-pic img{aspect-ratio:4/3;object-fit:cover}
 @media(max-width:700px){
   #ocad-desk .ocad-pic{width:50%!important}
   #ocad-desk .ocad-pic:nth-of-type(1){--l:4%!important;--t:2%!important}
@@ -812,6 +813,7 @@ a{color:inherit;text-decoration:none}
 .ab2-headline span{color:var(--pink)}
 .ab2-bio{display:flex;flex-direction:column;gap:1.4rem;margin-bottom:2.5rem}
 .ab2-bio p{font-size:clamp(1rem,1.6vw,1.1rem);color:var(--ink2);line-height:1.85}
+.ll-mask{position:absolute;background:#fff;transform-origin:100% 50%;transform:scaleX(1);transition:transform .55s cubic-bezier(.6,0,.2,1);pointer-events:none}
 .ab2-links{display:flex;gap:1.25rem;flex-wrap:wrap;margin-bottom:0}
 .ab2-link{
   display:inline-flex;align-items:center;gap:.45rem;
@@ -3737,6 +3739,33 @@ function initAboutTypewriter() {
   })();
 }
 
+// About bio: each line reveals like ink being written across it, left to right
+function initAboutInkWipe() {
+  const ps = [...document.querySelectorAll('.ab2-bio p')]; if(!ps.length) return;
+  const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+  function build(p){
+    p.querySelectorAll('.ll-mask').forEach(m=>m.remove());
+    const rg = document.createRange(); rg.selectNodeContents(p);
+    const pr = p.getBoundingClientRect(), rects = [...rg.getClientRects()];
+    p._masks = rects.map(r=>{
+      const m = document.createElement('i'); m.className = 'll-mask';
+      m.style.left = (r.left-pr.left-2)+'px'; m.style.top = (r.top-pr.top-1)+'px';
+      m.style.width = (r.width+4)+'px'; m.style.height = (r.height+2)+'px';
+      p.appendChild(m); return m;
+    });
+  }
+  ps.forEach(p=>{ p.style.position='relative'; build(p); });
+  if(reduce){ ps.forEach(p=>(p._masks||[]).forEach(m=>m.remove())); return; }
+  const io = new IntersectionObserver(es=>es.forEach(e=>{
+    if(!e.isIntersecting) return; io.unobserve(e.target); e.target.dataset.wiped='1';
+    (e.target._masks||[]).forEach((m,i)=>setTimeout(()=>{m.style.transform='scaleX(0)'},i*110));
+  }),{threshold:.35});
+  ps.forEach(p=>io.observe(p));
+  let rt=0; addEventListener('resize',()=>{ clearTimeout(rt); rt=setTimeout(()=>{
+    ps.forEach(p=>{ if(!p.dataset.wiped) build(p); });
+  },200); });
+}
+
 // ZL MARQUEE DUPLICATE
 (function(){
   const track = document.getElementById('zl-marquee');
@@ -4439,7 +4468,7 @@ function goto(page,animate=true){
 
   setTimeout(initReveal,80);
   if(['wander','gauth','scotia','phoenix'].includes(page)) setTimeout(()=>initCsToc(page),100);
-  if(page==='about'){setTimeout(initAboutParallax,50);setTimeout(initAboutReveal,80);setTimeout(initAboutTypewriter,50);}
+  if(page==='about'){setTimeout(initAboutParallax,50);setTimeout(initAboutReveal,80);setTimeout(initAboutTypewriter,50);setTimeout(initAboutInkWipe,120);}
   if(page==='zepto') { setTimeout(()=>{initZlScrollBatch();},100); setTimeout(initZlServices,200); setTimeout(initZlCounters,300); setTimeout(initZeptoScramble,50); }
 }
 
