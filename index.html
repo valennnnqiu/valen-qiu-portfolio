@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Mono:wght@300;400&family=Caveat:wght@500;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Mono:wght@300;400&family=Caveat:wght@400;500;700&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -284,10 +284,10 @@ a{color:inherit;text-decoration:none}
 .fun-ans.x .im::after{transform:scaleX(1) rotate(-4deg)}
 .proj-card,.writing-card{min-height:100vh;min-height:100dvh;margin-top:0!important;display:flex;flex-direction:column;justify-content:center;box-sizing:border-box}
 .teaching-card{margin-top:0!important}
-/* the 24-hour "where does my time go" bar: full-bleed, sits lower under the text */
-.fun-clock{margin-top:5rem;width:100vw;position:relative;left:50%;transform:translateX(-50%);padding:0 var(--pg);box-sizing:border-box}
+/* the 24-hour "where does my time go" bar: stays inside this section, sits well below the text */
+.fun-clock{margin-top:8rem;width:100%}
 .fun-clock-labels{position:relative;height:1.6rem;margin-bottom:.6rem}
-.fc-lab{position:absolute;left:calc(var(--l) / 24 * 100%);bottom:0;font-family:'Caveat',cursive;font-weight:600;font-size:1.35rem;line-height:1;color:var(--muted);white-space:nowrap;opacity:0;transform:translateY(6px);transition:opacity .5s var(--ease-out),transform .5s var(--ease-out)}
+.fc-lab{position:absolute;left:calc(var(--l) / 24 * 100%);bottom:0;font-family:'Caveat',cursive;font-weight:400;font-size:1.35rem;line-height:1;color:var(--muted);white-space:nowrap;opacity:0;transform:translateY(6px);transition:opacity .5s var(--ease-out),transform .5s var(--ease-out)}
 .fc-lab.on{opacity:1;transform:none}
 .fun-clock-bar{display:flex;width:100%;height:.5rem;border-radius:999px;overflow:hidden;background:var(--bg2);gap:2px}
 .fc-seg{position:relative;flex:0 0 auto;width:calc(var(--w) / 24 * 100%);height:100%;overflow:hidden}
@@ -2124,19 +2124,19 @@ body.on-zepto{scrollbar-color:#fff transparent}
       </div>
       <div class="fun-clock" id="fun-clock" aria-hidden="true">
         <div class="fun-clock-labels">
-          <i class="fc-lab" style="--l:0">design</i>
-          <i class="fc-lab" style="--l:9">building</i>
-          <i class="fc-lab" style="--l:12">writing</i>
-          <i class="fc-lab" style="--l:15">teaching</i>
-          <i class="fc-lab" style="--l:18">djing</i>
-          <i class="fc-lab" style="--l:21">sleep (sometimes)</i>
+          <i class="fc-lab" style="--l:0">Design</i>
+          <i class="fc-lab" style="--l:9">Building</i>
+          <i class="fc-lab" style="--l:11">Writing</i>
+          <i class="fc-lab" style="--l:13">Teaching</i>
+          <i class="fc-lab" style="--l:19">DJing</i>
+          <i class="fc-lab" style="--l:21">Sleep (sometimes)</i>
         </div>
         <div class="fun-clock-bar">
           <span class="fc-seg fc-design" style="--w:9"></span>
-          <span class="fc-seg fc-pink" style="--w:3"></span>
-          <span class="fc-seg fc-pink" style="--w:3"></span>
-          <span class="fc-seg fc-pink" style="--w:3"></span>
-          <span class="fc-seg fc-pink" style="--w:3"></span>
+          <span class="fc-seg fc-pink" style="--w:2"></span>
+          <span class="fc-seg fc-pink" style="--w:2"></span>
+          <span class="fc-seg fc-pink" style="--w:6"></span>
+          <span class="fc-seg fc-pink" style="--w:2"></span>
           <span class="fc-seg fc-sleep" style="--w:3"></span>
         </div>
       </div>
@@ -4141,6 +4141,19 @@ function mixHex(c1,c2,t){t=Math.max(0,Math.min(1,t)); const p=h=>[parseInt(h.sli
 (function(){const wrap=document.getElementById('fun-intro'); if(!wrap) return;
   const t=wrap.querySelector('.fun-t'), ps=[...wrap.querySelectorAll('.fun-p')]; let tk=0;
   const clockSegs=[...wrap.querySelectorAll('.fc-seg')], clockLabs=[...wrap.querySelectorAll('.fc-lab')];
+  let clockPlaying=false, clockGen=0;
+  function playClock(){ // plays through on its own once triggered, not scrubbed by scroll
+    const gen=++clockGen, dur=2600, t0=performance.now(), reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+    function step(now){
+      if(gen!==clockGen) return;
+      const hrs=(reduce?1:Math.min(1,(now-t0)/dur))*24; let cum=0;
+      clockSegs.forEach(el=>{const w=parseFloat(el.style.getPropertyValue('--w')); const f=Math.max(0,Math.min(1,(hrs-cum)/w)); el.style.setProperty('--f',f.toFixed(3)); cum+=w});
+      clockLabs.forEach(el=>{const l=parseFloat(el.style.getPropertyValue('--l')); el.classList.toggle('on',hrs>=l)});
+      if(hrs<24) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  function resetClock(){ clockGen++; clockSegs.forEach(el=>el.style.setProperty('--f','0')); clockLabs.forEach(el=>el.classList.remove('on')); }
   function upd(){tk=0; const r=wrap.getBoundingClientRect(), vh=innerHeight, span=Math.max(1,r.height-vh);
     t.style.setProperty('--o',Math.max(0,Math.min(1,(vh-r.top)/(vh*.7))).toFixed(3));
     const p=Math.max(0,Math.min(1,-r.top/span));
@@ -4149,11 +4162,8 @@ function mixHex(c1,c2,t){t=Math.max(0,Math.min(1,t)); const p=h=>[parseInt(h.sli
     kws.forEach((el,i)=>{const kp=Math.max(0,Math.min(1,(cs-i/kws.length)/(1/kws.length))); el.style.color=mixHex('#1C1C1A','#E8196E',kp)});
     ps.forEach(el=>{const on=p>=parseFloat(el.dataset.at); el.classList.toggle('on',on);
       if(el.dataset.txt){ if(on&&!el.dataset.done){el.dataset.done=1; stream(el)} else if(!on&&el.dataset.done){el.dataset.done=''; el._id=(el._id||0)+1; el.textContent=''; el.classList.remove('x')} }})
-    // the 24h bar fills left to right, one segment at a time, as a literal "where did the day go";
-    // each label sits at the start of its own block and, once reached, stays lit - by the end all of them are on
-    const hrs=Math.max(0,Math.min(1,(p-.38)/.6))*24; let cum=0;
-    clockSegs.forEach((el)=>{const w=parseFloat(el.style.getPropertyValue('--w')); const f=Math.max(0,Math.min(1,(hrs-cum)/w)); el.style.setProperty('--f',f.toFixed(3)); cum+=w});
-    clockLabs.forEach(el=>{const l=parseFloat(el.style.getPropertyValue('--l')); el.classList.toggle('on',hrs>=l)});
+    // the 24h bar auto-plays once the scroll has carried us this far in - it doesn't track the scroll after that
+    if(p>=.42){ if(!clockPlaying){clockPlaying=true; playClock()} } else if(clockPlaying){ clockPlaying=false; resetClock() }
   }
   async function stream(el){const id=el._id=(el._id||0)+1, txt=el.dataset.txt, sl=ms=>new Promise(r=>setTimeout(r,ms)); const cur=document.createElement('i'); cur.className='fun-caret';
     el.textContent=''; el.appendChild(cur); await sl(350);
