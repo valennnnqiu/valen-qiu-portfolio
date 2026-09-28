@@ -3762,16 +3762,16 @@ function initAboutInkWipe() {
   async function typeOut(p){
     const txt = p.dataset.txt, cur = document.createElement('i'); cur.className = 'fun-caret';
     p.textContent = ''; p.appendChild(cur);
-    const step = Math.max(1, Math.round(txt.length/140)); // a few characters per tick, like streamed text
-    for(let k=step;k<txt.length;k+=step){ p.textContent = txt.slice(0,k); p.appendChild(cur); await new Promise(r=>setTimeout(r,9)); }
-    p.innerHTML = txt.replace(boldRe,'<b>$1</b>'); p.appendChild(cur); await new Promise(r=>setTimeout(r,300)); cur.remove();
+    const step = Math.max(1, Math.round(txt.length/10)); // ~10 ticks per paragraph so all 7 finish well under 2s total
+    for(let k=step;k<txt.length;k+=step){ p.textContent = txt.slice(0,k); p.appendChild(cur); await new Promise(r=>setTimeout(r,12)); }
+    p.innerHTML = txt.replace(boldRe,'<b>$1</b>'); p.appendChild(cur); await new Promise(r=>setTimeout(r,50)); cur.remove();
   }
   function start(){
     ps.forEach(p=>{ p.textContent=''; });
     const io = new IntersectionObserver(es=>es.forEach(async e=>{
       if(!e.isIntersecting) return; io.unobserve(e.target);
       for(const p of ps){ await typeOut(p); } // one paragraph at a time, in order
-    }),{threshold:.3});
+    }),{threshold:.2,rootMargin:'0px 0px -25% 0px'}); // don't fire just because a sliver peeks in at the very bottom
     io.observe(ps[0]);
   }
   if(document.fonts && document.fonts.ready){ document.fonts.ready.then(()=>setTimeout(start,30)); }
