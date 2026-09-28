@@ -3757,7 +3757,7 @@ function initAboutInkWipe() {
   const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
   ps.forEach(p=>{ p.dataset.txt = p.dataset.txt || p.textContent; });
   if(reduce) return; // leave the plain text as-is
-  const BOLD_TERMS = ['Shanghai','Melbourne','San Francisco','Toronto','Industrial Design','California College of the Arts','Shenzhen','Digital Futures','OCAD'];
+  const BOLD_TERMS = ['Shanghai','Melbourne','San Francisco','Toronto','Industrial Design','California College of the Arts','Zepto Lab','Shenzhen','Digital Futures','OCAD'];
   const boldRe = new RegExp('\\b(' + BOLD_TERMS.map(t=>t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|') + ')\\b','g');
   async function typeOut(p){
     const txt = p.dataset.txt, cur = document.createElement('i'); cur.className = 'fun-caret';
