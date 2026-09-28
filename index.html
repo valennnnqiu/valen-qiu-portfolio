@@ -3757,12 +3757,14 @@ function initAboutInkWipe() {
   const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
   ps.forEach(p=>{ p.dataset.txt = p.dataset.txt || p.textContent; });
   if(reduce) return; // leave the plain text as-is
+  const BOLD_TERMS = ['Shanghai','Melbourne','San Francisco','Toronto','Industrial Design','California College of the Arts','Shenzhen','Digital Futures','OCAD'];
+  const boldRe = new RegExp('\\b(' + BOLD_TERMS.map(t=>t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|') + ')\\b','g');
   async function typeOut(p){
     const txt = p.dataset.txt, cur = document.createElement('i'); cur.className = 'fun-caret';
     p.textContent = ''; p.appendChild(cur);
     const step = Math.max(1, Math.round(txt.length/140)); // a few characters per tick, like streamed text
     for(let k=step;k<txt.length;k+=step){ p.textContent = txt.slice(0,k); p.appendChild(cur); await new Promise(r=>setTimeout(r,9)); }
-    p.textContent = txt; p.appendChild(cur); await new Promise(r=>setTimeout(r,300)); cur.remove();
+    p.innerHTML = txt.replace(boldRe,'<b>$1</b>'); p.appendChild(cur); await new Promise(r=>setTimeout(r,300)); cur.remove();
   }
   function start(){
     ps.forEach(p=>{ p.textContent=''; });
