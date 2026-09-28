@@ -876,6 +876,9 @@ a{color:inherit;text-decoration:none}
   margin:0 -1.5rem;
 }
 .ab2-value:hover{background:var(--bg2)}
+.ab2-value:nth-child(1){cursor:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2732%27%20height%3D%2732%27%3E%3Ctext%20x%3D%2716%27%20y%3D%2724%27%20font-size%3D%2726%27%20text-anchor%3D%27middle%27%3E%F0%9F%93%A2%3C/text%3E%3C/svg%3E") 16 16, auto}
+.ab2-value:nth-child(2){cursor:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2732%27%20height%3D%2732%27%3E%3Ctext%20x%3D%2716%27%20y%3D%2724%27%20font-size%3D%2726%27%20text-anchor%3D%27middle%27%3E%F0%9F%8E%BE%3C/text%3E%3C/svg%3E") 16 16, auto}
+.ab2-value:nth-child(3){cursor:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2732%27%20height%3D%2732%27%3E%3Ctext%20x%3D%2716%27%20y%3D%2724%27%20font-size%3D%2726%27%20text-anchor%3D%27middle%27%3E%F0%9F%A7%B8%3C/text%3E%3C/svg%3E") 16 16, auto}
 .ab2-value-num{
   font-family:var(--mono);font-size:.75rem;
   color:var(--muted2);letter-spacing:.06em;
@@ -3762,10 +3765,11 @@ function initAboutInkWipe() {
   }
   function start(){
     ps.forEach(p=>{ p.textContent=''; });
-    const io = new IntersectionObserver(es=>es.forEach(e=>{
-      if(!e.isIntersecting) return; io.unobserve(e.target); typeOut(e.target);
+    const io = new IntersectionObserver(es=>es.forEach(async e=>{
+      if(!e.isIntersecting) return; io.unobserve(e.target);
+      for(const p of ps){ await typeOut(p); } // one paragraph at a time, in order
     }),{threshold:.3});
-    ps.forEach(p=>io.observe(p));
+    io.observe(ps[0]);
   }
   if(document.fonts && document.fonts.ready){ document.fonts.ready.then(()=>setTimeout(start,30)); }
   else start();
