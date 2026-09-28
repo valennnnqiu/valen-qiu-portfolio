@@ -813,6 +813,9 @@ a{color:inherit;text-decoration:none}
   color:var(--ink);margin-bottom:2.5rem;
 }
 .ab2-headline span{color:var(--pink)}
+.ab2-py{position:relative;cursor:help;border-bottom:1.5px dotted currentColor}
+.ab2-py::after{content:attr(data-py);position:absolute;left:50%;top:100%;transform:translate(-50%,6px);white-space:nowrap;font-family:var(--sans);font-size:.85rem;font-weight:500;letter-spacing:0;color:var(--muted);background:var(--bg);padding:.25rem .6rem;border-radius:6px;box-shadow:0 4px 12px rgba(13,13,12,.1);opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}
+.ab2-py:hover::after{opacity:1;transform:translate(-50%,10px)}
 .ab2-bio{display:flex;flex-direction:column;gap:1.4rem;margin-bottom:2.5rem}
 .ab2-bio p{font-size:clamp(1rem,1.6vw,1.1rem);color:var(--ink2);line-height:1.85}
 .ll-mask{position:absolute;z-index:2;background:var(--bg);transform-origin:100% 50%;transform:scaleX(1);transition:transform .55s cubic-bezier(.6,0,.2,1);pointer-events:none}
@@ -876,7 +879,7 @@ a{color:inherit;text-decoration:none}
   transition:background var(--t-fast) var(--ease-out);
   margin:0 -1.5rem;
 }
-.ab2-value:hover{background:var(--bg2)}
+.ab2-value:hover{background:var(--pink-bg)}
 .ab2-value:nth-child(1){cursor:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2732%27%20height%3D%2732%27%3E%3Ctext%20x%3D%2716%27%20y%3D%2724%27%20font-size%3D%2726%27%20text-anchor%3D%27middle%27%3E%F0%9F%93%A2%3C/text%3E%3C/svg%3E") 16 16, auto}
 .ab2-value:nth-child(2){cursor:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2732%27%20height%3D%2732%27%3E%3Ctext%20x%3D%2716%27%20y%3D%2724%27%20font-size%3D%2726%27%20text-anchor%3D%27middle%27%3E%F0%9F%8E%BE%3C/text%3E%3C/svg%3E") 16 16, auto}
 .ab2-value:nth-child(3){cursor:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2732%27%20height%3D%2732%27%3E%3Ctext%20x%3D%2716%27%20y%3D%2724%27%20font-size%3D%2726%27%20text-anchor%3D%27middle%27%3E%F0%9F%A7%B8%3C/text%3E%3C/svg%3E") 16 16, auto}
@@ -2320,7 +2323,7 @@ body.on-zepto{scrollbar-color:#fff transparent}
     <div class="ab2-reveal" style="border-radius:20px;overflow:hidden;display:flex;align-items:center;justify-content:center;">
       <img src="images/about/hero.png" alt="Valen Qiu" style="width:auto;display:block">
     </div>
-    <h1 class="ab2-headline ab2-reveal" id="ab2-headline" style="color:var(--pink)">Hi (你好/侬好), stranger.</h1>
+    <h1 class="ab2-headline ab2-reveal" id="ab2-headline" style="color:var(--pink)" data-final="Hi (你好/侬好), stranger." data-py1="nǐ hǎo · Mandarin" data-py2="nóng hǎo · Shanghainese">Hi (你好/侬好), stranger.</h1>
   </div>
 
   <!-- HERO BIO -->
@@ -3737,15 +3740,22 @@ function initZeptoScramble() {
 function initAboutTypewriter() {
   const el = document.getElementById('ab2-headline');
   if(!el) return;
-  const id = el._id = (el._id||0)+1, txt = el.dataset.txt || (el.dataset.txt = el.textContent);
+  const id = el._id = (el._id||0)+1;
+  const txt = el.dataset.final || el.textContent;
+  const finalize = () => { // swap in the real markup so 你好 / 侬好 each get their own hover tooltip
+    el.innerHTML = txt
+      .replace('你好', '<span class="ab2-py" data-py="'+el.dataset.py1+'">你好</span>')
+      .replace('侬好', '<span class="ab2-py" data-py="'+el.dataset.py2+'">侬好</span>');
+  };
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches){ finalize(); return; }
   const cur = document.createElement('i'); cur.className = 'fun-caret';
   el.textContent = ''; el.appendChild(cur);
-  if(matchMedia('(prefers-reduced-motion:reduce)').matches){ el.textContent = txt; return; }
-  const charMs = Math.max(20, 1300/txt.length);
+  const sl = ms => new Promise(r=>setTimeout(r,ms));
+  const charMs = Math.max(18, 900/txt.length);
   (async () => {
-    await new Promise(r=>setTimeout(r,200));
-    for(let k=1;k<=txt.length;k++){ if(el._id!==id) return; el.textContent = txt.slice(0,k); el.appendChild(cur); await new Promise(r=>setTimeout(r,charMs)); }
-    await new Promise(r=>setTimeout(r,900)); if(el._id===id) cur.remove();
+    await sl(250);
+    for(let k=1;k<=txt.length;k++){ if(el._id!==id) return; el.textContent = txt.slice(0,k); el.appendChild(cur); await sl(charMs); }
+    await sl(400); if(el._id!==id) return; finalize();
   })();
 }
 
