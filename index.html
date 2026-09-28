@@ -3755,7 +3755,7 @@ function initAboutTypewriter() {
   const cur = document.createElement('i'); cur.className = 'fun-caret';
   el.textContent = ''; el.appendChild(cur);
   const sl = ms => new Promise(r=>setTimeout(r,ms));
-  const charMs = Math.max(18, 900/txt.length);
+  const charMs = Math.max(45, 2400/txt.length);
   (async () => {
     await sl(250);
     for(let k=1;k<=txt.length;k++){ if(el._id!==id) return; el.textContent = txt.slice(0,k); el.appendChild(cur); await sl(charMs); }
