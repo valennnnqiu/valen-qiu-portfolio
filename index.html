@@ -804,7 +804,7 @@ a{color:inherit;text-decoration:none}
 
 /* ── ABOUT PAGE v2 (Ben-style) ── */
 .ab2-page{max-width:1152px;margin:0 auto;padding:1.5rem clamp(1rem,3vw,2.5rem) 4rem;position:relative;z-index:1;display:flex;flex-direction:column;gap:2rem}
-.ab2-hero{padding:2.5rem;background:#fff;border-radius:20px}
+.ab2-hero{padding:0}
 .ab2-headline{
   font-family:var(--sans);font-size:clamp(2.25rem,5.5vw,4rem);
   font-weight:800;letter-spacing:-.035em;line-height:1.1;
@@ -813,7 +813,7 @@ a{color:inherit;text-decoration:none}
 .ab2-headline span{color:var(--pink)}
 .ab2-bio{display:flex;flex-direction:column;gap:1.4rem;margin-bottom:2.5rem}
 .ab2-bio p{font-size:clamp(1rem,1.6vw,1.1rem);color:var(--ink2);line-height:1.85}
-.ll-mask{position:absolute;background:#fff;transform-origin:100% 50%;transform:scaleX(1);transition:transform .55s cubic-bezier(.6,0,.2,1);pointer-events:none}
+.ll-mask{position:absolute;z-index:2;background:var(--bg);transform-origin:100% 50%;transform:scaleX(1);transition:transform .55s cubic-bezier(.6,0,.2,1);pointer-events:none}
 .ab2-links{display:flex;gap:1.25rem;flex-wrap:wrap;margin-bottom:0}
 .ab2-link{
   display:inline-flex;align-items:center;gap:.45rem;
@@ -823,7 +823,7 @@ a{color:inherit;text-decoration:none}
 }
 .ab2-link:hover{color:var(--pink);border-color:var(--pink)}
 
-.ab2-section{padding:2.5rem;background:#fff;border-radius:20px;border:none}
+.ab2-section{padding:0;background:transparent;border-radius:0;border:none}
 .ab2-section-title{
   font-family:var(--sans);font-size:clamp(1.5rem,3vw,2.25rem);
   font-weight:700;letter-spacing:-.03em;color:var(--ink);
@@ -3742,6 +3742,7 @@ function initAboutTypewriter() {
 // About bio: each line reveals like ink being written across it, left to right
 function initAboutInkWipe() {
   const ps = [...document.querySelectorAll('.ab2-bio p')]; if(!ps.length) return;
+  if(ps[0]._inkBound) return; ps.forEach(p=>p._inkBound=1); // don't double-bind on repeat page visits
   const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
   function build(p){
     p.querySelectorAll('.ll-mask').forEach(m=>m.remove());
@@ -3754,16 +3755,20 @@ function initAboutInkWipe() {
       p.appendChild(m); return m;
     });
   }
-  ps.forEach(p=>{ p.style.position='relative'; build(p); });
-  if(reduce){ ps.forEach(p=>(p._masks||[]).forEach(m=>m.remove())); return; }
-  const io = new IntersectionObserver(es=>es.forEach(e=>{
-    if(!e.isIntersecting) return; io.unobserve(e.target); e.target.dataset.wiped='1';
-    (e.target._masks||[]).forEach((m,i)=>setTimeout(()=>{m.style.transform='scaleX(0)'},i*110));
-  }),{threshold:.35});
-  ps.forEach(p=>io.observe(p));
-  let rt=0; addEventListener('resize',()=>{ clearTimeout(rt); rt=setTimeout(()=>{
-    ps.forEach(p=>{ if(!p.dataset.wiped) build(p); });
-  },200); });
+  function buildAll(){ ps.forEach(p=>{ if(!p.dataset.wiped) build(p) }); }
+  function start(){
+    ps.forEach(p=>{ p.style.position='relative'; build(p); });
+    if(reduce){ ps.forEach(p=>(p._masks||[]).forEach(m=>m.remove())); return; }
+    const io = new IntersectionObserver(es=>es.forEach(e=>{
+      if(!e.isIntersecting) return; io.unobserve(e.target); e.target.dataset.wiped='1';
+      (e.target._masks||[]).forEach((m,i)=>setTimeout(()=>{m.style.transform='scaleX(0)'},i*110));
+    }),{threshold:.3});
+    ps.forEach(p=>io.observe(p));
+    let rt=0; addEventListener('resize',()=>{ clearTimeout(rt); rt=setTimeout(buildAll,200); });
+  }
+  // build once real fonts are in (measuring against the fallback font would misplace every mask)
+  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(()=>setTimeout(start,30)); }
+  else start();
 }
 
 // ZL MARQUEE DUPLICATE
