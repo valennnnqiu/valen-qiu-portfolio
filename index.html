@@ -804,7 +804,7 @@ a{color:inherit;text-decoration:none}
 
 
 /* ── ABOUT PAGE v2 (Ben-style) ── */
-.ab2-page{max-width:1152px;margin:0 auto;padding:1.5rem clamp(1rem,3vw,2.5rem) 4rem;position:relative;z-index:1;display:flex;flex-direction:column;gap:2rem}
+.ab2-page{max-width:1152px;margin:0 auto;padding:1.5rem clamp(1rem,3vw,2.5rem) 4rem;position:relative;z-index:1;display:flex;flex-direction:column;gap:clamp(4rem,10vw,7rem)}
 .ab2-hero{padding:0}
 .ab2-headline{
   font-family:var(--sans);font-size:clamp(2.25rem,5.5vw,4rem);
@@ -815,6 +815,9 @@ a{color:inherit;text-decoration:none}
 .ab2-bio{display:flex;flex-direction:column;gap:1.4rem;margin-bottom:2.5rem}
 .ab2-bio p{font-size:clamp(1rem,1.6vw,1.1rem);color:var(--ink2);line-height:1.85}
 .ll-mask{position:absolute;z-index:2;background:var(--bg);transform-origin:100% 50%;transform:scaleX(1);transition:transform .55s cubic-bezier(.6,0,.2,1);pointer-events:none}
+.ab2-firstscreen{min-height:calc(100vh - 130px);min-height:calc(100dvh - 130px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;box-sizing:border-box;text-align:center}
+.ab2-firstscreen img{max-height:44vh;width:auto;display:block}
+@media(max-width:700px){.ab2-firstscreen{min-height:calc(100vh - 90px);min-height:calc(100dvh - 90px)}.ab2-firstscreen img{max-height:38vh}}
 .ab2-links{display:flex;gap:1.25rem;flex-wrap:wrap;margin-bottom:0}
 .ab2-link{
   display:inline-flex;align-items:center;gap:.45rem;
@@ -2308,14 +2311,16 @@ body.on-zepto{scrollbar-color:#fff transparent}
 <div class="page" id="page-about">
 <div class="ab2-page">
 
-  <!-- HERO IMAGE CARD -->
-  <div class="ab2-reveal" style="border-radius:20px;overflow:hidden;display:flex;align-items:center;justify-content:center;">
-    <img src="images/about/hero.png" alt="Valen Qiu" style="max-height:320px;width:auto;display:block">
+  <!-- HERO IMAGE + HEADLINE: fills the first screen -->
+  <div class="ab2-firstscreen">
+    <div class="ab2-reveal" style="border-radius:20px;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+      <img src="images/about/hero.png" alt="Valen Qiu" style="width:auto;display:block">
+    </div>
+    <h1 class="ab2-headline ab2-reveal" id="ab2-headline" style="color:var(--pink)">Hi (你好/侬好), stranger.</h1>
   </div>
 
   <!-- HERO BIO -->
   <section class="ab2-hero ab2-reveal">
-    <h1 class="ab2-headline" id="ab2-headline" style="color:var(--pink)">Hi (你好/侬好), stranger.</h1>
     <div class="ab2-bio">
       <p>I grew up across Shanghai, Melbourne, San Francisco, and now Toronto. A Third Culture Kid who never quite fit one room, but somehow felt at home in all of them.</p>
       <p>For a while, I followed the expected path. I studied Industrial Design at California College of the Arts.</p>
@@ -3741,33 +3746,27 @@ function initAboutTypewriter() {
 }
 
 // About bio: each line reveals like ink being written across it, left to right
+// About bio: each paragraph streams in fast, like chat text being typed out
 function initAboutInkWipe() {
   const ps = [...document.querySelectorAll('.ab2-bio p')]; if(!ps.length) return;
-  if(ps[0]._inkBound) return; ps.forEach(p=>p._inkBound=1); // don't double-bind on repeat page visits
+  if(ps[0]._typeBound) return; ps.forEach(p=>p._typeBound=1); // don't double-bind on repeat page visits
   const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
-  function build(p){
-    p.querySelectorAll('.ll-mask').forEach(m=>m.remove());
-    const rg = document.createRange(); rg.selectNodeContents(p);
-    const pr = p.getBoundingClientRect(), rects = [...rg.getClientRects()];
-    p._masks = rects.map(r=>{
-      const m = document.createElement('i'); m.className = 'll-mask';
-      m.style.left = (r.left-pr.left-2)+'px'; m.style.top = (r.top-pr.top-1)+'px';
-      m.style.width = (r.width+4)+'px'; m.style.height = (r.height+2)+'px';
-      p.appendChild(m); return m;
-    });
+  ps.forEach(p=>{ p.dataset.txt = p.dataset.txt || p.textContent; });
+  if(reduce) return; // leave the plain text as-is
+  async function typeOut(p){
+    const txt = p.dataset.txt, cur = document.createElement('i'); cur.className = 'fun-caret';
+    p.textContent = ''; p.appendChild(cur);
+    const step = Math.max(1, Math.round(txt.length/140)); // a few characters per tick, like streamed text
+    for(let k=step;k<txt.length;k+=step){ p.textContent = txt.slice(0,k); p.appendChild(cur); await new Promise(r=>setTimeout(r,9)); }
+    p.textContent = txt; p.appendChild(cur); await new Promise(r=>setTimeout(r,300)); cur.remove();
   }
-  function buildAll(){ ps.forEach(p=>{ if(!p.dataset.wiped) build(p) }); }
   function start(){
-    ps.forEach(p=>{ p.style.position='relative'; build(p); });
-    if(reduce){ ps.forEach(p=>(p._masks||[]).forEach(m=>m.remove())); return; }
+    ps.forEach(p=>{ p.textContent=''; });
     const io = new IntersectionObserver(es=>es.forEach(e=>{
-      if(!e.isIntersecting) return; io.unobserve(e.target); e.target.dataset.wiped='1';
-      (e.target._masks||[]).forEach((m,i)=>setTimeout(()=>{m.style.transform='scaleX(0)'},i*110));
+      if(!e.isIntersecting) return; io.unobserve(e.target); typeOut(e.target);
     }),{threshold:.3});
     ps.forEach(p=>io.observe(p));
-    let rt=0; addEventListener('resize',()=>{ clearTimeout(rt); rt=setTimeout(buildAll,200); });
   }
-  // build once real fonts are in (measuring against the fallback font would misplace every mask)
   if(document.fonts && document.fonts.ready){ document.fonts.ready.then(()=>setTimeout(start,30)); }
   else start();
 }
