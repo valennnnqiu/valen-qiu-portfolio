@@ -139,12 +139,37 @@ a{color:inherit;text-decoration:none}
 
 /* ── HERO DESKTOP (folders + photo) ── */
 .hero-desktop{position:relative;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;column-gap:clamp(.8rem,8vw,8.5rem);width:100%;min-height:clamp(140px,26vw,280px);padding:1rem 0 1.25rem;animation:fadeUp .8s var(--ease) .1s both;margin-left:var(--hero-shift,0px)}
-.hero-folders{grid-column:1;justify-self:end;display:flex;flex-direction:column;gap:clamp(.4rem,1.8vw,.9rem)}
-.hero-folder{display:flex;background:none;border:none;cursor:pointer;padding:0;font-family:var(--sans);width:fit-content}
-.hero-folder:nth-child(odd){margin-left:0}
-.hero-folder:nth-child(even){margin-left:clamp(1rem,5vw,2.75rem)}
-.hero-folder-icon{-webkit-user-drag:none;user-select:none;height:clamp(28px,7vw,58px);width:auto;display:block;transition:transform var(--t-fast) var(--ease);filter:drop-shadow(0 6px 10px rgba(13,13,12,.12))}
-.hero-folder:hover .hero-folder-icon{transform:scale(1.06) translateY(-3px)}
+.hero-folders{grid-column:1;justify-self:end;display:flex;flex-direction:column;gap:clamp(.55rem,2.2vw,1.15rem)}
+.hero-folder{display:flex;flex-direction:column;align-items:center;background:none;border:none;cursor:pointer;padding:0;font-family:var(--sans);width:fit-content}
+.hero-folder:nth-child(1){margin-left:clamp(1.6rem,7vw,3.6rem)}
+.hero-folder:nth-child(2){margin-left:clamp(.9rem,4vw,2rem)}
+.hero-folder:nth-child(3){margin-left:0}
+.hero-folder:nth-child(4){margin-left:clamp(.9rem,4vw,2rem)}
+.hero-folder:nth-child(5){margin-left:clamp(1.6rem,7vw,3.6rem)}
+.hero-folder-art{position:relative;display:grid;place-items:center;width:clamp(34px,8vw,64px);height:clamp(34px,8vw,64px);transition:transform var(--t-fast) var(--ease)}
+.hero-folder-icon{-webkit-user-drag:none;user-select:none;width:100%;height:100%;object-fit:contain;display:block;filter:drop-shadow(0 6px 10px rgba(13,13,12,.14))}
+.hero-folder-shadow{width:58%;height:6px;margin-top:2px;background:rgba(13,13,12,.15);border-radius:50%;transition:transform var(--t-fast) var(--ease),opacity var(--t-fast) var(--ease)}
+.hero-folder-label{font-size:clamp(.6rem,1.5vw,.8rem);color:var(--ink2);margin-top:.3rem;transition:color var(--t-fast) var(--ease);white-space:nowrap}
+.hero-folder:hover .hero-folder-art{transform:translateY(-8px)}
+.hero-folder:hover .hero-folder-shadow{transform:scale(.6);opacity:.5}
+.hero-folder:hover .hero-folder-label{color:var(--pink)}
+.pf-folder:hover .hero-folder-icon{animation:pfTilt .5s steps(4) infinite alternate}
+.pf-flask:hover .hero-folder-icon{animation:pfJiggle .3s steps(2) infinite}
+.pf-flower:hover .hero-folder-icon{animation:pfSpin 1.2s steps(8) infinite}
+.pf-controller:hover .hero-folder-icon{animation:pfRumble .12s steps(2) infinite}
+.pf-headphones:hover .hero-folder-icon{animation:pfBeat .5s steps(2) infinite}
+@keyframes pfTilt{from{transform:rotate(-6deg)}to{transform:rotate(6deg)}}
+@keyframes pfJiggle{0%{transform:translateX(-2px)}100%{transform:translateX(2px)}}
+@keyframes pfSpin{to{transform:rotate(360deg)}}
+@keyframes pfRumble{0%{transform:translate(-3px,1px) rotate(-2deg)}100%{transform:translate(3px,-1px) rotate(2deg)}}
+@keyframes pfBeat{0%{transform:scale(1.12)}100%{transform:scale(1)}}
+.pf-bubble{position:absolute;width:8px;height:8px;background:#7fd3ff;border:2px solid #1a1a1a;pointer-events:none;animation:pfRise .9s steps(6) forwards}
+@keyframes pfRise{0%{transform:translateY(0);opacity:1}80%{opacity:1}100%{transform:translateY(-46px);opacity:0}}
+.pf-sparkle{position:absolute;width:6px;height:6px;background:#FFD43B;pointer-events:none;animation:pfBlink .6s steps(2) forwards}
+@keyframes pfBlink{0%{transform:scale(0)}50%{transform:scale(1.4)}100%{transform:scale(0)}}
+.pf-note{position:absolute;font-size:14px;font-weight:bold;color:var(--ink);pointer-events:none;animation:pfFloat 1.2s steps(6) forwards}
+@keyframes pfFloat{0%{transform:translate(0,0);opacity:1}100%{transform:translate(var(--dx),-46px);opacity:0}}
+@media(prefers-reduced-motion:reduce){.hero-folder-art,.hero-folder-shadow{transition:none}.hero-folder:hover .hero-folder-icon{animation:none!important}.pf-bubble,.pf-sparkle,.pf-note{display:none}}
 .hero-photo{grid-column:2;width:min(45.6vw,calc(58.1vh * 1.1146));will-change:transform}
 .hs{position:relative;aspect-ratio:3531/3168;container-type:inline-size;width:100%}
 .hs-par{position:absolute;transform:translate3d(calc(var(--px,0) * var(--d,0) * 1cqw),calc(var(--py,0) * var(--d,0) * .8cqw),0)}
@@ -2056,20 +2081,30 @@ body.on-zepto{scrollbar-color:#fff transparent}
   <section class="hero"><div class="hero-card">
     <div class="hero-desktop">
       <div class="hero-folders">
-        <button class="hero-folder" onclick="goToSection('work-section')">
-          <img class="hero-folder-icon" draggable="false" src="images/home/folder-recent-work.png" alt="Recent Work">
+        <button class="hero-folder pf-folder" onclick="goToSection('work-section')">
+          <span class="hero-folder-art"><img class="hero-folder-icon" draggable="false" src="images/home/pixel-folder.webp" alt=""></span>
+          <span class="hero-folder-shadow"></span>
+          <span class="hero-folder-label">Recent Work</span>
         </button>
-        <button class="hero-folder" onclick="goto('zepto')">
-          <img class="hero-folder-icon" draggable="false" src="images/home/folder-client-work.png" alt="Client Work – ZEPTOLAB">
+        <button class="hero-folder pf-flask" onclick="goto('zepto')">
+          <span class="hero-folder-art"><img class="hero-folder-icon" draggable="false" src="images/home/pixel-flask.png" alt=""></span>
+          <span class="hero-folder-shadow"></span>
+          <span class="hero-folder-label">Client Work – ZEPTOLAB</span>
         </button>
-        <button class="hero-folder" onclick="goToSection('builds-section')">
-          <img class="hero-folder-icon" draggable="false" src="images/home/folder-playground.png" alt="Playground">
+        <button class="hero-folder pf-controller" onclick="goToSection('builds-section')">
+          <span class="hero-folder-art"><img class="hero-folder-icon" draggable="false" src="images/home/pixel-controller.png" alt=""></span>
+          <span class="hero-folder-shadow"></span>
+          <span class="hero-folder-label">Playground</span>
         </button>
-        <button class="hero-folder" onclick="goToSection('writing-section')">
-          <img class="hero-folder-icon" draggable="false" src="images/home/folder-design-reflection.png" alt="Design Reflection">
+        <button class="hero-folder pf-flower" onclick="goToSection('writing-section')">
+          <span class="hero-folder-art"><img class="hero-folder-icon" draggable="false" src="images/home/pixel-flower.webp" alt=""></span>
+          <span class="hero-folder-shadow"></span>
+          <span class="hero-folder-label">Design Reflection</span>
         </button>
-        <button class="hero-folder" onclick="window.open('https://www.instagram.com/valennnnq/?hl=en','_blank')">
-          <img class="hero-folder-icon" draggable="false" src="images/home/folder-dj.png" alt="Come DJ with Valen">
+        <button class="hero-folder pf-headphones" onclick="window.open('https://www.instagram.com/valennnnq/?hl=en','_blank')">
+          <span class="hero-folder-art"><img class="hero-folder-icon" draggable="false" src="images/home/pixel-headphones.webp" alt=""></span>
+          <span class="hero-folder-shadow"></span>
+          <span class="hero-folder-label">Come DJ with Valen</span>
         </button>
       </div>
       <div class="hero-photo"><div class="hs" id="hs">
@@ -4616,6 +4651,34 @@ if(initNf) initNf.classList.add('active');
   const folders=[...hero.querySelectorAll('.hero-folder')];
   // DJ folder: dots pulse to a beat
   folders[4]&&(folders[4].addEventListener('mouseenter',()=>hero.classList.add('beat')),folders[4].addEventListener('mouseleave',()=>hero.classList.remove('beat')));
+
+  // pixel-icon hover particles (bubbles / sparkles / notes)
+  function spawnWhileHover(sel,interval,make){
+    hero.querySelectorAll(sel).forEach(icon=>{
+      let timer=null; const art=icon.querySelector('.hero-folder-art');
+      icon.addEventListener('mouseenter',()=>{ if(reduce) return; make(art); timer=setInterval(()=>make(art),interval); });
+      icon.addEventListener('mouseleave',()=>clearInterval(timer));
+    });
+  }
+  function addParticle(art,el,life){ art.appendChild(el); setTimeout(()=>el.remove(),life); }
+  spawnWhileHover('.pf-flask',250,art=>{
+    const b=document.createElement('span'); b.className='pf-bubble';
+    b.style.left=(art.clientWidth*.42+Math.random()*10)+'px'; b.style.top='6px';
+    addParticle(art,b,900);
+  });
+  spawnWhileHover('.pf-flower',200,art=>{
+    const s=document.createElement('span'); s.className='pf-sparkle';
+    const angle=Math.random()*Math.PI*2, R=art.clientWidth*.56;
+    s.style.left=(art.clientWidth/2+Math.cos(angle)*R)+'px'; s.style.top=(art.clientHeight/2+Math.sin(angle)*R)+'px';
+    addParticle(art,s,600);
+  });
+  spawnWhileHover('.pf-headphones',500,art=>{
+    const n=document.createElement('span'); n.className='pf-note'; n.textContent=Math.random()>.5?'♪':'♫';
+    const side=Math.random()>.5?1:-1;
+    n.style.left=side>0?(art.clientWidth*.9)+'px':'0px'; n.style.top='6px';
+    n.style.setProperty('--dx',(side*16)+'px');
+    addParticle(art,n,1200);
+  });
 
   // mobile/tablet: no mouse, so tilt/gyroscope drives the same --px/--py parallax
   const isTouch=matchMedia('(hover:none)').matches;
