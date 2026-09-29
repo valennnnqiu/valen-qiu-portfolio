@@ -148,11 +148,10 @@ a{color:inherit;text-decoration:none}
 .hero-photo{grid-column:2;width:min(45.6vw,calc(58.1vh * 1.1146));will-change:transform}
 .hs{position:relative;aspect-ratio:3531/3168;container-type:inline-size;width:100%}
 .hs-par{position:absolute;transform:translate3d(calc(var(--px,0) * var(--d,0) * 1cqw),calc(var(--py,0) * var(--d,0) * .8cqw),0)}
-.hs-scene{position:absolute;left:0;top:0;width:59.61%;height:100%;overflow:hidden;border-radius:1.6cqw}
-.hs-bg{--d:1;inset:-6%;width:112%;height:112%;background:#C9C9C9}
-.hs-name-fig{--d:3;left:5%;top:9%;width:76%;height:44%}
+.hs-scene{position:absolute;left:0;top:0;width:59.61%;height:100%}
+.hs-name-fig{--d:3;left:-10%;top:-2%;width:120%;height:58%}
 .hs-name-fig img{width:100%;height:100%;object-fit:contain;object-position:left center;display:block;pointer-events:none;user-select:none}
-.hs-person-fig{position:absolute;left:6%;top:20%;width:88%;height:80%;transform-style:preserve-3d;will-change:transform;pointer-events:none;user-select:none;transform:translate3d(calc(var(--px,0) * 6 * 1cqw),calc(var(--py,0) * 6 * .8cqw),0) perspective(900px) rotateX(calc(var(--py,0) * -6deg)) rotateY(calc(var(--px,0) * 6deg));animation:hsidle 4s ease-in-out infinite}
+.hs-person-fig{position:absolute;left:-6%;top:12%;width:118%;height:100%;transform-style:preserve-3d;will-change:transform;pointer-events:none;user-select:none;transform:translate3d(calc(var(--px,0) * 6 * 1cqw),calc(var(--py,0) * 6 * .8cqw),0) perspective(900px) rotateX(calc(var(--py,0) * -6deg)) rotateY(calc(var(--px,0) * 6deg));animation:hsidle 4s ease-in-out infinite}
 .hs-person-fig img{width:100%;height:100%;object-fit:contain;object-position:center bottom;display:block;pointer-events:none;user-select:none}
 @keyframes hsidle{50%{translate:0 -1.4cqw}}
 @media(prefers-reduced-motion:reduce){.hs-bg,.hs-name-fig,.hs-person-fig{transform:none!important;animation:none!important}}
@@ -2073,7 +2072,6 @@ body.on-zepto{scrollbar-color:#fff transparent}
       </div>
       <div class="hero-photo"><div class="hs" id="hs">
         <div class="hs-scene" id="hs-scene">
-          <div class="hs-par hs-bg"></div>
           <div class="hs-par hs-name-fig"><img src="images/home/hero-name.webp" alt="" aria-hidden="true"></div>
           <div class="hs-person-fig"><img src="images/home/hero-person.webp" alt="Valen Qiu"></div>
         </div>
@@ -2331,7 +2329,7 @@ body.on-zepto{scrollbar-color:#fff transparent}
 
   <!-- HERO IMAGE + HEADLINE: fills the first screen -->
   <div class="ab2-firstscreen">
-    <div class="ab2-reveal" style="border-radius:20px;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+    <div class="ab2-reveal" style="border-radius:20px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--bg);">
       <video autoplay muted loop playsinline disablepictureinpicture style="width:auto;display:block;mix-blend-mode:multiply">
         <source src="images/about/hero-video.webm" type="video/webm">
         <source src="images/about/hero-video.mp4" type="video/mp4">
