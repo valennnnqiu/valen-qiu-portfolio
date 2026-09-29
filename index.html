@@ -148,12 +148,14 @@ a{color:inherit;text-decoration:none}
 .hero-photo{grid-column:2;width:min(45.6vw,calc(58.1vh * 1.1146));will-change:transform}
 .hs{position:relative;aspect-ratio:3531/3168;container-type:inline-size;width:100%}
 .hs-par{position:absolute;transform:translate3d(calc(var(--px,0) * var(--d,0) * 1cqw),calc(var(--py,0) * var(--d,0) * .8cqw),0)}
-.hs-personwrap{left:0;top:0;width:59.61%;height:100%;--d:-1.6}
-.hs-lower{clip-path:inset(46.8% 0 0 0)}
-.hs-torso{clip-path:inset(0 0 51% 0);transform-origin:50% 47.5%;transform:perspective(650px) rotateX(calc(var(--py,0) * -11deg)) rotateY(calc(var(--px,0) * 13deg)) scale(1.015)}
-.hs-person,.hs-pose{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;user-select:none}
-.hs-pose{opacity:0;transition:opacity .35s}
-.hs-pose.on{opacity:1}
+.hs-scene{position:absolute;left:0;top:0;width:59.61%;height:100%;overflow:hidden;border-radius:1.6cqw}
+.hs-bg{--d:1;inset:-6%;width:112%;height:112%;background:#C9C9C9}
+.hs-name-fig{--d:3;left:5%;top:9%;width:76%;height:44%}
+.hs-name-fig img{width:100%;height:100%;object-fit:contain;object-position:left center;display:block;pointer-events:none;user-select:none}
+.hs-person-fig{position:absolute;left:6%;top:20%;width:88%;height:80%;transform-style:preserve-3d;will-change:transform;pointer-events:none;user-select:none;transform:translate3d(calc(var(--px,0) * 6 * 1cqw),calc(var(--py,0) * 6 * .8cqw),0) perspective(900px) rotateX(calc(var(--py,0) * -6deg)) rotateY(calc(var(--px,0) * 6deg));animation:hsidle 4s ease-in-out infinite}
+.hs-person-fig img{width:100%;height:100%;object-fit:contain;object-position:center bottom;display:block;pointer-events:none;user-select:none}
+@keyframes hsidle{50%{translate:0 -1.4cqw}}
+@media(prefers-reduced-motion:reduce){.hs-bg,.hs-name-fig,.hs-person-fig{transform:none!important;animation:none!important}}
 .hs-b1w{left:61%;top:19%;--d:3.6}
 .hs-b2w{left:61%;top:32%;display:flex;flex-direction:column;gap:1.8cqw;--d:4.4}
 .hs-bub{background:#fff;color:var(--ink);font-family:var(--sans);border:.15cqw solid rgba(13,13,12,.08);box-shadow:0 .8cqw 3cqw rgba(13,13,12,.09);transform:scale(.92) translateY(1.6cqw);opacity:0;transform-origin:0 100%;transition:transform .5s cubic-bezier(.2,.9,.3,1.2),opacity .3s}
@@ -186,14 +188,6 @@ a{color:inherit;text-decoration:none}
 @keyframes hspop{to{opacity:1;transform:none}}
 .hs-chip{font:600 3.1cqw/1.1 var(--sans);color:#111;background:#fff;border:.25cqw solid rgba(13,13,12,.08);border-radius:999px;padding:1.6cqw 3.4cqw;box-shadow:0 .3cqw 1.2cqw rgba(13,13,12,.06);cursor:pointer;transition:background .2s,color .2s,box-shadow .2s;white-space:nowrap}
 .hs-chip:hover{background:#fff;border-color:var(--pink);box-shadow:0 .8cqw 2cqw rgba(232,25,110,.18)}
-.hs-zone{position:absolute;left:17.5%;top:47%;width:21%;height:39%;border-radius:3.5cqw;border:.35cqw dashed var(--pink);opacity:0;transition:opacity .25s,background .25s,transform .25s;pointer-events:none}
-.hs.dragging .hs-zone{opacity:.65}
-.hs.dragging .hs-zone.over{opacity:1;background:rgba(232,25,110,.14);transform:scale(1.03)}
-.hero-folder.drag{position:relative;z-index:60;cursor:grabbing;transition:none}
-.hero-folder.drag .hero-folder-icon{transform:scale(1.12);filter:drop-shadow(0 14px 18px rgba(13,13,12,.22))}
-.hero-folder.back{transition:transform var(--t-base) cubic-bezier(.34,1.56,.64,1)}
-.hero-folder.swallow{transition:transform var(--t-base) ease-in, opacity var(--t-base) ease-in;opacity:0}
-@media(pointer:fine){.hero-folder{touch-action:none;cursor:grab}}
 .hero.beat::before{animation:hsbeat .52s ease-in-out infinite}
 @keyframes hsbeat{0%,100%{background-size:28px 28px;opacity:1}50%{background-size:32px 32px;opacity:.55}}
 .hero::after{content:'';position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(circle,rgba(232,25,110,.75) 1.6px,transparent 1.8px);background-size:28px 28px;-webkit-mask-image:radial-gradient(circle 170px at var(--mx,-999px) var(--my,-999px),#000 0,transparent 100%);mask-image:radial-gradient(circle 170px at var(--mx,-999px) var(--my,-999px),#000 0,transparent 100%)}
@@ -2078,8 +2072,11 @@ body.on-zepto{scrollbar-color:#fff transparent}
         </button>
       </div>
       <div class="hero-photo"><div class="hs" id="hs">
-        <div class="hs-par hs-personwrap"><img class="hs-person hs-lower" src="images/about/hero.png" alt="Valen Qiu"><img class="hs-person hs-torso" src="images/about/hero.png" alt="" aria-hidden="true"></div>
-        <div class="hs-zone" id="hs-zone"></div>
+        <div class="hs-scene" id="hs-scene">
+          <div class="hs-par hs-bg"></div>
+          <div class="hs-par hs-name-fig"><img src="images/home/hero-name.webp" alt="" aria-hidden="true"></div>
+          <div class="hs-person-fig"><img src="images/home/hero-person.webp" alt="Valen Qiu"></div>
+        </div>
         <div class="hs-typing hs-t1 hs-par" style="--d:3.6"><i></i><i></i><i></i></div>
         <div class="hs-par hs-b1w"><div class="hs-bub" id="hs-b1"><span>Hi, I’m Valen Qiu</span></div></div>
         <div class="hs-typing hs-t2 hs-par" style="--d:4.4"><i></i><i></i><i></i></div>
@@ -4613,45 +4610,24 @@ if(initNf) initNf.classList.add('active');
   const photo=hero.querySelector('.hero-photo');
   addEventListener('scroll',()=>{const p=Math.max(0,Math.min(1,scrollY/innerHeight));photo.style.transform=p?`translateY(${p*70}px) scale(${1-p*.3})`:'';photo.style.opacity=1-p*.75},{passive:true});
 
-  // poses: hover folder -> alternate photo (only if the image file exists)
-  const poseMap={2:'playground',3:'reflection',4:'dj'};
-  const folders=[...hero.querySelectorAll('.hero-folder')], wrap=hs.querySelector('.hs-personwrap');
-  Object.entries(poseMap).forEach(([idx,name])=>{
-    const im=new Image(); im.src=`images/home/pose-${name}.png`; im.className='hs-pose';
-    im.onload=()=>{ wrap.appendChild(im); const f=folders[idx];
-      const on=()=>im.classList.add('on'), off=()=>im.classList.remove('on');
-      f.addEventListener('mouseenter',on); f.addEventListener('mouseleave',off); f.addEventListener('focus',on); f.addEventListener('blur',off); };
-  });
+  const folders=[...hero.querySelectorAll('.hero-folder')];
   // DJ folder: dots pulse to a beat
   folders[4]&&(folders[4].addEventListener('mouseenter',()=>hero.classList.add('beat')),folders[4].addEventListener('mouseleave',()=>hero.classList.remove('beat')));
 
-  // drag a folder into the phone to open it
-  const zone=$('hs-zone');
-  hero.addEventListener('dragstart',e=>{ if(e.target.closest&&e.target.closest('.hero-folder')) e.preventDefault() });
-  folders.forEach(f=>{
-    let sx,sy,drag=false,id=null,sup=false;
-    f.addEventListener('pointerdown',e=>{ if(e.pointerType!=='mouse'||e.button!==0||innerWidth<=700) return; sx=e.clientX;sy=e.clientY;drag=false;id=e.pointerId; f.setPointerCapture(id); f.classList.remove('back'); });
-    f.addEventListener('pointermove',e=>{
-      if(id!==e.pointerId) return; const dx=e.clientX-sx, dy=e.clientY-sy;
-      if(!drag&&Math.hypot(dx,dy)>4){drag=true;f.classList.add('drag');hs.classList.add('dragging')}
-      if(!drag) return; f.style.transform=`translate(${dx}px,${dy}px)`;
-      const z=zone.getBoundingClientRect(); zone.classList.toggle('over',e.clientX>z.left&&e.clientX<z.right&&e.clientY>z.top&&e.clientY<z.bottom);
-    });
-    const end=e=>{
-      if(id!==e.pointerId) return; id=null; const wasDrag=drag; drag=false;
-      if(!wasDrag) return; sup=true; setTimeout(()=>sup=false,50);
-      const over=zone.classList.contains('over'); hs.classList.remove('dragging'); zone.classList.remove('over'); f.classList.remove('drag');
-      if(over){
-        const z=zone.getBoundingClientRect(), r0=f.getBoundingClientRect();
-        const dx=(z.left+z.width/2)-(r0.left+r0.width/2), dy=(z.top+z.height/2)-(r0.top+r0.height/2);
-        const cur=new DOMMatrixReadOnly(getComputedStyle(f).transform);
-        f.classList.add('swallow'); f.style.transform=`translate(${cur.m41+dx}px,${cur.m42+dy}px) scale(.15)`;
-        setTimeout(()=>{ f.click(); f.classList.remove('swallow'); f.style.transform=''; f.style.opacity='0'; requestAnimationFrame(()=>{f.style.transition='opacity .5s';f.style.opacity=''; setTimeout(()=>f.style.transition='',600)}) },300);
-      } else { f.classList.add('back'); f.style.transform=''; }
-    };
-    f.addEventListener('pointerup',end); f.addEventListener('pointercancel',end);
-    f.addEventListener('click',e=>{ if(sup){e.preventDefault();e.stopImmediatePropagation()} },true);
-  });
+  // mobile/tablet: no mouse, so tilt/gyroscope drives the same --px/--py parallax
+  const isTouch=matchMedia('(hover:none)').matches;
+  function onOrientation(e){
+    if(e.gamma==null||e.beta==null) return;
+    tx=Math.max(-1,Math.min(1,e.gamma/30)); ty=Math.max(-1,Math.min(1,(e.beta-45)/30));
+    if(!raf) raf=requestAnimationFrame(tick);
+  }
+  function enableGyro(){
+    if(!('DeviceOrientationEvent' in window)) return;
+    if(typeof DeviceOrientationEvent.requestPermission==='function'){
+      DeviceOrientationEvent.requestPermission().then(s=>{if(s==='granted') addEventListener('deviceorientation',onOrientation)}).catch(()=>{});
+    } else addEventListener('deviceorientation',onOrientation);
+  }
+  if(isTouch) hero.addEventListener('touchstart',enableGyro,{once:true,passive:true});
 })();
 
 // ── Draggable photo desks: OCAD (home) and About-me, same scattered-polaroid mechanics ──
