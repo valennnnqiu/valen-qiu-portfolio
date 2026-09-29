@@ -139,7 +139,7 @@ a{color:inherit;text-decoration:none}
 
 /* ── HERO DESKTOP (folders + photo) ── */
 .hero-desktop{position:relative;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;column-gap:clamp(.8rem,8vw,8.5rem);width:100%;min-height:clamp(140px,26vw,280px);padding:1rem 0 1.25rem;animation:fadeUp .8s var(--ease) .1s both;margin-left:var(--hero-shift,0px)}
-.hero-folders{grid-column:1;justify-self:end;display:flex;flex-direction:column;gap:clamp(.55rem,2.2vw,1.15rem)}
+.hero-folders{grid-column:1;justify-self:end;display:flex;flex-direction:column;gap:clamp(.55rem,2.2vw,1.15rem);margin-right:100px}
 .hero-folder{position:relative;display:flex;flex-direction:column;align-items:center;background:none;border:none;cursor:pointer;padding:0;font-family:var(--sans);width:fit-content}
 .hero-folder:nth-child(1){margin-left:clamp(.8rem,3.2vw,1.6rem)}
 .hero-folder:nth-child(2){margin-left:clamp(.4rem,1.6vw,.8rem)}
@@ -719,10 +719,7 @@ a{color:inherit;text-decoration:none}
 
 /* ── TESTIMONIALS ── */
 .testimonials-wrap-inner{
-  background:#fff;
-  border:1px solid var(--border);
-  border-radius:20px;
-  padding:2.5rem;
+  padding:0;
 }
 .testimonials-hd{
   margin-bottom:2.5rem;
@@ -742,20 +739,36 @@ a{color:inherit;text-decoration:none}
   padding-bottom:2rem;
 }
 .tcard{
-  background:#fff;
-  border:1.5px solid var(--border);
+  background:transparent;
+  border:1.5px solid transparent;
   border-radius:20px;
-  padding:2rem;
+  padding:1.75rem 1.25rem;
   display:flex;flex-direction:column;gap:1.25rem;
-  transition:transform var(--t-base) var(--ease), box-shadow var(--t-base) var(--ease-out);
+  cursor:pointer;
+  opacity:0;transform:translateY(16px);
 }
-.tcard:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(13,13,12,.09);z-index:5}
+.tcard.in{
+  opacity:1;transform:none;
+  transition:opacity .5s ease,transform .6s cubic-bezier(.34,1.56,.64,1),border-color .2s ease;
+}
+.tcard.in:hover{transform:translateY(-6px);border-color:var(--pink)}
 
 .tcard-quote{
   font-family:var(--sans);
   font-size:.88rem;font-style:normal;font-weight:400;
   color:var(--ink2);line-height:1.75;
 }
+.tcard-quote mark{
+  background:linear-gradient(var(--pink-bg,rgba(232,25,110,.16)),var(--pink-bg,rgba(232,25,110,.16))) no-repeat 0 0 / 0% 100%;
+  color:inherit;transition:background-size .6s ease;
+}
+.tcard:hover .tcard-quote mark,.tcard.open .tcard-quote mark{background-size:100% 100%}
+.tcard-quote .full{display:none}
+.tcard.open .tcard-quote .short{display:none}
+.tcard.open .tcard-quote .full{display:inline}
+.tcard-more{display:block;margin-top:.5rem;font-size:.78rem;color:var(--muted)}
+.tcard:not(.open) .tcard-more::after{content:"Read full note"}
+.tcard.open .tcard-more::after{content:"Show less"}
 .tcard-author{display:flex;align-items:center;gap:.85rem}
 .tcard-avatar{
   width:36px;height:36px;border-radius:50%;
@@ -768,6 +781,8 @@ a{color:inherit;text-decoration:none}
 .tcard-avatar img{width:100%;height:100%;object-fit:cover;display:block}
 .tcard-name{font-size:.85rem;font-weight:600;color:var(--ink);letter-spacing:-.01em}
 .tcard-role{font-family:var(--mono);font-size:.6rem;letter-spacing:.06em;color:var(--muted);margin-top:.15rem}
+.tcard-num{margin-left:auto;align-self:flex-start;font-family:var(--mono);font-size:.7rem;color:var(--muted)}
+@media(prefers-reduced-motion:reduce){.tcard{opacity:1;transform:none}.tcard.in:hover{transform:none}}
 
 
 .cta-card{
@@ -2279,8 +2294,10 @@ body.on-zepto{scrollbar-color:#fff transparent}
             <div class="tcard-name">Kevin Murray</div>
             <div class="tcard-role">Lead UX Designer · Scotiabank</div>
           </div>
+          <span class="tcard-num">[1]</span>
         </div>
-        <p class="tcard-quote">"Jiayun played a key role in conducting user research and trends analysis, consistently providing valuable insights that helped shape our approach. Her ability to identify user needs and analyse broader industry trends brought depth to our project. In addition to her research skills, Jiayun was a key contributor to our design concepts, bringing creative and thoughtful ideas to the table. Her ability to collect and analyse research was integral to the success of our project. I would recommend her for any future role where her research, conceptual and collaborative skills would be valued."</p>
+        <p class="tcard-quote"><span class="short">"Her ability to <mark>identify user needs and analyse broader industry trends</mark> brought depth to our project."</span><span class="full">"Jiayun played a key role in conducting user research and trends analysis, consistently providing valuable insights that helped shape our approach. Her ability to <mark>identify user needs and analyse broader industry trends</mark> brought depth to our project. In addition to her research skills, Jiayun was a key contributor to our design concepts, bringing creative and thoughtful ideas to the table. Her ability to collect and analyse research was integral to the success of our project. I would recommend her for any future role where her research, conceptual and collaborative skills would be valued."</span></p>
+        <span class="tcard-more"></span>
       </div>
 
       <div class="tcard">
@@ -2290,8 +2307,10 @@ body.on-zepto{scrollbar-color:#fff transparent}
             <div class="tcard-name">Jie Ding</div>
             <div class="tcard-role">Senior UI/UX Designer · Phoenix Design</div>
           </div>
+          <span class="tcard-num">[2]</span>
         </div>
-        <p class="tcard-quote">"During Jiayun's UXUI internship at Phoenix Design (Shanghai), one of the world's leading independent design studios, she quickly proved herself a capable and dependable contributor to the interactive product design team. She demonstrated strong creative and analytical skills, tackling design problems with structured thinking and thoughtful solutions, while working confidently across tools like Figma and Adobe Creative Suite. Her enthusiasm, flexibility, and strong work ethic made her a genuine asset to the studio, and I'm confident she'll continue to thrive in her design career."</p>
+        <p class="tcard-quote"><span class="short">"She quickly proved herself <mark>a capable and dependable contributor</mark> to the interactive product design team."</span><span class="full">"During Jiayun's UXUI internship at Phoenix Design (Shanghai), one of the world's leading independent design studios, she quickly proved herself <mark>a capable and dependable contributor</mark> to the interactive product design team. She demonstrated strong creative and analytical skills, tackling design problems with structured thinking and thoughtful solutions, while working confidently across tools like Figma and Adobe Creative Suite. Her enthusiasm, flexibility, and strong work ethic made her a genuine asset to the studio, and I'm confident she'll continue to thrive in her design career."</span></p>
+        <span class="tcard-more"></span>
       </div>
 
       <div class="tcard">
@@ -2301,8 +2320,10 @@ body.on-zepto{scrollbar-color:#fff transparent}
             <div class="tcard-name">Li Yang</div>
             <div class="tcard-role">Design Lead · ByteDance</div>
           </div>
+          <span class="tcard-num">[3]</span>
         </div>
-        <p class="tcard-quote">"Jiayun's passionate about design and has an exceptional ability to understand user needs. She often brings creative and well thought out solutions to the team and consistently approaches every challenge with proactivity and collaboration."</p>
+        <p class="tcard-quote"><span class="short">"She consistently approaches every challenge with <mark>proactivity and collaboration</mark>."</span><span class="full">"Jiayun's passionate about design and has an exceptional ability to understand user needs. She often brings creative and well thought out solutions to the team and consistently approaches every challenge with <mark>proactivity and collaboration</mark>."</span></p>
+        <span class="tcard-more"></span>
       </div>
 
     </div></div>
@@ -4362,6 +4383,20 @@ function initReveal(){
   document.querySelectorAll('.reveal:not(.visible)').forEach(el=>obs.observe(el));
 }
 
+// ── TESTIMONIALS: click to expand, staggered pop-in ──
+function initTestimonials(){
+  const grid=document.querySelector('.testimonials-grid');
+  const cards=[...document.querySelectorAll('.tcard')];
+  if(!grid||!cards.length) return;
+  cards.forEach(c=>c.addEventListener('click',()=>c.classList.toggle('open')));
+  const obs=new IntersectionObserver(entries=>{
+    if(!entries.some(e=>e.isIntersecting)) return;
+    cards.forEach((c,i)=>setTimeout(()=>c.classList.add('in'),i*150));
+    obs.disconnect();
+  },{threshold:.2});
+  obs.observe(grid);
+}
+
 // ── ABOUT PARALLAX ──
 function initAboutParallax(){
   const bg=document.getElementById('ab2-img-bg');
@@ -4569,6 +4604,7 @@ window.addEventListener('resize', () => { clearTimeout(_heroAlignResizeT); _hero
 
 // ── INIT ──
 initReveal();
+initTestimonials();
 setTimeout(alignHeroToZepto, 60);
 setTimeout(initZlServices, 500);
 if(document.getElementById('page-zepto')?.classList.contains('active')) initZlScrollBatch();
