@@ -2019,8 +2019,22 @@ body.on-zepto{scrollbar-color:#fff transparent}
   width:auto;
   aspect-ratio:auto;
   height:100%;
+  max-width:min(78vw,560px);
 }
-.zl-modal-img-placeholder img{height:100%;width:auto;max-width:none;object-fit:contain;display:block}
+.zl-modal-img-placeholder img{height:100%;width:auto;max-width:min(78vw,560px);object-fit:contain;display:block}
+.zl-modal-gallery{position:relative;flex-shrink:0}
+.zl-modal-nav{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:44px;height:44px;border-radius:50%;
+  background:rgba(35,31,32,.85);border:1px solid rgba(255,255,255,.15);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:1.1rem;cursor:pointer;
+  transition:background var(--t-fast) var(--ease-out),opacity var(--t-fast) var(--ease-out);z-index:9;
+}
+.zl-modal-nav:hover{background:#3a3637}
+.zl-modal-nav.zl-nav-prev{left:1rem}
+.zl-modal-nav.zl-nav-next{right:1rem}
+.zl-modal-nav[disabled]{opacity:0;pointer-events:none}
+@media(max-width:700px){.zl-modal-nav{display:none}}
 .zl-modal-body{
   padding:1.5rem 2.5rem 3rem;
   display:flex;flex-direction:column;gap:.85rem;
@@ -3650,10 +3664,14 @@ body.on-zepto{scrollbar-color:#fff transparent}
 <div class="zl-modal-overlay" id="zl-modal-overlay" onclick="zlModalClose()"></div>
 <div class="zl-modal" id="zl-modal">
   <button class="zl-modal-close" onclick="zlModalClose()">✕</button>
-  <div class="zl-modal-images" id="zl-modal-images">
-    <div class="zl-modal-img-placeholder"></div>
-    <div class="zl-modal-img-placeholder"></div>
-    <div class="zl-modal-img-placeholder"></div>
+  <div class="zl-modal-gallery">
+    <button class="zl-modal-nav zl-nav-prev" onclick="zlModalScroll(-1)" aria-label="Previous image">‹</button>
+    <div class="zl-modal-images" id="zl-modal-images">
+      <div class="zl-modal-img-placeholder"></div>
+      <div class="zl-modal-img-placeholder"></div>
+      <div class="zl-modal-img-placeholder"></div>
+    </div>
+    <button class="zl-modal-nav zl-nav-next" onclick="zlModalScroll(1)" aria-label="Next image">›</button>
   </div>
   <div class="zl-modal-body">
     <div class="zl-modal-meta" id="zl-modal-meta">
@@ -4062,7 +4080,24 @@ function zlModalOpen(name, tag) {
   document.getElementById('zl-modal-overlay').classList.add('visible');
   document.getElementById('zl-modal').classList.add('visible');
   document.body.style.overflow = 'hidden';
+  requestAnimationFrame(updateZlModalNav);
+  setTimeout(updateZlModalNav, 300);
 }
+function zlModalScroll(dir) {
+  const wrap = document.getElementById('zl-modal-images');
+  const first = wrap.querySelector('.zl-modal-img-placeholder');
+  const step = first ? first.getBoundingClientRect().width + 24 : 300; // image width + gap
+  wrap.scrollBy({ left: dir * step, behavior: 'smooth' });
+}
+function updateZlModalNav() {
+  const wrap = document.getElementById('zl-modal-images');
+  const prev = document.querySelector('.zl-nav-prev'), next = document.querySelector('.zl-nav-next');
+  if (!wrap || !prev || !next) return;
+  const max = wrap.scrollWidth - wrap.clientWidth;
+  prev.toggleAttribute('disabled', wrap.scrollLeft <= 2);
+  next.toggleAttribute('disabled', wrap.scrollLeft >= max - 2 || max <= 0);
+}
+document.getElementById('zl-modal-images')?.addEventListener('scroll', updateZlModalNav, { passive: true });
 function zlModalClose() {
   document.getElementById('zl-modal-overlay').classList.remove('visible');
   document.getElementById('zl-modal').classList.remove('visible');
