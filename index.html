@@ -4711,12 +4711,17 @@ if(initNf) initNf.classList.add('active');
   }
   // scroll: the figure recedes as the hero leaves
   const photo=hero.querySelector('.hero-photo');
-  // the marquee only belongs to the first screen: once the hero scrolls past, hide it
+  // the marquee only belongs to the first screen: fade it out as soon as scrolling starts,
+  // fully gone well before the hero itself has scrolled away
   window.updateMarqueeVisibility=function(){
     const marquee=document.getElementById('hero-marquee');
     if(!marquee) return;
     const onHome=document.getElementById('page-home')?.classList.contains('active');
-    marquee.classList.toggle('on', !!onHome && hero.getBoundingClientRect().bottom>0);
+    marquee.classList.toggle('on', !!onHome);
+    if(!onHome) return;
+    const p=Math.max(0,Math.min(1,scrollY/(innerHeight*.15)));
+    marquee.style.opacity=(1-p).toFixed(3);
+    marquee.style.pointerEvents=p>=1?'none':'';
   };
   addEventListener('scroll',()=>{
     const p=Math.max(0,Math.min(1,scrollY/innerHeight));
@@ -4724,6 +4729,7 @@ if(initNf) initNf.classList.add('active');
     photo.style.opacity=1-p*.75;
     window.updateMarqueeVisibility();
   },{passive:true});
+  window.updateMarqueeVisibility();
 
   const folders=[...hero.querySelectorAll('.hero-folder')];
   // DJ folder: dots pulse to a beat
