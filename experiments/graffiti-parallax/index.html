@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Parallax Hero</title>
+<style>
+  :root{ color-scheme: light; }
+  html,body{margin:0;height:100%;background:#C9C9C9}
+  *{box-sizing:border-box}
+
+  .hero{
+    position:relative;
+    width:100%;
+    height:100vh;
+    height:100dvh;
+    overflow:hidden;
+    background:#C9C9C9;
+    perspective:1200px;
+    cursor:default;
+  }
+
+  /* all three layers stack, centered, same footprint */
+  .layer{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate3d(-50%,-50%,0);
+    will-change:transform;
+    pointer-events:none;
+    user-select:none;
+  }
+  .layer img{ display:block; width:100%; height:100%; object-fit:contain; -webkit-user-drag:none; }
+
+  /* 1) background wall - oversized slightly so a few px of drift never shows an edge */
+  #bg-layer{ z-index:1; width:112%; height:112%; }
+  #bg-layer .bg-fill{ width:100%; height:100%; background:#C9C9C9; }
+  #bg-layer img{ object-fit:cover; }
+
+  /* 2) graffiti name - behind the person */
+  #name-layer{ z-index:2; width:min(70vw,900px); aspect-ratio:2000/700; }
+
+  /* 3) person with the spray can - in front */
+  #person-layer{ z-index:3; width:min(46vw,560px); aspect-ratio:2000/2237; transform-style:preserve-3d; }
+
+  /* placeholder art, swapped out once background.png / name.png / person.png land in this folder */
+  .placeholder{ width:100%; height:100%; display:flex; align-items:center; justify-content:center; }
+  #name-layer .placeholder{ font:800 12vmin/1 system-ui,sans-serif; color:#111; letter-spacing:-.02em; -webkit-text-stroke:1px #111; opacity:.9; }
+  #person-layer .placeholder{
+    background:#e8196e22; border:2px dashed #E8196E; border-radius:16px;
+    font:600 1rem system-ui,sans-serif; color:#7a0f40; text-align:center; padding:1rem;
+  }
+
+  .hint{
+    position:absolute; left:50%; bottom:1.5rem; transform:translateX(-50%);
+    font:500 .8rem system-ui,sans-serif; color:#0006; z-index:4; text-align:center; pointer-events:none;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .layer{ transition:none }
+  }
+</style>
+</head>
+<body>
+
+<section class="hero" id="hero">
+  <div class="layer" id="bg-layer">
+    <!-- drop a background.png here (plain grey wall) to replace the flat fill -->
+    <div class="bg-fill"></div>
+  </div>
+
+  <div class="layer" id="name-layer">
+    <!-- <img src="name.png" alt="VALEN"> -->
+    <div class="placeholder">VALEN</div>
+  </div>
+
+  <div class="layer" id="person-layer">
+    <!-- <img src="person.png" alt="Character crouching with a spray can"> -->
+    <div class="placeholder">drop person.png here<br>(crouching figure, spray can)</div>
+  </div>
+
+  <p class="hint">move the mouse · tilt on mobile</p>
+</section>
+
+<script>
+(function(){
+  const hero   = document.getElementById('hero');
+  const bg     = document.getElementById('bg-layer');
+  const name   = document.getElementById('name-layer');
+  const person = document.getElementById('person-layer');
+
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) return; // static layout only, no motion
+
+  // ── tunables (all in px / deg) ──────────────────────────────
+  const MAX_BG     = 5;   // background: barely moves
+  const MAX_NAME   = 15;  // name: same direction as cursor
+  const MAX_PERSON = 30;  // person: same direction as cursor
+  const MAX_ROT    = 6;   // person tilt toward the cursor
+  const MAX_SEP    = 10;  // name nudged opposite the person, so they separate
+  const LERP       = 0.08;
+  const IDLE_PX    = 4;   // person's idle float amplitude
+  const IDLE_SEC   = 3;   // idle float period
+
+  let tx = 0, ty = 0;         // target, normalized -1..1
+  let bgX=0, bgY=0, nameX=0, nameY=0, personX=0, personY=0, rotX=0, rotY=0;
+  let raf = 0;
+
+  function setTarget(nx, ny){
+    tx = Math.max(-1, Math.min(1, nx));
+    ty = Math.max(-1, Math.min(1, ny));
+    kick();
+  }
+  function center(){ tx = 0; ty = 0; kick(); }
+
+  // ── mouse ────────────────────────────────────────────────────
+  hero.addEventListener('mousemove', e => {
+    const r = hero.getBoundingClientRect();
+    setTarget(
+      ((e.clientX - r.left) / r.width)  * 2 - 1,
+      ((e.clientY - r.top)  / r.height) * 2 - 1
+    );
+  });
+  hero.addEventListener('mouseleave', center);
+
+  // ── gyroscope fallback on touch devices ────────────────────
+  const isTouch = matchMedia('(hover: none)').matches;
+  function onOrientation(e){
+    if (e.gamma == null || e.beta == null) return;
+    setTarget(e.gamma / 30, (e.beta - 45) / 30);
+  }
+  function enableGyro(){
+    if (!('DeviceOrientationEvent' in window)) return; // no gyro: idle float still runs
+    if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+      DeviceOrientationEvent.requestPermission()
+        .then(state => { if (state === 'granted') window.addEventListener('deviceorientation', onOrientation); })
+        .catch(() => {});
+    } else {
+      window.addEventListener('deviceorientation', onOrientation);
+    }
+  }
+  if (isTouch) hero.addEventListener('touchstart', enableGyro, { once: true, passive: true });
+
+  // ── render loop ──────────────────────────────────────────────
+  function frame(now){
+    raf = 0;
+
+    const goalBgX = tx * MAX_BG,      goalBgY = ty * MAX_BG;
+    const goalNameX = tx * MAX_NAME - tx * MAX_SEP, goalNameY = ty * MAX_NAME - ty * MAX_SEP;
+    const goalPersonX = tx * MAX_PERSON, goalPersonY = ty * MAX_PERSON;
+    const goalRotY = tx * MAX_ROT,    goalRotX = -ty * MAX_ROT;
+
+    bgX     += (goalBgX     - bgX)     * LERP;
+    bgY     += (goalBgY     - bgY)     * LERP;
+    nameX   += (goalNameX   - nameX)   * LERP;
+    nameY   += (goalNameY   - nameY)   * LERP;
+    personX += (goalPersonX - personX) * LERP;
+    personY += (goalPersonY - personY) * LERP;
+    rotX    += (goalRotX    - rotX)    * LERP;
+    rotY    += (goalRotY    - rotY)    * LERP;
+
+    const idle = Math.sin((now / 1000) * (2 * Math.PI / IDLE_SEC)) * IDLE_PX;
+
+    bg.style.transform     = `translate3d(calc(-50% + ${bgX.toFixed(2)}px), calc(-50% + ${bgY.toFixed(2)}px), 0)`;
+    name.style.transform   = `translate3d(calc(-50% + ${nameX.toFixed(2)}px), calc(-50% + ${nameY.toFixed(2)}px), 0)`;
+    person.style.transform =
+      `translate3d(calc(-50% + ${personX.toFixed(2)}px), calc(-50% + ${(personY + idle).toFixed(2)}px), 0) ` +
+      `rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg)`;
+
+    // the idle float runs forever, so the loop just keeps going - it's one cheap style write per frame
+    kick();
+  }
+  function kick(){ if (!raf) raf = requestAnimationFrame(frame); }
+  kick();
+})();
+</script>
+
+</body>
+</html>
