@@ -254,6 +254,18 @@ a{color:inherit;text-decoration:none}
 .build-folder.is-soon{cursor:default}
 .bf-icon{width:clamp(76px,9vw,112px);height:auto;filter:drop-shadow(0 8px 16px rgba(13,13,12,.18));transition:transform var(--t-base) var(--ease-out)}
 .build-folder:hover .bf-icon{transform:scale(1.06) translateY(-3px)}
+.bf-icon.rolling{animation:bfRoll .6s steps(8) forwards}
+@keyframes bfRoll{0%{transform:translateY(0) rotate(0)}40%{transform:translateY(-26px) rotate(200deg)}75%{transform:translateY(0) rotate(360deg)}87%{transform:translateY(-6px) rotate(360deg)}100%{transform:translateY(0) rotate(360deg)}}
+.bf-bubble{position:absolute;left:50%;bottom:calc(100% + 10px);transform:translateX(-50%) scale(0);transform-origin:bottom center;background:#fff;border:2px solid var(--ink);padding:.4rem .8rem;font-family:var(--sans);font-size:.78rem;white-space:nowrap;box-shadow:3px 3px 0 var(--ink);pointer-events:none;transition:transform .2s steps(3);border-radius:6px;z-index:6}
+.bf-bubble::after{content:'';position:absolute;left:50%;top:100%;width:9px;height:9px;background:#fff;border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);transform:translate(-50%,-6px) rotate(45deg)}
+.bf-bubble.show{transform:translateX(-50%) scale(1)}
+.bf-coin .bf-icon{filter:grayscale(1) opacity(.55) drop-shadow(0 8px 16px rgba(13,13,12,.18));transition:filter .2s steps(2)}
+.bf-coin:hover .bf-icon{filter:drop-shadow(0 8px 16px rgba(13,13,12,.18))}
+.bf-icon.flipping{animation:bfFlip .9s steps(6) infinite}
+@keyframes bfFlip{0%{transform:scaleX(1)}25%{transform:scaleX(.15)}50%{transform:scaleX(-1)}75%{transform:scaleX(.15)}100%{transform:scaleX(1)}}
+.bf-plus{position:absolute;top:-6px;left:50%;font-family:var(--sans);font-weight:700;font-size:1.15rem;color:#F5B82E;text-shadow:2px 2px 0 var(--ink);pointer-events:none;animation:bfPlus .8s steps(5) forwards;z-index:6}
+@keyframes bfPlus{0%{transform:translate(-50%,0);opacity:1}100%{transform:translate(-50%,-42px);opacity:0}}
+@media(prefers-reduced-motion:reduce){.bf-icon.rolling,.bf-icon.flipping{animation:none}.bf-bubble,.bf-plus{display:none}}
 .bf-label{font-family:var(--mono);font-size:.8rem;letter-spacing:.05em;color:var(--ink2);text-transform:lowercase}
 .bf-label i{font-style:normal;color:var(--muted2);margin-left:.4em}
 .bf-pop{position:absolute;z-index:5;left:50%;bottom:82%;width:clamp(130px,15vw,190px);aspect-ratio:9/16;border-radius:14px;overflow:hidden;box-shadow:0 22px 44px rgba(13,13,12,.26);opacity:0;transform:translate(-50%,14px) scale(.6) rotate(-5deg);transition:opacity var(--t-base) var(--ease-out),transform var(--t-base) cubic-bezier(.34,1.56,.64,1);pointer-events:none}
@@ -2172,14 +2184,15 @@ body.on-zepto{scrollbar-color:#fff transparent}
       <div class="proj-display proj-card">
         <h2 class="section-title">I build. Ideas into apps.</h2>
         <div class="build-stage">
-          <a class="build-folder" href="https://lucky-fit.vercel.app/" target="_blank" rel="noopener">
+          <a class="build-folder bf-lucky" href="https://lucky-fit.vercel.app/" target="_blank" rel="noopener">
             <div class="bf-pop"><img src="images/home/lucky-fit.png" alt="Lucky Fit" style="object-position:38% 50%"></div>
-            <svg class="bf-icon" viewBox="0 0 100 76" aria-hidden="true"><path d="M4 15c0-4.4 3.6-8 8-8h25l8 8h47c4.4 0 8 3.6 8 8v38c0 4.4-3.6 8-8 8H12c-4.4 0-8-3.6-8-8V15z" fill="#5CB1EE"/><path d="M4 15c0-4.4 3.6-8 8-8h25l8 8H4z" fill="#3D8FD1"/></svg>
+            <img class="bf-icon" src="images/home/pixel-umbrella.png" alt="" aria-hidden="true">
+            <div class="bf-bubble" id="bf-bubble"></div>
             <span class="bf-label">Lucky Fit</span>
           </a>
-          <div class="build-folder is-soon">
+          <div class="build-folder is-soon bf-coin">
             <div class="bf-pop"><img src="images/home/loop-coming-soon.jpg" alt="Loop, coming soon" style="object-position:center 45%"></div>
-            <svg class="bf-icon" viewBox="0 0 100 76" aria-hidden="true"><path d="M4 15c0-4.4 3.6-8 8-8h25l8 8h47c4.4 0 8 3.6 8 8v38c0 4.4-3.6 8-8 8H12c-4.4 0-8-3.6-8-8V15z" fill="#5CB1EE"/><path d="M4 15c0-4.4 3.6-8 8-8h25l8 8H4z" fill="#3D8FD1"/></svg>
+            <img class="bf-icon" src="images/home/pixel-coin.png" alt="" aria-hidden="true">
             <span class="bf-label">Loop <i>soon</i></span>
           </div>
         </div>
@@ -4637,6 +4650,40 @@ function alignHeroToZepto(){
 }
 let _heroAlignResizeT;
 window.addEventListener('resize', () => { clearTimeout(_heroAlignResizeT); _heroAlignResizeT = setTimeout(alignHeroToZepto, 100); });
+
+// ── BUILD ICONS: Lucky Fit (umbrella roll + outfit bubble), Loop (coin flip + floating +1) ──
+(function(){
+  const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+  const outfits = ['☀️ 24° → tee','⛅ 17° → light jacket','🌧 12° → raincoat','🍂 9° → hoodie','❄️ -5° → puffer','🌬 3° → wool coat'];
+  let last = -1;
+  const lucky = document.querySelector('.bf-lucky');
+  if (lucky) {
+    const art = lucky.querySelector('.bf-icon'), bubble = lucky.querySelector('.bf-bubble');
+    let bubbleTimer;
+    lucky.addEventListener('mouseenter', () => {
+      let i; do { i = Math.floor(Math.random() * outfits.length); } while (i === last);
+      last = i;
+      bubble.classList.remove('show');
+      art.classList.remove('rolling'); void art.offsetWidth; art.classList.add('rolling');
+      clearTimeout(bubbleTimer);
+      bubbleTimer = setTimeout(() => { bubble.textContent = outfits[i]; bubble.classList.add('show'); }, reduce ? 0 : 600);
+    });
+    lucky.addEventListener('mouseleave', () => { clearTimeout(bubbleTimer); bubble.classList.remove('show'); art.classList.remove('rolling'); });
+  }
+  const coin = document.querySelector('.bf-coin');
+  if (coin) {
+    const art = coin.querySelector('.bf-icon');
+    let coinTimer;
+    function plusOne(){ const p=document.createElement('span'); p.className='bf-plus'; p.textContent='+1'; coin.appendChild(p); setTimeout(()=>p.remove(),800); }
+    coin.addEventListener('mouseenter', () => {
+      art.classList.add('flipping');
+      if (reduce) return;
+      plusOne();
+      coinTimer = setInterval(plusOne, 900);
+    });
+    coin.addEventListener('mouseleave', () => { art.classList.remove('flipping'); clearInterval(coinTimer); });
+  }
+})();
 
 // ── INIT ──
 initReveal();
