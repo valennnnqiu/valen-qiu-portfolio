@@ -253,6 +253,7 @@ a{color:inherit;text-decoration:none}
 .build-folder{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:.65rem;text-decoration:none;cursor:pointer}
 .build-folder.is-soon{cursor:default}
 .bf-icon{height:clamp(76px,9vw,112px);width:auto;filter:drop-shadow(0 8px 16px rgba(13,13,12,.18));transition:transform var(--t-base) var(--ease-out)}
+.bf-icon-scale{display:inline-block;transform:scale(1.25)}
 .build-folder:hover .bf-icon{transform:scale(1.06) translateY(-3px)}
 .bf-icon.rolling{animation:bfRoll .6s steps(8) forwards}
 @keyframes bfRoll{0%{transform:translateY(0) rotate(0)}40%{transform:translateY(-26px) rotate(200deg)}75%{transform:translateY(0) rotate(360deg)}87%{transform:translateY(-6px) rotate(360deg)}100%{transform:translateY(0) rotate(360deg)}}
@@ -337,7 +338,7 @@ a{color:inherit;text-decoration:none}
 .ocad-pic img{width:100%;display:block;pointer-events:none;border-radius:2px}
 .ocad-pic:hover{box-shadow:0 18px 38px rgba(20,20,30,.28),0 3px 8px rgba(20,20,30,.14)}
 .ocad-pic.drag{cursor:grabbing;transition:box-shadow .2s;transform:translate(var(--x),var(--y)) rotate(0deg) scale(1.05);box-shadow:0 26px 50px rgba(20,20,30,.34)}
-.ab2-desk{position:relative;width:100%;max-width:min(1300px,calc((100vh - 320px) / 1.45));aspect-ratio:100/145;margin:2rem auto 0}
+.ab2-desk{position:relative;width:100%;max-width:1300px;aspect-ratio:100/145;margin:2rem auto 0}
 #ab2-desk .ocad-pic{width:var(--w)}
 .ab2-desk .ocad-pic figcaption{position:absolute;left:.55rem;right:.55rem;bottom:.18rem;text-align:center;font-family:'Caveat',cursive;font-weight:600;font-size:.9rem;line-height:1;color:#000;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none}
 #ab2-desk .ocad-pic img{aspect-ratio:4/3;object-fit:cover}
@@ -2182,18 +2183,18 @@ body.on-zepto{scrollbar-color:#fff transparent}
         <h2 class="section-title">I build. Ideas into apps.</h2>
         <div class="build-stage">
           <a class="build-folder bf-lucky" href="https://lucky-fit.vercel.app/" target="_blank" rel="noopener">
-            <img class="bf-icon" src="images/home/pixel-umbrella.png" alt="" aria-hidden="true">
+            <span class="bf-icon-scale"><img class="bf-icon" src="images/home/pixel-umbrella.png" alt="" aria-hidden="true"></span>
             <div class="bf-bubble"></div>
             <div class="bf-dict">
               <div class="bf-dict-head"><span class="bf-dict-word">Lucky Fit</span></div>
-              <p class="bf-dict-def">A weather-aware wardrobe assistant — checks the sky across your cities, then tells you exactly what to wear.</p>
+              <p class="bf-dict-def">Inspires what to wear from the day's weather, so you're never caught underdressed or overheating.</p>
             </div>
           </a>
           <div class="build-folder is-soon bf-coin">
             <img class="bf-icon" src="images/home/pixel-coin.png" alt="" aria-hidden="true">
             <div class="bf-dict">
               <div class="bf-dict-head"><span class="bf-dict-word">Loop</span> <span class="bf-dict-tag">[soon]</span></div>
-              <p class="bf-dict-def">A habit-loop tracker for routines that actually stick, one small rep at a time.</p>
+              <p class="bf-dict-def">Tracks P&L and positions, with macro and single-stock watchlists, built around your investment profit targets.</p>
             </div>
           </div>
         </div>
