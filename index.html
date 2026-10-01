@@ -2088,6 +2088,9 @@ body.on-zepto{scrollbar-color:#fff transparent}
   .nav-icon-btn:not(.nav-resume-btn){display:none}
   .nav-hamburger{display:flex}
   .nav-float{display:none}
+  .nav-full{transition:transform var(--t-base) var(--ease-out),border-radius var(--t-base) var(--ease-out),box-shadow var(--t-base) var(--ease-out),background var(--t-base) var(--ease-out),margin var(--t-base) var(--ease-out)}
+  .nav-full.nav-hidden{transform:translateY(-130%)}
+  .nav-full.nav-compact{margin:.5rem .75rem 0;border-radius:999px;background:rgba(244,239,232,.85);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:0 4px 20px rgba(13,13,12,.14)}
 }
 </style>
 </head>
@@ -4599,16 +4602,31 @@ function pixelTransition(callback){
 }
 
 // ── FLOATING NAV ──
+let _navLastY=window.scrollY;
 window.addEventListener('scroll',()=>{
   const float=document.getElementById('nav-float');
   const full=document.getElementById('nav-full');
-  if(!float) return;
-  const scrolled=window.scrollY>80;
-  float.classList.toggle('visible',scrolled);
+  const y=window.scrollY;
+  const scrolled=y>80;
+  if(float) float.classList.toggle('visible',scrolled);
   if(full){
-    full.style.opacity=scrolled?'0':'1';
-    full.classList.toggle('scrolled',window.scrollY>60);
+    full.classList.toggle('scrolled',y>60);
+    if(window.innerWidth<=640){
+      full.style.opacity='';
+      if(y<80){
+        full.classList.remove('nav-hidden','nav-compact');
+      }else if(y-_navLastY>4){
+        full.classList.add('nav-hidden');
+        full.classList.remove('nav-compact');
+      }else if(_navLastY-y>4){
+        full.classList.remove('nav-hidden');
+        full.classList.add('nav-compact');
+      }
+    }else{
+      full.style.opacity=scrolled?'0':'1';
+    }
   }
+  _navLastY=y;
 },{passive:true});
 
 // ── MOBILE NAV MENU ──
