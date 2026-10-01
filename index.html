@@ -215,6 +215,13 @@ a{color:inherit;text-decoration:none}
 .hero::after{content:'';position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(circle,rgba(232,25,110,.75) 1.6px,transparent 1.8px);background-size:28px 28px;-webkit-mask-image:radial-gradient(circle 170px at var(--mx,-999px) var(--my,-999px),#000 0,transparent 100%);mask-image:radial-gradient(circle 170px at var(--mx,-999px) var(--my,-999px),#000 0,transparent 100%)}
 .hero-card{position:relative;z-index:1}
 @media(prefers-reduced-motion:reduce){.hs-bub,.hs-typing,.hs-chips{transition:none}}
+@media(max-width:700px){
+  .hero-desktop{grid-template-columns:1fr;justify-items:center;row-gap:1.5rem;min-height:0}
+  .hero-photo{grid-column:1;order:-1;width:min(62vw,260px)}
+  .hero-folders{grid-column:1;justify-self:center;margin-right:0;flex-direction:row;flex-wrap:wrap;justify-content:center;max-width:280px}
+  .hero-folder:nth-child(n){margin-left:0}
+  .hs-b2w,.hs-t2,.hs-chips{display:none}
+}
 
 /* ── HERO MARQUEE ── */
 .hero-marquee{display:none;position:fixed;left:0;right:0;bottom:0;z-index:2;width:100%;margin:0;overflow:hidden;border-top:1px solid var(--border);padding:.85rem 0;background:rgba(244,239,232,.85);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
@@ -310,7 +317,11 @@ a{color:inherit;text-decoration:none}
 .fc-design::before{background:var(--muted2)}
 .fc-pink::before{background:var(--pink)}
 .fc-sleep::before{background:repeating-linear-gradient(45deg,var(--muted2),var(--muted2) 3px,transparent 3px,transparent 6px)}
-@media(max-width:700px){.fun-in{padding:0 .5rem;width:100%}.fc-lab{font-size:1.1rem}}
+@media(max-width:700px){
+  .fun-in{padding:0 .5rem;width:100%}
+  .fun-clock-labels{display:flex;flex-wrap:wrap;position:static;height:auto;gap:.25rem .7rem;margin-bottom:.5rem}
+  .fc-lab{position:static;left:auto;bottom:auto;font-size:.9rem}
+}
 /* Zepto hero: volumetric light/shadow through the headline, following the pointer */
 .zl-hero{position:relative}
 .zl-hl{position:relative;width:100%;max-width:800px}
@@ -350,7 +361,7 @@ a{color:inherit;text-decoration:none}
   #ocad-desk .ocad-pic:nth-of-type(3){--l:6%!important;--t:34%!important}
   #ocad-desk .ocad-pic:nth-of-type(4){--l:44%!important;--t:50%!important}
   #ocad-desk .ocad-pic:nth-of-type(5){--l:10%!important;--t:68%!important}
-  .ab2-desk{height:auto;max-width:100%;min-height:1010px}
+  .ab2-desk{height:auto;max-width:100%;min-height:850px}
   #ab2-desk .ocad-pic{width:54%!important}
   #ab2-desk .ocad-pic:nth-of-type(1){--l:2%!important;--t:1%!important}
   #ab2-desk .ocad-pic:nth-of-type(2){--l:40%!important;--t:15%!important}
@@ -647,6 +658,7 @@ a{color:inherit;text-decoration:none}
   display:flex;flex-direction:column;gap:0;
   cursor:pointer;text-decoration:none;color:inherit;
   transition:transform var(--t-base) var(--ease);
+  min-width:0;
 }
 .article-card:hover{transform:translateY(-3px)}
 
@@ -862,7 +874,7 @@ a{color:inherit;text-decoration:none}
 .ab2-bio p{font-size:clamp(1rem,1.6vw,1.1rem);color:var(--ink2);line-height:1.85}
 .ll-mask{position:absolute;z-index:2;background:var(--bg);transform-origin:100% 50%;transform:scaleX(1);transition:transform .55s cubic-bezier(.6,0,.2,1);pointer-events:none}
 .ab2-firstscreen{min-height:calc(100vh - 130px);min-height:calc(100dvh - 130px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;box-sizing:border-box;text-align:center}
-.ab2-firstscreen img,.ab2-firstscreen video{max-height:56vh;width:auto;display:block}
+.ab2-firstscreen img,.ab2-firstscreen video{max-height:56vh;width:auto;max-width:100%;display:block}
 @media(max-width:700px){.ab2-firstscreen{min-height:calc(100vh - 90px);min-height:calc(100dvh - 90px)}.ab2-firstscreen img,.ab2-firstscreen video{max-height:44vh}}
 .ab2-links{display:flex;gap:1.25rem;flex-wrap:wrap;margin-bottom:0}
 .ab2-link{
@@ -1541,6 +1553,7 @@ a{color:inherit;text-decoration:none}
   .nav-links{gap:1.25rem}
   .hero-sub{white-space:normal;font-size:.85rem}
   .testimonials-grid{grid-template-columns:1fr}
+  .writing-card{width:100%;padding:1.5rem}
   .writing-grid{grid-template-columns:1fr}
   .year-group{grid-template-columns:1fr}
   .year-marker{position:static;flex-direction:row;align-items:center;gap:.65rem;margin-bottom:1rem}
