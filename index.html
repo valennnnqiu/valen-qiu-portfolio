@@ -874,6 +874,17 @@ a{color:inherit;text-decoration:none}
 .ab2-py:hover::after{opacity:1;transform:translate(-50%,10px)}
 .ab2-bio{display:flex;flex-direction:column;gap:1.4rem;margin-bottom:2.5rem}
 .ab2-bio p{font-size:clamp(1rem,1.6vw,1.1rem);color:var(--ink2);line-height:1.85}
+.ab2-journey{position:relative;padding-left:2.25rem;display:flex;flex-direction:column;gap:clamp(3rem,7vw,4.5rem)}
+.ab2-journey::before{content:'';position:absolute;left:4px;top:6px;bottom:6px;width:1px;background:var(--border2)}
+.ab2-journey-item{position:relative}
+.ab2-journey-dot{position:absolute;left:-2.25rem;top:.4rem;width:9px;height:9px;border-radius:50%;background:var(--pink);box-shadow:0 0 0 5px var(--pink-bg)}
+.ab2-journey-label{font-family:var(--mono);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--pink);margin-bottom:.9rem}
+.ab2-journey-title{font-family:var(--sans);font-size:clamp(1.5rem,3.2vw,2.15rem);font-weight:700;letter-spacing:-.02em;color:var(--ink);line-height:1.15;margin-bottom:1rem}
+.ab2-journey-text{font-size:clamp(1rem,1.6vw,1.1rem);color:var(--ink2);line-height:1.8;max-width:640px}
+@media(max-width:700px){
+  .ab2-journey{padding-left:1.5rem;gap:2.75rem}
+  .ab2-journey-dot{left:-1.5rem}
+}
 .ll-mask{position:absolute;z-index:2;background:var(--bg);transform-origin:100% 50%;transform:scaleX(1);transition:transform .55s cubic-bezier(.6,0,.2,1);pointer-events:none}
 .ab2-firstscreen{min-height:calc(100vh - 130px);min-height:calc(100dvh - 130px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;box-sizing:border-box;text-align:center}
 .ab2-firstscreen img,.ab2-firstscreen video{max-height:56vh;width:auto;max-width:100%;display:block}
@@ -2428,16 +2439,45 @@ body.on-zepto{scrollbar-color:#fff transparent}
     <h1 class="ab2-headline ab2-reveal" id="ab2-headline" style="color:var(--pink)" data-final="Hi (你好/侬好), stranger." data-py1="nǐ hǎo · Mandarin" data-py2="nóng hǎo · Shanghainese">Hi (你好/侬好), stranger.</h1>
   </div>
 
-  <!-- HERO BIO -->
+  <!-- HERO BIO: journey timeline -->
   <section class="ab2-hero ab2-reveal">
-    <div class="ab2-bio">
-      <p>I grew up across Shanghai, Melbourne, San Francisco, and now Toronto. A Third Culture Kid who never quite fit one room, but somehow felt at home in all of them.</p>
-      <p>For a while, I followed the expected path. I studied Industrial Design at California College of the Arts.</p>
-      <p>In my second year, a friend and I co-founded Zepto Lab, a design studio based in Shenzhen working across product, brand, digital, and strategy.</p>
-      <p>But somewhere between debating chamfer angles and material tolerances, I realized what I actually cared about was the experience around the object. Where people felt stuck, what made something feel right, and why some things just work. That shift pulled me toward UX, and I never looked back.</p>
-      <p>What kept me going was building things and watching real people use them.</p>
-      <p>Completing my graduate studies in Digital Futures at OCAD changed how I see problems. It started as a simple curiosity about voice AI agents, but the more I dug in, the more I realized what actually pulled me in wasn't the agent, it was the future itself: the good versions of it, the bad ones, the ones nobody's mapped out yet. That curiosity became a way of thinking about systems, about what comes next, about why the surface is never the whole story. That thinking is now how I approach everything.</p>
-      <p>These days, I bring that same thinking back into teaching at OCAD and through ADPList, mentoring undergrads and anyone curious enough about design to keep asking why.</p>
+    <div class="ab2-journey">
+      <div class="ab2-journey-item">
+        <span class="ab2-journey-dot"></span>
+        <p class="ab2-journey-label">01 · Shanghai &rarr; Melbourne &rarr; San Francisco &rarr; Toronto</p>
+        <h3 class="ab2-journey-title">I never quite fit one room.</h3>
+        <p class="ab2-journey-text">I grew up across four cities, a Third Culture Kid who never belonged to just one place, but somehow felt at home in all of them.</p>
+      </div>
+      <div class="ab2-journey-item">
+        <span class="ab2-journey-dot"></span>
+        <p class="ab2-journey-label">02 · San Francisco, CCA, 2018</p>
+        <h3 class="ab2-journey-title">I started by designing objects.</h3>
+        <p class="ab2-journey-text">For a while, I followed the expected path and studied Industrial Design at California College of the Arts.</p>
+      </div>
+      <div class="ab2-journey-item">
+        <span class="ab2-journey-dot"></span>
+        <p class="ab2-journey-label">03 · Shenzhen, 2021</p>
+        <h3 class="ab2-journey-title">Then I started a studio before I graduated.</h3>
+        <p class="ab2-journey-text">While still at CCA, a friend and I co-founded Zepto Lab, a design studio in Shenzhen working across product, brand, digital, and strategy.</p>
+      </div>
+      <div class="ab2-journey-item">
+        <span class="ab2-journey-dot"></span>
+        <p class="ab2-journey-label">04 · The shift</p>
+        <h3 class="ab2-journey-title">The object was never the whole story.</h3>
+        <p class="ab2-journey-text">Somewhere between debating chamfer angles and material tolerances, I realized what I actually cared about was the experience around the object: where people felt stuck, what made something feel right, and why some things just work. That pulled me toward UX, and I never looked back. What kept me going was building things and watching real people use them.</p>
+      </div>
+      <div class="ab2-journey-item">
+        <span class="ab2-journey-dot"></span>
+        <p class="ab2-journey-label">05 · Toronto, OCAD, 2023</p>
+        <h3 class="ab2-journey-title">I went looking for AI agents and found the future.</h3>
+        <p class="ab2-journey-text">My graduate studies in Digital Futures at OCAD started with a simple curiosity about voice AI agents. The deeper I went, the more I realized it wasn't the agent that pulled me in, it was the future itself: the good versions, the bad ones, and the ones nobody has mapped out yet. It taught me to think in systems, and to remember that the surface is never the whole story.</p>
+      </div>
+      <div class="ab2-journey-item">
+        <span class="ab2-journey-dot"></span>
+        <p class="ab2-journey-label">06 · Now</p>
+        <h3 class="ab2-journey-title">Now I help others keep asking why.</h3>
+        <p class="ab2-journey-text">I bring that thinking back into teaching at OCAD and mentoring on ADPList, for undergrads and anyone curious enough about design to keep asking why.</p>
+      </div>
     </div>
   </section>
 
