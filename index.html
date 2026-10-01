@@ -67,10 +67,14 @@ a{color:inherit;text-decoration:none}
 .nav-icon-btn:not(.nav-resume-btn):hover{color:var(--pink)}
 .nav-hamburger{display:none;background:rgba(255,255,255,.78);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);color:var(--ink);width:42px;height:42px;border-radius:999px;align-items:center;justify-content:center;border:1px solid rgba(13,13,12,.08);box-shadow:0 .3rem 1.1rem rgba(13,13,12,.07);cursor:pointer;flex-shrink:0;padding:0}
 .nav-hamburger svg{width:18px;height:18px}
-.nav-mobile-menu{display:none;flex-direction:column;gap:.25rem;position:fixed;top:4.5rem;left:1rem;right:1rem;background:#fff;border-radius:16px;padding:.6rem;box-shadow:0 16px 40px rgba(13,13,12,.16);z-index:250;opacity:0;transform:translateY(-8px);pointer-events:none;transition:opacity var(--t-fast) var(--ease), transform var(--t-fast) var(--ease)}
-.nav-mobile-menu.open{display:flex;opacity:1;transform:translateY(0);pointer-events:auto}
-.nav-mobile-item{background:none;border:none;text-align:left;padding:.85rem 1rem;font-family:var(--sans);font-size:.95rem;font-weight:500;color:var(--ink);border-radius:10px;cursor:pointer;text-decoration:none;display:block}
-.nav-mobile-item:hover{background:var(--bg2)}
+.nav-mobile-menu{display:none;flex-direction:column;justify-content:space-between;position:fixed;top:0;left:0;width:100vw;height:100vh;height:100dvh;background:var(--bg);padding:1.25rem var(--pg) 3rem;box-sizing:border-box;z-index:250;opacity:0;transition:opacity var(--t-base) var(--ease-out)}
+.nav-mobile-menu.open{display:flex;opacity:1}
+.nav-mobile-top{display:flex;align-items:center;justify-content:space-between}
+.nav-mobile-links{display:flex;flex-direction:column;gap:.15rem;margin-top:2rem}
+.nav-mobile-item{background:none;border:none;text-align:left;padding:.5rem 0;font-family:var(--sans);font-size:clamp(2.2rem,11vw,3rem);font-weight:700;letter-spacing:-.02em;color:var(--ink);border-radius:0;cursor:pointer;text-decoration:none;display:block;transition:color var(--t-fast) var(--ease-out)}
+.nav-mobile-item:hover,.nav-mobile-item:active{background:none;color:var(--pink)}
+.nav-mobile-cta{display:flex;flex-direction:column;gap:.9rem}
+.nav-mobile-cta a{font-family:var(--sans);font-size:1.05rem;font-weight:600;color:var(--pink);text-decoration:none}
 
 .nav-pill-wrap{
   display:flex;align-items:center;gap:.25rem;
@@ -371,6 +375,7 @@ a{color:inherit;text-decoration:none}
 .section-eyebrow{display:flex;align-items:baseline;gap:.75rem}
 .section-num{display:none}
 .section-title{font-size:clamp(2rem,5vw,4rem);font-weight:700;letter-spacing:-.03em;color:var(--pink);line-height:1.05}
+.section-eyebrow{font-family:var(--mono);font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted2);margin:0 0 .85rem}
 .section-link{font-size:.78rem;color:var(--muted);transition:color var(--t-fast) var(--ease-out);cursor:pointer;background:none;border:none;font-family:var(--sans)}
 .section-link:hover{color:var(--pink)}
 
@@ -459,10 +464,15 @@ a{color:inherit;text-decoration:none}
 .copy-btn:active{transform:scale(.97)}
 
 /* ── FOOTER ── */
-.footer{padding:2.5rem var(--pg);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;background:var(--bg)}
+.footer{padding:2rem var(--pg);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;background:var(--bg);border-top:1px solid var(--border)}
+.footer-logo{height:26px;width:auto;display:block;opacity:.85;transition:opacity var(--t-fast) var(--ease-out)}
+.footer-logo:hover{opacity:1}
 .footer-left{font-family:var(--serif);font-style:italic;font-size:.9rem;color:var(--muted);max-width:440px;line-height:1.65}
 .footer-left span{color:var(--pink)}
-.footer-right{font-family:var(--mono);font-size:.58rem;letter-spacing:.06em;color:var(--muted2);text-align:right}
+.footer-right{display:flex;align-items:center;flex-wrap:wrap;gap:.4rem .6rem;font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted2);text-align:right}
+.footer-right a{color:inherit;text-decoration:none;border-bottom:1px solid transparent;transition:color var(--t-fast) var(--ease-out),border-color var(--t-fast) var(--ease-out)}
+.footer-right a:hover{color:var(--pink);border-color:var(--pink)}
+.footer-dot{opacity:.5}
 
 /* ── ABOUT PAGE ── */
 .about-hero{padding:7rem var(--pg) 5rem}
@@ -2088,7 +2098,7 @@ body.on-zepto{scrollbar-color:#fff transparent}
   <span class="nav-logo" onclick="goto('home')"><img class="nav-logo-text" src="images/signature.png" alt="Valen Qiu" style="height:44px;width:auto;display:block"></span>
   <div class="nav-pill-wrap">
     <button class="nav-pill-item" onclick="goto('home')" id="nav-home">Home</button>
-    <button class="nav-pill-item" onclick="goto('zepto')" id="nav-zepto">Zepto Lab</button>
+    <button class="nav-pill-item" onclick="window.open('https://valennnnqiu.github.io/zepto-lab-site/#home','_blank','noopener')" id="nav-zepto">Zepto Lab</button>
     <button class="nav-pill-item" onclick="goto('about')" id="nav-about">About</button>
   </div>
   <div class="nav-actions">
@@ -2102,18 +2112,29 @@ body.on-zepto{scrollbar-color:#fff transparent}
   </div>
 </nav>
 
-<!-- Mobile dropdown menu -->
+<!-- Mobile full-screen menu -->
 <div class="nav-mobile-menu" id="nav-mobile-menu">
-  <button class="nav-mobile-item" onclick="goto('home');closeMobileNav()">Home</button>
-  <button class="nav-mobile-item" onclick="goto('zepto');closeMobileNav()">Zepto Lab</button>
-  <button class="nav-mobile-item" onclick="goto('about');closeMobileNav()">About</button>
-  <a class="nav-mobile-item" href="https://drive.google.com/file/d/1TZfQlvC-g4uK5JbUKeNUMmzItIagX0Kb/view?usp=sharing" target="_blank" rel="noopener">Résumé</a>
+  <div class="nav-mobile-top">
+    <span class="nav-logo" onclick="goto('home');closeMobileNav()"><img class="nav-logo-text" src="images/signature.png" alt="Valen Qiu" style="height:36px;width:auto;display:block"></span>
+    <button class="nav-hamburger" onclick="closeMobileNav()" aria-label="Close menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
+    </button>
+  </div>
+  <div class="nav-mobile-links">
+    <button class="nav-mobile-item" onclick="goto('home');closeMobileNav()">Home</button>
+    <button class="nav-mobile-item" onclick="window.open('https://valennnnqiu.github.io/zepto-lab-site/#home','_blank','noopener');closeMobileNav()">Zepto Lab</button>
+    <button class="nav-mobile-item" onclick="goto('about');closeMobileNav()">About</button>
+  </div>
+  <div class="nav-mobile-cta">
+    <a href="https://drive.google.com/file/d/1TZfQlvC-g4uK5JbUKeNUMmzItIagX0Kb/view?usp=sharing" target="_blank" rel="noopener">Résumé ↗</a>
+    <a href="https://www.linkedin.com/in/jiayun-qiu/" target="_blank" rel="noopener">LinkedIn ↗</a>
+  </div>
 </div>
 
 <!-- Floating pill nav (scroll) -->
 <div class="nav-float" id="nav-float">
   <button class="nav-pill-item" onclick="goto('home')" id="nav-float-home">Home</button>
-  <button class="nav-pill-item" onclick="goto('zepto')" id="nav-float-zepto">Zepto Lab</button>
+  <button class="nav-pill-item" onclick="window.open('https://valennnnqiu.github.io/zepto-lab-site/#home','_blank','noopener')" id="nav-float-zepto">Zepto Lab</button>
   <button class="nav-pill-item" onclick="goto('about')" id="nav-float-about">About</button>
 </div>
 
@@ -2128,7 +2149,7 @@ body.on-zepto{scrollbar-color:#fff transparent}
           <span class="hero-folder-shadow"></span>
           <span class="hero-folder-label">Recent Work</span>
         </button>
-        <button class="hero-folder pf-flask" onclick="goto('zepto')">
+        <button class="hero-folder pf-flask" onclick="window.open('https://valennnnqiu.github.io/zepto-lab-site/#home','_blank','noopener')">
           <span class="hero-folder-art"><img class="hero-folder-icon" draggable="false" src="images/home/pixel-flask.png" alt=""></span>
           <span class="hero-folder-shadow"></span>
           <span class="hero-folder-label">Client Work – ZEPTOLAB</span>
@@ -2175,6 +2196,7 @@ body.on-zepto{scrollbar-color:#fff transparent}
 
   <section class="section section-alt reveal" id="builds-section">
     <div class="fun-intro" id="fun-intro"><div class="fun-pin"><div class="fun-in">
+      <p class="section-eyebrow">Outside the day job</p>
       <h2 class="section-title fun-t">Some <span class="fun-w" aria-label="fun"><i>f</i><i>u</i><i>n</i></span> things I do</h2>
       <div class="fun-lines">
         <p class="fun-p" id="fun-design" data-at=".18">Design is the day job.</p>
@@ -2185,6 +2207,7 @@ body.on-zepto{scrollbar-color:#fff transparent}
     <!-- Build: folders that pop a preview open on hover -->
     <div class="proj-switcher">
       <div class="proj-display proj-card">
+        <p class="section-eyebrow">Build</p>
         <h2 class="section-title">I build. Ideas into apps.</h2>
         <div class="build-stage">
           <a class="build-folder bf-lucky" href="https://lucky-fit.vercel.app/" target="_blank" rel="noopener">
@@ -2208,6 +2231,7 @@ body.on-zepto{scrollbar-color:#fff transparent}
 
   <div class="writing-card reveal" id="writing-section">
       <!-- Header -->
+      <p class="section-eyebrow">Writing</p>
       <div class="writing-card-hd">
         <h2 class="section-title">I write. Once a month.</h2>
         <a href="https://medium.com/@valen.jy.qiu" target="_blank" class="writing-explore-btn">
@@ -2274,6 +2298,7 @@ body.on-zepto{scrollbar-color:#fff transparent}
 
   <div class="teaching-card reveal" id="teaching-section">
       <div class="teaching-card-hd">
+        <p class="section-eyebrow">Teaching</p>
         <h2 class="section-title">I teach at OCAD &amp; mentor<br>from time to time.</h2>
       </div>
 
@@ -2292,6 +2317,7 @@ body.on-zepto{scrollbar-color:#fff transparent}
   <section class="section reveal">
   <div class="testimonials-wrap-inner">
     <div class="testimonials-hd">
+      <p class="section-eyebrow">Testimonials</p>
       <h2 class="section-title">What's it like working with me?</h2>
       <p class="testimonials-sub">I think with you, build with you — and I won't stop until it feels right.</p>
     </div>
@@ -2340,6 +2366,7 @@ body.on-zepto{scrollbar-color:#fff transparent}
 
   <div class="cta-wrap reveal">
     <div class="cta-card-white">
+      <p class="section-eyebrow">Contact</p>
       <h2 class="section-title" style="margin-bottom:2rem">Interested in collaborating?</h2>
 
       <div class="cta-blocks">
@@ -2378,8 +2405,12 @@ body.on-zepto{scrollbar-color:#fff transparent}
   </div>
 
   <footer class="footer">
-    <p class="footer-left">© Valen Qiu 2026. All rights reserved ✦ Made with AI & Boba egg tart ✦ Toronto, CA.</p>
-    <div class="footer-right"></div>
+    <img class="footer-logo" src="images/signature.png" alt="Valen Qiu" draggable="false">
+    <div class="footer-right">
+      <span>© 2026 Valen Qiu <span class="footer-dot">✦</span> Made with AI &amp; Boba egg tart <span class="footer-dot">✦</span> Toronto, CA</span>
+      <span class="footer-dot">·</span>
+      <a href="https://www.linkedin.com/in/jiayun-qiu/" target="_blank" rel="noopener">LinkedIn ↗</a>
+    </div>
   </footer>
 </div><!-- /page-home -->
 
@@ -2414,6 +2445,7 @@ body.on-zepto{scrollbar-color:#fff transparent}
 
   <!-- VALUES -->
   <section class="ab2-section ab2-reveal">
+    <p class="section-eyebrow">Values</p>
     <h2 class="section-title" style="margin-bottom:1.25rem">Values I believe in</h2>
     <p style="font-size:clamp(1rem,1.6vw,1.1rem);color:var(--ink2);line-height:1.85;margin-bottom:2.5rem;max-width:600px">The way I work is shaped as much by values as it is by craft. These are the principles I come back to when things get complicated.</p>
     <div class="ab2-values">
@@ -2437,6 +2469,7 @@ body.on-zepto{scrollbar-color:#fff transparent}
 
   <!-- OUTSIDE OF WORK -->
   <section class="ab2-section ab2-reveal">
+    <p class="section-eyebrow">Beyond work</p>
     <h2 class="section-title" style="margin-bottom:1.25rem">What I do outside of work</h2>
     <div class="ab2-outside">
       <div class="ab2-outside-block"><p class="ab2-outside-text">📚&nbsp; I assist in teaching Branding, Graphic Design and Critical Thinking at OCAD.</p></div>
@@ -2461,6 +2494,7 @@ body.on-zepto{scrollbar-color:#fff transparent}
   <!-- CTA -->
   <div class="ab2-cta ab2-reveal">
     <div class="cta-card-white">
+      <p class="section-eyebrow">Contact</p>
       <h2 class="section-title" style="margin-bottom:1.25rem">Let's build something that matters</h2>
       <p style="font-size:clamp(1rem,1.6vw,1.1rem);color:var(--ink2);line-height:1.85;max-width:620px;margin-bottom:2rem">I care about products that are thoughtful, useful, and genuinely good for people. If that sounds like what you're working on — I'd love to be part of it.</p>
       <div class="cta-pills">
@@ -2490,8 +2524,12 @@ body.on-zepto{scrollbar-color:#fff transparent}
   </div>
 
   <footer class="footer">
-    <p class="footer-left">© Valen Qiu 2026. All rights reserved ✦ Made with AI & Boba egg tart ✦ Toronto, CA.</p>
-    <div class="footer-right"></div>
+    <img class="footer-logo" src="images/signature.png" alt="Valen Qiu" draggable="false">
+    <div class="footer-right">
+      <span>© 2026 Valen Qiu <span class="footer-dot">✦</span> Made with AI &amp; Boba egg tart <span class="footer-dot">✦</span> Toronto, CA</span>
+      <span class="footer-dot">·</span>
+      <a href="https://www.linkedin.com/in/jiayun-qiu/" target="_blank" rel="noopener">LinkedIn ↗</a>
+    </div>
   </footer>
 </div><!-- /ab2-page -->
 </div>
@@ -4575,10 +4613,12 @@ window.addEventListener('scroll',()=>{
 
 // ── MOBILE NAV MENU ──
 function toggleMobileNav(){
-  document.getElementById('nav-mobile-menu')?.classList.toggle('open');
+  const open = document.getElementById('nav-mobile-menu')?.classList.toggle('open');
+  document.body.style.overflow = open ? 'hidden' : '';
 }
 function closeMobileNav(){
   document.getElementById('nav-mobile-menu')?.classList.remove('open');
+  document.body.style.overflow = '';
 }
 document.addEventListener('click', (e) => {
   const menu = document.getElementById('nav-mobile-menu');
