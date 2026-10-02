@@ -322,7 +322,10 @@ a{color:inherit;text-decoration:none}
 .fc-pink::before{background:var(--pink)}
 .fc-sleep::before{background:repeating-linear-gradient(45deg,var(--muted2),var(--muted2) 3px,transparent 3px,transparent 6px)}
 @media(max-width:700px){
-  .fun-in{padding:0 var(--pg);width:100%}
+  .fun-intro{height:auto;margin:0;padding:4.5rem var(--pg)}
+  .fun-pin{position:static;height:auto;display:block}
+  .fun-in{padding:0;width:100%}
+  .fun-clock{position:static;bottom:auto;left:auto;transform:none;width:100%;margin-top:2.5rem}
   .fun-clock-labels{display:flex;flex-wrap:wrap;position:static;height:auto;gap:.25rem .7rem;margin-bottom:.5rem}
   .fc-lab{position:static;left:auto;bottom:auto;font-size:.9rem}
 }
@@ -4339,6 +4342,21 @@ function mixHex(c1,c2,t){t=Math.max(0,Math.min(1,t)); const p=h=>[parseInt(h.sli
 (function(){const wrap=document.getElementById('fun-intro'); if(!wrap) return;
   const t=wrap.querySelector('.fun-t'), ps=[...wrap.querySelectorAll('.fun-p')]; let tk=0;
   const clockSegs=[...document.querySelectorAll('.fc-seg')], clockLabs=[...document.querySelectorAll('.fc-lab')];
+  const clockEl=document.getElementById('fun-clock');
+  // mobile: skip the scroll-scrubbed reveal/typewriter/clock-fill entirely -- just show the finished state once in view
+  if(matchMedia('(max-width:700px)').matches){
+    t.style.setProperty('--o','1');
+    ps.forEach(el=>{
+      if(el.dataset.txt) el.innerHTML=el.dataset.txt.replace(/\b(Building|writing|teaching|DJing)\b/g,'<span class="kw" style="color:#E8196E">$1</span>');
+      el.classList.add('on');
+    });
+    const design=document.getElementById('fun-design'); if(design) design.style.color='#8C8A85';
+    clockSegs.forEach(el=>el.style.setProperty('--f','1'));
+    clockLabs.forEach(el=>el.classList.add('on'));
+    // move the clock bar into the normal flow right after the text, instead of a scroll-gated fixed overlay
+    if(clockEl){ wrap.querySelector('.fun-in')?.appendChild(clockEl); clockEl.classList.add('on'); }
+    return;
+  }
   let clockPlaying=false, clockGen=0;
   function playClock(){ // plays through on its own once triggered, not scrubbed by scroll
     const gen=++clockGen, dur=2600, t0=performance.now(), reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
