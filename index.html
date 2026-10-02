@@ -224,6 +224,8 @@ a{color:inherit;text-decoration:none}
   .hero-folders{grid-column:1;justify-self:start;margin-right:0;flex-direction:row;flex-wrap:wrap;justify-content:flex-start;max-width:100%}
   .hero-folder:nth-child(n){margin-left:0}
   .hs-b2w,.hs-t2,.hs-chips{display:none}
+  .hs-name-fig,.hs-person-fig{animation:none!important;transform:translateX(-50%)!important}
+  .hs-scene{width:100%}
 }
 
 /* ── HERO MARQUEE ── */
@@ -4902,20 +4904,7 @@ if(initNf) initNf.classList.add('active');
     addParticle(art,n,1200);
   });
 
-  // mobile/tablet: no mouse, so tilt/gyroscope drives the same --px/--py parallax
-  const isTouch=matchMedia('(hover:none)').matches;
-  function onOrientation(e){
-    if(e.gamma==null||e.beta==null) return;
-    tx=Math.max(-1,Math.min(1,e.gamma/30)); ty=Math.max(-1,Math.min(1,(e.beta-45)/30));
-    if(!raf) raf=requestAnimationFrame(tick);
-  }
-  function enableGyro(){
-    if(!('DeviceOrientationEvent' in window)) return;
-    if(typeof DeviceOrientationEvent.requestPermission==='function'){
-      DeviceOrientationEvent.requestPermission().then(s=>{if(s==='granted') addEventListener('deviceorientation',onOrientation)}).catch(()=>{});
-    } else addEventListener('deviceorientation',onOrientation);
-  }
-  if(isTouch) hero.addEventListener('touchstart',enableGyro,{once:true,passive:true});
+  // mobile/tablet: keep the hero figure static and centered -- no gyro tilt, no mouse parallax
 })();
 
 // ── Draggable photo desks: OCAD (home) and About-me, same scattered-polaroid mechanics ──
