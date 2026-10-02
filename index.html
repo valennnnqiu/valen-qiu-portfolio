@@ -221,7 +221,7 @@ a{color:inherit;text-decoration:none}
 @media(max-width:700px){
   .hero-desktop{grid-template-columns:1fr;justify-items:center;row-gap:1.5rem;min-height:0}
   .hero-photo{grid-column:1;order:-1;width:min(62vw,260px)}
-  .hero-folders{grid-column:1;justify-self:start;margin-right:0;flex-direction:row;flex-wrap:wrap;justify-content:flex-start;max-width:100%}
+  .hero-folders{grid-column:1;justify-self:center;margin-right:0;flex-direction:row;flex-wrap:wrap;justify-content:center;max-width:100%}
   .hero-folder:nth-child(n){margin-left:0}
   .hs-b2w,.hs-t2,.hs-chips{display:none}
   .hs-name-fig,.hs-person-fig{animation:none!important;transform:translateX(-50%)!important}
@@ -1151,6 +1151,12 @@ a{color:inherit;text-decoration:none}
   flex-shrink:0;
 }
 .cta-pill-text{min-width:100px}
+@media(max-width:700px){
+  .cta-pills{gap:.4rem;flex-wrap:nowrap}
+  .cta-pill{padding:.5rem .85rem;font-size:.78rem;gap:.35rem}
+  .cta-pill-text{min-width:0}
+  .cta-pill-icon-only{width:38px;height:38px}
+}
 
 
 /* ── CASE STUDY PAGE ── */
@@ -2093,9 +2099,10 @@ body.on-zepto{scrollbar-color:#fff transparent}
 }
 
 /* ── MOBILE NAV (override, must stay last) ── */
-.nav-full{transition:transform var(--t-base) var(--ease-out),border-radius var(--t-base) var(--ease-out),box-shadow var(--t-base) var(--ease-out),background var(--t-base) var(--ease-out),margin var(--t-base) var(--ease-out)}
+.nav-full{transition:transform var(--t-base) var(--ease-out),border-radius var(--t-base) var(--ease-out),box-shadow var(--t-base) var(--ease-out),background var(--t-base) var(--ease-out),margin var(--t-base) var(--ease-out),padding var(--t-base) var(--ease-out),top var(--t-base) var(--ease-out)}
 .nav-full.nav-hidden{transform:translateY(-130%)}
-.nav-full.nav-compact{max-width:920px;margin:.75rem auto 0;border-radius:999px;background:rgba(244,239,232,.85);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:0 4px 20px rgba(13,13,12,.14)}
+.nav-full.nav-compact{max-width:920px;margin:0 auto;top:12px;padding:.55rem 1.5rem;border-radius:999px;background:rgba(244,239,232,.85);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:0 4px 20px rgba(13,13,12,.14)}
+.nav-full.nav-compact .nav-logo-text{height:26px!important}
 @media(max-width:640px){
   .nav{display:flex;justify-content:space-between}
   .nav-pill-wrap{display:none}
@@ -2103,7 +2110,10 @@ body.on-zepto{scrollbar-color:#fff transparent}
   .nav-icon-btn:not(.nav-resume-btn){display:none}
   .nav-hamburger{display:flex}
   .nav-float{display:none}
-  .nav-full.nav-compact{margin:.5rem .75rem 0}
+  .nav-full.nav-compact{margin:0 .75rem;top:8px;padding:.45rem 1rem}
+  .nav-full.nav-compact .nav-logo-text{height:22px!important}
+  .nav-full.nav-compact .nav-hamburger{width:34px;height:34px}
+  .nav-full.nav-compact .nav-hamburger svg{width:15px;height:15px}
 }
 </style>
 </head>
