@@ -204,16 +204,18 @@ h3{font-size:clamp(24px,2.6vw,32px);font-weight:600;line-height:1.12;letter-spac
 .field label output{font-family:var(--f-mono);font-weight:600;color:var(--ink);font-size:18px}
 input[type=range]{width:100%;accent-color:var(--app);height:28px}
 input[type=range]:focus-visible{outline:3px solid var(--lilac);outline-offset:4px;border-radius:8px}
-.ruler{position:relative;height:118px;overflow:hidden}
-.ruler .axis{position:absolute;left:0;right:0;top:50px;height:2px;background:#D6CFBF}
-.ruler .band{position:absolute;top:30px;height:42px;display:flex;align-items:center;font-family:var(--f-mono);font-size:14px;font-weight:600;padding-inline:8px;white-space:nowrap}
+.ruler{position:relative;height:138px;overflow:hidden}   /* two label rows on top: zone, then the current price */
+.ruler .axis{position:absolute;left:0;right:0;top:70px;height:2px;background:#D6CFBF}
+.ruler .band{position:absolute;top:50px;height:42px;display:flex;align-items:center;font-family:var(--f-mono);font-size:14px;font-weight:600;padding-inline:8px;white-space:nowrap}
+/* the amount sits on a chip of the band colour, above the zone's dashed outline */
+.ruler .band b{position:relative;z-index:5;background:inherit;padding:0 4px;border-radius:4px;font-weight:inherit}
 .ruler .risk{background:var(--loss-bg);color:var(--loss);border-radius:8px 0 0 8px}
 .ruler .rew{background:var(--gain-bg);color:var(--gain);border-radius:0 8px 8px 0;justify-content:flex-end}
-.ruler .zone{position:absolute;top:20px;height:62px;border:2.5px dashed var(--gain-2);border-radius:8px}
-.ruler .now{position:absolute;top:24px;width:3px;height:56px;background:var(--ink)}
+.ruler .zone{position:absolute;top:40px;z-index:3;height:62px;border:2.5px dashed var(--gain-2);border-radius:8px}
+.ruler .now{position:absolute;top:44px;z-index:4;width:3px;height:56px;background:var(--ink)}
 @media (max-width:560px){.ruler .band{font-size:11px;padding-inline:4px}}
-.ruler .lab{position:absolute;top:88px;font-family:var(--f-mono);font-size:13px;white-space:nowrap}
-.ruler .nowlab{position:absolute;top:0;font-family:var(--f-mono);font-size:13px;font-weight:600;transform:translateX(-50%)}
+.ruler .lab{position:absolute;top:108px;font-family:var(--f-mono);font-size:13px;white-space:nowrap}
+.ruler .nowlab{position:absolute;top:21px;font-family:var(--f-mono);font-size:13px;font-weight:600;transform:translateX(-50%)}
 .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .kpis div{background:var(--paper);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:2px;min-width:0}
 .kpis span{font-size:13px;color:var(--ink-2)}
@@ -392,7 +394,7 @@ input[type=range]:focus-visible{outline:3px solid var(--lilac);outline-offset:4p
 .vs figcaption{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
 .vs .no{background:var(--paper-2)}.vs .no figcaption{color:var(--ink-3)}
 .vs .yes{background:var(--card);border:2px solid var(--ink)}
-.vs .yes figcaption{align-self:flex-start;background:var(--lime);color:var(--ink);border-radius:999px;padding:2px 10px}
+.vs .yes figcaption{color:var(--ink)}
 .vs .m{flex:1;display:flex;flex-direction:column;justify-content:center;gap:6px;border-radius:12px;padding:12px;min-height:118px}
 .vs .no .m{background:var(--paper);border:1.5px solid #D6CFBF;color:#A39D8E}
 .vs .yes .m{border:1.5px solid #ECE7DC}
@@ -476,7 +478,6 @@ input[type=range]:focus-visible{outline:3px solid var(--lilac);outline-offset:4p
   .kpis div{padding:10px}
   .kpis span{font-size:11px}
   .kpis b{font-size:16px}
-  .ruler .nowlab{display:none}
   .ruler .lab{font-size:11px}
   .buys span{font-size:12px;padding:5px 8px}
   .case{padding:22px}
@@ -794,22 +795,22 @@ input[type=range]:focus-visible{outline:3px solid var(--lilac);outline-offset:4p
       <article>
         <div class="dt"><span class="k">01</span><h3>Warn, don't block.</h3><p>Passed on hard blocks. Blocked users just open the broker and leave.</p></div>
         <div class="vs">
-          <figure class="no"><figcaption>Passed on</figcaption><div class="m"><b>Order blocked</b><span>NBIS would be 42% of your account.</span><i class="bt off">Can't continue</i></div></figure>
-          <figure class="yes"><figcaption>Chose</figcaption><div class="m"><b>NBIS plan</b><span class="red">Over your 40% limit</span><i class="bt on">Save plan</i></div></figure>
+          <figure class="no"><figcaption>Before</figcaption><div class="m"><b>Order blocked</b><span>NBIS would be 42% of your account.</span><i class="bt off">Can't continue</i></div></figure>
+          <figure class="yes"><figcaption>After</figcaption><div class="m"><b>NBIS plan</b><span class="red">Over your 40% limit</span><i class="bt on">Save plan</i></div></figure>
         </div>
       </article>
       <article>
         <div class="dt"><span class="k">02</span><h3>Reasons, not answers.</h3><p>Passed on an AI chat. With money at stake, a black box is the riskiest thing a screen can show.</p></div>
         <div class="vs">
-          <figure class="no"><figcaption>Passed on</figcaption><div class="m"><i class="bub me">Should I buy NBIS?</i><i class="bub ai">Yes. It will likely rise 12% this week.</i></div></figure>
-          <figure class="yes"><figcaption>Chose</figcaption><div class="m"><b>NBIS <em>6 / 7</em></b><span class="grn">✓ Uptrend ✓ Beating SPY ✓ Volume</span><span class="red">Missing: news disagrees</span></div></figure>
+          <figure class="no"><figcaption>Before</figcaption><div class="m"><i class="bub me">Should I buy NBIS?</i><i class="bub ai">Yes. It will likely rise 12% this week.</i></div></figure>
+          <figure class="yes"><figcaption>After</figcaption><div class="m"><b>NBIS <em>6 / 7</em></b><span class="grn">✓ Uptrend ✓ Beating SPY ✓ Volume</span><span class="red">Missing: news disagrees</span></div></figure>
         </div>
       </article>
       <article>
         <div class="dt"><span class="k">03</span><h3>Trust before convenience.</h3><p>Passed on syncing accounts. Statements are imported, and data stays on the device.</p></div>
         <div class="vs">
-          <figure class="no"><figcaption>Passed on</figcaption><div class="m"><b>Connect your account</b><span>Sign in to sync positions.</span><i class="bt off">Log in to your broker</i></div></figure>
-          <figure class="yes"><figcaption>Chose</figcaption><div class="m drop2"><b>Drop your IBKR statement</b><span>Stays on this device.</span></div></figure>
+          <figure class="no"><figcaption>Before</figcaption><div class="m"><b>Connect your account</b><span>Sign in to sync positions.</span><i class="bt off">Log in to your broker</i></div></figure>
+          <figure class="yes"><figcaption>After</figcaption><div class="m drop2"><b>Drop your IBKR statement</b><span>Stays on this device.</span></div></figure>
         </div>
       </article>
     </div>
@@ -942,7 +943,7 @@ document.querySelectorAll('#nav-mobile-menu a').forEach(a=>a.addEventListener('c
   }
   function calc(){
     var r=+$('risk').value,sh=Math.round(r/(AVG-STOP)),t=sh/3,cap=sh*AVG,pct=cap/ACCT;
-    $('riskOut').textContent=money(r);$('bRisk').textContent='−'+money(r);$('bRew').textContent='+'+money(sh*(TGT-AVG));
+    $('riskOut').textContent=money(r);$('bRisk').innerHTML='<b>−'+money(r)+'</b>';$('bRew').innerHTML='<b>+'+money(sh*(TGT-AVG))+'</b>';
     $('kSh').textContent=sh;$('kCap').textContent=money(cap);
     $('buys').innerHTML=[228,224,220].map(function(p){return '<span>'+p+' × '+t+'</span>'}).join('');
     var l=$('limit');
