@@ -590,6 +590,13 @@ h3{font-size:clamp(24px,2.6vw,32px);font-weight:600;line-height:1.12;letter-spac
 .cs-next a.pv:hover i{transform:translateX(-6px)}
 .cs-next a.nx:hover i{transform:translateX(6px)}
 @media(max-width:640px){.cs-next{flex-direction:column;align-items:stretch}.cs-next a.nx{justify-content:flex-end}}
+/* the shared header, previous / next and footer take this page's own palette; layout, type and signature stay the same everywhere */
+.cs-next,.footer{background:var(--paper)}
+.footer{border-top-color:var(--line)}
+.footer-right{color:var(--ink-3)}
+.cs-next a,.nav-mobile-item{color:var(--ink)}
+.nav-mobile-menu{background:var(--paper)}
+.nav-full.nav-compact{background:color-mix(in srgb,var(--paper) 85%,transparent)}
 </style>
 
 </head>
