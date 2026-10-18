@@ -518,6 +518,12 @@ h3.lg{font-size:clamp(28px,3.4vw,44px)}
 .cs-next a,.nav-mobile-item{color:var(--ink)}
 .nav-mobile-menu{background:var(--paper)}
 .nav-full.nav-compact{background:rgba(255,255,255,.72)}   /* translucent white over the blur: neutral on every page colour, light or dark sections */
+/* hero title: same scale on every case study, and pulled left by its side bearing so it lines up with the label and intro */
+@media (min-width:701px){
+  .hero h1{font-size:clamp(64px,8.5vw,124px)}
+  .hero .tag{font-size:clamp(28px,3.4vw,44px)}
+}
+.hero h1{margin-left:-.035em}
 </style>
 </head>
 <body>
@@ -573,7 +579,7 @@ h3.lg{font-size:clamp(28px,3.4vw,44px)}
   <div class="wrap">
     <div class="hero-grid">
       <div>
-        <span class="pill rise">Case study · Wander Social · 2026</span>
+        <span class="pill rise">Wander Social · 2026</span>
         <h1 class="rise d1">Wander</h1>
         <p class="tag rise d2">A feed that asks back.</p>
         <p class="lede rise d2">Redesigning the main feed of an app for meeting new people in real life.</p>

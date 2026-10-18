@@ -601,6 +601,12 @@ h3{font-size:clamp(24px,2.6vw,32px);font-weight:600;line-height:1.12;letter-spac
 .cs-next a,.nav-mobile-item{color:var(--ink)}
 .nav-mobile-menu{background:var(--paper)}
 .nav-full.nav-compact{background:rgba(255,255,255,.72)}   /* translucent white over the blur: neutral on every page colour, light or dark sections */
+/* hero title: same scale on every case study, and pulled left by its side bearing so it lines up with the label and intro */
+@media (min-width:701px){
+  .hero h1{font-size:clamp(64px,8.5vw,124px)}
+  .hero .tag{font-size:clamp(28px,3.4vw,44px)}
+}
+.hero h1{margin-left:-.035em}
 </style>
 
 </head>
@@ -656,7 +662,7 @@ h3{font-size:clamp(24px,2.6vw,32px);font-weight:600;line-height:1.12;letter-spac
   <div class="wrap">
     <div class="hero-grid">
       <div>
-        <span class="pill rise">Case study · ByteDance · 2024</span>
+        <span class="pill rise">ByteDance · 2024</span>
         <h1 class="rise d1">Gauth</h1>
         <p class="tag rise d2">From answers to understanding.</p>
         <p class="lede rise d2">Redesigning humanities explanations for ByteDance's AI homework app.</p>
