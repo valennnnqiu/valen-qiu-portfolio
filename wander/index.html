@@ -499,16 +499,14 @@ h3.lg{font-size:clamp(28px,3.4vw,44px)}
 @media(min-width:1261px){:root{--wrap:min(1200px, calc(100vw - 2 * (clamp(8px, 50vw - 660px, 100px) + 170px)))}}
 .closer a{color:inherit;text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
 .closer a:hover{text-decoration-thickness:2px}
-/* previous / next project: a light band so the light footer follows a light section */
-.cs-next{background:var(--pf-bg);padding:clamp(48px,7vw,96px) var(--pf-pg);display:grid;grid-template-columns:1fr 1fr;gap:16px;font-family:var(--pf-sans)}
-.cs-next a{display:flex;flex-direction:column;gap:8px;padding:clamp(22px,3vw,36px);border-radius:24px;background:#fff;border:1px solid var(--pf-border);color:var(--pf-ink);text-decoration:none;transition:border-color var(--pf-t-fast) var(--pf-ease-out),transform var(--pf-t-fast) var(--pf-ease-out)}
-.cs-next a.nx{align-items:flex-end;text-align:right}
-.cs-next .k{font-family:var(--pf-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--pf-muted)}
-.cs-next b{font-size:clamp(1.6rem,3vw,2.4rem);font-weight:700;letter-spacing:-.03em;line-height:1.05;transition:color var(--pf-t-fast) var(--pf-ease-out)}
-.cs-next span.d{font-size:.95rem;color:var(--pf-muted)}
-.cs-next a:hover{border-color:var(--pf-pink);transform:translateY(-2px)}
-.cs-next a:hover b{color:var(--pf-pink)}
-@media(max-width:640px){.cs-next{grid-template-columns:1fr}.cs-next a.nx{align-items:flex-start;text-align:left}}
+/* previous / next project: just the name and an arrow, light band so the light footer follows a light section */
+.cs-next{background:var(--pf-bg);padding:clamp(48px,7vw,96px) var(--pf-pg);display:flex;justify-content:space-between;align-items:center;gap:24px;font-family:var(--pf-sans)}
+.cs-next a{display:inline-flex;align-items:center;gap:.6em;color:var(--pf-ink);text-decoration:none;font-size:clamp(1.3rem,2.4vw,2rem);font-weight:700;letter-spacing:-.03em;line-height:1.1;transition:color var(--pf-t-fast) var(--pf-ease-out)}
+.cs-next a i{font-style:normal;font-weight:400;transition:transform var(--pf-t-fast) var(--pf-ease-out)}
+.cs-next a:hover{color:var(--pf-pink)}
+.cs-next a.pv:hover i{transform:translateX(-6px)}
+.cs-next a.nx:hover i{transform:translateX(6px)}
+@media(max-width:640px){.cs-next{flex-direction:column;align-items:stretch}.cs-next a.nx{justify-content:flex-end}}
 </style>
 </head>
 <body>
@@ -832,8 +830,8 @@ h3.lg{font-size:clamp(28px,3.4vw,44px)}
 </section>
 
 <nav class="cs-next" aria-label="More case studies">
-  <a class="pv" href="../#phoenix"><span class="k">← Previous</span><b>Phoenix · Haier</b><span class="d">Redefining interfaces for Haier OS.</span></a>
-  <a class="nx" href="../loop/"><span class="k">Next →</span><b>LOOP</b><span class="d">A discipline tool for high-risk traders.</span></a>
+  <a class="pv" href="../#phoenix"><i aria-hidden="true">←</i>Phoenix · Haier</a>
+  <a class="nx" href="../loop/">LOOP<i aria-hidden="true">→</i></a>
 </nav>
 <footer class="footer">
   <a href="../"><img class="footer-logo" src="../images/signature.png" alt="Valen Qiu" draggable="false"></a>
@@ -861,7 +859,7 @@ document.querySelectorAll('#nav-mobile-menu a').forEach(a=>a.addEventListener('c
   const toc=document.getElementById('cs-toc'), links=[...toc.querySelectorAll('.cs-toc-item')];
   const secs=links.map(a=>document.getElementById(a.getAttribute('href').slice(1)));
   function update(){
-    toc.classList.toggle('visible', secs[0].getBoundingClientRect().top<80);
+    const nb=document.querySelector('.cs-next'); toc.classList.toggle('visible', secs[0].getBoundingClientRect().top<80 && (!nb || nb.getBoundingClientRect().top>toc.getBoundingClientRect().bottom+24));
     let cur=0; secs.forEach((el,i)=>{ if(el.getBoundingClientRect().top<160) cur=i; });
     links.forEach((a,i)=>a.classList.toggle('active',i===cur));
   }
