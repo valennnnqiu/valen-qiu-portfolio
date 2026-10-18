@@ -499,6 +499,16 @@ h3.lg{font-size:clamp(28px,3.4vw,44px)}
 @media(min-width:1261px){:root{--wrap:min(1200px, calc(100vw - 2 * (clamp(8px, 50vw - 660px, 100px) + 170px)))}}
 .closer a{color:inherit;text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
 .closer a:hover{text-decoration-thickness:2px}
+/* previous / next project: a light band so the light footer follows a light section */
+.cs-next{background:var(--pf-bg);padding:clamp(48px,7vw,96px) var(--pf-pg);display:grid;grid-template-columns:1fr 1fr;gap:16px;font-family:var(--pf-sans)}
+.cs-next a{display:flex;flex-direction:column;gap:8px;padding:clamp(22px,3vw,36px);border-radius:24px;background:#fff;border:1px solid var(--pf-border);color:var(--pf-ink);text-decoration:none;transition:border-color var(--pf-t-fast) var(--pf-ease-out),transform var(--pf-t-fast) var(--pf-ease-out)}
+.cs-next a.nx{align-items:flex-end;text-align:right}
+.cs-next .k{font-family:var(--pf-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--pf-muted)}
+.cs-next b{font-size:clamp(1.6rem,3vw,2.4rem);font-weight:700;letter-spacing:-.03em;line-height:1.05;transition:color var(--pf-t-fast) var(--pf-ease-out)}
+.cs-next span.d{font-size:.95rem;color:var(--pf-muted)}
+.cs-next a:hover{border-color:var(--pf-pink);transform:translateY(-2px)}
+.cs-next a:hover b{color:var(--pf-pink)}
+@media(max-width:640px){.cs-next{grid-template-columns:1fr}.cs-next a.nx{align-items:flex-start;text-align:left}}
 </style>
 </head>
 <body>
@@ -817,12 +827,14 @@ h3.lg{font-size:clamp(28px,3.4vw,44px)}
           </g>
         </svg></div></li>
     </ol>
-    <p class="closer">Curious about the rest? <a href="https://www.linkedin.com/in/jiayun-qiu/" target="_blank" rel="noopener">Let's find a time to talk ↗</a></p>
-    <p class="thanks">Thank you<span>.</span></p>
     <div class="foot"><span>Work done at <a href="https://wander.one" target="_blank" rel="noopener">Wander Social ↗</a>, 2026</span></div>
   </div>
 </section>
 
+<nav class="cs-next" aria-label="More case studies">
+  <a class="pv" href="../#phoenix"><span class="k">← Previous</span><b>Phoenix · Haier</b><span class="d">Redefining interfaces for Haier OS.</span></a>
+  <a class="nx" href="../loop/"><span class="k">Next →</span><b>LOOP</b><span class="d">A discipline tool for high-risk traders.</span></a>
+</nav>
 <footer class="footer">
   <a href="../"><img class="footer-logo" src="../images/signature.png" alt="Valen Qiu" draggable="false"></a>
   <div class="footer-right">

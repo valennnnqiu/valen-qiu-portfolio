@@ -597,6 +597,16 @@ input[type=range]:focus-visible{outline:3px solid var(--lilac);outline-offset:4p
 /* hero label: one combined pill, same shape as the other case studies (Gauth) */
 .hpill{display:inline-flex;align-items:center;gap:8px;font-family:var(--f-mono);font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;background:var(--paper-2);color:var(--ink);border-radius:999px;padding:7px 14px}
 .hpill::before{content:"✦";color:var(--app)}
+/* previous / next project: a light band so the light footer follows a light section */
+.cs-next{background:var(--pf-bg);padding:clamp(48px,7vw,96px) var(--pf-pg);display:grid;grid-template-columns:1fr 1fr;gap:16px;font-family:var(--pf-sans)}
+.cs-next a{display:flex;flex-direction:column;gap:8px;padding:clamp(22px,3vw,36px);border-radius:24px;background:#fff;border:1px solid var(--pf-border);color:var(--pf-ink);text-decoration:none;transition:border-color var(--pf-t-fast) var(--pf-ease-out),transform var(--pf-t-fast) var(--pf-ease-out)}
+.cs-next a.nx{align-items:flex-end;text-align:right}
+.cs-next .k{font-family:var(--pf-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--pf-muted)}
+.cs-next b{font-size:clamp(1.6rem,3vw,2.4rem);font-weight:700;letter-spacing:-.03em;line-height:1.05;transition:color var(--pf-t-fast) var(--pf-ease-out)}
+.cs-next span.d{font-size:.95rem;color:var(--pf-muted)}
+.cs-next a:hover{border-color:var(--pf-pink);transform:translateY(-2px)}
+.cs-next a:hover b{color:var(--pf-pink)}
+@media(max-width:640px){.cs-next{grid-template-columns:1fr}.cs-next a.nx{align-items:flex-start;text-align:left}}
 </style>
 </head>
 <body>
@@ -868,6 +878,10 @@ input[type=range]:focus-visible{outline:3px solid var(--lilac);outline-offset:4p
   </div>
 </section>
 
+<nav class="cs-next" aria-label="More case studies">
+  <a class="pv" href="../wander/"><span class="k">← Previous</span><b>Wander</b><span class="d">A feed that asks back.</span></a>
+  <a class="nx" href="../gauth/"><span class="k">Next →</span><b>Gauth · ByteDance</b><span class="d">From answers to understanding.</span></a>
+</nav>
 <footer class="footer">
   <a href="../"><img class="footer-logo" src="../images/signature.png" alt="Valen Qiu" draggable="false"></a>
   <div class="footer-right">
