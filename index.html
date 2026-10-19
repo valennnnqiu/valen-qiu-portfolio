@@ -4724,7 +4724,7 @@ document.addEventListener('click', (e) => {
 
 // ── NAVIGATION ──
 // case studies that now have their own standalone page open it instead of the in-page version
-const CS_PAGES={gauth:'gauth/',phoenix:'phoenix/'};
+const CS_PAGES={gauth:'gauth/',phoenix:'phoenix/',scotia:'scotia/'};
 function goto(page,animate=true){
   if(CS_PAGES[page]){ location.href=CS_PAGES[page]; return; }
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
