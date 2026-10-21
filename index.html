@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <meta name="description" content="Valen Qiu — Product Designer & Builder"/>
 <title>Valen Qiu</title>
+<script src="analytics.js"></script>
 <link rel="icon" href="favicon.ico" sizes="any"/>
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png"/>
 <link rel="icon" type="image/png" sizes="192x192" href="images/favicon-192.png"/>
@@ -4753,6 +4754,7 @@ function goto(page,animate=true){
     window.scrollTo({top:0,behavior:'instant'});
   }
 
+  window.trackPage?.(page);
   setTimeout(initReveal,80);
   if(['wander','gauth','scotia','phoenix'].includes(page)) setTimeout(()=>initCsToc(page),100);
   if(page==='about'){setTimeout(initAboutParallax,50);setTimeout(initAboutReveal,80);setTimeout(initAboutTypewriter,50);setTimeout(initAboutInkWipe,120);}
