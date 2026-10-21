@@ -5,7 +5,7 @@
    the standalone case-study pages report themselves on load. GA4 derives views, users and
    average engagement time per page from those page_view events. */
 (function () {
-  var GA_ID = 'G-XXXXXXXXXX';
+  var GA_ID = 'G-TNS8R6TNFK';
 
   window.dataLayer = window.dataLayer || [];
   function gtag() { dataLayer.push(arguments); }
