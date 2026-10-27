@@ -5177,7 +5177,7 @@ if(initNf) initNf.classList.add('active');
     raf = any ? requestAnimationFrame(physics) : null;
   }
   st.forEach((o) => {
-    let g = null, justDragged = false;
+    let g = null, lastDrag = 0;
     o.el.addEventListener('pointerdown', (e) => {
       try { o.el.setPointerCapture(e.pointerId); } catch (err) {}
       o.moving = false;
@@ -5194,14 +5194,14 @@ if(initNf) initNf.classList.add('active');
     });
     const end = () => {
       if (!g) return;
-      justDragged = g.moved;
+      lastDrag = g.moved ? performance.now() : 0;
       o.el.classList.remove('lifted'); paint(o, false);
       if (g.moved) { o.vx = g.vx; o.vy = g.vy; o.moving = true; if (!raf) raf = requestAnimationFrame(physics); }
       g = null;
     };
     o.el.addEventListener('pointerup', end);
     o.el.addEventListener('pointercancel', end);
-    o.el.addEventListener('click', () => { if (justDragged) { justDragged = false; return; } talk(o.def.k); });
+    o.el.addEventListener('click', () => { if (lastDrag && performance.now() - lastDrag < 350) return; talk(o.def.k); });
   });
   // lay the icons out again whenever the hero's size settles, until the visitor has moved one
   let moved = false;
