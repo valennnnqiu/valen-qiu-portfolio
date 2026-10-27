@@ -5100,7 +5100,7 @@ if(initNf) initNf.classList.add('active');
     if (sc.actions) {
       actionsEl.innerHTML = sc.actions.map((a) => {
         const inner = /^(go|section):/.test(a.href);
-        return '<a class="vh-act" href="' + (inner ? '#' : esc(a.href)) + '"' + (inner ? ' data-in="' + esc(a.href) + '"' : ' target="_blank" rel="noopener"') + '>' + esc(a.label) + '<span class="arr" aria-hidden="true">' + (inner ? '→' : '↗') + '</span></a>';
+        return '<a class="vh-act" href="' + (inner ? '#' : esc(a.href)) + '"' + (inner ? ' data-in="' + esc(a.href) + '"' : ' target="_blank" rel="noopener"') + '>' + esc(a.label) + '<span class="arr" aria-hidden="true">' + '→' + '</span></a>';
       }).join('');
       actionsEl.querySelectorAll('[data-in]').forEach((a) => a.addEventListener('click', (e) => {
         e.preventDefault();
