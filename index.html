@@ -148,6 +148,9 @@ a{color:inherit;text-decoration:none}
 /* hero */
 .vh-hero{position:relative;min-height:max(460px,calc(100svh - 200px));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:24px 16px 32px;overflow:hidden}
 .vh-avatar{width:144px;height:144px;padding:0;border:0;background:transparent;cursor:pointer;animation:vhIdle 1.6s steps(2) infinite}
+.vh-avatar{position:relative}
+.vh-avatar .tip{position:absolute;top:-34px;left:50%;transform:translateX(-50%);padding:7px 14px;border-radius:999px;background:var(--ink);color:#fff;font:700 13px/1 'DM Sans',sans-serif;white-space:nowrap;opacity:0;transition:opacity .12s;pointer-events:none;animation:none}
+.vh-avatar:hover .tip,.vh-avatar:focus-visible .tip{opacity:1}
 .vh-avatar:focus-visible{outline:2px solid var(--pink);outline-offset:6px;border-radius:12px}
 .vh-avatar svg{display:block;width:144px;height:144px}
 .vh-chat{width:100%;max-width:620px;display:flex;flex-direction:column;align-items:center;gap:18px;position:relative;z-index:2}
@@ -218,7 +221,7 @@ a{color:inherit;text-decoration:none}
   .vh-chat{order:3}
   .vh-st{position:relative!important;left:auto;top:auto;transform:none!important;cursor:pointer;touch-action:manipulation;padding:4px}
   .vh-st img{width:50px;height:50px}
-  .vh-st .tip{display:none}
+  .vh-st .tip,.vh-avatar .tip{display:none}
   .vh-line{font-size:17px}
   .vh-bubble{padding:16px 18px;border-radius:20px}
 }
@@ -321,12 +324,12 @@ a{color:inherit;text-decoration:none}
 .vc-cam{position:relative;width:280px;height:200px;user-select:none}
 .vc-cam svg{display:block;width:280px;height:200px;filter:drop-shadow(8px 10px 0 rgba(20,20,20,.12))}
 .vc-cam.shake{animation:vcShake .3s steps(3)}
-.vc-shutter{position:absolute;top:-22px;right:34px;width:44px;height:26px;border:0;padding:0;background:transparent;cursor:pointer}
-.vc-shutter span{position:absolute;inset:0;background:#E8196E;box-shadow:inset 0 -6px 0 #A80F4F,0 0 0 4px #141414;transition:transform .08s steps(2)}
-.vc-shutter:hover span{background:#F23A85}
-.vc-shutter.down span{transform:translateY(8px);box-shadow:inset 0 -2px 0 #A80F4F,0 0 0 4px #141414}
+.vc-shutter{position:absolute;top:-22px;left:40px;width:44px;height:26px;border:0;padding:0;background:transparent;cursor:pointer}
+.vc-shutter span{position:absolute;inset:0;background:#EF4444;box-shadow:inset 0 -6px 0 #B91C1C,0 0 0 4px #141414;transition:transform .08s steps(2)}
+.vc-shutter:hover span{background:#F87171}
+.vc-shutter.down span{transform:translateY(8px);box-shadow:inset 0 -2px 0 #B91C1C,0 0 0 4px #141414}
 .vc-shutter:focus-visible{outline:3px solid var(--pink);outline-offset:8px}
-.vc-hint{position:absolute;left:210px;top:-68px;width:36px;height:39px;pointer-events:none;transition:opacity .3s;animation:vcTap 1s steps(2) infinite}
+.vc-hint{position:absolute;left:44px;top:-68px;width:36px;height:39px;pointer-events:none;transition:opacity .3s;animation:vcTap 1s steps(2) infinite}
 .vc-cam .vc-hint svg{display:block;width:36px;height:39px;transform:scaleY(-1);filter:drop-shadow(3px -3px 0 rgba(20,20,20,.15))}
 .vc-hint.gone{opacity:0;animation:none}
 .vc-count{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
@@ -1081,6 +1084,13 @@ a{color:inherit;text-decoration:none}
   padding:2.5rem;
   margin-top:2rem;
 }
+.cta-card-white{position:relative}
+.cta-avatar{position:absolute;right:clamp(1.5rem,5vw,5rem);bottom:2rem;width:150px;height:150px;pointer-events:none;animation:ctaIdle 1.6s steps(2) infinite}
+.cta-avatar svg{display:block;width:100%;height:100%}
+@keyframes ctaIdle{50%{transform:translateY(-6px)}}
+@media (max-width:1100px){.cta-avatar{width:110px;height:110px}}
+@media (max-width:700px){.cta-avatar{position:static;width:84px;height:84px;margin-bottom:1rem}}
+@media (prefers-reduced-motion:reduce){.cta-avatar{animation:none}}
 .cta-blocks{display:flex;flex-direction:column;gap:1.25rem}
 .cta-block{padding-bottom:1rem}
 .cta-block:last-child{border-bottom:none;padding-bottom:0}
@@ -2248,7 +2258,7 @@ body.on-zepto{scrollbar-color:#fff transparent}
   <h1 class="sr">Valen Qiu</h1>
   <div id="vhStickers"></div>
 
-  <button class="vh-avatar" id="vhAvatar" aria-label="Say hi again: replay Valen's intro" title="Say hi again">
+  <button class="vh-avatar" id="vhAvatar" aria-label="Say hi again: replay Valen's intro"><span class="tip">Say hi again</span>
     <svg id="vhAvatarSvg" viewBox="0 0 17 17" shape-rendering="crispEdges" aria-hidden="true"></svg>
   </button>
 
@@ -2473,6 +2483,8 @@ body.on-zepto{scrollbar-color:#fff transparent}
 
   <div class="cta-wrap reveal">
     <div class="cta-card-white">
+      <div class="cta-avatar" aria-hidden="true"><svg viewBox="0 0 17 17" shape-rendering="crispEdges"></svg></div>
+
       <h2 class="section-title" style="margin-bottom:2rem">Interested in collaborating?</h2>
 
       <div class="cta-blocks">
@@ -2601,6 +2613,8 @@ body.on-zepto{scrollbar-color:#fff transparent}
   <!-- CTA -->
   <div class="ab2-cta ab2-reveal">
     <div class="cta-card-white">
+      <div class="cta-avatar" aria-hidden="true"><svg viewBox="0 0 17 17" shape-rendering="crispEdges"></svg></div>
+
       <h2 class="section-title" style="margin-bottom:1.25rem">Let's build something that matters</h2>
       <p style="font-size:clamp(1rem,1.6vw,1.1rem);color:var(--ink2);line-height:1.85;max-width:620px;margin-bottom:2rem">I care about products that are thoughtful, useful, and genuinely good for people. If that sounds like what you're working on — I'd love to be part of it.</p>
       <div class="cta-pills">
@@ -5355,15 +5369,30 @@ const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     { src: 'images/about/outside/5.avif', caption: 'mentoring' }
   ];
   const CAM_ROWS = [
-    '..KKKKKKKKKKKKKKKKKKKKKKKK..', '.KAAAAAAAAAAAAAAAAAAAAAAAAK.', 'KAADDDDDDDDDDDDDDDDDDDDDDAAK', 'KAAAAAAAAAAAAAAAAAAAAAAAAAAK',
-    'KAAGGGGAAAAAAAAAAAAAAKKKAAAK', 'KAAGGGGAAAAAKKKKKKAAAKDKAAAK', 'KAAGGGGAAAAKKDDDDKKAAKKKAAAK', 'KAAAAAAAAAKDDEEEEDDKAAAAAAAK',
-    'KBBBBBBBBKDDEFEEEEDDKBBBBBBK', 'KBBBBBBBBKDEEEEEEEEDKBBBBBBK', 'KAAAAAAAAKDEEEEEEEEDKAAAAAAK', 'KAAAAAAAAKDDEEEEEEDDKAAAAAAK',
-    'KAAAAAAAAAKDDEEEEDDKAAAAAAAK', 'KAAAAAAAAAAKKDDDDKKAAAAAAAAK', 'KAAAAAAAAAAAAKKKKAAAAAAAAAAK', 'KAAAAAAAAAAAAAAAAAAAAAAAAAAK',
-    'KCCCCCCCCCCCCCCCCCCCCCCCCCCK', 'KCCCCCCCCCCCCCCCCCCCCCCCCCCK', '.KCCCCCCCCCCCCCCCCCCCCCCCCK.', '..KKKKKKKKKKKKKKKKKKKKKKKK..'
+    '..KKKKKKKKKKKKKKKKKKKKKKKK..',
+    '.KWWWWWWWWWWroygbWWWWWWWWWK.',
+    'KWWWWWWWWWWWroygbWWWWWWWWWWK',
+    'KWKKKKKKWWWWroygbWWWKKKKKKWK',
+    'KWKSSSSKWWWWroygbWWWKFEEEKWK',
+    'KWKSSSSKWWWWroygbWWWKEEEEKWK',
+    'KWKSSSSKWWWWroygbWWWKEEEEKWK',
+    'KWKSDSDKWWWKKKKKKWWWKEEEEKWK',
+    'KWKKKKKKWWKDDDDDDKWWKKKKKKWK',
+    'KWWWWWWWWKDDEEEEDDKWWWWWWWWK',
+    'KWWWWWWWWKDEFEEEEDKWWWWWWWWK',
+    'KWWWWWWWWKDEEEEEEDKWWWWWWWWK',
+    'KWWWWWWWWKDEEEEEEDKWWWWWWWWK',
+    'KWWWWWWWWKDEEEEEEDKWWWWWWWWK',
+    'KWWWWWWWWKDDEEEEDDKWWWWWWWWK',
+    'KWWWWWWWWWKDDDDDDKWWWWWWWWWK',
+    'KWWWWWWWWWWKKKKKKWWWWWWWWWWK',
+    'KGGGGGGGGGGGGGGGGGGGGGGGGGGK',
+    '.KGGGGGGGGGGGGGGGGGGGGGGGGK.',
+    '..KKKKKKKKKKKKKKKKKKKKKKKK..'
   ];
   const CURSOR = ['....KK......', '...KAAK.....', '...KAAK.....', '...KAAKKK...', '...KAAKAAKK.', 'KK.KAAKAAKAK', 'KAKKAAAAAKAK', 'KAAKAAAAAAAK', '.KAAAAAAAAAK', '..KAAAAAAAAK', '...KAAAAAAK.', '....KAAAAK..', '....KKKKKK..'];
   document.getElementById('vcHint').innerHTML = '<svg width="36" height="39" viewBox="0 0 12 13" shape-rendering="crispEdges">' + pixelPaths(CURSOR, { K: '#141414', A: '#FFFFFF' }) + '</svg>';
-  document.getElementById('vcCamSvg').innerHTML = pixelPaths(CAM_ROWS, { K: '#141414', A: '#F9B4D3', B: '#EC4899', C: '#FFF4EA', D: '#2B2B30', E: '#7CB8F7', F: '#FFFFFF', G: '#E8E8EC' });
+  document.getElementById('vcCamSvg').innerHTML = pixelPaths(CAM_ROWS, { K: '#141414', W: '#FFFFFF', G: '#E4E1DA', S: '#CBD5E1', D: '#2B2B30', E: '#7CB8F7', F: '#FFFFFF', r: '#EF4444', o: '#F97316', y: '#FACC15', g: '#22C55E', b: '#3B82F6' });
 
   const $ = (id) => document.getElementById(id);
   const stage = $('vcStage'), cam = $('vcCam'), shutter = $('vcShutter'), table = $('vcTable'), countEl = $('vcCount'), emptyEl = $('vcEmpty'), hint = $('vcHint'), flash = $('vcFlash');
@@ -5464,7 +5493,7 @@ const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     raf = any ? requestAnimationFrame(physics) : null;
   }
   function bindDrag(o) {
-    let g = null, dragged = false;
+    let g = null, lastDrag = 0;
     o.el.addEventListener('pointerdown', (e) => {
       try { o.el.setPointerCapture(e.pointerId); } catch (err) {}
       o.moving = false; o.el.style.zIndex = ++topZ; o.el.classList.add('lifted');
@@ -5480,13 +5509,13 @@ const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     });
     const end = () => {
       if (!g) return;
-      dragged = g.moved; o.el.classList.remove('lifted');
+      lastDrag = g.moved ? performance.now() : 0; o.el.classList.remove('lifted');
       if (g.moved) { o.vx = g.vx; o.vy = g.vy; o.moving = true; if (!raf) raf = requestAnimationFrame(physics); }
       g = null;
     };
     o.el.addEventListener('pointerup', end);
     o.el.addEventListener('pointercancel', end);
-    o.el.addEventListener('click', () => { if (dragged) { dragged = false; return; } openLb(o); });
+    o.el.addEventListener('click', () => { if (lastDrag && performance.now() - lastDrag < 350) return; openLb(o); });
   }
   const lb = $('vcLb'), lbImg = $('vcLbImg'), lbCap = $('vcLbCap'), lbClose = $('vcLbClose');
   let lastFocus = null;
@@ -5502,5 +5531,22 @@ const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   updateCount();
 })();
 
+})();
+
+/* ===================== CONTACT CARDS: the pixel avatar, blinking ===================== */
+(function () {
+  const ROWS = ['.....KKKKKK.....', '...KKHHHHHHKK...', '..KHHhHHHHHHHK..', '..KHhHHHHHHHHK..', '.KHHHSSSSSSHHHK.', '.KHHSSSSSSSSHHK.', '.KHHSKSSSSKSHHK.', '.KHHSKSSSSKSHHK.', '.KHHBSSSSSSBHHK.', '.KHHSSSMMSSSHHK.', '.KHHHSSSSSSHHHK.', '.KHHHHSSSSHHHHK.', '.KHHCCSNNSCCHHK.', 'KHHCPCPPPPCPCHHK', 'KHHCPPPPPPPPCHHK', 'KKKKKKKKKKKKKKKK'];
+  const COL = { K: '#141414', H: '#2B2B30', h: '#5E5E68', S: '#F6D5C5', B: '#F48FB1', M: '#D9466E', C: '#FFFFFF', P: '#F7C3D8', N: '#C9CBD2' };
+  const svgs = [...document.querySelectorAll('.cta-avatar svg')];
+  function draw(blink) {
+    const R = ROWS.slice(); if (blink) R[6] = '.KHHSSSSSSSSHHK.';
+    const d = {}; let sh = '';
+    R.forEach((row, y) => { for (let x = 0; x < row.length; x++) { const c = row[x]; if (!COL[c]) continue; d[c] = (d[c] || '') + 'M' + x + ' ' + y + 'h1v1h-1z'; sh += 'M' + (x + 1) + ' ' + (y + 1) + 'h1v1h-1z'; } });
+    let out = '<path d="' + sh + '" fill="#141414" fill-opacity="0.14"/>';
+    for (const c in d) out += '<path d="' + d[c] + '" fill="' + COL[c] + '"/>';
+    svgs.forEach((v) => { v.innerHTML = out; });
+  }
+  draw(false);
+  setInterval(() => { draw(true); setTimeout(() => draw(false), 140); }, 3600);
 })();
 </script>
