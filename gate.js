@@ -3,7 +3,7 @@
    Front-end only: it keeps casual visitors out, it is not real security on a static site. */
 (function () {
   /* Flip to true once password.html has the real passcode hash (CONFIG.passHash). */
-  var ENABLED = false;
+  var ENABLED = true;
   if (!ENABLED) return;
   var KEY = 'vq-auth';
   try { if (sessionStorage.getItem(KEY) === '1') return; } catch (e) {}
