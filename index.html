@@ -242,6 +242,9 @@ a{color:inherit;text-decoration:none}
 .writing-grid .article-cover{border-radius:2px;margin-bottom:.9rem;transform:none;box-shadow:none;filter:grayscale(.25) contrast(1.02);transition:filter .4s}
 .writing-grid .article-cover::before,.writing-grid .article-cover-img{border-radius:2px}
 .writing-grid .article-card:hover .article-cover{filter:none}
+/* the AI-education cover is a cut-out on white: tint the card behind it so it doesn't melt into the white paper */
+.writing-grid .article-card:nth-child(3) .article-cover{background:#CFE0F4}
+.writing-grid .article-card:nth-child(3) .article-cover-img{mix-blend-mode:multiply}
 .writing-grid .article-body{padding:0 .3rem;gap:.7rem}
 .writing-grid .article-title{font-size:1rem}
 .writing-grid .article-tags{gap:.6rem;margin-top:.3rem}
