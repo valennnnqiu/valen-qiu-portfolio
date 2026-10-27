@@ -350,13 +350,6 @@ a{color:inherit;text-decoration:none}
 .vc-cap{display:block;height:36px;padding-top:9px;font:700 18px/1 'Caveat',cursive;color:#2B2B30;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .vc-flash{position:fixed;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:600}
 .vc-flash.on{animation:vcFlash .35s ease-out}
-.vc-lb{position:fixed;inset:0;z-index:650;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(244,241,236,.86);backdrop-filter:blur(6px);animation:vcIn .2s ease-out}
-.vc-lb[hidden]{display:none}
-.vc-lb figure{margin:0;background:#FFFEFB;padding:18px 18px 0;border-radius:4px;box-shadow:0 30px 60px rgba(20,20,20,.25);transform:rotate(-1.5deg);max-width:min(560px,92vw)}
-.vc-lb img{display:block;width:100%;max-height:70vh;object-fit:contain;background:#eee}
-.vc-lb figcaption{padding:14px 0 18px;font:700 30px/1 'Caveat',cursive;text-align:center;color:#2B2B30}
-.vc-lb-close{position:absolute;top:20px;right:24px;width:48px;height:48px;border-radius:999px;border:1.5px solid rgba(13,13,12,.12);background:#fff;font:400 26px/1 'DM Sans',sans-serif;color:var(--ink);cursor:pointer}
-.vc-lb-close:hover{border-color:var(--ink)}
 @media (max-width:820px){.vc-stage{display:flex;flex-direction:column;align-items:center;min-height:0}.vc-side{position:relative;left:auto;top:auto;transform:none;padding-top:90px}.vc-table{position:relative;inset:auto;width:100%;min-height:520px}}
 
 @media (prefers-reduced-motion:reduce){.ab-caret{animation:none}.ab-card{transition:none}.vc-photo img,.vc-photo .dev{transition-duration:.6s}.vc-flash.on{animation:none}}
@@ -2603,10 +2596,6 @@ body.on-zepto{scrollbar-color:#fff transparent}
         </div>
       </div>
       <div class="vc-flash" id="vcFlash"></div>
-      <div class="vc-lb" id="vcLb" hidden role="dialog" aria-modal="true" aria-label="Photo">
-        <button class="vc-lb-close" id="vcLbClose" aria-label="Close">×</button>
-        <figure><img id="vcLbImg" alt=""><figcaption id="vcLbCap"></figcaption></figure>
-      </div>
     </div>
   </section>
 
@@ -5431,7 +5420,7 @@ const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function shoot(p, i) {
     const el = document.createElement('button');
     el.className = 'vc-card';
-    el.setAttribute('aria-label', 'Photo: ' + p.caption + '. Click to enlarge, drag to move');
+    el.setAttribute('aria-label', 'Photo: ' + p.caption + '. Drag to move');
     el.innerHTML = '<span class="vc-photo"><img alt="' + esc(p.caption) + '" src="' + esc(p.src) + '"><span class="ph">' + esc(p.caption) + '</span><span class="dev"></span></span><span class="vc-cap">' + esc(p.caption) + '</span>';
     el.querySelector('img').addEventListener('error', () => el.querySelector('.vc-photo').classList.add('noimg'));
     el.style.zIndex = 1;
@@ -5513,31 +5502,21 @@ const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       o.x = g.ox + dx; o.y = g.oy + dy; o.r = Math.max(-20, Math.min(20, g.r + g.vx * 0.6));
       setT(o, 0);
     });
-    // a press that barely moves is a tap: open the photo right on release (no dependence on the click event)
-    const end = (e) => {
+    // photos only move; a plain click does nothing
+    const end = () => {
       if (!g) return;
-      const tap = !g.moved && e && e.type === 'pointerup';
       o.el.classList.remove('lifted');
       if (g.moved) { o.vx = g.vx; o.vy = g.vy; o.moving = true; if (!raf) raf = requestAnimationFrame(physics); }
       else { o.x = g.ox; o.y = g.oy; o.r = g.r; setT(o, 0); }
       g = null;
-      if (tap) openLb(o);
     };
     o.el.addEventListener('pointerup', end);
     o.el.addEventListener('pointercancel', end);
-    o.el.addEventListener('click', (e) => { if (e.detail === 0) openLb(o); }); // keyboard: Enter / Space
   }
-  const lb = $('vcLb'), lbImg = $('vcLbImg'), lbCap = $('vcLbCap'), lbClose = $('vcLbClose');
-  let lastFocus = null;
-  function openLb(o) { lastFocus = o.el; lbImg.src = o.p.src; lbImg.alt = o.p.caption; lbCap.textContent = o.p.caption; lb.hidden = false; lbClose.focus(); }
-  function closeLb() { lb.hidden = true; if (lastFocus) lastFocus.focus(); }
-  lbClose.addEventListener('click', closeLb);
-  lb.addEventListener('click', (e) => { if (e.target === lb) closeLb(); });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !lb.hidden) closeLb(); });
   shutter.addEventListener('click', press);
   const camSvg = cam.querySelector('#vcCamSvg'); camSvg.addEventListener('click', press); camSvg.style.cursor = 'pointer';
   // fixed overlays live on <body>: the page's entrance animation would otherwise pin them to the page, not the screen
-  document.body.appendChild(flash); document.body.appendChild(lb);
+  document.body.appendChild(flash);
   updateCount();
 })();
 
