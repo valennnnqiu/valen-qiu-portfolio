@@ -159,9 +159,12 @@ a{color:inherit;text-decoration:none}
 .vh-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:16px}
 .vh-line{font-size:20px;line-height:1.5;white-space:pre-line}
 .vh-caret{display:inline-block;width:3px;height:1.05em;background:var(--pink);margin-left:3px;vertical-align:-3px;animation:vhBlink 1s steps(1) infinite}
-.vh-tiles,.vh-actions{display:flex;flex-wrap:wrap;gap:10px;animation:vhIn .3s ease-out both}
+.vh-actions{display:flex;flex-wrap:wrap;gap:10px;animation:vhIn .3s ease-out both}
+.vh-tiles{display:flex;flex-direction:column;gap:8px;max-width:360px;animation:vhIn .3s ease-out both}
 .vh-tiles:empty,.vh-actions:empty{display:none}
-.vh-tile{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 20px;border-radius:999px;border:1.5px solid var(--line);background:#fff;cursor:pointer;font:700 15px/1.25 'DM Sans',sans-serif;color:var(--ink);text-align:center;transition:border-color .15s,transform .15s,background .15s,color .15s}
+.vh-tile{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;min-height:44px;padding:0 18px;border-radius:999px;border:1.5px solid var(--line);background:#fff;cursor:pointer;font:700 15px/1 'DM Sans',sans-serif;color:var(--ink);text-align:left;transition:border-color .15s,transform .15s,background .15s,color .15s}
+.vh-tile::after{content:'→';color:var(--pink);font-weight:700;transition:color .15s}
+.vh-tile:hover::after,.vh-tile:focus-visible::after{color:#fff}
 .vh-tile:hover,.vh-tile:focus-visible{background:var(--ink);border-color:var(--ink);color:#fff;transform:translateY(-2px);outline:none}
 .vh-act{display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:0 18px;border-radius:999px;border:1.5px solid var(--line);background:#fff;color:var(--ink);text-decoration:none;font:700 15px/1 'DM Sans',sans-serif;transition:border-color .15s,transform .15s}
 .vh-act:hover{color:var(--ink);border-color:var(--ink);transform:translateY(-2px)}
@@ -4999,7 +5002,7 @@ if(initNf) initNf.classList.add('active');
      ============================================================ */
   const SCRIPTS = {
     intro: { text: "Hi, I'm Valen ✦\nA product designer who leads end-to-end, from 0→1 strategy to shipped product.\nFocused on designing trustworthy AI experiences." },
-    do: { text: 'I wear three hats. Pick one ↓', tiles: [
+    do: { text: 'I wear three hats.', tiles: [
       { label: 'Product Design @ Wander', k: 'wander', icon: 'phone' },
       { label: 'Studio @ ZEPTOLAB', k: 'zepto', icon: 'flask' },
       { label: 'Teaching @ OCAD', k: 'ocad', icon: 'cap' }] },
