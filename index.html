@@ -296,7 +296,9 @@ a{color:inherit;text-decoration:none}
 .ab-card{grid-column:1;max-width:440px;justify-self:end;text-align:right;opacity:.32;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
 .ab-stop:nth-child(even) .ab-card{grid-column:3;justify-self:start;text-align:left}
 .ab-card.on{opacity:1;transform:none}
-.ab-card .ab-label{margin:0 0 .9rem;font-family:var(--mono);font-size:.78rem;font-weight:400;letter-spacing:.12em;line-height:1.5;text-transform:uppercase;color:var(--pink)}
+.ab-card .ab-label{margin:0 0 .9rem;font-family:var(--mono);font-size:.62rem;font-weight:400;letter-spacing:.04em;line-height:1.5;text-transform:uppercase;color:var(--pink);white-space:nowrap}
+@media (max-width:900px){.ab-card .ab-label{white-space:normal}}
+@media (max-width:760px){.ab-card .ab-label{font-size:.58rem;letter-spacing:.03em}}
 .ab-card h3{margin:0 0 1rem;font-family:var(--sans);font-size:clamp(1.5rem,3.2vw,2.15rem);font-weight:700;letter-spacing:-.02em;color:var(--ink);line-height:1.15}
 .ab-card p:not(.ab-label){margin:0;font-size:clamp(1rem,1.6vw,1.1rem);line-height:1.8;color:var(--ink2)}
 .ab-node{grid-column:2;grid-row:1;justify-self:center;position:relative;z-index:2;width:64px;height:64px;display:flex;align-items:center;justify-content:center;border-radius:20px;background:#fff;box-shadow:0 8px 20px rgba(20,20,20,.08);filter:grayscale(1);opacity:.55;transition:filter .4s,opacity .4s,transform .2s}
