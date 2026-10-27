@@ -282,7 +282,7 @@ a{color:inherit;text-decoration:none}
 /* ── ABOUT: greeting, timeline route, camera ── */
 
 /* ===================== 1. greeting ===================== */
-.ab-hello{padding:2.5rem 0 0}
+.ab-hello{padding:2.5rem 0 0;text-align:center}
 .ab-hello h1{margin:0;font-size:clamp(44px,8vw,112px);font-weight:700;letter-spacing:-.04em;line-height:1}
 .ab-word{color:var(--pink)}
 .ab-caret{display:inline-block;width:.07em;height:.85em;background:var(--pink);margin-left:.04em;vertical-align:-.06em;animation:abBlink 1s steps(1) infinite}
@@ -293,8 +293,8 @@ a{color:inherit;text-decoration:none}
 .ab-svg{position:absolute;left:0;top:0;overflow:visible;pointer-events:none}
 .ab-stops{position:relative;display:flex;flex-direction:column;gap:0}
 .ab-stop{position:relative;min-height:300px;display:grid;grid-template-columns:minmax(0,1fr) 180px minmax(0,1fr);align-items:center}
-.ab-card{grid-column:1;max-width:440px;justify-self:end;text-align:right;opacity:.32;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
-.ab-stop:nth-child(even) .ab-card{grid-column:3;justify-self:start;text-align:left}
+.ab-card{grid-column:1;max-width:440px;padding-right:28px;justify-self:end;text-align:right;opacity:.32;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
+.ab-stop:nth-child(even) .ab-card{grid-column:3;justify-self:start;text-align:left;padding-right:0;padding-left:28px}
 .ab-card.on{opacity:1;transform:none}
 .ab-card .ab-label{margin:0 0 .9rem;font-family:var(--mono);font-size:.62rem;font-weight:400;letter-spacing:.04em;line-height:1.5;text-transform:uppercase;color:var(--pink);white-space:nowrap}
 @media (max-width:900px){.ab-card .ab-label{white-space:normal}}
@@ -304,12 +304,13 @@ a{color:inherit;text-decoration:none}
 .ab-node{grid-column:2;grid-row:1;justify-self:center;position:relative;z-index:2;width:64px;height:64px;display:flex;align-items:center;justify-content:center;border-radius:20px;background:#fff;box-shadow:0 8px 20px rgba(20,20,20,.08);filter:grayscale(1);opacity:.55;transition:filter .4s,opacity .4s,transform .2s}
 .ab-node.on{filter:none;opacity:1;animation:abHop .5s steps(3)}
 .ab-node svg{display:block}
+.ab-num{font:500 22px/1 'DM Mono',monospace;letter-spacing:.02em;color:var(--pink)}
 .ab-walker{position:absolute;left:0;top:0;width:60px;height:90px;z-index:4;pointer-events:none;will-change:transform}
 .ab-walker svg{display:block;width:60px;height:90px;filter:drop-shadow(4px 6px 0 rgba(20,20,20,.14))}
 
 @media (max-width:760px){
   .ab-stop{grid-template-columns:72px minmax(0,1fr);min-height:240px}
-  .ab-card,.ab-stop:nth-child(even) .ab-card{grid-column:2;justify-self:start;text-align:left;padding-left:16px}
+  .ab-card,.ab-stop:nth-child(even) .ab-card{grid-column:2;justify-self:start;text-align:left;padding-left:16px;padding-right:0}
   .ab-node{grid-column:1}
 }
 
@@ -5259,26 +5260,18 @@ const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 (function () {
   /* -------- STOPS: edit the copy here -------- */
   const STOPS = [
-    { label: 'Shanghai → Melbourne → San Francisco → Toronto', title: 'I never quite fit one room.', body: 'I grew up across four cities as a Third Culture Kid, and somehow felt at home in all of them.', icon: 'globe' },
-    { label: 'San Francisco · CCA · 2018', title: 'I started by designing objects.', body: 'I studied Industrial Design at California College of the Arts.', icon: 'chair' },
-    { label: 'Shenzhen · 2021', title: 'Then I started a studio before I graduated.', body: 'I co-founded Zepto Lab with a friend while still at CCA.', icon: 'flask' },
-    { label: 'The shift', title: 'The object was never the whole story.', body: 'I got more curious about where people get stuck, and what actually makes things work. That pulled me toward user experience.', icon: 'cursor' },
-    { label: 'Toronto · OCAD · 2023', title: 'I went looking for AI agents and found the future.', body: 'Grad school in Digital Futures started with voice AI agents and grew into systems thinking.', icon: 'chat' },
-    { label: 'Now', title: 'Now I help others keep asking why.', body: 'I teach at OCAD and mentor designers on ADPList.', icon: 'cap' }
+    { label: 'Shanghai → Melbourne → San Francisco → Toronto', title: 'I never quite fit one room.', body: 'I grew up across four cities as a Third Culture Kid, and somehow felt at home in all of them.' },
+    { label: 'San Francisco · CCA · 2018', title: 'I started by designing objects.', body: 'I studied Industrial Design at California College of the Arts.' },
+    { label: 'Shenzhen · 2021', title: 'Then I started a studio before I graduated.', body: 'I co-founded Zepto Lab with a friend while still at CCA.' },
+    { label: 'The shift', title: 'The object was never the whole story.', body: 'I got more curious about where people get stuck, and what actually makes things work. That pulled me toward user experience.' },
+    { label: 'Toronto · OCAD · 2023', title: 'I went looking for AI agents and found the future.', body: 'Grad school in Digital Futures started with voice AI agents and grew into systems thinking.' },
+    { label: 'Now', title: 'Now I help others keep asking why.', body: 'I teach at OCAD and mentor designers on ADPList.' }
   ];
-  const ICONS = {
-    globe: { c: { K: '#141414', A: '#7CB8F7', B: '#4ADE80' }, rows: ['...KKKKKK...', '..KAABBAAK..', '.KABBBBAAAK.', 'KAABBBAAABAK', 'KAAABAAABBAK', 'KBAAAAABBBAK', 'KBBAAAAABBAK', 'KABBAAAAAAAK', '.KAABBAAAAK.', '..KAABBAAK..', '...KKKKKK...'] },
-    chair: { c: { K: '#141414', A: '#F7C948', B: '#8A5E38' }, rows: ['...KKKKKK...', '...KAAAAK...', '...KAAAAK...', '...KAAAAK...', '...KAAAAK...', '.KKKKKKKKKK.', '.KAAAAAAAAK.', '.KKKKKKKKKK.', '.KBK....KBK.', '.KBK....KBK.', '.KKK....KKK.'] },
-    flask: { img: 'images/home/pixel-flask.png', c: { K: '#141414', A: '#3B82F6', B: '#93C5FD', C: '#FFFFFF' }, rows: ['....KKKK....', '....KBBK....', '....KBBK....', '...KBBBBK...', '...KBBBBK...', '..KAAAAAAK..', '.KACAAAAAAK.', '.KAAAAAAAAK.', 'KAAAAAAAAAAK', '.KKKKKKKKKK.'] },
-    cursor: { c: { K: '#141414', A: '#FFFFFF' }, rows: ['...K........', '...KK.......', '...KAK......', '...KAAK.....', '...KAAAK....', '...KAAAAK...', '...KAAAAAK..', '...KAAKKKKK.', '...KAK.KAK..', '...KK..KAK..', '...K....KK..'] },
-    chat: { c: { K: '#141414', A: '#FFFFFF', C: '#E8196E' }, rows: ['.KKKKKKKKKK.', 'KAAAAAAAAAAK', 'KAAAAACAAAAK', 'KAAAACCCAAAK', 'KAAACCCCCAAK', 'KAAAACCCAAAK', 'KAAAAACAAAAK', 'KAAAAAAAAAAK', '.KKKAKKKKKK.', '...KAK......', '...KK.......'] },
-    cap: { c: { K: '#141414', A: '#2B2B30', B: '#4B4B55', C: '#FBBF24' }, rows: ['............', '.....KK.....', '...KKBBKK...', '.KKBBBBBBKK.', 'KBBBBBBBBBBK', '.KKBBBBBBKKC', '...KAAAAK..C', '...KAAAAK..C', '...KKKKKK.CC'] }
-  };
   const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   const list = document.getElementById('abStops');
   list.innerHTML = STOPS.map((s, i) =>
-    '<li class="ab-stop"><div class="ab-card"><p class="ab-label">0' + (i + 1) + ' · ' + esc(s.label) + '</p><h3>' + esc(s.title) + '</h3><p>' + esc(s.body) + '</p></div>' +
-    '<div class="ab-node">' + (ICONS[s.icon].img ? '<img src="' + ICONS[s.icon].img + '" width="44" height="44" alt="" draggable="false" style="object-fit:contain">' : '<svg width="44" height="44" viewBox="0 0 13 12" shape-rendering="crispEdges" aria-hidden="true">' + pixelPaths(ICONS[s.icon].rows, ICONS[s.icon].c, { shadow: true }) + '</svg>') + '</div></li>'
+    '<li class="ab-stop"><div class="ab-card"><p class="ab-label">' + esc(s.label) + '</p><h3>' + esc(s.title) + '</h3><p>' + esc(s.body) + '</p></div>' +
+    '<div class="ab-node"><span class="ab-num">0' + (i + 1) + '</span></div></li>'
   ).join('');
   const stops = [...list.children], cards = stops.map((s) => s.querySelector('.ab-card')), nodes = stops.map((s) => s.querySelector('.ab-node'));
 
@@ -5299,7 +5292,7 @@ const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const W = route.clientWidth, H = route.clientHeight;
     svg.setAttribute('width', W); svg.setAttribute('height', H);
     const pts = nodes.map((n) => { const r = n.getBoundingClientRect(); return { x: r.left - rr.left + r.width / 2, y: r.top - rr.top + r.height / 2 }; });
-    const mobile = W < 760, amp = mobile ? 0 : 110;
+    const mobile = W < 760, amp = mobile ? 0 : 64;
     let d = 'M' + pts[0].x + ' ' + (pts[0].y - 140);
     let prev = { x: pts[0].x, y: pts[0].y - 140 };
     pts.forEach((p, i) => {
