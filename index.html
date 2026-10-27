@@ -146,7 +146,7 @@ a{color:inherit;text-decoration:none}
 .vh-hero,.vh-tickwrap,.vf{--line:#E4DED5}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);margin:0;white-space:nowrap}
 /* hero */
-.vh-hero{position:relative;min-height:720px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:24px 16px 32px;overflow:hidden}
+.vh-hero{position:relative;min-height:max(460px,calc(100svh - 200px));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:24px 16px 32px;overflow:hidden}
 .vh-avatar{width:144px;height:144px;padding:0;border:0;background:transparent;cursor:pointer;animation:vhIdle 1.6s steps(2) infinite}
 .vh-avatar:focus-visible{outline:2px solid var(--pink);outline-offset:6px;border-radius:12px}
 .vh-avatar svg{display:block;width:144px;height:144px}
@@ -180,7 +180,7 @@ a{color:inherit;text-decoration:none}
 .vh-st:hover svg{animation:vhHop .5s steps(2) infinite}
 
 /* ticker */
-.vh-tickwrap{border-top:1px solid var(--line);padding:18px 0;overflow:hidden}
+.vh-tickwrap{border-top:1px solid var(--line);padding:18px 0;overflow:hidden;position:sticky;bottom:0;z-index:5;background:var(--bg)}
 .vh-ticker{display:flex;gap:48px;width:max-content;font-weight:700;font-size:clamp(22px,2.6vw,38px);animation:vhMarquee 38s linear infinite}
 .vh-ticker .s{color:var(--pink)}
 
@@ -2156,6 +2156,7 @@ body.on-zepto{scrollbar-color:#fff transparent}
 <!-- ══ HOME ══ -->
 <div class="page active" id="page-home">
 
+<div class="vh-first">
 <section class="vh-hero" id="vhHero">
   <h1 class="sr">Valen Qiu</h1>
   <div id="vhStickers"></div>
@@ -2182,6 +2183,7 @@ body.on-zepto{scrollbar-color:#fff transparent}
     <span>Product Designer @ Wander</span><span class="s">✦</span><span>AI agent products</span><span class="s">✦</span><span>Studio Founder @ ZEPTOLAB</span><span class="s">✦</span><span>Teaching @ OCAD</span><span class="s">✦</span><span>DJ @ Toronto</span><span class="s">✦</span>
     <span>Product Designer @ Wander</span><span class="s">✦</span><span>AI agent products</span><span class="s">✦</span><span>Studio Founder @ ZEPTOLAB</span><span class="s">✦</span><span>Teaching @ OCAD</span><span class="s">✦</span><span>DJ @ Toronto</span><span class="s">✦</span>
   </div>
+</div>
 </div>
 
   <section class="section" id="work-section">
@@ -4318,7 +4320,7 @@ function mixHex(c1,c2,t){t=Math.max(0,Math.min(1,t)); const p=h=>[parseInt(h.sli
      CHARMS: label, link, where it hangs on the rope (0–1), chain length
      ============================================================ */
   const CHARMS = [
-    { k: 'Design', href: '#work-section', at: 0.12, chain: 64, icon: 'folder' },
+    { k: 'Design', href: '#work-section', at: 0.12, chain: 64, icon: 'flask' },
     { k: 'Building', href: '#builds-card', at: 0.28, chain: 100, icon: 'pad' },
     { k: 'Writing', href: '#writing-section', at: 0.42, chain: 56, icon: 'flower' },
     { k: 'Teaching', href: '#teaching-section', at: 0.57, chain: 88, icon: 'cap' },
@@ -4355,7 +4357,7 @@ function mixHex(c1,c2,t){t=Math.max(0,Math.min(1,t)); const p=h=>[parseInt(h.sli
   }
 
   /* ---------- pixel icon / chain markup ---------- */
-  const IMG = { folder: 'images/home/pixel-folder.webp', pad: 'images/home/pixel-controller.png', flower: 'images/home/pixel-flower.webp', phones: 'images/home/pixel-headphones.webp' };
+  const IMG = { flask: 'images/home/pixel-flask.png', folder: 'images/home/pixel-folder.webp', pad: 'images/home/pixel-controller.png', flower: 'images/home/pixel-flower.webp', phones: 'images/home/pixel-headphones.webp' };
   function iconSVG(name) {
     if (IMG[name]) return '<img class="vf-icon" draggable="false" alt="" aria-hidden="true" width="65" height="65" style="object-fit:contain" src="' + IMG[name] + '">';
     const ic = ICONS[name], cols = { K: '#141414', A: ic.c[0], B: ic.c[1], C: ic.c[2] };
@@ -4439,13 +4441,11 @@ function mixHex(c1,c2,t){t=Math.max(0,Math.min(1,t)); const p=h=>[parseInt(h.sli
         clearTimeout(zzT); zzT = setTimeout(() => { zz.hidden = true; }, 3200);
         return;
       }
-      if (o.fall) return;
-      // the chain lets go, the charm drops, then the page opens
-      o.fall = { y: 0, vy: -6, r: 0, vr: (Math.random() < 0.5 ? -1 : 1) * 9 };
-      sagV -= 2.5;
+      // a small swing, then straight to the section
+      kick(o, (Math.random() < 0.5 ? -1 : 1) * 0.05);
       const href = o.def.href;
       if (/^https?:/.test(href)) window.open(href, '_blank', 'noopener');
-      else if (href && href.length > 1) setTimeout(() => { document.getElementById(href.slice(1))?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 650);
+      else if (href && href.length > 1) setTimeout(() => { document.getElementById(href.slice(1))?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 120);
     });
   });
 
