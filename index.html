@@ -168,6 +168,7 @@ a{color:inherit;text-decoration:none}
 .vh-act{display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:0 18px;border-radius:999px;border:1.5px solid var(--line);background:#fff;color:var(--ink);text-decoration:none;font:700 15px/1 'DM Sans',sans-serif;transition:border-color .15s,transform .15s}
 .vh-act:hover{color:var(--ink);border-color:var(--ink);transform:translateY(-2px)}
 .vh-act .arr{color:var(--pink)}
+.vh-back{cursor:pointer}
 .vh-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
 .vh-chip{min-height:46px;padding:0 20px;border-radius:999px;border:1.5px solid var(--line);background:#fff;font:700 16px/1 'DM Sans',sans-serif;color:var(--ink);cursor:pointer;box-shadow:0 4px 12px rgba(20,20,20,.04);transition:border-color .15s,transform .15s,box-shadow .15s,background .15s,color .15s}
 .vh-chip:hover{border-color:var(--ink);transform:translateY(-2px);box-shadow:0 8px 18px rgba(20,20,20,.08)}
@@ -5073,7 +5074,8 @@ if(initNf) initNf.classList.add('active');
     });
   }
 
-  function talk(k) {
+  // `from` = the topic we came from (a Back button returns there)
+  function talk(k, from) {
     if (!SCRIPTS[k]) return;
     topic = k;
     markChips();
@@ -5083,25 +5085,27 @@ if(initNf) initNf.classList.add('active');
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let shown = reduced ? sc.text.length : 0, frame = 0;
     lineEl.textContent = sc.text.slice(0, shown);
-    if (reduced) { finish(sc); return; }
+    if (reduced) { finish(sc, from); return; }
     typeT = setInterval(() => {
       shown = Math.min(sc.text.length, shown + 2); frame++;
       lineEl.textContent = sc.text.slice(0, shown);
       mouth = shown < sc.text.length && frame % 4 < 2;
       drawAvatar();
-      if (shown >= sc.text.length) { clearInterval(typeT); mouth = false; drawAvatar(); finish(sc); }
+      if (shown >= sc.text.length) { clearInterval(typeT); mouth = false; drawAvatar(); finish(sc, from); }
     }, 22);
   }
-  function finish(sc) {
+  function finish(sc, from) {
     if (sc.tiles) {
       tilesEl.innerHTML = sc.tiles.map((t) => '<button class="vh-tile" data-k="' + t.k + '"><span>' + esc(t.label) + '</span></button>').join('');
-      tilesEl.querySelectorAll('.vh-tile').forEach((b) => b.addEventListener('click', () => talk(b.dataset.k)));
+      tilesEl.querySelectorAll('.vh-tile').forEach((b) => b.addEventListener('click', () => talk(b.dataset.k, topic)));
     }
-    if (sc.actions) {
-      actionsEl.innerHTML = sc.actions.map((a) => {
+    if (sc.actions || from) {
+      const back = from ? '<button type="button" class="vh-act vh-back" data-back="' + from + '"><span class="arr" aria-hidden="true">←</span>Back</button>' : '';
+      actionsEl.innerHTML = back + (sc.actions || []).map((a) => {
         const inner = /^(go|section):/.test(a.href);
         return '<a class="vh-act" href="' + (inner ? '#' : esc(a.href)) + '"' + (inner ? ' data-in="' + esc(a.href) + '"' : ' target="_blank" rel="noopener"') + '>' + esc(a.label) + '<span class="arr" aria-hidden="true">' + '→' + '</span></a>';
       }).join('');
+      actionsEl.querySelectorAll('[data-back]').forEach((b) => b.addEventListener('click', () => talk(b.dataset.back)));
       actionsEl.querySelectorAll('[data-in]').forEach((a) => a.addEventListener('click', (e) => {
         e.preventDefault();
         const [kind, id] = a.dataset.in.split(':');
