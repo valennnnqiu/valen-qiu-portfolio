@@ -166,7 +166,6 @@ a{color:inherit;text-decoration:none}
 .vh-tile:hover,.vh-tile:focus-visible{border-color:var(--ink);transform:translateY(-2px);box-shadow:0 8px 18px rgba(20,20,20,.08);outline:none}
 .vh-act{display:flex;align-items:center;justify-content:center;gap:16px;width:auto;max-width:100%;min-height:44px;padding:0 20px;border-radius:999px;border:1.5px solid var(--line);background:#fff;color:var(--ink);text-decoration:none;text-align:left;font:700 15px/1 'DM Sans',sans-serif;box-shadow:0 4px 12px rgba(20,20,20,.04);transition:border-color .15s,transform .15s,box-shadow .15s}
 .vh-act:hover{color:var(--ink);border-color:var(--ink);transform:translateY(-2px);box-shadow:0 8px 18px rgba(20,20,20,.08)}
-.vh-back{cursor:pointer}
 .vh-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
 .vh-chip{min-height:46px;padding:0 20px;border-radius:999px;border:1.5px solid var(--line);background:#fff;font:700 16px/1 'DM Sans',sans-serif;color:var(--ink);cursor:pointer;box-shadow:0 4px 12px rgba(20,20,20,.04);transition:border-color .15s,transform .15s,box-shadow .15s,background .15s,color .15s}
 .vh-chip:hover{border-color:var(--ink);transform:translateY(-2px);box-shadow:0 8px 18px rgba(20,20,20,.08)}
@@ -5001,9 +5000,9 @@ if(initNf) initNf.classList.add('active');
   const SCRIPTS = {
     intro: { text: "Hi, I'm Valen ✦\nA product designer who leads end-to-end, from 0→1 strategy to shipped product.\nFocused on designing trustworthy AI experiences." },
     do: { text: 'I wear three hats.', tiles: [
-      { label: 'Product Design @ Wander', k: 'wander', icon: 'phone' },
-      { label: 'Studio @ ZEPTOLAB', k: 'zepto', icon: 'flask' },
-      { label: 'Teaching @ OCAD', k: 'ocad', icon: 'cap' }] },
+      { label: 'Product Design @ Wander', k: 'wander', go: LINKS.wanderCase, icon: 'phone' },
+      { label: 'Studio @ ZEPTOLAB', k: 'zepto', go: LINKS.zeptolab, icon: 'flask' },
+      { label: 'Teaching @ OCAD', k: 'ocad', go: 'section:teaching-section', icon: 'cap' }] },
     wander: { text: 'At Wander I own design and PM for the app, end to end.', actions: [{ label: 'See the case study', href: LINKS.wanderCase }] },
     ocad: { text: 'I teach in Digital Futures at OCAD, and mentor designers on ADPList.', actions: [{ label: 'Book a session', href: LINKS.adplist }] },
     zepto: { text: "ZEPTOLAB is my design studio. We transform brands into tomorrow's impactful futures. 20+ brands since 2021.", actions: [{ label: 'Visit ZEPTOLAB', href: LINKS.zeptolab }] },
@@ -5072,8 +5071,7 @@ if(initNf) initNf.classList.add('active');
     });
   }
 
-  // `from` = the topic we came from (a Back button returns there)
-  function talk(k, from) {
+  function talk(k) {
     if (!SCRIPTS[k]) return;
     topic = k;
     markChips();
@@ -5083,27 +5081,31 @@ if(initNf) initNf.classList.add('active');
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let shown = reduced ? sc.text.length : 0, frame = 0;
     lineEl.textContent = sc.text.slice(0, shown);
-    if (reduced) { finish(sc, from); return; }
+    if (reduced) { finish(sc); return; }
     typeT = setInterval(() => {
       shown = Math.min(sc.text.length, shown + 2); frame++;
       lineEl.textContent = sc.text.slice(0, shown);
       mouth = shown < sc.text.length && frame % 4 < 2;
       drawAvatar();
-      if (shown >= sc.text.length) { clearInterval(typeT); mouth = false; drawAvatar(); finish(sc, from); }
+      if (shown >= sc.text.length) { clearInterval(typeT); mouth = false; drawAvatar(); finish(sc); }
     }, 22);
   }
-  function finish(sc, from) {
+  function finish(sc) {
     if (sc.tiles) {
-      tilesEl.innerHTML = sc.tiles.map((t) => '<button class="vh-tile" data-k="' + t.k + '"><span>' + esc(t.label) + '</span></button>').join('');
-      tilesEl.querySelectorAll('.vh-tile').forEach((b) => b.addEventListener('click', () => talk(b.dataset.k, topic)));
+      tilesEl.innerHTML = sc.tiles.map((t) => '<button class="vh-tile" data-go="' + esc(t.go) + '"><span>' + esc(t.label) + '</span></button>').join('');
+      tilesEl.querySelectorAll('.vh-tile').forEach((b) => b.addEventListener('click', () => {
+        // each hat is a shortcut: straight to its page
+        const dest = b.dataset.go;
+        if (dest.indexOf('go:') === 0) goto(dest.slice(3));
+        else if (dest.indexOf('section:') === 0) goToSection(dest.slice(8));
+        else window.open(dest, '_blank', 'noopener');
+      }));
     }
-    if (sc.actions || from) {
-      const back = from ? '<button type="button" class="vh-act vh-back" data-back="' + from + '">Back</button>' : '';
-      actionsEl.innerHTML = back + (sc.actions || []).map((a) => {
+    if (sc.actions) {
+      actionsEl.innerHTML = sc.actions.map((a) => {
         const inner = /^(go|section):/.test(a.href);
         return '<a class="vh-act" href="' + (inner ? '#' : esc(a.href)) + '"' + (inner ? ' data-in="' + esc(a.href) + '"' : ' target="_blank" rel="noopener"') + '>' + esc(a.label) + '</a>';
       }).join('');
-      actionsEl.querySelectorAll('[data-back]').forEach((b) => b.addEventListener('click', () => talk(b.dataset.back)));
       actionsEl.querySelectorAll('[data-in]').forEach((a) => a.addEventListener('click', (e) => {
         e.preventDefault();
         const [kind, id] = a.dataset.in.split(':');
