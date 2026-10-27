@@ -5125,11 +5125,11 @@ if(initNf) initNf.classList.add('active');
   const hero = document.getElementById('vhHero'), stickHost = document.getElementById('vhStickers');
   const STICK_IMG = { folder: 'images/home/pixel-folder.webp', flask: 'images/home/pixel-flask.png', pad: 'images/home/pixel-controller.png', flower: 'images/home/pixel-flower.webp', phones: 'images/home/pixel-headphones.webp' };
   const STICKERS = [
-    { label: 'Recent Work', k: 'work', icon: 'folder', fx: 0.15, fy: 0.16, r: -8 },
-    { label: 'ZEPTOLAB', k: 'zepto', icon: 'flask', fx: 0.83, fy: 0.18, r: 7 },
-    { label: 'Playground', k: 'play', icon: 'pad', fx: 0.10, fy: 0.62, r: 6 },
-    { label: 'Design Reflection', k: 'write', icon: 'flower', fx: 0.88, fy: 0.58, r: -6 },
-    { label: 'Come DJ with Valen', k: 'dj', icon: 'phones', fx: 0.79, fy: 0.88, r: 4 }
+    { label: 'Recent Work', k: 'work', go: 'section:work-section', icon: 'folder', fx: 0.15, fy: 0.16, r: -8 },
+    { label: 'ZEPTOLAB', k: 'zepto', go: LINKS.zeptolab, icon: 'flask', fx: 0.83, fy: 0.18, r: 7 },
+    { label: 'Playground', k: 'play', go: 'section:builds-section', icon: 'pad', fx: 0.10, fy: 0.62, r: 6 },
+    { label: 'Design Reflection', k: 'write', go: 'section:writing-section', icon: 'flower', fx: 0.88, fy: 0.58, r: -6 },
+    { label: 'Come DJ with Valen', k: 'dj', go: LINKS.bookSet, icon: 'phones', fx: 0.79, fy: 0.88, r: 4 }
   ];
   const st = STICKERS.map((s) => {
     const el = document.createElement('button');
@@ -5201,7 +5201,12 @@ if(initNf) initNf.classList.add('active');
     };
     o.el.addEventListener('pointerup', end);
     o.el.addEventListener('pointercancel', end);
-    o.el.addEventListener('click', () => { if (lastDrag && performance.now() - lastDrag < 350) return; talk(o.def.k); });
+    o.el.addEventListener('click', () => { if (lastDrag && performance.now() - lastDrag < 350) return;
+      // an icon is a shortcut: go straight to the page, no chat
+      const dest = o.def.go;
+      if (dest.indexOf('section:') === 0) goToSection(dest.slice(8));
+      else window.open(dest, '_blank', 'noopener');
+    });
   });
   // lay the icons out again whenever the hero's size settles, until the visitor has moved one
   let moved = false;
