@@ -279,6 +279,88 @@ a{color:inherit;text-decoration:none}
 .writing-grid .article-card:nth-child(2){transition-delay:.06s}.writing-grid .article-card:nth-child(3){transition-delay:.12s}
 .writing-grid.in .article-card:hover{transition-delay:0s}
 .kw{transition:none}
+/* ── ABOUT: greeting, timeline route, camera ── */
+
+/* ===================== 1. greeting ===================== */
+.ab-hello{padding:2.5rem 0 0}
+.ab-hello h1{margin:0;font-size:clamp(44px,8vw,112px);font-weight:700;letter-spacing:-.04em;line-height:1}
+.ab-word{color:var(--pink)}
+.ab-caret{display:inline-block;width:.07em;height:.85em;background:var(--pink);margin-left:.04em;vertical-align:-.06em;animation:abBlink 1s steps(1) infinite}
+.ab-hello p{margin:22px 0 0;max-width:560px;font-size:20px;line-height:1.5;color:var(--muted)}
+
+/* ===================== 2. timeline route ===================== */
+.ab-route{position:relative;margin:0 auto;padding:60px 0 40px}
+.ab-svg{position:absolute;left:0;top:0;overflow:visible;pointer-events:none}
+.ab-stops{position:relative;display:flex;flex-direction:column;gap:0}
+.ab-stop{position:relative;min-height:300px;display:grid;grid-template-columns:minmax(0,1fr) 180px minmax(0,1fr);align-items:center}
+.ab-card{grid-column:1;max-width:440px;justify-self:end;text-align:right;opacity:.32;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
+.ab-stop:nth-child(even) .ab-card{grid-column:3;justify-self:start;text-align:left}
+.ab-card.on{opacity:1;transform:none}
+.ab-label{margin:0 0 10px;font:500 13px/1.4 'DM Mono',monospace;letter-spacing:.14em;color:var(--pink);text-transform:uppercase}
+.ab-card h3{margin:0 0 10px;font-size:clamp(24px,2.6vw,32px);font-weight:700;letter-spacing:-.02em;line-height:1.15}
+.ab-card p{margin:0;font-size:17px;line-height:1.55;color:var(--muted)}
+.ab-node{grid-column:2;grid-row:1;justify-self:center;position:relative;z-index:2;width:64px;height:64px;display:flex;align-items:center;justify-content:center;border-radius:20px;background:#fff;box-shadow:0 8px 20px rgba(20,20,20,.08);filter:grayscale(1);opacity:.55;transition:filter .4s,opacity .4s,transform .2s}
+.ab-node.on{filter:none;opacity:1;animation:abHop .5s steps(3)}
+.ab-node svg{display:block}
+.ab-walker{position:absolute;left:0;top:0;width:60px;height:90px;z-index:4;pointer-events:none;will-change:transform}
+.ab-walker svg{display:block;width:60px;height:90px;filter:drop-shadow(4px 6px 0 rgba(20,20,20,.14))}
+
+@media (max-width:760px){
+  .ab-stop{grid-template-columns:72px minmax(0,1fr);min-height:240px}
+  .ab-card,.ab-stop:nth-child(even) .ab-card{grid-column:2;justify-self:start;text-align:left;padding-left:16px}
+  .ab-node{grid-column:1}
+}
+
+/* ===================== 3. camera ===================== */
+.vc{padding:2.5rem 0 0}
+.vc-stage{position:relative;margin:0 auto;display:flex;gap:40px;align-items:flex-start;min-height:600px;touch-action:pan-y}
+.vc-side{flex:none;width:300px;display:flex;flex-direction:column;align-items:center;gap:14px;padding-top:150px;position:relative;z-index:5}
+.vc-cam{position:relative;width:280px;height:200px;user-select:none}
+.vc-cam svg{display:block;width:280px;height:200px;filter:drop-shadow(8px 10px 0 rgba(20,20,20,.12))}
+.vc-cam.shake{animation:vcShake .3s steps(3)}
+.vc-shutter{position:absolute;top:-22px;right:34px;width:44px;height:26px;border:0;padding:0;background:transparent;cursor:pointer}
+.vc-shutter span{position:absolute;inset:0;background:#E8196E;box-shadow:inset 0 -6px 0 #A80F4F,0 0 0 4px #141414;transition:transform .08s steps(2)}
+.vc-shutter:hover span{background:#F23A85}
+.vc-shutter.down span{transform:translateY(8px);box-shadow:inset 0 -2px 0 #A80F4F,0 0 0 4px #141414}
+.vc-shutter:focus-visible{outline:3px solid var(--pink);outline-offset:8px}
+.vc-hint{position:absolute;left:210px;top:-68px;width:36px;height:39px;pointer-events:none;transition:opacity .3s;animation:vcTap 1s steps(2) infinite}
+.vc-cam .vc-hint svg{display:block;width:36px;height:39px;transform:scaleY(-1);filter:drop-shadow(3px -3px 0 rgba(20,20,20,.15))}
+.vc-hint.gone{opacity:0;animation:none}
+.vc-count{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@keyframes vcTap{50%{transform:translateY(7px)}}
+.vc-table{flex:1;min-width:0;min-height:600px;position:relative;border-radius:24px}
+.vc-empty{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:500 26px/1.3 'Caveat',cursive;color:#A8A196;text-align:center;pointer-events:none;transition:opacity .4s}
+.vc-empty.gone{opacity:0}
+.vc-card{position:absolute;left:0;top:0;width:200px;padding:12px 12px 0;background:#FFFEFB;border:0;border-radius:3px;box-shadow:0 1px 0 rgba(20,20,20,.06),0 10px 24px rgba(20,20,20,.14);cursor:grab;touch-action:none;user-select:none;text-align:left;font:inherit;color:inherit;will-change:transform}
+.vc-card.lifted{cursor:grabbing;box-shadow:0 1px 0 rgba(20,20,20,.06),0 24px 40px rgba(20,20,20,.22)}
+.vc-card:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
+.vc-photo{position:relative;display:block;width:176px;height:176px;overflow:hidden;background:#2a2f33}
+.vc-photo img{display:block;width:100%;height:100%;object-fit:cover;filter:saturate(0) contrast(.6) brightness(1.35) sepia(.25);transition:filter 4.2s ease-out .4s;pointer-events:none}
+.vc-photo .dev{position:absolute;inset:0;background:linear-gradient(160deg,#2C353B,#3E3B36);opacity:1;transition:opacity 3.4s cubic-bezier(.55,0,.6,1) .3s}
+.vc-photo .ph{position:absolute;inset:0;display:none;align-items:center;justify-content:center;padding:12px;text-align:center;background:linear-gradient(135deg,#F7C3D8,#BFE3FF);font:700 22px/1.1 'Caveat',cursive;color:#3D3A35}
+.vc-photo.noimg .ph{display:flex}
+.vc-card.developed .vc-photo img{filter:none}
+.vc-card.developed .vc-photo .dev{opacity:0}
+.vc-cap{display:block;height:48px;padding-top:10px;font:700 21px/1 'Caveat',cursive;color:#2B2B30;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.vc-flash{position:fixed;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:600}
+.vc-flash.on{animation:vcFlash .35s ease-out}
+.vc-lb{position:fixed;inset:0;z-index:650;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(244,241,236,.86);backdrop-filter:blur(6px);animation:vcIn .2s ease-out}
+.vc-lb[hidden]{display:none}
+.vc-lb figure{margin:0;background:#FFFEFB;padding:18px 18px 0;border-radius:4px;box-shadow:0 30px 60px rgba(20,20,20,.25);transform:rotate(-1.5deg);max-width:min(560px,92vw)}
+.vc-lb img{display:block;width:100%;max-height:70vh;object-fit:contain;background:#eee}
+.vc-lb figcaption{padding:14px 0 18px;font:700 30px/1 'Caveat',cursive;text-align:center;color:#2B2B30}
+.vc-lb-close{position:absolute;top:20px;right:24px;width:48px;height:48px;border-radius:999px;border:1.5px solid rgba(13,13,12,.12);background:#fff;font:400 26px/1 'DM Sans',sans-serif;color:var(--ink);cursor:pointer}
+.vc-lb-close:hover{border-color:var(--ink)}
+@media (max-width:820px){.vc-stage{flex-direction:column;align-items:center}.vc-side{padding-top:90px}.vc-table{width:100%;min-height:520px}}
+
+@media (prefers-reduced-motion:reduce){.ab-caret{animation:none}.ab-card{transition:none}.vc-photo img,.vc-photo .dev{transition-duration:.6s}.vc-flash.on{animation:none}}
+@keyframes abBlink{50%{opacity:0}}
+@keyframes abHop{33%{transform:translateY(-8px)}66%{transform:translateY(-3px)}}
+@keyframes vcFlash{0%{opacity:.95}100%{opacity:0}}
+@keyframes vcShake{33%{transform:translate(-3px,1px)}66%{transform:translate(3px,-1px)}}
+@keyframes vcIn{from{opacity:0}to{opacity:1}}
+
+@media (max-width:700px){.ab2-value{margin:0!important;padding-left:0!important;padding-right:0!important}}
 /* ── FUN THINGS (rope + charms) ── */
 .vf{padding:5rem 0 4rem;overflow:hidden}
 .vf-in{max-width:1240px;margin:0 auto}
@@ -2445,57 +2527,20 @@ body.on-zepto{scrollbar-color:#fff transparent}
 <div class="page" id="page-about">
 <div class="ab2-page">
 
-  <!-- HERO IMAGE + HEADLINE: fills the first screen -->
-  <div class="ab2-firstscreen">
-    <div class="ab2-reveal" style="border-radius:20px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--bg);">
-      <video autoplay muted loop playsinline disablepictureinpicture style="width:auto;display:block;mix-blend-mode:multiply">
-        <source src="images/about/hero-video.webm" type="video/webm">
-        <source src="images/about/hero-video.mp4" type="video/mp4">
-      </video>
-    </div>
-    <h1 class="ab2-headline ab2-reveal" id="ab2-headline" style="color:var(--pink)" data-final="Hi (你好/侬好), stranger." data-py1="nǐ hǎo · Mandarin" data-py2="nóng hǎo · Shanghainese">Hi (你好/侬好), stranger.</h1>
-  </div>
+  <!-- GREETING + TIMELINE ROUTE -->
+  <section class="ab-hello">
+    <p class="section-eyebrow">About me</p>
+    <h1><span class="ab-word" id="abWord" aria-hidden="true">Hi</span><span class="ab-caret" aria-hidden="true"></span>, stranger.<span class="sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Hi, 你好, 侬好, stranger.</span></h1>
+    <p>Scroll down and walk the route with me.</p>
+  </section>
 
-  <!-- HERO BIO: journey timeline -->
-  <section class="ab2-hero ab2-reveal">
-    <div class="ab2-journey">
-      <div class="ab2-journey-item">
-        <span class="ab2-journey-dot"></span>
-        <p class="ab2-journey-label">01 · Shanghai &rarr; Melbourne &rarr; San Francisco &rarr; Toronto</p>
-        <h3 class="ab2-journey-title">I never quite fit one room.</h3>
-        <p class="ab2-journey-text">I grew up across four cities, a Third Culture Kid who never belonged to just one place, but somehow felt at home in all of them.</p>
-      </div>
-      <div class="ab2-journey-item">
-        <span class="ab2-journey-dot"></span>
-        <p class="ab2-journey-label">02 · San Francisco, CCA, 2018</p>
-        <h3 class="ab2-journey-title">I started by designing objects.</h3>
-        <p class="ab2-journey-text">For a while, I followed the expected path and studied Industrial Design at California College of the Arts.</p>
-      </div>
-      <div class="ab2-journey-item">
-        <span class="ab2-journey-dot"></span>
-        <p class="ab2-journey-label">03 · Shenzhen, 2021</p>
-        <h3 class="ab2-journey-title">Then I started a studio before I graduated.</h3>
-        <p class="ab2-journey-text">While still at CCA, a friend and I co-founded Zepto Lab, a design studio in Shenzhen working across product, brand, digital, and strategy.</p>
-      </div>
-      <div class="ab2-journey-item">
-        <span class="ab2-journey-dot"></span>
-        <p class="ab2-journey-label">04 · The shift</p>
-        <h3 class="ab2-journey-title">The object was never the whole story.</h3>
-        <p class="ab2-journey-text">Somewhere between debating chamfer angles and material tolerances, I realized what I actually cared about was the experience around the object: where people felt stuck, what made something feel right, and why some things just work. That pulled me toward UX, and I never looked back. What kept me going was building things and watching real people use them.</p>
-      </div>
-      <div class="ab2-journey-item">
-        <span class="ab2-journey-dot"></span>
-        <p class="ab2-journey-label">05 · Toronto, OCAD, 2023</p>
-        <h3 class="ab2-journey-title">I went looking for AI agents and found the future.</h3>
-        <p class="ab2-journey-text">My graduate studies in Digital Futures at OCAD started with a simple curiosity about voice AI agents. The deeper I went, the more I realized it wasn't the agent that pulled me in, it was the future itself: the good versions, the bad ones, and the ones nobody has mapped out yet. It taught me to think in systems, and to remember that the surface is never the whole story.</p>
-      </div>
-      <div class="ab2-journey-item">
-        <span class="ab2-journey-dot"></span>
-        <p class="ab2-journey-label">06 · Now</p>
-        <h3 class="ab2-journey-title">Now I help others keep asking why.</h3>
-        <p class="ab2-journey-text">I bring that thinking back into teaching at OCAD and mentoring on ADPList, for undergrads and anyone curious enough about design to keep asking why.</p>
-      </div>
-    </div>
+  <section class="ab-route" id="abRoute" aria-label="My story">
+    <svg class="ab-svg" id="abSvg" aria-hidden="true">
+      <path id="abBase" fill="none" stroke="#D8D1C6" stroke-width="6" stroke-dasharray="6 10"/>
+      <path id="abProg" fill="none" stroke="#E8196E" stroke-width="6"/>
+    </svg>
+    <div class="ab-walker" id="abWalker" aria-hidden="true"><svg id="abWalkerSvg" viewBox="0 0 12 18" shape-rendering="crispEdges"></svg></div>
+    <ol class="ab-stops" id="abStops" style="list-style:none;margin:0;padding:0"></ol>
   </section>
 
 
@@ -2537,13 +2582,26 @@ body.on-zepto{scrollbar-color:#fff transparent}
       <div class="ab2-outside-block"><p class="ab2-outside-text">🎨&nbsp; I help aspiring high school students and professionals level up their design thinking.</p></div>
     </div>
 
-    <!-- PHOTO DESK: same draggable polaroids as the OCAD desk on the home page -->
-    <div class="ab2-desk" id="ab2-desk">
-      <figure class="ocad-pic" style="--r:-2deg;--l:-3%;--t:2%;--w:40%"><img src="images/about/outside/2.jpg" alt="Outside of work" draggable="false"><figcaption>solo hiking @ Banff 25/12</figcaption></figure>
-      <figure class="ocad-pic" style="--r:1deg;--l:28%;--t:0%;--w:40%"><img src="images/about/outside/7.jpg" alt="Outside of work" draggable="false"><figcaption>climbing 25/3</figcaption></figure>
-      <figure class="ocad-pic" style="--r:1.5deg;--l:59%;--t:5%;--w:40%"><img src="images/about/outside/1.png" alt="Outside of work" draggable="false"><figcaption>first DJing show 26/2</figcaption></figure>
-      <figure class="ocad-pic" style="--r:2deg;--l:1%;--t:64%;--w:40%"><img src="images/about/outside/3.webp" alt="Outside of work" draggable="false"><figcaption>woodworking</figcaption></figure>
-      <figure class="ocad-pic" style="--r:-2deg;--l:32%;--t:62%;--w:40%"><img src="images/about/outside/5.avif" alt="Outside of work" draggable="false"><figcaption>mentoring</figcaption></figure>
+    <!-- PHOTO WALL: a little camera that develops polaroids onto the table -->
+    <div class="vc" aria-label="Outside of work photos">
+      <div class="vc-stage" id="vcStage">
+        <div class="vc-side">
+          <div class="vc-cam" id="vcCam">
+            <div class="vc-hint" id="vcHint" aria-hidden="true"></div>
+            <button class="vc-shutter" id="vcShutter" aria-label="Take a photo"><span></span></button>
+            <svg id="vcCamSvg" viewBox="0 0 28 20" shape-rendering="crispEdges" aria-hidden="true"></svg>
+          </div>
+          <div class="vc-count" id="vcCount" aria-live="polite"></div>
+        </div>
+        <div class="vc-table" id="vcTable">
+          <div class="vc-empty" id="vcEmpty"></div>
+        </div>
+      </div>
+      <div class="vc-flash" id="vcFlash"></div>
+      <div class="vc-lb" id="vcLb" hidden role="dialog" aria-modal="true" aria-label="Photo">
+        <button class="vc-lb-close" id="vcLbClose" aria-label="Close">×</button>
+        <figure><img id="vcLbImg" alt=""><figcaption id="vcLbCap"></figcaption></figure>
+      </div>
     </div>
   </section>
 
@@ -4867,7 +4925,7 @@ function goto(page,animate=true){
   window.trackPage?.(page);
   setTimeout(initReveal,80);
   if(['wander','gauth','scotia','phoenix'].includes(page)) setTimeout(()=>initCsToc(page),100);
-  if(page==='about'){setTimeout(initAboutParallax,50);setTimeout(initAboutReveal,80);setTimeout(initAboutTypewriter,50);setTimeout(initAboutInkWipe,120);}
+  if(page==='about'){setTimeout(()=>window.abRebuild?.(),120);setTimeout(()=>window.abRebuild?.(),450);setTimeout(initAboutParallax,50);setTimeout(initAboutReveal,80);setTimeout(initAboutTypewriter,50);setTimeout(initAboutInkWipe,120);}
   if(page==='zepto') { setTimeout(()=>{initZlScrollBatch();},100); setTimeout(initZlServices,200); setTimeout(initZlCounters,300); setTimeout(initZeptoScramble,50); }
 }
 
@@ -5175,5 +5233,280 @@ if(initNf) initNf.classList.add('active');
     });
   }
   ['ocad-desk','ab2-desk'].forEach(id=>bindDesk(document.getElementById(id)));
+})();
+/* ===================== ABOUT PAGE: greeting, timeline route, camera ===================== */
+(function () {
+/* shared pixel-art helper: rows of letters → svg paths */
+function pixelPaths(rows, colors, opts) {
+  opts = opts || {};
+  const w = rows.reduce((m, r) => Math.max(m, r.length), 0);
+  const ox = opts.center ? Math.floor(((opts.box || w) - w) / 2) : 0;
+  const d = {}; let sh = '';
+  rows.forEach((row, y) => { for (let x = 0; x < row.length; x++) { const c = row[x]; if (!colors[c]) continue; d[c] = (d[c] || '') + 'M' + (x + ox) + ' ' + y + 'h1v1h-1z'; if (opts.shadow) sh += 'M' + (x + ox + 1) + ' ' + (y + 1) + 'h1v1h-1z'; } });
+  let out = opts.shadow ? '<path d="' + sh + '" fill="#141414" fill-opacity="0.15"/>' : '';
+  for (const c in d) out += '<path d="' + d[c] + '" fill="' + colors[c] + '"/>';
+  return out;
+}
+const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ===================== 1. greeting ===================== */
+(function () {
+  const WORDS = ['Hi', '你好', '侬好'];
+  const el = document.getElementById('abWord');
+  if (REDUCED) return;
+  let w = 0, i = WORDS[0].length, dir = -1;
+  setTimeout(function tick() {
+    const word = WORDS[w];
+    if (dir < 0) { i--; if (i <= 0) { dir = 1; w = (w + 1) % WORDS.length; } }
+    else { i++; if (i >= WORDS[w].length) { el.textContent = WORDS[w]; dir = -1; setTimeout(tick, 1800); return; } }
+    el.textContent = WORDS[w].slice(0, Math.max(0, i)) || '​';
+    setTimeout(tick, dir < 0 ? 90 : 140);
+  }, 1800);
+})();
+
+/* ===================== 2. timeline route ===================== */
+(function () {
+  /* -------- STOPS: edit the copy here -------- */
+  const STOPS = [
+    { label: 'Shanghai → Melbourne → San Francisco → Toronto', title: 'I never quite fit one room.', body: 'I grew up across four cities as a Third Culture Kid, and somehow felt at home in all of them.', icon: 'globe' },
+    { label: 'San Francisco · CCA · 2018', title: 'I started by designing objects.', body: 'I studied Industrial Design at California College of the Arts.', icon: 'chair' },
+    { label: 'Shenzhen · 2021', title: 'Then I started a studio before I graduated.', body: 'I co-founded Zepto Lab with a friend while still at CCA.', icon: 'flask' },
+    { label: 'The shift', title: 'The object was never the whole story.', body: 'I got more curious about where people get stuck, and what actually makes things work. That pulled me toward user experience.', icon: 'cursor' },
+    { label: 'Toronto · OCAD · 2023', title: 'I went looking for AI agents and found the future.', body: 'Grad school in Digital Futures started with voice AI agents and grew into systems thinking.', icon: 'chat' },
+    { label: 'Now', title: 'Now I help others keep asking why.', body: 'I teach at OCAD and mentor designers on ADPList.', icon: 'cap' }
+  ];
+  const ICONS = {
+    globe: { c: { K: '#141414', A: '#7CB8F7', B: '#4ADE80' }, rows: ['...KKKKKK...', '..KAABBAAK..', '.KABBBBAAAK.', 'KAABBBAAABAK', 'KAAABAAABBAK', 'KBAAAAABBBAK', 'KBBAAAAABBAK', 'KABBAAAAAAAK', '.KAABBAAAAK.', '..KAABBAAK..', '...KKKKKK...'] },
+    chair: { c: { K: '#141414', A: '#F7C948', B: '#8A5E38' }, rows: ['...KKKKKK...', '...KAAAAK...', '...KAAAAK...', '...KAAAAK...', '...KAAAAK...', '.KKKKKKKKKK.', '.KAAAAAAAAK.', '.KKKKKKKKKK.', '.KBK....KBK.', '.KBK....KBK.', '.KKK....KKK.'] },
+    flask: { c: { K: '#141414', A: '#3B82F6', B: '#93C5FD', C: '#FFFFFF' }, rows: ['....KKKK....', '....KBBK....', '....KBBK....', '...KBBBBK...', '...KBBBBK...', '..KAAAAAAK..', '.KACAAAAAAK.', '.KAAAAAAAAK.', 'KAAAAAAAAAAK', '.KKKKKKKKKK.'] },
+    cursor: { c: { K: '#141414', A: '#FFFFFF' }, rows: ['...K........', '...KK.......', '...KAK......', '...KAAK.....', '...KAAAK....', '...KAAAAK...', '...KAAAAAK..', '...KAAKKKKK.', '...KAK.KAK..', '...KK..KAK..', '...K....KK..'] },
+    chat: { c: { K: '#141414', A: '#FFFFFF', C: '#E8196E' }, rows: ['.KKKKKKKKKK.', 'KAAAAAAAAAAK', 'KAAAAACAAAAK', 'KAAAACCCAAAK', 'KAAACCCCCAAK', 'KAAAACCCAAAK', 'KAAAAACAAAAK', 'KAAAAAAAAAAK', '.KKKAKKKKKK.', '...KAK......', '...KK.......'] },
+    cap: { c: { K: '#141414', A: '#2B2B30', B: '#4B4B55', C: '#FBBF24' }, rows: ['............', '.....KK.....', '...KKBBKK...', '.KKBBBBBBKK.', 'KBBBBBBBBBBK', '.KKBBBBBBKKC', '...KAAAAK..C', '...KAAAAK..C', '...KKKKKK.CC'] }
+  };
+  const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const list = document.getElementById('abStops');
+  list.innerHTML = STOPS.map((s, i) =>
+    '<li class="ab-stop"><div class="ab-card"><p class="ab-label">0' + (i + 1) + ' · ' + esc(s.label) + '</p><h3>' + esc(s.title) + '</h3><p>' + esc(s.body) + '</p></div>' +
+    '<div class="ab-node"><svg width="44" height="44" viewBox="0 0 13 12" shape-rendering="crispEdges" aria-hidden="true">' + pixelPaths(ICONS[s.icon].rows, ICONS[s.icon].c, { shadow: true }) + '</svg></div></li>'
+  ).join('');
+  const stops = [...list.children], cards = stops.map((s) => s.querySelector('.ab-card')), nodes = stops.map((s) => s.querySelector('.ab-node'));
+
+  /* the walker: a little full-body you, two walking frames */
+  const BODY = ['...KKKKKK...', '..KHHHHHHK..', '.KHHhHHHHHK.', '.KHSSSSSSHK.', '.KHSKSSKSHK.', '.KHBSSSSBHK.', '.KHHSMMSHHK.', '.KHHHSSHHHK.', '..KCPPPPCK..', '.KSCPPPPCSK.', '.KSKPPPPKSK.', '..KKDDDDKK..', '...KDDDDK...', '...KDKKDK...'];
+  const LEGS_A = ['...KDKKDK...', '...KDKKDK...', '..KWWKKWWK..', '..KKKKKKKK..'];
+  const LEGS_B = ['..KDK..KDK..', '.KDK....KDK.', '.KWWK..KWWK.', '.KKKK..KKKK.'];
+  const WALK_C = { K: '#141414', H: '#2B2B30', h: '#5E5E68', S: '#F6D5C5', B: '#F48FB1', M: '#D9466E', C: '#FFFFFF', P: '#F7C3D8', D: '#2B2B30', W: '#FFFFFF' };
+  const walkerSvg = document.getElementById('abWalkerSvg');
+  const frames = [pixelPaths(BODY.concat(LEGS_A), WALK_C), pixelPaths(BODY.concat(LEGS_B), WALK_C)];
+  let frame = 0; walkerSvg.innerHTML = frames[0];
+
+  const route = document.getElementById('abRoute'), svg = document.getElementById('abSvg'), base = document.getElementById('abBase'), prog = document.getElementById('abProg'), walker = document.getElementById('abWalker');
+  let samples = [], L = 0, nodeLen = [], lastLen = -1, stillT = null, walkT = null;
+
+  function build() {
+    const rr = route.getBoundingClientRect();
+    const W = route.clientWidth, H = route.clientHeight;
+    svg.setAttribute('width', W); svg.setAttribute('height', H);
+    const pts = nodes.map((n) => { const r = n.getBoundingClientRect(); return { x: r.left - rr.left + r.width / 2, y: r.top - rr.top + r.height / 2 }; });
+    const mobile = W < 760, amp = mobile ? 0 : 110;
+    let d = 'M' + pts[0].x + ' ' + (pts[0].y - 140);
+    let prev = { x: pts[0].x, y: pts[0].y - 140 };
+    pts.forEach((p, i) => {
+      const s = i % 2 === 0 ? 1 : -1, dy = p.y - prev.y;
+      d += ' C' + (prev.x + s * amp) + ' ' + (prev.y + dy * 0.35) + ' ' + (p.x + s * amp) + ' ' + (p.y - dy * 0.35) + ' ' + p.x + ' ' + p.y;
+      prev = p;
+    });
+    d += ' L' + prev.x + ' ' + (prev.y + 120);
+    base.setAttribute('d', d); prog.setAttribute('d', d);
+    L = prog.getTotalLength();
+    prog.style.strokeDasharray = L; prog.style.strokeDashoffset = L;
+    samples = [];
+    const N = 600;
+    for (let k = 0; k <= N; k++) { const len = (k / N) * L, pt = prog.getPointAtLength(len); samples.push({ len, x: pt.x, y: pt.y }); }
+    nodeLen = pts.map((p) => { let best = 0; for (const s of samples) if (s.y <= p.y + 1) best = s.len; return best; });
+    lastLen = -1;
+    update();
+  }
+  function lenAtY(y) {
+    let lo = 0, hi = samples.length - 1;
+    if (y <= samples[0].y) return 0;
+    if (y >= samples[hi].y) return L;
+    while (hi - lo > 1) { const m = (lo + hi) >> 1; if (samples[m].y < y) lo = m; else hi = m; }
+    const a = samples[lo], b = samples[hi], t = (y - a.y) / Math.max(0.001, b.y - a.y);
+    return a.len + (b.len - a.len) * t;
+  }
+  function update() {
+    if (!samples.length) return;
+    const rr = route.getBoundingClientRect();
+    const len = lenAtY(window.innerHeight * 0.55 - rr.top);
+    if (Math.abs(len - lastLen) < 0.5) return;
+    const moved = lastLen >= 0;
+    lastLen = len;
+    const pt = prog.getPointAtLength(len);
+    walker.style.transform = 'translate(' + (pt.x - 30).toFixed(1) + 'px,' + (pt.y - 84).toFixed(1) + 'px)';
+    prog.style.strokeDashoffset = L - len;
+    nodeLen.forEach((nl, i) => { const on = len >= nl - 4; cards[i].classList.toggle('on', on); nodes[i].classList.toggle('on', on); });
+    if (moved && !REDUCED) {
+      if (!walkT) walkT = setInterval(() => { frame = 1 - frame; walkerSvg.innerHTML = frames[frame]; }, 140);
+      clearTimeout(stillT);
+      stillT = setTimeout(() => { clearInterval(walkT); walkT = null; frame = 0; walkerSvg.innerHTML = frames[0]; }, 200);
+    }
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(build, 150); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(build); else build();
+  build();
+  window.abRebuild = build;
+  if (typeof ResizeObserver !== 'undefined') { let ro; new ResizeObserver(() => { clearTimeout(ro); ro = setTimeout(build, 120); }).observe(route); }
+})();
+
+/* ===================== 3. camera ===================== */
+(function () {
+  /* -------- PHOTOS: paths relative to your repo root -------- */
+  const PHOTOS = [
+    { src: 'images/about/outside/2.jpg', caption: 'solo hiking @ Banff 25/12' },
+    { src: 'images/about/outside/7.jpg', caption: 'climbing 25/3' },
+    { src: 'images/about/outside/1.png', caption: 'first DJing show 26/2' },
+    { src: 'images/about/outside/3.webp', caption: 'woodworking' },
+    { src: 'images/about/outside/5.avif', caption: 'mentoring' }
+  ];
+  const CAM_ROWS = [
+    '..KKKKKKKKKKKKKKKKKKKKKKKK..', '.KAAAAAAAAAAAAAAAAAAAAAAAAK.', 'KAADDDDDDDDDDDDDDDDDDDDDDAAK', 'KAAAAAAAAAAAAAAAAAAAAAAAAAAK',
+    'KAAGGGGAAAAAAAAAAAAAAKKKAAAK', 'KAAGGGGAAAAAKKKKKKAAAKDKAAAK', 'KAAGGGGAAAAKKDDDDKKAAKKKAAAK', 'KAAAAAAAAAKDDEEEEDDKAAAAAAAK',
+    'KBBBBBBBBKDDEFEEEEDDKBBBBBBK', 'KBBBBBBBBKDEEEEEEEEDKBBBBBBK', 'KAAAAAAAAKDEEEEEEEEDKAAAAAAK', 'KAAAAAAAAKDDEEEEEEDDKAAAAAAK',
+    'KAAAAAAAAAKDDEEEEDDKAAAAAAAK', 'KAAAAAAAAAAKKDDDDKKAAAAAAAAK', 'KAAAAAAAAAAAAKKKKAAAAAAAAAAK', 'KAAAAAAAAAAAAAAAAAAAAAAAAAAK',
+    'KCCCCCCCCCCCCCCCCCCCCCCCCCCK', 'KCCCCCCCCCCCCCCCCCCCCCCCCCCK', '.KCCCCCCCCCCCCCCCCCCCCCCCCK.', '..KKKKKKKKKKKKKKKKKKKKKKKK..'
+  ];
+  const CURSOR = ['....KK......', '...KAAK.....', '...KAAK.....', '...KAAKKK...', '...KAAKAAKK.', 'KK.KAAKAAKAK', 'KAKKAAAAAKAK', 'KAAKAAAAAAAK', '.KAAAAAAAAAK', '..KAAAAAAAAK', '...KAAAAAAK.', '....KAAAAK..', '....KKKKKK..'];
+  document.getElementById('vcHint').innerHTML = '<svg width="36" height="39" viewBox="0 0 12 13" shape-rendering="crispEdges">' + pixelPaths(CURSOR, { K: '#141414', A: '#FFFFFF' }) + '</svg>';
+  document.getElementById('vcCamSvg').innerHTML = pixelPaths(CAM_ROWS, { K: '#141414', A: '#F9B4D3', B: '#EC4899', C: '#FFF4EA', D: '#2B2B30', E: '#7CB8F7', F: '#FFFFFF', G: '#E8E8EC' });
+
+  const $ = (id) => document.getElementById(id);
+  const stage = $('vcStage'), cam = $('vcCam'), shutter = $('vcShutter'), table = $('vcTable'), countEl = $('vcCount'), emptyEl = $('vcEmpty'), hint = $('vcHint'), flash = $('vcFlash');
+  const CARD_W = 200, CARD_H = 236;
+  const LAND = [[0.06, 0.08], [0.44, 0.03], [0.22, 0.42], [0.62, 0.36], [0.4, 0.16], [0.7, 0.06], [0.1, 0.55]];
+  let next = 0, busy = false, topZ = 10;
+  const cards = [];
+  const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+  function updateCount() {
+    const left = PHOTOS.length - next;
+    countEl.innerHTML = left > 0 ? '<b>' + left + '</b> shot' + (left === 1 ? '' : 's') + ' left' : 'out of film · press to reload ↺';
+    shutter.setAttribute('aria-label', left > 0 ? 'Take a photo' : 'Reload: collect all photos back into the camera');
+  }
+  function rel(el) { const s = stage.getBoundingClientRect(), r = el.getBoundingClientRect(); return { x: r.left - s.left, y: r.top - s.top, w: r.width, h: r.height }; }
+  function slotPos() { const c = rel(cam); return { x: c.x + c.w / 2 - CARD_W / 2, y: c.y + 25 }; }
+  function setT(o, ms, ease) {
+    o.el.style.transition = ms ? 'transform ' + ms + 'ms ' + (ease || 'cubic-bezier(.2,.9,.3,1.15)') : 'none';
+    o.el.style.transform = 'translate(' + o.x.toFixed(1) + 'px,' + o.y.toFixed(1) + 'px) rotate(' + o.r.toFixed(1) + 'deg)';
+  }
+  function press() {
+    if (busy) return;
+    shutter.classList.add('down'); setTimeout(() => shutter.classList.remove('down'), 160);
+    hint.classList.add('gone');
+    if (next >= PHOTOS.length) { reload(); return; }
+    busy = true;
+    if (!REDUCED) { flash.classList.remove('on'); void flash.offsetWidth; flash.classList.add('on'); }
+    cam.classList.remove('shake'); void cam.offsetWidth; cam.classList.add('shake');
+    shoot(PHOTOS[next], next); next++; updateCount();
+  }
+  function shoot(p, i) {
+    const el = document.createElement('button');
+    el.className = 'vc-card';
+    el.setAttribute('aria-label', 'Photo: ' + p.caption + '. Click to enlarge, drag to move');
+    el.innerHTML = '<span class="vc-photo"><img alt="' + esc(p.caption) + '" src="' + esc(p.src) + '"><span class="ph">' + esc(p.caption) + '</span><span class="dev"></span></span><span class="vc-cap">' + esc(p.caption) + '</span>';
+    el.querySelector('img').addEventListener('error', () => el.querySelector('.vc-photo').classList.add('noimg'));
+    el.style.zIndex = 1;
+    stage.appendChild(el);
+    const s = slotPos();
+    const o = { el, p, x: s.x, y: s.y, r: 0, vx: 0, vy: 0, moving: false };
+    cards.push(o);
+    setT(o, 0); void el.offsetWidth;
+    o.y = s.y - CARD_H * 0.82;
+    setT(o, REDUCED ? 0 : 900, 'steps(9, end)');
+    setTimeout(() => {
+      const t = rel(table), [fx, fy] = LAND[i % LAND.length];
+      o.x = t.x + Math.min(t.w - CARD_W - 10, Math.max(10, fx * t.w + (Math.random() - 0.5) * 30));
+      o.y = t.y + Math.min(t.h - CARD_H - 10, Math.max(10, fy * t.h + (Math.random() - 0.5) * 30));
+      o.r = (Math.random() - 0.5) * 16;
+      el.style.zIndex = ++topZ;
+      setT(o, REDUCED ? 0 : 650);
+      emptyEl.classList.add('gone');
+      setTimeout(() => el.classList.add('developed'), 120);
+      busy = false;
+      bindDrag(o);
+    }, REDUCED ? 50 : 1100);
+  }
+  function reload() {
+    busy = true;
+    const s = slotPos();
+    cards.slice().reverse().forEach((o, k) => {
+      setTimeout(() => {
+        o.moving = false; o.el.style.zIndex = ++topZ;
+        o.x = s.x; o.y = s.y - CARD_H * 0.82; o.r = 0;
+        setT(o, REDUCED ? 0 : 500, 'cubic-bezier(.5,0,.3,1)');
+        setTimeout(() => {
+          o.el.style.zIndex = 1; o.y = s.y + 10;
+          setT(o, REDUCED ? 0 : 420, 'steps(6, end)');
+          setTimeout(() => o.el.remove(), REDUCED ? 0 : 440);
+        }, REDUCED ? 0 : 520);
+      }, k * 140);
+    });
+    setTimeout(() => { cards.length = 0; next = 0; busy = false; emptyEl.classList.remove('gone'); updateCount(); }, cards.length * 140 + 1000);
+  }
+  let raf = null;
+  function physics() {
+    const sw = stage.clientWidth - CARD_W, sh = Math.max(stage.clientHeight, 600) - CARD_H;
+    let any = false;
+    cards.forEach((o) => {
+      if (!o.moving) return;
+      o.x += o.vx; o.y += o.vy; o.r = Math.max(-20, Math.min(20, o.r + o.vx * 0.25));
+      o.vx *= 0.92; o.vy *= 0.92;
+      if (o.x < -20) { o.x = -20; o.vx = -o.vx * 0.5; } if (o.x > sw + 20) { o.x = sw + 20; o.vx = -o.vx * 0.5; }
+      if (o.y < -10) { o.y = -10; o.vy = -o.vy * 0.5; } if (o.y > sh + 20) { o.y = sh + 20; o.vy = -o.vy * 0.5; }
+      if (Math.abs(o.vx) + Math.abs(o.vy) < 0.2) o.moving = false; else any = true;
+      setT(o, 0);
+    });
+    raf = any ? requestAnimationFrame(physics) : null;
+  }
+  function bindDrag(o) {
+    let g = null, dragged = false;
+    o.el.addEventListener('pointerdown', (e) => {
+      try { o.el.setPointerCapture(e.pointerId); } catch (err) {}
+      o.moving = false; o.el.style.zIndex = ++topZ; o.el.classList.add('lifted');
+      g = { sx: e.clientX, sy: e.clientY, ox: o.x, oy: o.y, lx: e.clientX, ly: e.clientY, vx: 0, vy: 0, moved: false, r: o.r };
+    });
+    o.el.addEventListener('pointermove', (e) => {
+      if (!g) return;
+      const dx = e.clientX - g.sx, dy = e.clientY - g.sy;
+      if (Math.hypot(dx, dy) > 5) g.moved = true;
+      g.vx = e.clientX - g.lx; g.vy = e.clientY - g.ly; g.lx = e.clientX; g.ly = e.clientY;
+      o.x = g.ox + dx; o.y = g.oy + dy; o.r = Math.max(-20, Math.min(20, g.r + g.vx * 0.6));
+      setT(o, 0);
+    });
+    const end = () => {
+      if (!g) return;
+      dragged = g.moved; o.el.classList.remove('lifted');
+      if (g.moved) { o.vx = g.vx; o.vy = g.vy; o.moving = true; if (!raf) raf = requestAnimationFrame(physics); }
+      g = null;
+    };
+    o.el.addEventListener('pointerup', end);
+    o.el.addEventListener('pointercancel', end);
+    o.el.addEventListener('click', () => { if (dragged) { dragged = false; return; } openLb(o); });
+  }
+  const lb = $('vcLb'), lbImg = $('vcLbImg'), lbCap = $('vcLbCap'), lbClose = $('vcLbClose');
+  let lastFocus = null;
+  function openLb(o) { lastFocus = o.el; lbImg.src = o.p.src; lbImg.alt = o.p.caption; lbCap.textContent = o.p.caption; lb.hidden = false; lbClose.focus(); }
+  function closeLb() { lb.hidden = true; if (lastFocus) lastFocus.focus(); }
+  lbClose.addEventListener('click', closeLb);
+  lb.addEventListener('click', (e) => { if (e.target === lb) closeLb(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !lb.hidden) closeLb(); });
+  shutter.addEventListener('click', press);
+  const camSvg = cam.querySelector('#vcCamSvg'); camSvg.addEventListener('click', press); camSvg.style.cursor = 'pointer';
+  // fixed overlays live on <body>: the page's entrance animation would otherwise pin them to the page, not the screen
+  document.body.appendChild(flash); document.body.appendChild(lb);
+  updateCount();
+})();
+
 })();
 </script>
