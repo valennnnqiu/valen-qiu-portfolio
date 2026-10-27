@@ -5498,7 +5498,7 @@ const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     raf = any ? requestAnimationFrame(physics) : null;
   }
   function bindDrag(o) {
-    let g = null, lastDrag = 0;
+    let g = null;
     o.el.addEventListener('pointerdown', (e) => {
       try { o.el.setPointerCapture(e.pointerId); } catch (err) {}
       o.moving = false; o.el.style.zIndex = ++topZ; o.el.classList.add('lifted');
@@ -5507,20 +5507,25 @@ const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     o.el.addEventListener('pointermove', (e) => {
       if (!g) return;
       const dx = e.clientX - g.sx, dy = e.clientY - g.sy;
-      if (Math.hypot(dx, dy) > 5) g.moved = true;
+      if (Math.hypot(dx, dy) > 8) g.moved = true;
       g.vx = e.clientX - g.lx; g.vy = e.clientY - g.ly; g.lx = e.clientX; g.ly = e.clientY;
+      if (!g.moved) return; // still a tap: don't nudge the card
       o.x = g.ox + dx; o.y = g.oy + dy; o.r = Math.max(-20, Math.min(20, g.r + g.vx * 0.6));
       setT(o, 0);
     });
-    const end = () => {
+    // a press that barely moves is a tap: open the photo right on release (no dependence on the click event)
+    const end = (e) => {
       if (!g) return;
-      lastDrag = g.moved ? performance.now() : 0; o.el.classList.remove('lifted');
+      const tap = !g.moved && e && e.type === 'pointerup';
+      o.el.classList.remove('lifted');
       if (g.moved) { o.vx = g.vx; o.vy = g.vy; o.moving = true; if (!raf) raf = requestAnimationFrame(physics); }
+      else { o.x = g.ox; o.y = g.oy; o.r = g.r; setT(o, 0); }
       g = null;
+      if (tap) openLb(o);
     };
     o.el.addEventListener('pointerup', end);
     o.el.addEventListener('pointercancel', end);
-    o.el.addEventListener('click', () => { if (lastDrag && performance.now() - lastDrag < 350) return; openLb(o); });
+    o.el.addEventListener('click', (e) => { if (e.detail === 0) openLb(o); }); // keyboard: Enter / Space
   }
   const lb = $('vcLb'), lbImg = $('vcLbImg'), lbCap = $('vcLbCap'), lbClose = $('vcLbClose');
   let lastFocus = null;
