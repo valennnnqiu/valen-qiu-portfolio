@@ -5278,7 +5278,7 @@ const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const ICONS = {
     globe: { c: { K: '#141414', A: '#7CB8F7', B: '#4ADE80' }, rows: ['...KKKKKK...', '..KAABBAAK..', '.KABBBBAAAK.', 'KAABBBAAABAK', 'KAAABAAABBAK', 'KBAAAAABBBAK', 'KBBAAAAABBAK', 'KABBAAAAAAAK', '.KAABBAAAAK.', '..KAABBAAK..', '...KKKKKK...'] },
     chair: { c: { K: '#141414', A: '#F7C948', B: '#8A5E38' }, rows: ['...KKKKKK...', '...KAAAAK...', '...KAAAAK...', '...KAAAAK...', '...KAAAAK...', '.KKKKKKKKKK.', '.KAAAAAAAAK.', '.KKKKKKKKKK.', '.KBK....KBK.', '.KBK....KBK.', '.KKK....KKK.'] },
-    flask: { c: { K: '#141414', A: '#3B82F6', B: '#93C5FD', C: '#FFFFFF' }, rows: ['....KKKK....', '....KBBK....', '....KBBK....', '...KBBBBK...', '...KBBBBK...', '..KAAAAAAK..', '.KACAAAAAAK.', '.KAAAAAAAAK.', 'KAAAAAAAAAAK', '.KKKKKKKKKK.'] },
+    flask: { img: 'images/home/pixel-flask.png', c: { K: '#141414', A: '#3B82F6', B: '#93C5FD', C: '#FFFFFF' }, rows: ['....KKKK....', '....KBBK....', '....KBBK....', '...KBBBBK...', '...KBBBBK...', '..KAAAAAAK..', '.KACAAAAAAK.', '.KAAAAAAAAK.', 'KAAAAAAAAAAK', '.KKKKKKKKKK.'] },
     cursor: { c: { K: '#141414', A: '#FFFFFF' }, rows: ['...K........', '...KK.......', '...KAK......', '...KAAK.....', '...KAAAK....', '...KAAAAK...', '...KAAAAAK..', '...KAAKKKKK.', '...KAK.KAK..', '...KK..KAK..', '...K....KK..'] },
     chat: { c: { K: '#141414', A: '#FFFFFF', C: '#E8196E' }, rows: ['.KKKKKKKKKK.', 'KAAAAAAAAAAK', 'KAAAAACAAAAK', 'KAAAACCCAAAK', 'KAAACCCCCAAK', 'KAAAACCCAAAK', 'KAAAAACAAAAK', 'KAAAAAAAAAAK', '.KKKAKKKKKK.', '...KAK......', '...KK.......'] },
     cap: { c: { K: '#141414', A: '#2B2B30', B: '#4B4B55', C: '#FBBF24' }, rows: ['............', '.....KK.....', '...KKBBKK...', '.KKBBBBBBKK.', 'KBBBBBBBBBBK', '.KKBBBBBBKKC', '...KAAAAK..C', '...KAAAAK..C', '...KKKKKK.CC'] }
@@ -5287,7 +5287,7 @@ const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const list = document.getElementById('abStops');
   list.innerHTML = STOPS.map((s, i) =>
     '<li class="ab-stop"><div class="ab-card"><p class="ab-label">0' + (i + 1) + ' · ' + esc(s.label) + '</p><h3>' + esc(s.title) + '</h3><p>' + esc(s.body) + '</p></div>' +
-    '<div class="ab-node"><svg width="44" height="44" viewBox="0 0 13 12" shape-rendering="crispEdges" aria-hidden="true">' + pixelPaths(ICONS[s.icon].rows, ICONS[s.icon].c, { shadow: true }) + '</svg></div></li>'
+    '<div class="ab-node">' + (ICONS[s.icon].img ? '<img src="' + ICONS[s.icon].img + '" width="44" height="44" alt="" draggable="false" style="object-fit:contain">' : '<svg width="44" height="44" viewBox="0 0 13 12" shape-rendering="crispEdges" aria-hidden="true">' + pixelPaths(ICONS[s.icon].rows, ICONS[s.icon].c, { shadow: true }) + '</svg>') + '</div></li>'
   ).join('');
   const stops = [...list.children], cards = stops.map((s) => s.querySelector('.ab-card')), nodes = stops.map((s) => s.querySelector('.ab-node'));
 
