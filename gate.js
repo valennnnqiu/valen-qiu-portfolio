@@ -2,9 +2,10 @@
    No valid unlock in this browser -> send the visitor to password.html and bring them back after.
    Front-end only: it keeps casual visitors out, it is not real security on a static site. */
 (function () {
-  /* Flip to true once password.html has the real passcode hash (CONFIG.passHash). */
+  /* Site-wide switch: true locks every page. Leave false to lock only the pages whose
+     <script src=".../gate.js" data-gate> tag carries the data-gate attribute. */
   var ENABLED = false;
-  if (!ENABLED) return;
+  if (!ENABLED && !document.currentScript.hasAttribute('data-gate')) return;
   var KEY = 'vq-auth';
   try { if (sessionStorage.getItem(KEY) === '1') return; } catch (e) {}
   try { if (localStorage.getItem(KEY) === '1') return; } catch (e) {}
