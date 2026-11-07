@@ -5,12 +5,12 @@
 <script src="../gate.js" data-gate></script>
 <link rel="stylesheet" href="../pixel-cursor.css">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="Wander Feed case study by Valen Qiu: redesigning the main feed of an app for meeting new people in real life.">
+<meta name="description" content="Wander case study by Valen Qiu: turning a browse-only feed into a conversational AI matchmaker for 15K+ people meeting up in Toronto.">
 <link rel="icon" href="../favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="../images/favicon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="../images/apple-touch-icon.png">
-<title>Wander Feed Case Study</title>
+<title>Wander AI Friend Case Study</title>
 <script src="../analytics.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -70,9 +70,16 @@ h3.lg{font-size:clamp(28px,3.4vw,44px)}
 .shot .slot{flex:1}
 
 /* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:60px}
 .brand{font-weight:800;letter-spacing:-.04em;font-size:22px;text-decoration:none;display:flex;align-items:center;gap:10px}
 .brand i{width:26px;height:26px;border-radius:8px;background:var(--pink);display:grid;place-items:center}
 .brand svg{width:14px;height:14px}
+.nav ul{display:flex;gap:4px}
+.nav a.l{font-size:15px;text-decoration:none;padding:6px 12px;border-radius:999px;color:var(--ink-2);transition:background-color .2s,color .2s}
+.nav a.l:hover,.nav a.l:focus-visible{background:var(--card);color:var(--ink)}
+.nav .me{font-family:var(--f-mono);font-size:13px;color:var(--ink-2)}
+@media (max-width:860px){.nav ul{display:none}}
 
 /* hero */
 .hero{padding-block:72px 96px;position:relative;overflow:hidden}
@@ -253,7 +260,7 @@ h3.lg{font-size:clamp(28px,3.4vw,44px)}
 .greet{font-size:12px;font-weight:700;color:var(--pink-t);letter-spacing:.02em}
 .bubble{margin-top:8px;background:var(--ink);color:var(--paper);border-radius:18px 18px 18px 6px;padding:12px 14px;font-size:15px;font-weight:700;line-height:1.3;max-width:92%}
 .ans{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px}
-.ans button{border:1.5px solid var(--line);background:var(--card);border-radius:999px;padding:7px 12px;font-size:13px;font-weight:700;cursor:var(--cur-hand);color:var(--ink)}
+.ans button{border:1.5px solid var(--line);background:var(--card);border-radius:999px;padding:7px 12px;font-size:13px;font-weight:700;cursor:pointer;color:var(--ink)}
 .ans button[aria-pressed="true"]{border-color:var(--pink);background:var(--pink)}
 .out{margin-top:16px;display:flex;flex-direction:column;gap:8px}
 .why{font-family:var(--f-mono);font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--pink-t)}
@@ -288,7 +295,7 @@ h3.lg{font-size:clamp(28px,3.4vw,44px)}
 
 /* case tabs */
 .steps{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
-.steps button{font-size:14px;font-weight:600;border:1px solid var(--ink);background:transparent;color:var(--ink);border-radius:999px;padding:6px 14px;cursor:var(--cur-hand);display:flex;align-items:center;gap:6px}
+.steps button{font-size:14px;font-weight:600;border:1px solid var(--ink);background:transparent;color:var(--ink);border-radius:999px;padding:6px 14px;cursor:pointer;display:flex;align-items:center;gap:6px}
 .steps button span{font-family:var(--f-mono);font-size:11px;font-weight:500;color:var(--ink-3)}
 .steps button[aria-selected="true"]{background:var(--ink);color:var(--paper)}
 .steps button[aria-selected="true"] span{color:var(--pink)}
@@ -370,7 +377,7 @@ h3.lg{font-size:clamp(28px,3.4vw,44px)}
 .lbar i.dot::before{content:"";width:12px;height:12px;border-radius:50%;background:#FF4FA3;border:2px solid #111111}
 .lbar .dots{flex:1;display:flex;justify-content:space-around;align-items:center;padding:0 12px}
 .lbar .dots b{width:14px;height:14px;border-radius:50%;background:#FF4FA3;border:2px solid #111111;font-size:0}
-.loopviz{display:block;margin:24px auto 0;width:100%;max-width:360px;height:auto}
+.loopviz{margin-top:24px;width:100%;max-width:360px;height:auto}
 .lnote{grid-column:2;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:12px;text-transform:none;letter-spacing:.02em}
 @media (max-width:700px){.lviz{grid-template-columns:1fr;gap:6px}.lnote{grid-column:1}.lbar i{font-size:12px;padding:8px 4px}}
 .thanks{margin-top:120px;font-size:clamp(60px,10vw,140px);font-weight:800;letter-spacing:-.06em;line-height:.9}
@@ -424,6 +431,140 @@ h3.lg{font-size:clamp(28px,3.4vw,44px)}
   .out>*:nth-child(2){animation-delay:.05s}.out>*:nth-child(3){animation-delay:.1s}.out>*:nth-child(4){animation-delay:.15s}
   .reveal{transform:translateY(28px);transition:transform .8s cubic-bezier(.2,.8,.2,1)}
   .reveal.in{transform:none}
+}
+.hs .find{background:var(--paper-2)}
+.ba-row+.block,.miles+.block,.feats+.block,.hs+.block,.demo+.block{margin-top:112px}
+.onums b{white-space:nowrap}
+@media (max-width:600px){.ba-row+.block,.miles+.block,.feats+.block{margin-top:80px}}
+.night .closer{margin-top:24px}
+.method{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1.5px solid var(--ink);margin-bottom:64px}
+.method div{padding:20px 24px 0 0;display:flex;flex-direction:column;gap:8px;min-width:0}
+.method dt{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.method dd{display:flex;flex-direction:column;gap:4px;font-size:17px;color:var(--ink-2)}
+.method dd b{font-size:clamp(36px,4.4vw,56px);font-weight:800;line-height:1;letter-spacing:-.05em;color:var(--ink);font-variant-numeric:tabular-nums}
+.flist{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:16px}
+.flist li{position:relative;background:var(--card);border-radius:var(--r);padding:32px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.flist li.key{background:var(--ink);color:var(--paper)}
+.flist .fs{font-size:clamp(56px,7vw,96px);font-weight:800;line-height:.95;letter-spacing:-.05em;color:var(--pink-t);font-variant-numeric:tabular-nums}
+.flist .key .fs{color:var(--pink)}
+.flist b{font-size:clamp(20px,2vw,24px);font-weight:700;letter-spacing:-.02em;line-height:1.2}
+.flist p{font-family:var(--f-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin-top:6px}
+.flist .key p{color:var(--night-soft)}
+.flist .tagk{align-self:flex-start;font-family:var(--f-mono);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;background:var(--pink);color:var(--ink);border-radius:999px;padding:4px 10px;margin-bottom:12px}
+@media (max-width:760px){.method{grid-template-columns:1fr;row-gap:8px}.flist{grid-template-columns:1fr}.flist li{padding:24px}}
+.onums.rs b.ink{color:var(--ink)}
+.onums.rs b{font-size:clamp(56px,8vw,112px)}
+.onums.rs span{font-size:clamp(16px,1.6vw,20px)}
+.find q.stat{quotes:none;color:var(--pink-t);font-weight:600}
+.find q.para{quotes:none}
+.journey.six{grid-template-columns:repeat(6,minmax(0,1fr))}
+.journey.six b{font-size:20px}
+.journey.six p{font-size:15px}
+.journey.six .tg{background:none;border-radius:0;padding:0;font-size:12px;font-weight:500;letter-spacing:.04em;color:var(--ink-3)}
+.journey.six .ok{background:var(--card);color:var(--ink);box-shadow:inset 0 0 0 2px var(--ink)}
+.journey.six .ok .tg{background:none;color:var(--ink);font-weight:600}
+.journey.six .ok p{color:var(--ink-2)}
+@media (max-width:1000px){.journey.six{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:600px){.journey.six{grid-template-columns:1fr 1fr}}
+.tier p{font-size:16px;color:var(--ink-2)}
+.tier.hi p{color:var(--ink)}
+.opts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.opts .feat{gap:8px}
+.opts .lab{text-transform:uppercase}
+.opts .fshot{padding:16px 8px 8px}
+.opts .phone.mp{width:62%}
+.opts .feat.on{box-shadow:inset 0 0 0 2px var(--pink)}
+.opts .feat.on .lab{background:var(--pink);color:var(--ink)}
+@media (max-width:700px){.opts{grid-template-columns:1fr}.opts .phone.mp{width:50%}}
+.edge .ep{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--pink-t);margin-top:6px}
+.edges+.block,.proc+.block{margin-top:112px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips span{font-size:13px;font-weight:600;background:var(--card);border-radius:999px;padding:6px 12px}
+.mini .big54{font-family:var(--f-display);font-size:44px;font-weight:800;letter-spacing:-.04em;color:var(--pink-t);line-height:1}
+.mini{align-items:baseline}
+.proc{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;position:relative}
+.proc::before{content:"";position:absolute;left:4%;right:4%;top:118px;border-top:3px dashed var(--pink);z-index:0}
+.proc>li{position:relative;z-index:1;background:var(--card);border-radius:var(--r);display:flex;flex-direction:column;overflow:hidden;min-width:0}
+.proc .pv{height:170px;background:var(--paper);margin:10px;border-radius:20px;padding:16px;display:flex;flex-direction:column;justify-content:center;gap:8px;min-width:0}
+.proc .pt{padding:8px 20px 24px;display:flex;flex-direction:column;gap:6px}
+.proc .pn{font-family:var(--f-mono);font-size:12px;color:var(--ink-3)}
+.proc .pt b{font-size:19px;font-weight:700;letter-spacing:-.02em;line-height:1.2}
+.proc .pm{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--pink-t)}
+.pb{font-size:12.5px;font-weight:700;line-height:1.3;border-radius:14px;padding:8px 11px;max-width:88%}
+.pb.me{align-self:flex-start;background:var(--ink);color:var(--paper);border-bottom-left-radius:4px}
+.pb.you{align-self:flex-end;background:var(--pink);color:var(--ink);border-bottom-right-radius:4px}
+.tiles6{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.tiles6 span{background:var(--card);border-radius:10px;padding:9px 8px;font-size:12px;font-weight:700;line-height:1.2;text-align:center}
+.tiles6 span:nth-child(3){background:var(--pink)}
+.ln{font-size:13px;font-weight:700;border-radius:12px;padding:10px 12px;text-align:center}
+.ln.off{color:var(--ink-3);border:1.5px dashed var(--line);text-decoration:line-through}
+.ln.on{background:var(--card);box-shadow:inset 0 0 0 2px var(--pink)}
+.arr{align-self:center;color:var(--pink-t);font-weight:700}
+.r3{display:flex;flex-direction:column;gap:8px}
+.r3 li{display:flex;align-items:center;gap:8px;background:var(--card);border-radius:12px;padding:9px 10px;font-size:12.5px;font-weight:700;line-height:1.2}
+.r3 i{font-style:normal;font-family:var(--f-mono);font-size:11px;width:20px;height:20px;border-radius:50%;background:var(--ink);color:var(--paper);display:grid;place-items:center;flex:none}
+.proc svg{width:100%;height:auto}
+.t54{align-self:center;font-size:13px;font-weight:700;background:var(--ink);color:var(--paper);border-radius:999px;padding:5px 12px}
+.t54 b{color:var(--pink);font-size:16px}
+@media (max-width:1000px){.proc{grid-template-columns:repeat(2,minmax(0,1fr))}.proc::before{display:none}}
+@media (max-width:560px){.proc{grid-template-columns:1fr}.proc .pv{height:auto;min-height:180px}}
+.proc .pt p{font-size:15px;line-height:1.45;color:var(--ink-2)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.two span{display:grid;place-items:center;min-height:64px;background:var(--card);border:1.5px solid var(--ink);border-radius:12px;padding:10px 6px;font-size:13px;font-weight:700;text-align:center}
+.proc::before{top:85px}
+.scen{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.scen span{display:grid;place-items:center;min-height:38px;background:var(--card);border:1.5px solid var(--ink);border-radius:10px;padding:4px;font-size:11.5px;font-weight:700;line-height:1.15;text-align:center}
+.scen span.h{background:var(--ink);color:var(--paper)}
+.bandh{font-size:clamp(48px,8vw,112px);font-weight:700;letter-spacing:-.05em;line-height:1;margin-top:28px;color:var(--pink)}
+.said{margin-top:40px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.said li{background:var(--night-2);border-radius:22px 22px 22px 6px;padding:22px 24px;font-size:clamp(18px,1.8vw,22px);font-weight:600;letter-spacing:-.01em}
+.flow{display:flex;flex-direction:column;gap:12px}
+.flow li{background:var(--card);border-radius:var(--r);padding:24px 32px;display:grid;grid-template-columns:minmax(0,1fr) 150px 150px;gap:32px;align-items:center}
+.fl-t{display:flex;flex-direction:column;gap:6px}
+.fl-t b{font-size:clamp(22px,2.4vw,30px);font-weight:700;letter-spacing:-.025em}
+.flow figure{display:flex;flex-direction:column;gap:8px;align-items:center}
+.flow .shot{width:150px}
+.flow figcaption{font-family:var(--f-mono);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:3px 10px;background:var(--ink-2);color:var(--paper)}
+.flow .fl-a figcaption{background:var(--pink);color:var(--ink)}
+.flow .fl-a .slot{box-shadow:inset 0 0 0 2px var(--pink)}
+.onums+.block{margin-top:96px}
+.opts+.block{margin-top:112px}
+@media (max-width:760px){.said{grid-template-columns:1fr}.flow li{grid-template-columns:1fr 1fr;padding:20px;gap:16px}.fl-t{grid-column:1/-1}.flow .shot{width:100%}}
+.cf-tabs{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:24px}
+.cf-tabs button{display:flex;align-items:center;gap:8px;font-size:17px;font-weight:600;border:2px solid var(--ink);background:transparent;color:var(--ink);border-radius:999px;padding:10px 20px;cursor:pointer}
+.cf-tabs button span{font-family:var(--f-mono);font-size:13px;font-weight:500;color:var(--ink-3)}
+.cf-tabs button[aria-selected="true"]{background:var(--ink);color:var(--paper)}
+.cf-tabs button[aria-selected="true"] span{color:var(--pink)}
+.cf-pair{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:16px}
+.cf-pair>article{border-radius:var(--r);padding:36px;display:flex;flex-direction:column;gap:16px;min-width:0}
+.cf-h{background:var(--pink-soft)}
+.cf-w{background:var(--card);box-shadow:inset 0 0 0 2px var(--ink)}
+.cf-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.cf-lab{font-family:var(--f-mono);font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:7px 14px;background:var(--card);color:var(--ink)}
+.cf-w .cf-lab{background:var(--pink)}
+.cf-n{font-family:var(--f-mono);font-size:13px;color:var(--ink-3)}
+.cf-pair h3{font-size:clamp(26px,3vw,40px);line-height:1.08}
+.cf-pair p{font-size:18px;color:var(--ink-2)}
+.cf-shot{margin-top:12px;display:flex;justify-content:center}
+.cf-shot .slot{width:200px;aspect-ratio:374/769;max-width:100%}
+@media (max-width:760px){.cf-pair{grid-template-columns:1fr}.cf-pair>article{padding:24px}.cf-tabs button{font-size:14px;padding:7px 14px}}
+@media (prefers-reduced-motion:no-preference){.cf-pair:not([hidden]){animation:rise .5s cubic-bezier(.2,.8,.2,1) both}}
+.cf-fig{margin-top:auto;width:120px;height:auto;align-self:flex-start}
+@media (prefers-reduced-motion:no-preference){
+  .ba-box,.find,.proc>li,.cf-pair>article,.hs,.opts .feat{transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
+  .ba-box:hover,.find:hover,.proc>li:hover,.cf-pair>article:hover,.hs:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(20,20,20,.08)}
+  .feat:hover,.opts .feat:hover{transform:translateY(-4px) rotate(-.3deg);box-shadow:0 14px 30px rgba(20,20,20,.1)}
+  .journey li{transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+  .journey li:hover{transform:translateY(-8px)}
+  .cf-tabs button{transition:transform .2s,background-color .2s,color .2s}
+  .cf-tabs button:hover{transform:translateY(-2px)}
+  .cf-tabs button[aria-selected="false"]:hover{background:var(--card)}
+  .scen span,.lab,.cf-lab,.t54{transition:transform .2s}
+  .scen span:hover,.lab:hover,.cf-lab:hover,.t54:hover{transform:scale(1.08)}
+  .onums>div{transition:transform .3s cubic-bezier(.3,1.6,.5,1)}
+  .onums>div:hover{transform:rotate(-2deg) scale(1.03)}
+  .nav a.l{transition:background-color .2s,color .2s,transform .2s}
+  .nav a.l:hover{transform:translateY(-1px)}
 }
 </style>
 <style>body{margin:0}img{max-width:100%}/* ── portfolio header & footer (copied from ../index.html) ── */
@@ -555,9 +696,9 @@ h3.lg{font-size:clamp(28px,3.4vw,44px)}
     <li><a class="cs-toc-item" href="#problem">Problem</a></li>
     <li><a class="cs-toc-item" href="#research">Research</a></li>
     <li><a class="cs-toc-item" href="#insight">Insight</a></li>
-    <li><a class="cs-toc-item" href="#process">Process</a></li>
-    <li><a class="cs-toc-item" href="#design">Version 1</a></li>
-    <li><a class="cs-toc-item" href="#design-v2">Version 2</a></li>
+    <li><a class="cs-toc-item" href="#v3">Decision</a></li>
+    <li><a class="cs-toc-item" href="#flow">Core flow</a></li>
+    <li><a class="cs-toc-item" href="#after">After launch</a></li>
     <li><a class="cs-toc-item" href="#outcome">Outcome</a></li>
     <li><a class="cs-toc-item" href="#reflection">Reflection</a></li>
   </ul>
@@ -584,36 +725,37 @@ h3.lg{font-size:clamp(28px,3.4vw,44px)}
   <div class="wrap">
     <div class="hero-grid">
       <div>
-        <span class="pill rise">Wander Social · 2026</span>
+        <span class="pill rise">Case study · Wander Social · 2025–2026</span>
         <h1 class="rise d1">Wander</h1>
-        <p class="tag rise d2">A feed that asks back.</p>
-        <p class="lede rise d2">Redesigning the main feed of an app for meeting new people in real life.</p>
+        <p class="tag rise d2">An AI that asks, like a friend.</p>
+        <p class="lede rise d2">I turned a browse-only feed into a conversational AI matchmaker for 15K+ people meeting up in Toronto.</p>
         <a class="site rise d3" href="https://wander.one" target="_blank" rel="noopener">Visit Wander ↗</a>
       </div>
       <div class="hero-art">
-        <div class="phone hp phimg" aria-label="Wander AI feed"><div class="scr"><span class="slot">Image: Wander AI feed</span></div></div>
-        <span class="sticker ink s1 pop"><b>8,800</b>people</span>
-        <span class="sticker s2 pop"><b>6</b>good cards a day</span>
+        <div class="phone hp phimg" aria-label="Wander home screen"><div class="scr"><span class="slot">Image: V3 home. AI greeting, two plan chips, “Not my thing”</span></div></div>
+        <span class="sticker ink s1 pop"><b>+25.3%</b>D7 retention</span>
+        <span class="sticker s2 pop"><b>15K+</b>users</span>
       </div>
     </div>
 
     <dl class="tldr">
-      <div><dt>My role</dt><dd>Problem framing, PRD, UI, AI behavior. The only designer.</dd></div>
-      <div><dt>With</dt><dd>CEO · 3 Engineers · Marketing · Ops</dd></div>
-      <div><dt>Results</dt><dd>Posts a day: 2–3 → 10+</dd></div>
+      <div><dt>I owned</dt><dd>Strategy to ship. Problem framing, AI behavior spec, UI. The only designer.</dd></div>
+      <div><dt>With</dt><dd>CEO · 3 Engineers · ML Engineer · Marketing · Ops</dd></div>
+      <div><dt>Results</dt><dd>D7 retention +25.3%. Growth features drove 44.6% of new users.</dd></div>
     </dl>
   </div>
 </header>
 
 <section id="highlights">
   <div class="wrap">
-    <div class="head"><span class="pill">Highlights</span><h2 class="big">Wander AI asks first,<br><span class="pk">then finds your people.</span></h2></div>
+    <div class="head"><span class="pill">Highlights</span><h2 class="big">Wander asks first, <span class="pk">then brings users in.</span></h2></div>
     <div class="feats">
-      <article class="feat"><div class="fshot"><div class="phone mp phimg" aria-label="Wander AI question"><div class="scr"><span class="slot">Image: Wander AI question</span></div></div></div><div class="ft"><span class="k">Ask</span><h3>The feed starts with a question.</h3><p>Wander AI asks what you're into. You tap an answer.</p></div></article>
-      <article class="feat"><div class="fshot"><div class="phone mp phimg" aria-label="Match page"><div class="scr"><span class="slot">Image: Match page</span></div></div></div><div class="ft"><span class="k">Match</span><h3>Matched to your answer.</h3><p>People, groups or events. Each one says why.</p></div></article>
-      <article class="feat"><div class="fshot"><div class="phone mp phimg" aria-label="AI draft post"><div class="scr"><span class="slot">Image: AI draft post</span></div></div></div><div class="ft"><span class="k">No match → Post</span><h3>AI writes your first post.</h3><p>A draft from your answers, so others can find you.</p></div></article>
-      <article class="feat"><div class="fshot"><div class="phone mp phimg" aria-label="Paid activity"><div class="scr"><span class="slot">Image: Paid activity</span></div></div></div><div class="ft"><span class="k">No match → Meet</span><h3>Still no one? We host it.</h3><p>Wander gathers people like you into a paid activity. You just join.</p></div></article>
+      <article class="feat"><div class="fshot"><div class="phone mp phimg" aria-label="Halloween question"><div class="scr"><span class="slot">Image: “Halloween’s this Saturday. Got plans yet?” with 3 chips</span></div></div></div><div class="ft"><span class="k">Ask</span><h3>Ask before showing.</h3><p>One question per screen, three at most.</p></div></article>
+      <article class="feat"><div class="fshot"><div class="phone mp phimg" aria-label="Three picks"><div class="scr"><span class="slot">Image: 3 event cards, top pick badge, one line of why</span></div></div></div><div class="ft"><span class="k">Pick</span><h3>Three picks. One reason each.</h3><p>Built only from real event data.</p></div></article>
+      <article class="feat"><div class="fshot"><div class="phone mp phimg" aria-label="Group chat draft"><div class="scr"><span class="slot">Image: group chat with an AI-drafted first message</span></div></div></div><div class="ft"><span class="k">Join</span><h3>Wander drafts the hello. The user sends it.</h3><p>Who’s going, plus a first message the user can edit.</p></div></article>
+      <article class="feat"><div class="fshot"><div class="phone mp phimg" aria-label="Check-in"><div class="scr"><span class="slot">Image: “How was spooky movie night?” check-in</span></div></div></div><div class="ft"><span class="k">Learn</span><h3>Ask how it went.</h3><p>One plan becomes a habit. A “no” rules out one thing, not everything.</p></div></article>
     </div>
+
   </div>
 </section>
 
@@ -621,39 +763,87 @@ h3.lg{font-size:clamp(28px,3.4vw,44px)}
   <div class="wrap">
     <div class="head">
       <span class="pill">Background &amp; problem</span>
-      <h2 class="big">Everyone watched.<br><span class="pk">Few posted.</span></h2>
-      <p class="lede">Wander helps people in Toronto meet in real life. The feed is where every first move starts.</p>
+      <h2 class="big">Users joined groups. <span class="pk">Then nothing happened.</span></h2>
+      <p class="lede">Wander helps people in Toronto meet up in real life. Joining was easy. Knowing what to do next wasn’t.</p>
     </div>
     <div class="hs">
       <div class="slot">Image: the old feed</div>
       <div class="signal">
-        <b>2–3</b>
-        <p>new posts a day, from 8,800 people.</p>
-        <span class="k">~750 posts in total</span>
+        <b>76.4%</b>
+        <p>of users joined a group.</p>
+        <span class="k">2.5 groups per user, on average</span>
       </div>
     </div>
 
+  </div>
+</section>
 
-    <div class="block" id="research" style="margin-top:112px">
+<section id="tries">
+  <div class="wrap">
+    <div class="head">
+      <span class="pill">First try</span>
+      <h2 class="big">I redesigned the feed first. <span class="pk">It wasn’t enough.</span></h2>
+    </div>
+    <div class="ba-row">
+      <div class="ba-box b"><div class="t"><span class="lab">ORIGINAL</span><p class="cap"><b>An endless feed.</b> The same groups, again and again.</p></div><div class="shot"><span class="slot">Image: V1 feed</span></div></div>
+      <div class="ba-box b"><div class="t"><span class="lab">REDESIGN</span><p class="cap"><b>Six cards + an AI that explains them.</b> Still no taps.</p></div><div class="shot"><span class="slot">Image: V2 card with AI below</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="night" id="still">
+  <div class="wrap turn">
+    <div>
+      <span class="pill">How users saw the redesign</span>
+      <h2>Better cards. <span>Still no taps. No one showed up.</span></h2>
+    </div>
+    <svg viewBox="0 0 300 300" role="img" aria-label="A phone showing a card and AI text, with the user swiping past it">
+      <rect x="60" y="14" width="150" height="272" rx="26" fill="none" stroke="#FFF8FB" stroke-width="4"/>
+      <rect x="78" y="40" width="114" height="120" rx="12" fill="#FFF8FB"/>
+      <g stroke="#6E6670" stroke-width="6" stroke-linecap="round"><path d="M80 182H190"/><path d="M80 200H190"/><path d="M80 218H170"/><path d="M80 236H150"/></g>
+      <g fill="none" stroke="#FF4FA3" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M250 230V80"/><path d="M228 102L250 80L272 102"/></g>
+    </svg>
+  </div>
+</section>
+
+<section id="research" class="tint">
+  <div class="wrap">
+    <div>
       <div class="head">
         <span class="pill">Research</span>
-        <h2 class="big">I talked to 8 users about the feed.</h2>
+        <h2 class="big">Before another redesign, <span class="pk">I asked why.</span></h2>
+      </div>
+      <div class="onums rs" style="margin-bottom:48px">
+        <div><b class="ink">6</b><span>User interviews</span></div>
+        <div><b>0.45%</b><span>of active users had a clear plan</span></div>
       </div>
       <div class="finds">
-        <div class="find"><span class="k">Finding 01</span><p>Posts read negative. They didn't want to meet those people.</p><q>A lot of people write like they have no friends.</q></div>
-        <div class="find"><span class="k">Finding 02</span><p>A blank box. They didn't know what to write.</p><q>I don't know what to post. This isn't Instagram. I don't know what to share.</q></div>
-        <div class="find"><span class="k">Finding 03</span><p>Too many picks. Most didn't fit.</p><q>It shows me 20 groups every time, and they don't all fit me. I just want a few that are right.</q></div>
+        <div class="find"><span class="k">Finding 01</span><p>The AI went unnoticed.</p><q>I didn’t notice the AI.</q></div>
+        <div class="find"><span class="k">Finding 02</span><p>Nothing came back.</p><q>I said what I wanted. Nothing came up. So I stopped.</q></div>
+        <div class="find"><span class="k">Finding 03</span><p>No one to go with.</p><q>Partiful is for people I know. Going alone to a stranger’s event isn’t fun.</q></div>
+      </div>
       </div>
     </div>
 
-    <h3 style="margin-top:112px">Wander helped with one step. <span class="pk">Users were on their own for four.</span></h3>
-    <ol class="journey" aria-label="Five steps to meeting someone">
-      <li class="ok"><span class="tg">✓ Wander</span><b>Browse</b><p>Scrolls the feed.</p></li>
-      <li><span class="tg">Stuck</span><b>Find</b><p>None feel right.</p></li>
-      <li><span class="tg">Stuck</span><b>Post</b><p>Nothing to say.</p></li>
-      <li><span class="tg">Stuck</span><b>Say hi</b><p>No reason to start a chat.</p></li>
-      <li><span class="tg">Stuck</span><b>Show up</b><p>No one to go with.</p></li>
-    </ol>
+  </div>
+</section>
+
+<section id="friend">
+  <div class="wrap">
+    <div>
+      <div class="head">
+        <h2 class="big">How a friend invites you out.</h2>
+        <p class="lede">Wander only did one step.</p>
+      </div>
+      <ol class="journey six" aria-label="Six steps a friend takes to invite you out">
+        <li><span class="tg">01</span><b>Ask</b><p>“Doing anything this weekend?”</p></li>
+        <li class="ok"><span class="tg">02 · ✓ Wander had this</span><b>Suggest</b><p>“There’s a Halloween party Saturday.”</p></li>
+        <li><span class="tg">03</span><b>Adjust</b><p>“Not a party person? Pottery night.”</p></li>
+        <li><span class="tg">04</span><b>Who’s going</b><p>“Me, Sam, and a few people.”</p></li>
+        <li><span class="tg">05</span><b>Bring you in</b><p>“I’ll add you to the group chat.”</p></li>
+        <li><span class="tg">06</span><b>Follow up</b><p>“How was it?”</p></li>
+      </ol>
+    </div>
   </div>
 </section>
 
@@ -661,7 +851,7 @@ h3.lg{font-size:clamp(28px,3.4vw,44px)}
   <div class="wrap turn">
     <div>
       <span class="pill">Insight</span>
-      <h2>To help people meet, <span>we had to know them better.</span></h2>
+      <h2>Users didn’t need more options. <span>They needed someone to ask.</span></h2>
     </div>
     <svg viewBox="56 34 296 294" role="img" aria-label="One pink person connected to three others">
       <g fill="none" stroke="#4A4640" stroke-width="4" stroke-linecap="round">
@@ -675,134 +865,82 @@ h3.lg{font-size:clamp(28px,3.4vw,44px)}
   </div>
 </section>
 
-<section id="process">
+<section id="v3">
   <div class="wrap">
     <div class="head">
-      <span class="pill">Scope</span>
-      <h2 class="big">Six a day, <span class="pk">not endless.</span></h2>
-      <p class="lede">We only had about six good cards per person, per day. So I designed for scarcity, not scroll.</p>
+      <span class="pill">Key decision</span>
+      <h2 class="big">Not an AI feature. <span class="pk">An AI friend.</span></h2>
+      <p class="lede">It needed a new backend. I convinced the CEO it was worth it.</p>
     </div>
-    <div class="supply">
-      <div class="sg base"><div class="tiles"><i></i><i></i><i></i><i></i><i></i><i></i></div><span class="k">Every day</span><b>6 good cards</b></div>
-      <div class="earn">
-      <div class="sg"><div class="tiles"><i class="e"></i><i class="e"></i></div><span class="k">+2</span><b>Post</b></div>
-      <div class="sg"><div class="tiles"><i class="e"></i><i class="e"></i></div><span class="k">+2</span><b>Create a group</b></div>
-      <div class="sg"><div class="tiles"><i class="e"></i><i class="e"></i></div><span class="k">+2</span><b>Share</b></div>
-      </div>
+    <div class="opts">
+      <article class="feat"><div class="ft"><span class="lab">Assistant</span></div><div class="fshot"><div class="phone mp phimg" aria-label="Assistant"><div class="scr"><span class="slot">Image: V2 card with AI explainer below</span></div></div></div></article>
+      <article class="feat"><div class="ft"><span class="lab">Matchmaker AI</span></div><div class="fshot"><div class="phone mp phimg" aria-label="Matchmaker AI"><div class="scr"><span class="slot">Image: AI-picked match list</span></div></div></div></article>
+      <article class="feat on"><div class="ft"><span class="lab">A friend who asks first</span></div><div class="fshot"><div class="phone mp phimg" aria-label="A friend who asks first"><div class="scr"><span class="slot">Image: AI question card with chips</span></div></div></div></article>
     </div>
-
     <div class="block">
-      <div class="head"><h2 class="big" style="max-width:none">One month, two versions.<br><span class="pk">The second one asks back.</span></h2></div>
-      <div class="ba-row">
-        <div class="ba-box b"><div class="t"><span class="lab">VERSION 1</span><p class="cap"><b>The new feed.</b> Better to look at. Posting barely moved.</p></div><div class="shot"><span class="slot">Screenshot</span></div></div>
-        <div class="ba-box a"><div class="t"><span class="lab">VERSION 2</span><p class="cap"><b>Wander AI.</b> Ask first, then match.</p></div><div class="shot"><span class="slot">Screenshot</span></div></div>
+    <div class="head">
+      <span class="pill">Design process</span>
+      <h2 class="big">Conversation first. <span class="pk">Screens last.</span></h2>
+      <p class="lede">A friend can make any plan happen. An AI can’t. So I designed the behavior before the UI.</p>
+    </div>
+    <ol class="proc">
+      <li><div class="pv"><svg viewBox="0 0 200 120" aria-hidden="true"><rect x="20" y="20" width="110" height="26" rx="13" fill="#111111"/><rect x="80" y="54" width="100" height="26" rx="13" fill="#FFFFFF" stroke="#111111" stroke-width="2"/><rect x="20" y="88" width="80" height="26" rx="13" fill="#111111"/></svg></div><div class="pt"><span class="pn">01 · Sample dialogs</span><b>Write it like a human.</b><p>Wrote the ideal chat, the way a friend would.</p></div></li>
+      <li><div class="pv"><div class="scen"><span>No idea yet</span><span>Has a plan</span><span>Nothing matches</span><span>New in town</span><span>After the event</span><span class="h">Host needs people</span></div></div><div class="pt"><span class="pn">02 · Scenario mapping</span><b>Map every situation.</b><p>Six situations, two paths: users who need a plan, hosts who need people.</p></div></li>
+      <li><div class="pv"><svg viewBox="0 0 200 120" aria-hidden="true"><rect x="16" y="16" width="70" height="88" rx="10" fill="#FFFFFF" stroke="#111111" stroke-width="2"/><g stroke="#111111" stroke-width="3" stroke-linecap="round"><path d="M30 38H72M30 54H72M30 70H60"/></g><path d="M96 60H118" stroke="#111111" stroke-width="2" stroke-dasharray="3 4"/><g fill="#FFFFFF" stroke="#111111" stroke-width="2"><circle cx="140" cy="38" r="12"/><circle cx="172" cy="60" r="12"/><circle cx="140" cy="84" r="12"/></g></svg></div><div class="pt"><span class="pn">03 · User testing</span><b>Read it to real users.</b><p>Read the scripts to real users. Rewrote what felt off.</p></div></li>
+      <li><div class="pv"><svg viewBox="0 0 200 120" aria-hidden="true"><g fill="#111111"><circle cx="50" cy="60" r="18"/><circle cx="100" cy="60" r="18"/><circle cx="150" cy="60" r="18"/></g><g fill="#FFFFFF" font-family="IBM Plex Mono, monospace" font-size="16" text-anchor="middle"><text x="50" y="66">1</text><text x="100" y="66">2</text><text x="150" y="66">3</text></g></svg></div><div class="pt"><span class="pn">04 · Human vs AI</span><b>Set the rules an AI can keep.</b><p>Real plans only. No dead ends. Remember every answer.</p></div></li>
+      <li><div class="pv"><svg viewBox="0 0 200 120" aria-hidden="true"><g fill="none" stroke="#111111" stroke-width="2"><path d="M100 18V40M100 40H40V62M100 40V62M100 40H160V62M40 70L22 98M40 70L58 98M100 70L82 98M100 70L118 98M160 70L142 98M160 70L178 98"/></g><circle cx="100" cy="14" r="9" fill="#111111"/><g fill="#FFFFFF" stroke="#111111" stroke-width="2"><circle cx="40" cy="66" r="7"/><circle cx="100" cy="66" r="7"/><circle cx="160" cy="66" r="7"/><circle cx="22" cy="104" r="6"/><circle cx="58" cy="104" r="6"/><circle cx="82" cy="104" r="6"/><circle cx="118" cy="104" r="6"/><circle cx="142" cy="104" r="6"/><circle cx="178" cy="104" r="6"/></g></svg></div><div class="pt"><span class="pn">05 · Evals, with ML</span><b>Turn it into tests.</b><p>Every branch became a test. 54 in total.</p></div></li>
+    </ol>
+    </div>
+  </div>
+</section>
+
+<section id="flow" class="tint">
+  <div class="wrap">
+    <div class="head">
+      <span class="pill">Core flow</span>
+      <h2 class="big">What a friend does. <span class="pk">What Wander does.</span></h2>
+    </div>
+    <div class="cf-tabs" role="tablist" aria-label="Core flow steps"><button type="button" role="tab" id="cf-t0" aria-selected="true" aria-controls="cf-p0"><span>01</span>Ask</button><button type="button" role="tab" id="cf-t1" aria-selected="false" aria-controls="cf-p1"><span>02</span>Suggest</button><button type="button" role="tab" id="cf-t2" aria-selected="false" aria-controls="cf-p2"><span>03</span>Adjust</button><button type="button" role="tab" id="cf-t3" aria-selected="false" aria-controls="cf-p3"><span>04</span>Who’s going</button><button type="button" role="tab" id="cf-t4" aria-selected="false" aria-controls="cf-p4"><span>05</span>Bring you in</button><button type="button" role="tab" id="cf-t5" aria-selected="false" aria-controls="cf-p5"><span>06</span>Follow up</button></div>
+    <div class="cf">
+      <div class="cf-pair" role="tabpanel" id="cf-p0" aria-labelledby="cf-t0">
+        <article class="cf-h"><div class="cf-top"><span class="cf-lab">A friend</span><span class="cf-n">1 / 6</span></div><h3>“Doing anything this weekend?”</h3><p>A friend asks before suggesting.</p></article>
+        <article class="cf-w"><div class="cf-top"><span class="cf-lab">Wander</span><span class="cf-n">1 / 6</span></div><h3>Wander asks first.</h3><p>Real plans are the answers.</p><div class="cf-shot"><span class="slot">Image: AI question card with plan chips</span></div></article>
+      </div>
+      <div class="cf-pair" role="tabpanel" id="cf-p1" aria-labelledby="cf-t1" hidden>
+        <article class="cf-h"><div class="cf-top"><span class="cf-lab">A friend</span><span class="cf-n">2 / 6</span></div><h3>“There’s a Halloween party Saturday.”</h3><p>One real plan, not a list.</p></article>
+        <article class="cf-w"><div class="cf-top"><span class="cf-lab">Wander</span><span class="cf-n">2 / 6</span></div><h3>Three picks. One reason each.</h3><p>Built only from real events.</p><div class="cf-shot"><span class="slot">Image: 3 picks with one line of why</span></div></article>
+      </div>
+      <div class="cf-pair" role="tabpanel" id="cf-p2" aria-labelledby="cf-t2" hidden>
+        <article class="cf-h"><div class="cf-top"><span class="cf-lab">A friend</span><span class="cf-n">3 / 6</span></div><h3>“Not a party person? Pottery night.”</h3><p>A “no” changes the plan, not the friendship.</p></article>
+        <article class="cf-w"><div class="cf-top"><span class="cf-lab">Wander</span><span class="cf-n">3 / 6</span></div><h3>A “no” rules out one thing.</h3><p>Then Wander asks what else.</p><div class="cf-shot"><span class="slot">Image: follow-up after “Not my thing”</span></div></article>
+      </div>
+      <div class="cf-pair" role="tabpanel" id="cf-p3" aria-labelledby="cf-t3" hidden>
+        <article class="cf-h"><div class="cf-top"><span class="cf-lab">A friend</span><span class="cf-n">4 / 6</span></div><h3>“Me, Sam, and a few people.”</h3><p>You won’t walk in alone.</p></article>
+        <article class="cf-w"><div class="cf-top"><span class="cf-lab">Wander</span><span class="cf-n">4 / 6</span></div><h3>Shows who’s going.</h3><p>Faces before the RSVP.</p><div class="cf-shot"><span class="slot">Image: event page with attendees</span></div></article>
+      </div>
+      <div class="cf-pair" role="tabpanel" id="cf-p4" aria-labelledby="cf-t4" hidden>
+        <article class="cf-h"><div class="cf-top"><span class="cf-lab">A friend</span><span class="cf-n">5 / 6</span></div><h3>“I’ll add you to the group chat.”</h3><p>The hardest part is the first hello.</p></article>
+        <article class="cf-w"><div class="cf-top"><span class="cf-lab">Wander</span><span class="cf-n">5 / 6</span></div><h3>Drafts the first hello.</h3><p>The user edits and sends it.</p><div class="cf-shot"><span class="slot">Image: group chat with AI draft</span></div></article>
+      </div>
+      <div class="cf-pair" role="tabpanel" id="cf-p5" aria-labelledby="cf-t5" hidden>
+        <article class="cf-h"><div class="cf-top"><span class="cf-lab">A friend</span><span class="cf-n">6 / 6</span></div><h3>“How was it?”</h3><p>Next time, the plan fits better.</p></article>
+        <article class="cf-w"><div class="cf-top"><span class="cf-lab">Wander</span><span class="cf-n">6 / 6</span></div><h3>Asks how it went.</h3><p>And remembers the answer.</p><div class="cf-shot"><span class="slot">Image: check-in card</span></div></article>
       </div>
     </div>
   </div>
 </section>
 
-<section id="design" class="tint">
+<section id="after">
   <div class="wrap">
     <div class="head">
-      <span class="pill">Version 1 · The new feed</span>
-      <h2 class="big">Fewer cards. <span class="pk">Better ones.</span></h2>
+      <span class="pill">After launch</span>
+      <h2 class="big">54 tests got Wander live. <span class="pk">Real people found the rest.</span></h2>
+      <p class="lede">Weekly error analysis: find a case, write a test, fix the line, ship. This case became test #55.</p>
     </div>
-    <div class="block" style="margin-top:0">
-      <div class="head"><h3>How many cards a day?<br><span class="pk">Six good ones.</span></h3></div>
-      <div class="ba-row tri">
-        <div class="ba-box b"><div class="t"><span class="lab">TRY 1</span><p class="cap">Endless feed.</p></div><div class="shot"><span class="slot">Screenshot</span></div></div>
-        <div class="ba-box b"><div class="t"><span class="lab">TRY 2</span><p class="cap">15 a day + paywall.</p></div><div class="shot"><span class="slot">Screenshot</span></div></div>
-        <div class="ba-box a"><div class="t"><span class="lab">SHIPPED</span><p class="cap">6 good cards a day.</p></div><div class="shot"><span class="slot">Screenshot</span></div></div>
-      </div>
+    <div class="ba-row">
+      <div class="ba-box b"><div class="t"><span class="lab">BEFORE</span><p class="cap"><b>One “no” hid hiking forever.</b> The user loved hiking, until it got cold.</p></div><div class="shot"><span class="slot">Image: user taps “Not my thing” on a hike</span></div></div>
+      <div class="ba-box a"><div class="t"><span class="lab">AFTER</span><p class="cap"><b>“Not hikes, or not this weather?”</b> Too cold. Indoor climbing, Sunday.</p></div><div class="shot"><span class="slot">Image: the follow-up question and new card</span></div></div>
     </div>
-    <div class="block">
-      <div class="head"><h3>How do people browse?<br><span class="pk">One card at a time.</span></h3></div>
-      <div class="ba-row">
-        <div class="ba-box b"><div class="t"><span class="lab">BEFORE</span><p class="cap">A long list.</p></div><div class="shot"><span class="slot">Screenshot</span></div></div>
-        <div class="ba-box a"><div class="t"><span class="lab">AFTER</span><p class="cap">One card, one swipe.</p></div><div class="shot"><span class="slot">Screenshot</span></div></div>
-      </div>
-    </div>
-    <div class="block">
-      <div class="head"><h3>People, groups, events?<br><span class="pk">Each its own look.</span></h3></div>
-      <div class="ba-row tri">
-        <div class="ba-box b"><div class="t"><span class="lab">PEOPLE</span></div><div class="shot"><span class="slot">Screenshot</span></div></div>
-        <div class="ba-box b"><div class="t"><span class="lab">GROUP</span></div><div class="shot"><span class="slot">Screenshot</span></div></div>
-        <div class="ba-box b"><div class="t"><span class="lab">EVENT</span><p class="cap">Tap to open.</p></div><div class="shot"><span class="slot">Screenshot</span></div></div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<section class="night" id="v1-problem">
-  <div class="wrap turn">
-    <div>
-      <span class="pill">Problem</span>
-      <h2>Better to look at. <span>Still almost no one posted.</span></h2>
-    </div>
-    <svg viewBox="0 0 300 240" role="img" aria-label="Six cards to look at, and one small post">
-      <g fill="#FFF8FB"><rect x="10" y="20" width="76" height="100" rx="12"/><rect x="112" y="20" width="76" height="100" rx="12"/><rect x="214" y="20" width="76" height="100" rx="12"/><rect x="10" y="134" width="76" height="100" rx="12" opacity=".35"/><rect x="112" y="134" width="76" height="100" rx="12" opacity=".35"/><rect x="214" y="134" width="76" height="100" rx="12" opacity=".35"/></g>
-      <circle cx="252" cy="184" r="14" fill="#FF4FA3"/>
-    </svg>
-  </div>
-</section>
-
-<section id="design-v2" class="tint">
-  <div class="wrap">
-    <div class="head">
-      <span class="pill">Version 2 · Wander AI</span>
-      <h2 class="big">AI asks first. <span class="pk">Cards answer.</span></h2>
-    </div>
-    <div class="block" style="margin-top:0">
-      <div class="head"><h3>Where does the AI live?<br><span class="pk">Not in a corner. Everywhere.</span></h3></div>
-      <div class="ba-row">
-        <div class="ba-box b"><div class="t"><span class="lab">BEFORE</span><p class="cap">An icon in the corner.</p></div><div class="shot"><span class="slot">Screenshot</span></div></div>
-        <div class="ba-box a"><div class="t"><span class="lab">AFTER</span><p class="cap">The whole app is a chat.</p></div><div class="shot"><span class="slot">Screenshot</span></div></div>
-      </div>
-    </div>
-
-    <div class="block demo">
-      <div class="head" style="margin:0">
-        <span class="pill">How it works</span>
-        <h3 class="lg">One answer<br><span class="pk">decides what's next.</span></h3>
-        <p class="lede">Match: three picks, each with a reason. No match: three ways forward.</p>
-        <span class="sticker tryit">Tap an answer in the phone</span>
-      </div>
-      <div class="phone" aria-label="Interactive Wander AI feed, sample content">
-        <div class="scr">
-          <div class="sb"><b>9:41</b><i class="island"></i><span>●●● ▮</span></div>
-          <div class="nb"><b>Wander</b><span>Sample</span></div>
-          <p class="greet">Good evening ✦ Wander AI</p>
-          <p class="bubble">How long have you played tennis?</p>
-          <div class="ans" id="ans">
-            <button type="button" id="a-new" aria-pressed="true">Total beginner</button>
-            <button type="button" id="a-some" aria-pressed="false">A few months</button>
-            <button type="button" id="a-years" aria-pressed="false">Years</button>
-          </div>
-          <div class="out" id="out" aria-live="polite"></div>
-        </div>
-        <div class="tabs" aria-hidden="true"><b>Feed</b><span>Groups</span><span>Chats</span><span>Me</span></div>
-      </div>
-    </div>
-
-    <div class="block">
-      <div class="head"><h3>Match?<br><span class="pk">The reason comes first.</span></h3></div>
-      <div class="ba-row">
-        <div class="ba-box b"><div class="t"><span class="lab">BEFORE</span><p class="cap">20 groups, no reason.</p></div><div class="shot"><span class="slot">Screenshot</span></div></div>
-        <div class="ba-box a"><div class="t"><span class="lab">AFTER</span><p class="cap">3 picks, each with a reason.</p></div><div class="shot"><span class="slot">Screenshot</span></div></div>
-      </div>
-    </div>
-
-    <div class="block">
-      <div class="head" style="margin-bottom:24px"><h3>No match?<br><span class="pk">Never a dead end.</span></h3></div>
-      <div class="steps" role="tablist" aria-label="No match cases"><button type="button" role="tab" id="t-post" aria-selected="true" aria-controls="p-post"><span>01</span>Post</button><button type="button" role="tab" id="t-group" aria-selected="false" aria-controls="p-group"><span>02</span>Group</button><button type="button" role="tab" id="t-paid" aria-selected="false" aria-controls="p-paid"><span>03</span>Paid activity</button></div>
-      <div class="case" role="tabpanel" id="p-post" aria-labelledby="t-post"><div class="t"><h4>A draft from your answers.</h4><p>Wander turns your answers into a post. You edit it and share.</p></div><div class="shot"><span class="slot">Screenshot</span></div></div><div class="case" role="tabpanel" id="p-group" aria-labelledby="t-group" hidden><div class="t"><h4>Wander builds one.</h4><p>Start a group, or let Wander set it up for you.</p></div><div class="shot"><span class="slot">Screenshot</span></div></div><div class="case" role="tabpanel" id="p-paid" aria-labelledby="t-paid" hidden><div class="t"><h4>We host it for you.</h4><p>We gather people like you into a paid session. You just join.</p></div><div class="shot"><span class="slot">Screenshot</span></div></div>
-    </div>
-
-    <div class="block">
-      <div class="head"><span class="pill" style="align-self:flex-start">AI rules</span><h3 class="lg">Real AI broke it.<br><span class="pk">So I set the rules.</span></h3><p class="lede">Four moments where the AI could go wrong.</p></div>
-      <ol class="when"><li class="wh" aria-hidden="true"><span class="k">If</span><i></i><span class="k">Then</span></li><li><b>AI is slow (4s+)</b><i aria-hidden="true">→</i><span>A friendly line, not a spinner</span></li><li><b>Already a match</b><i aria-hidden="true">→</i><span>Skip questions, show picks</span></li><li><b>Need to know more</b><i aria-hidden="true">→</i><span>3 taps, max</span></li><li><b>Nudge doesn't fit</b><i aria-hidden="true">→</i><span>Don't show it</span></li></ol>
-          </div>
   </div>
 </section>
 
@@ -810,12 +948,12 @@ h3.lg{font-size:clamp(28px,3.4vw,44px)}
   <div class="wrap">
     <div class="head">
       <span class="pill">Outcome</span>
-      <h2 class="big">From 2–3 posts a day <span class="pk">to 10+.</span></h2>
-      <p class="lede">One month after launch.</p>
+      <h2 class="big">People came back. <span class="pk">And brought friends.</span></h2>
     </div>
     <div class="onums">
-      <div><b>10+</b><span>New posts a day, up from 2–3</span></div>
-      <div><b>47.2%</b><span>Answered the Wander AI question</span></div>
+      <div><b>+25.3%</b><span>D7 retention</span></div>
+      <div><b>15K+</b><span>Users</span></div>
+      <div><b>44.6%</b><span>New users from growth features</span></div>
     </div>
   </div>
 </section>
@@ -847,7 +985,8 @@ h3.lg{font-size:clamp(28px,3.4vw,44px)}
           </g>
         </svg></div></li>
     </ol>
-    <div class="foot"><span>Work done at <a href="https://wander.one" target="_blank" rel="noopener">Wander Social ↗</a>, 2026</span></div>
+        <p class="thanks">Thank you<span>.</span></p>
+    <div class="foot"><span>Thanks for reading · Valen Qiu</span><span>Work done at <a href="https://wander.one" target="_blank" rel="noopener">Wander Social ↗</a>, 2026</span></div>
   </div>
 </section>
 
@@ -892,27 +1031,23 @@ document.querySelectorAll('#nav-mobile-menu a').forEach(a=>a.addEventListener('c
 <script>
 (function(){
   var outs={
-    'a-new':'<p class="why">No beginner match yet · 3 ways forward</p>'+
-      '<div class="row"><i style="background:#FFE3F0"></i><div class="t"><b>Post</b><span>“Total beginner, looking for a hitting partner.”</span></div></div>'+
-      '<div class="row"><i style="background:#E6EAFF"></i><div class="t"><b>Group</b><span>Start a beginner group, or let Wander build it.</span></div></div>'+
-      '<div class="row hi"><i style="background:#FFE14D"></i><div class="t"><b>Paid activity ✦</b><span>Join a beginner session with people like you.</span></div></div>',
-    'a-some':'<p class="why">Based on your Tennis pick</p>'+
-      '<div class="row hi"><i style="background:#2340FF"></i><div class="t"><b>Weekend rally group</b><span>Players a few months in</span></div></div>'+
-      '<div class="row"><i style="background:#FF4FA3"></i><div class="t"><b>A hitting partner nearby</b><span>Also started this year</span></div></div>'+
-      '<div class="row"><i style="background:#FFE14D"></i><div class="t"><b>Thursday doubles night</b><span>Event · RSVP</span></div></div>',
-    'a-years':'<p class="why">Based on your Tennis pick</p>'+
-      '<div class="row hi"><i style="background:#2340FF"></i><div class="t"><b>Competitive singles club</b><span>Weekly matches</span></div></div>'+
-      '<div class="row"><i style="background:#FF4FA3"></i><div class="t"><b>A partner at your level</b><span>Plays twice a week</span></div></div>'+
-      '<div class="row"><i style="background:#FFE14D"></i><div class="t"><b>Sunday ladder</b><span>Event · RSVP</span></div></div>'
+    'a-movie':'<p class="why">Top pick · because you like quiet nights</p>'+
+      '<div class="row hi"><i style="background:#2340FF"></i><div class="t"><b>Spooky movie night ✦</b><span>Fri, 8 PM · small group</span></div></div>'+
+      '<div class="row"><i style="background:#FF4FA3"></i><div class="t"><b>Pumpkin carving</b><span>Sat afternoon · cozy</span></div></div>'+
+      '<div class="row"><i style="background:#FFE14D"></i><div class="t"><b>Haunted walk</b><span>Sat, 7 PM · outdoors</span></div></div>',
+    'a-party':'<p class="why">One more question</p>'+
+      '<div class="row"><i style="background:#FFE3F0"></i><div class="t"><b>Big and loud, or small and chill?</b><span>Then 3 picks that fit</span></div></div>',
+    'a-no':'<p class="why">No worries · never a dead end</p>'+
+      '<div class="row"><i style="background:#FFE3F0"></i><div class="t"><b>Anything else you’re up for this week?</b><span>Tap a chip or type it</span></div></div>'+
+      '<div class="row hi"><i style="background:#FFE14D"></i><div class="t"><b>Nothing fits? Wander saves it ✦</b><span>Marketing and ops work on making it real</span></div></div>'
   };
   var ab=[].slice.call(document.querySelectorAll('#ans button')),out=document.getElementById('out');
   function pick(id){ab.forEach(function(b){b.setAttribute('aria-pressed',b.id===id?'true':'false')});out.innerHTML=outs[id]}
-  ab.forEach(function(b){b.addEventListener('click',function(){pick(b.id)})});
-  var tb=[].slice.call(document.querySelectorAll('.steps [role=tab]'));
-  tb.forEach(function(t){t.addEventListener('click',function(){tb.forEach(function(u){var on=u===t;u.setAttribute('aria-selected',on?'true':'false');document.getElementById(u.getAttribute('aria-controls')).hidden=!on;});});});
-  pick('a-new');
+  if(out){ab.forEach(function(b){b.addEventListener('click',function(){pick(b.id)})});pick('a-movie');}
+  var ct=[].slice.call(document.querySelectorAll('.cf-tabs [role=tab]'));
+  ct.forEach(function(t){t.addEventListener('click',function(){ct.forEach(function(u){var on=u===t;u.setAttribute('aria-selected',on?'true':'false');document.getElementById(u.getAttribute('aria-controls')).hidden=!on;});});});
   if(window.matchMedia&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&'IntersectionObserver' in window){
-    var els=[].slice.call(document.querySelectorAll('.head,.feats,.hs,.finds,.track,.tiers,.miles,.dec2 article,.ba-row,.edge,.onums,.oblocks,.lessons li'));
+    var els=[].slice.call(document.querySelectorAll('.head,.feats,.hs,.finds,.journey,.opts,.proc,.ba-row,.onums,.lessons li'));
     var vh=window.innerHeight;
     var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});
     els.forEach(function(el){if(el.getBoundingClientRect().top>vh){el.classList.add('reveal');io.observe(el)}});
