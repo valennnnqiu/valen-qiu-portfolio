@@ -455,9 +455,10 @@ h3.lg{font-size:clamp(28px,3.4vw,44px)}
 .onums:not(.rs){grid-template-columns:repeat(3,1fr);max-width:none}
 .onums:not(.rs) b{font-size:clamp(40px,7vw,88px)}
 .onums.rs>div+div{border-left:0}
-.onums.rs{max-width:none}
-.onums.rs>div{align-items:center;text-align:center;padding-inline:24px}
-.onums.rs>div+div{padding-left:24px}
+/* research numbers: left-aligned like the other case studies, over the first two finding cards */
+.onums.rs{grid-template-columns:repeat(3,minmax(0,1fr));column-gap:16px;max-width:none}
+.onums.rs>div,.onums.rs>div+div{padding:0;align-items:flex-start;text-align:left}
+@media (max-width:700px){.onums.rs{grid-template-columns:1fr 1fr}}
 .onums.rs b.ink{color:var(--ink)}
 .onums.rs b{font-size:clamp(56px,8vw,112px)}
 .onums.rs span{font-size:clamp(16px,1.6vw,20px)}
