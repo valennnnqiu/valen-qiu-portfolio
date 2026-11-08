@@ -573,6 +573,12 @@ h3.lg{font-size:clamp(28px,3.4vw,44px)}
   .nav a.l{transition:background-color .2s,color .2s,transform .2s}
   .nav a.l:hover{transform:translateY(-1px)}
 }
+/* Show plans vs ask first: two-up comparison */
+.opts.pair2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.opts.pair2 .phone.mp{width:44%}
+.opts .cap2{text-align:center;font-size:17px;color:var(--ink-2);padding:0 8px 12px}
+@media (max-width:700px){.opts.pair2{grid-template-columns:1fr}.opts.pair2 .cap2{font-size:16px}}
+.opts .ft p{font-size:17px;color:var(--ink-2);max-width:none}
 /* type scale matched to the GAuth case study: same sizes, same weights, same tracking */
 h2.big{letter-spacing:-.035em}
 h3{letter-spacing:-.02em}
@@ -769,7 +775,7 @@ h3{letter-spacing:-.02em}
   <div class="wrap">
     <div class="head"><span class="pill">Highlights</span></div>
     <div class="feats">
-      <article class="feat"><div class="fshot"><div class="phone mp phimg" aria-label="Halloween question"><div class="scr"><span class="slot">Image: “Halloween’s this Saturday. Got plans yet?” with 3 chips</span></div></div></div><div class="ft"><span class="k">Ask</span><h3>Ask before showing.</h3><p>One question per screen, three at most.</p></div></article>
+      <article class="feat"><div class="fshot"><div class="phone mp phimg" aria-label="Halloween question"><div class="scr"><span class="slot">Image: “Halloween’s this Saturday. Got plans yet?” with 3 chips</span></div></div></div><div class="ft"><span class="k">Ask</span><h3>Ask before showing.</h3><p>Two real plans, not an open question.</p></div></article>
       <article class="feat"><div class="fshot"><div class="phone mp phimg" aria-label="Three picks"><div class="scr"><span class="slot">Image: 3 event cards, top pick badge, one line of why</span></div></div></div><div class="ft"><span class="k">Pick</span><h3>Three picks. One reason each.</h3><p>Built only from real event data.</p></div></article>
       <article class="feat"><div class="fshot"><div class="phone mp phimg" aria-label="Group chat draft"><div class="scr"><span class="slot">Image: group chat with an AI-drafted first message</span></div></div></div><div class="ft"><span class="k">Join</span><h3>Wander drafts the hello. The user sends it.</h3><p>Who’s going, plus a first message the user can edit.</p></div></article>
       <article class="feat"><div class="fshot"><div class="phone mp phimg" aria-label="Check-in"><div class="scr"><span class="slot">Image: “How was spooky movie night?” check-in</span></div></div></div><div class="ft"><span class="k">Learn</span><h3>Ask how it went.</h3><p>One plan becomes a habit. A “no” rules out one thing, not everything.</p></div></article>
@@ -834,7 +840,7 @@ h3{letter-spacing:-.02em}
       </div>
       <div class="onums rs" style="margin-bottom:48px">
         <div><b class="ink">6</b><span>User interviews</span></div>
-        <div><b>0.45%</b><span>of active users had a clear plan</span></div>
+        <div><b>0.45%</b><span>of users who typed had a clear plan</span></div>
       </div>
       <div class="finds">
         <div class="find"><span class="k">Finding 01</span><p>The AI went unnoticed.</p><q>I didn’t notice the AI.</q></div>
@@ -898,6 +904,16 @@ h3{letter-spacing:-.02em}
     </div>
     <div class="block">
     <div class="head">
+      <h2 class="big">Show plans, or ask first? <span class="pk">Wander asks first.</span></h2>
+      <p class="lede">Most users had no plan. Picking one of two is easy, and each tap teaches Wander.</p>
+    </div>
+    <div class="opts pair2">
+      <article class="feat"><div class="ft"><span class="lab">Show cards first</span></div><div class="fshot"><div class="phone mp phimg" aria-label="Show cards first"><div class="scr"><span class="slot">GIF: a list of event cards, user scrolls past</span></div></div></div><p class="cap2">Users scroll, compare, and leave.</p></article>
+      <article class="feat on"><div class="ft"><span class="lab">Ask first, then show</span></div><div class="fshot"><div class="phone mp phimg" aria-label="Ask first, then show"><div class="scr"><span class="slot">GIF: question with two real plans, user taps one, its card appears</span></div></div></div><p class="cap2">One tap, then the card that fits.</p></article>
+    </div>
+    </div>
+    <div class="block">
+    <div class="head">
       <span class="pill">Design process</span>
       <h2 class="big">Conversation first. <span class="pk">Screens last.</span></h2>
       <p class="lede">A friend can make any plan happen. An AI can’t. So I designed the behavior before the UI.</p>
@@ -919,31 +935,43 @@ h3{letter-spacing:-.02em}
       <span class="pill">Core flow</span>
       <h2 class="big">What a friend does. <span class="pk">What Wander does.</span></h2>
     </div>
-    <div class="cf-tabs" role="tablist" aria-label="Core flow steps"><button type="button" role="tab" id="cf-t0" aria-selected="true" aria-controls="cf-p0"><span>01</span>Ask</button><button type="button" role="tab" id="cf-t1" aria-selected="false" aria-controls="cf-p1"><span>02</span>Suggest</button><button type="button" role="tab" id="cf-t2" aria-selected="false" aria-controls="cf-p2"><span>03</span>Adjust</button><button type="button" role="tab" id="cf-t3" aria-selected="false" aria-controls="cf-p3"><span>04</span>Who’s going</button><button type="button" role="tab" id="cf-t4" aria-selected="false" aria-controls="cf-p4"><span>05</span>Bring you in</button><button type="button" role="tab" id="cf-t5" aria-selected="false" aria-controls="cf-p5"><span>06</span>Follow up</button></div>
+    <div class="cf-tabs" role="tablist" aria-label="Core flow steps"><button type="button" role="tab" id="cf-t0" aria-selected="true" aria-controls="cf-p0"><span>01</span>Ask</button><button type="button" role="tab" id="cf-t1" aria-selected="false" aria-controls="cf-p1"><span>02</span>Wait</button><button type="button" role="tab" id="cf-t2" aria-selected="false" aria-controls="cf-p2"><span>03</span>Suggest</button><button type="button" role="tab" id="cf-t3" aria-selected="false" aria-controls="cf-p3"><span>04</span>Adjust</button><button type="button" role="tab" id="cf-t4" aria-selected="false" aria-controls="cf-p4"><span>05</span>No match</button><button type="button" role="tab" id="cf-t5" aria-selected="false" aria-controls="cf-p5"><span>06</span>Found it</button><button type="button" role="tab" id="cf-t6" aria-selected="false" aria-controls="cf-p6"><span>07</span>Who’s going</button><button type="button" role="tab" id="cf-t7" aria-selected="false" aria-controls="cf-p7"><span>08</span>Bring you in</button><button type="button" role="tab" id="cf-t8" aria-selected="false" aria-controls="cf-p8"><span>09</span>Follow up</button></div>
     <div class="cf">
       <div class="cf-pair" role="tabpanel" id="cf-p0" aria-labelledby="cf-t0">
-        <article class="cf-h"><div class="cf-top"><span class="cf-lab">A friend</span><span class="cf-n">1 / 6</span></div><h3>“Doing anything this weekend?”</h3><p>A friend asks before suggesting.</p></article>
-        <article class="cf-w"><div class="cf-top"><span class="cf-lab">Wander</span><span class="cf-n">1 / 6</span></div><h3>Wander asks first.</h3><p>Real plans are the answers.</p><div class="cf-shot"><span class="slot">Image: AI question card with plan chips</span></div></article>
+        <article class="cf-h"><div class="cf-top"><span class="cf-lab">A friend</span><span class="cf-n">1 / 9</span></div><h3>“Hey Mia, what are you doing for Halloween?”</h3><p>A friend starts with a question.</p></article>
+        <article class="cf-w"><div class="cf-top"><span class="cf-lab">Wander</span><span class="cf-n">1 / 9</span></div><h3>Two real plans for Friday.</h3><p>The user picks one, or types.</p><div class="cf-shot"><span class="slot">Image: “What are you up for this Friday?” with two plan chips</span></div></article>
       </div>
       <div class="cf-pair" role="tabpanel" id="cf-p1" aria-labelledby="cf-t1" hidden>
-        <article class="cf-h"><div class="cf-top"><span class="cf-lab">A friend</span><span class="cf-n">2 / 6</span></div><h3>“There’s a Halloween party Saturday.”</h3><p>One real plan, not a list.</p></article>
-        <article class="cf-w"><div class="cf-top"><span class="cf-lab">Wander</span><span class="cf-n">2 / 6</span></div><h3>Three picks. One reason each.</h3><p>Built only from real events.</p><div class="cf-shot"><span class="slot">Image: 3 picks with one line of why</span></div></article>
+        <article class="cf-h"><div class="cf-top"><span class="cf-lab">A friend</span><span class="cf-n">2 / 9</span></div><h3>“Not sure yet. Let me ask around.”</h3><p>Then goes to look.</p></article>
+        <article class="cf-w"><div class="cf-top"><span class="cf-lab">Wander</span><span class="cf-n">2 / 9</span></div><h3>Says what it’s doing.</h3><p>Slow or too many matches? One quick question. Over 10 seconds, it pings you later.</p><div class="cf-shot"><span class="slot">Image: grey status line and a follow-up question</span></div></article>
       </div>
       <div class="cf-pair" role="tabpanel" id="cf-p2" aria-labelledby="cf-t2" hidden>
-        <article class="cf-h"><div class="cf-top"><span class="cf-lab">A friend</span><span class="cf-n">3 / 6</span></div><h3>“Not a party person? Pottery night.”</h3><p>A “no” changes the plan, not the friendship.</p></article>
-        <article class="cf-w"><div class="cf-top"><span class="cf-lab">Wander</span><span class="cf-n">3 / 6</span></div><h3>A “no” rules out one thing.</h3><p>Then Wander asks what else.</p><div class="cf-shot"><span class="slot">Image: follow-up after “Not my thing”</span></div></article>
+        <article class="cf-h"><div class="cf-top"><span class="cf-lab">A friend</span><span class="cf-n">3 / 9</span></div><h3>“There’s a Halloween party on Queen West. Do you want to come with me?”</h3><p>One real plan, with a time and place.</p></article>
+        <article class="cf-w"><div class="cf-top"><span class="cf-lab">Wander</span><span class="cf-n">3 / 9</span></div><h3>One reason each.</h3><p>Built only from real events.</p><div class="cf-shot"><span class="slot">Image: picks with one line of why</span></div></article>
       </div>
       <div class="cf-pair" role="tabpanel" id="cf-p3" aria-labelledby="cf-t3" hidden>
-        <article class="cf-h"><div class="cf-top"><span class="cf-lab">A friend</span><span class="cf-n">4 / 6</span></div><h3>“Me, Sam, and a few people.”</h3><p>You won’t walk in alone.</p></article>
-        <article class="cf-w"><div class="cf-top"><span class="cf-lab">Wander</span><span class="cf-n">4 / 6</span></div><h3>Shows who’s going.</h3><p>Faces before the RSVP.</p><div class="cf-shot"><span class="slot">Image: event page with attendees</span></div></article>
+        <article class="cf-h"><div class="cf-top"><span class="cf-lab">A friend</span><span class="cf-n">4 / 9</span></div><h3>“Does that work? If not, we can do something else.”</h3><p>Checks it fits you.</p></article>
+        <article class="cf-w"><div class="cf-top"><span class="cf-lab">Wander</span><span class="cf-n">4 / 9</span></div><h3>A “no” rules out one thing.</h3><p>Then Wander asks what else.</p><div class="cf-shot"><span class="slot">Image: follow-up after “Not my thing”</span></div></article>
       </div>
       <div class="cf-pair" role="tabpanel" id="cf-p4" aria-labelledby="cf-t4" hidden>
-        <article class="cf-h"><div class="cf-top"><span class="cf-lab">A friend</span><span class="cf-n">5 / 6</span></div><h3>“I’ll add you to the group chat.”</h3><p>The hardest part is the first hello.</p></article>
-        <article class="cf-w"><div class="cf-top"><span class="cf-lab">Wander</span><span class="cf-n">5 / 6</span></div><h3>Drafts the first hello.</h3><p>The user edits and sends it.</p><div class="cf-shot"><span class="slot">Image: group chat with AI draft</span></div></article>
+        <article class="cf-h"><div class="cf-top"><span class="cf-lab">A friend</span><span class="cf-n">5 / 9</span></div><h3>“Okay, I’ll ask around some more.”</h3><p>No big speech. Just keeps looking.</p></article>
+        <article class="cf-w"><div class="cf-top"><span class="cf-lab">Wander</span><span class="cf-n">5 / 9</span></div><h3>Says it found nothing first.</h3><p>“No boulderers yet.” Then: start a group, post it, let Wander keep looking, or see related.</p><div class="cf-shot"><span class="slot">Image: no-match card with four options</span></div></article>
       </div>
       <div class="cf-pair" role="tabpanel" id="cf-p5" aria-labelledby="cf-t5" hidden>
-        <article class="cf-h"><div class="cf-top"><span class="cf-lab">A friend</span><span class="cf-n">6 / 6</span></div><h3>“How was it?”</h3><p>Next time, the plan fits better.</p></article>
-        <article class="cf-w"><div class="cf-top"><span class="cf-lab">Wander</span><span class="cf-n">6 / 6</span></div><h3>Asks how it went.</h3><p>And remembers the answer.</p><div class="cf-shot"><span class="slot">Image: check-in card</span></div></article>
+        <article class="cf-h"><div class="cf-top"><span class="cf-lab">A friend</span><span class="cf-n">6 / 9</span></div><h3>“I found a Halloween event at the bouldering gym. Do you wanna go?”</h3><p>Comes back with something.</p></article>
+        <article class="cf-w"><div class="cf-top"><span class="cf-lab">Wander</span><span class="cf-n">6 / 9</span></div><h3>Comes back when it finds one.</h3><p>A notification when a match shows up. The user decides.</p><div class="cf-shot"><span class="slot">Image: notification “Found a bouldering group for Saturday. Still in?”</span></div></article>
+      </div>
+      <div class="cf-pair" role="tabpanel" id="cf-p6" aria-labelledby="cf-t6" hidden>
+        <article class="cf-h"><div class="cf-top"><span class="cf-lab">A friend</span><span class="cf-n">7 / 9</span></div><h3>“Me, Sam, and some of Sam’s friends.”</h3><p>You won’t walk in alone.</p></article>
+        <article class="cf-w"><div class="cf-top"><span class="cf-lab">Wander</span><span class="cf-n">7 / 9</span></div><h3>Shows who’s going.</h3><p>Faces before the RSVP.</p><div class="cf-shot"><span class="slot">Image: event page with attendees</span></div></article>
+      </div>
+      <div class="cf-pair" role="tabpanel" id="cf-p7" aria-labelledby="cf-t7" hidden>
+        <article class="cf-h"><div class="cf-top"><span class="cf-lab">A friend</span><span class="cf-n">8 / 9</span></div><h3>“I’ll add you to the group chat.”</h3><p>The hardest part is the first hello.</p></article>
+        <article class="cf-w"><div class="cf-top"><span class="cf-lab">Wander</span><span class="cf-n">8 / 9</span></div><h3>AI drafts. The user sends.</h3><p>Labeled as a draft. Never sent for them.</p><div class="cf-shot"><span class="slot">Image: group chat with AI draft</span></div></article>
+      </div>
+      <div class="cf-pair" role="tabpanel" id="cf-p8" aria-labelledby="cf-t8" hidden>
+        <article class="cf-h"><div class="cf-top"><span class="cf-lab">A friend</span><span class="cf-n">9 / 9</span></div><h3>“So nice seeing you! Let’s hang out again.”</h3><p>Someone from the group follows up.</p></article>
+        <article class="cf-w"><div class="cf-top"><span class="cf-lab">Wander</span><span class="cf-n">9 / 9</span></div><h3>Asks how it went.</h3><p>And remembers the answer.</p><div class="cf-shot"><span class="slot">Image: check-in card</span></div></article>
       </div>
     </div>
   </div>
@@ -954,7 +982,7 @@ h3{letter-spacing:-.02em}
     <div class="head">
       <span class="pill">After launch</span>
       <h2 class="big">54 tests got Wander live. <span class="pk">Real people found the rest.</span></h2>
-      <p class="lede">The ML engineer and I built evals to test every version. After launch, each improvement follows the same loop: find a case, write a test, fix the line, ship. This one became test #55.</p>
+      <p class="lede">33 tests had to pass before launch. They held launch back once. After launch, we found new cases every week and turned them into tests.</p>
     </div>
     <div class="ba-row">
       <div class="ba-box b"><div class="t"><span class="lab">BEFORE</span><p class="cap"><b>One “no” hid hiking forever.</b> The user loved hiking, until it got cold.</p></div><div class="shot"><span class="slot">Image: user taps “Not my thing” on a hike</span></div></div>
@@ -967,12 +995,12 @@ h3{letter-spacing:-.02em}
   <div class="wrap">
     <div class="head">
       <span class="pill">Outcome</span>
-      <h2 class="big">People came back. <span class="pk">And brought friends.</span></h2>
+      <h2 class="big">People came back. <span class="pk">And made plans.</span></h2>
     </div>
     <div class="onums">
       <div><b>+25.3%</b><span>D7 retention</span></div>
-      <div><b>15K+</b><span>Users</span></div>
-      <div><b>44.6%</b><span>New users from growth features</span></div>
+      <div><b>+18.8%</b><span>Join rate</span></div>
+      <div><b>+12%</b><span>Events per week</span></div>
     </div>
   </div>
 </section>
@@ -987,7 +1015,7 @@ h3{letter-spacing:-.02em}
     </div>
     <ol class="lessons">
       <li><span>01</span><div><b>Own the problem, not just the screens.</b><p>At a startup, no one hands you the problem.</p><p>Design decides what to build, not only how it looks.</p></div></li>
-      <li><span>02</span><div><b>In ambiguity, ship a bet and learn.</b><p>There was no data and no playbook.</p><p>A shipped answer teaches more than a perfect plan.</p></div></li>
+      <li><span>02</span><div><b>Design for today’s AI. Aim at tomorrow’s.</b><p>Work within what AI can do today, or it won’t ship.</p><p>But pick the build that still fits when AI can do it all.</p></div></li>
       <li><span>03</span><div><b>With AI, design is a loop, not a line.</b><p>Direction, making and learning happen at once, and shape each other.</p><p>The loop surfaces what needs a human: key decisions, hidden assumptions, conflicts and evidence gaps.</p>
         <svg class="loopviz" viewBox="60 0 400 400" role="img" aria-label="Direction, making and learning as three overlapping circles inside one loop: they happen at once and shape each other.">
           <defs><marker id="ah" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="9" markerHeight="9" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#111111"/></marker></defs>
