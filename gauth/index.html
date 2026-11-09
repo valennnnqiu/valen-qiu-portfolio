@@ -382,9 +382,10 @@ h3{font-size:clamp(24px,2.6vw,32px);font-weight:600;line-height:1.12;letter-spac
 .iter .yes .lab{background:var(--red);color:var(--on-red)}
 @media (max-width:700px){.iter{grid-template-columns:1fr;gap:12px}.iter figure{display:grid;grid-template-columns:120px minmax(0,1fr);align-items:center}}
 .ba-row.tri{grid-template-columns:repeat(3,1fr)}
-.tri .ba-box{grid-template-columns:minmax(0,1fr) 120px;gap:16px;padding:22px}
-.tri .ba-box .shot{width:120px}
-@media (max-width:760px){.ba-row.tri{grid-template-columns:1fr}.tri .ba-box{grid-template-columns:minmax(0,1fr) 120px}}
+.tri .ba-box{grid-template-columns:1fr;gap:18px;padding:22px;align-items:start}
+.tri .ba-box .shot{width:170px;margin:0 auto}
+.tri .ba-box{grid-template-rows:auto 1fr}.tri .ba-box .shot{align-self:end}
+@media (max-width:760px){.ba-row.tri{grid-template-columns:1fr}.tri .ba-box{grid-template-columns:minmax(0,1fr) 140px;align-items:center}.tri .ba-box .shot{width:140px;margin:0;align-self:center}.tri .ba-box{grid-template-rows:none}}
 .mmwrap{display:grid;grid-template-columns:.85fr 1.15fr;gap:48px;align-items:center}
 .mm{position:relative;background:var(--card);border-radius:var(--r);aspect-ratio:4/3;min-width:0;box-shadow:0 16px 40px rgba(28,27,58,.08)}
 .mm svg{position:absolute;inset:0;width:100%;height:100%}
@@ -835,9 +836,9 @@ h3{font-size:clamp(24px,2.6vw,32px);font-weight:600;line-height:1.12;letter-spac
     <div class="block">
       <div class="head"><h3>Will the card distract?<br><span class="red">Not if it starts small.</span></h3></div>
       <div class="ba-row tri">
-        <div class="ba-box b"><div class="t"><span class="lab">TRY 1</span><p class="cap">Minimal. Too little context to help.</p></div><div class="shot"><span class="slot">Figma</span></div></div>
-        <div class="ba-box b"><div class="t"><span class="lab">TRY 2</span><p class="cap">Everything. Too much to scan.</p></div><div class="shot"><span class="slot">Figma</span></div></div>
-        <div class="ba-box a"><div class="t"><span class="lab">SHIPPED</span><p class="cap">Expandable. Clean by default, details on tap.</p></div><div class="shot"><span class="slot">Figma</span></div></div>
+        <div class="ba-box b"><div class="t"><span class="lab">TRY 1</span><p class="cap">Minimal. Too little context to help.</p></div><div class="shot"><img src="../images/gauth/try-1.png" alt="Try 1: the Keyword Card as a short list of links, World War II with four topics" loading="lazy" width="375" height="770"></div></div>
+        <div class="ba-box b"><div class="t"><span class="lab">TRY 2</span><p class="cap">Everything. Too much to scan.</p></div><div class="shot"><img src="../images/gauth/try-2.png" alt="Try 2: the card opened with everything at once, Definition and Causation with many points" loading="lazy" width="375" height="770"></div></div>
+        <div class="ba-box a"><div class="t"><span class="lab">SHIPPED</span><p class="cap">Expandable. Clean by default, details on tap.</p></div><div class="shot"><img src="../images/gauth/try-shipped.png" alt="Shipped: the card collapsed to a small Middle Passage header, with the expand arrow circled" loading="lazy" width="375" height="770"></div></div>
       </div>
     </div>
 
