@@ -197,10 +197,11 @@ h3{font-size:clamp(24px,2.6vw,32px);font-weight:600;line-height:1.12;letter-spac
 .ba-row.wide .ba-box .shot{width:100%;overflow-x:auto}
 .ba-row.wide .ba-box.single .shot{display:flex;justify-content:center}
 .ba-row.wide .ba-box.single .shot img{width:520px;max-width:100%;flex:none}
+.ba-row.wide .ba-box.single.fh .shot img{width:auto;height:484px}
 .ba-box .shot img,.ba-box .shot video{display:block;width:100%;height:auto;border-radius:16px}
 .lab{align-self:flex-start;font-family:var(--f-mono);font-size:12px;font-weight:600;letter-spacing:.08em;border-radius:999px;padding:5px 12px;background:var(--ink-2);color:var(--paper)}
 .ba-box.a .lab{background:var(--ink);color:var(--paper)}
-@media (max-width:760px){.ba{gap:72px}.ba-row{grid-template-columns:1fr;gap:12px}.ba-box{grid-template-columns:minmax(0,1fr) 120px;padding:20px}.ba-box .shot{width:120px}.ba-box.noshot{grid-template-columns:1fr}.ba-row.wide .ba-box{gap:16px}.ba-row.wide .ba-box .shot img{width:680px;max-width:none}.ba-row.wide .ba-box.single .shot img{width:480px}}
+@media (max-width:760px){.ba{gap:72px}.ba-row{grid-template-columns:1fr;gap:12px}.ba-box{grid-template-columns:minmax(0,1fr) 120px;padding:20px}.ba-box .shot{width:120px}.ba-box.noshot{grid-template-columns:1fr}.ba-row.wide .ba-box{gap:16px}.ba-row.wide .ba-box .shot img{width:680px;max-width:none}.ba-row.wide .ba-box.single .shot img{width:480px}.ba-row.wide .ba-box.single.fh .shot img{width:auto;height:auto}}
 
 /* design system */
 .lib{background:var(--card);border-radius:var(--r);padding:24px;overflow:hidden}
@@ -635,9 +636,9 @@ h3{font-size:clamp(24px,2.6vw,32px);font-weight:600;line-height:1.12;letter-spac
       </div>
       <div>
         <div class="ba-why"><span class="k">Call 02</span><h3>Seamlessly connecting goals with financial products.</h3></div>
-        <div class="ba-row">
-          <div class="ba-box b"><div class="t"><span class="lab">BEFORE</span><p class="cap">Goals tied to GICs and funds. Complex, hard to trust.</p></div><div class="shot"><img src="../images/scotia/call2-before.png" alt="Goal confirmation leading with a pre-authorized deposit and a Cashable GIC offer" loading="lazy" width="562" height="1155"></div></div>
-          <div class="ba-box a"><div class="t"><span class="lab">AFTER</span><p class="cap">A savings account first. More behind "Learn more".</p></div><div class="shot"><img src="../images/scotia/call2-after.png" alt="Goal confirmation showing the goal first, with one savings account recommendation and a Learn more link" loading="lazy" width="375" height="770"></div></div>
+        <div class="ba-row wide">
+          <div class="ba-box b single fh"><div class="t"><span class="lab">BEFORE</span><p class="cap">Goals tied to GICs and funds. Complex, hard to trust.</p></div><div class="shot"><img src="../images/scotia/call2-before.jpg" alt="Goal confirmation leading with a pre-authorized deposit and a Cashable GIC offer, with the Cashable GIC block highlighted" loading="lazy" width="680" height="1330"></div></div>
+          <div class="ba-box a single fh"><div class="t"><span class="lab">AFTER</span><p class="cap">A savings account first. More behind "Learn more".</p></div><div class="shot"><img src="../images/scotia/call2-after.jpg" alt="Goal confirmation showing the goal first, with one savings account recommendation and a Learn more link. Annotations: visualize goals as confirmation, simplify with Learn More" loading="lazy" width="1488" height="1155"></div></div>
         </div>
       </div>
       <div>
