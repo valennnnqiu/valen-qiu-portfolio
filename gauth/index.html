@@ -427,7 +427,7 @@ h3{font-size:clamp(24px,2.6vw,32px);font-weight:600;line-height:1.12;letter-spac
 .fshot img{height:100%!important;width:auto!important;max-width:100%!important;object-fit:contain}
 .fshot .slot{height:100%!important;width:60%!important;margin:0 auto}
 /* highlights */
-.feats{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.feats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
 .feat{background:var(--card);border-radius:var(--r);padding:20px;display:flex;flex-direction:column;gap:20px;min-width:0}
 .feat.main{background:var(--card)}
 .fshot{aspect-ratio:4/3;background:var(--paper-2);border-radius:18px;display:flex;align-items:flex-end;justify-content:center;overflow:hidden;padding:24px 24px 0}
@@ -442,7 +442,7 @@ h3{font-size:clamp(24px,2.6vw,32px);font-weight:600;line-height:1.12;letter-spac
 .ft h3{font-size:clamp(20px,2.2vw,28px)}
 .ft p{font-size:17px;line-height:1.5;color:var(--ink-2);margin-top:2px}
 .outhead{margin-top:96px;margin-bottom:24px}
-@media (max-width:700px){.feats{grid-template-columns:1fr}}
+@media (max-width:900px){.feats{grid-template-columns:1fr}}
 
 /* key decisions */
 .dec2{display:flex;flex-direction:column;gap:16px}
@@ -696,8 +696,7 @@ h3{font-size:clamp(24px,2.6vw,32px);font-weight:600;line-height:1.12;letter-spac
     <div class="feats">
       <article class="feat main"><div class="fshot"><video src="../images/gauth/keyword-card-screen.mp4" poster="../images/gauth/keyword-card-screen-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Keyword Card expanding on an answer"></video></div><div class="ft"><span class="k">Keyword Card</span><h3>Key point first.</h3><p>Each answer opens with a card that names the key idea. One tap shows the key points.</p></div></article>
       <article class="feat"><div class="fshot"><video src="../images/gauth/mindmap-screen.mp4" poster="../images/gauth/mindmap-screen-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Mind Map built from an answer"></video></div><div class="ft"><span class="k">Mind Map</span><h3>See how it connects.</h3><p>One answer becomes a map of causes and effects. Each keyword opens Gauthpedia.</p></div></article>
-      <article class="feat"><div class="fshot"><video src="../images/gauth/gauthpedia-screen.mp4" poster="../images/gauth/gauthpedia-screen-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Gauthpedia article opening from a keyword"></video></div><div class="ft"><span class="k">Gauthpedia</span><h3>Go deeper, in place.</h3><p>A short article on the topic, without leaving the question.</p></div></article>
-      <article class="feat"><div class="fshot"><span class="slot">Image: One Page Summary</span></div><div class="ft"><span class="k">One Page Summary</span><h3>Review on one page.</h3><p>The whole topic on a single page, for the night before the test.</p></div></article>
+      <article class="feat"><div class="fshot"><video src="../images/gauth/gauthpedia-screen.mp4" poster="../images/gauth/gauthpedia-screen-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Gauthpedia article opening from a keyword"></video></div><div class="ft"><span class="k">Gauthpedia &amp; One Page</span><h3>Fast entry to deeper learning.</h3><p>A redesigned article entry card that improves readability, hierarchy, and engagement.</p></div></article>
     </div>
 
   </div>
