@@ -505,6 +505,11 @@ h3{font-size:clamp(24px,2.6vw,32px);font-weight:600;line-height:1.12;letter-spac
 .kc ol li::before{content:counter(kp);width:18px;height:18px;border-radius:50%;background:var(--red-bright);color:#fff;font-size:10px;font-weight:700;display:grid;place-items:center}
 .scr .body{margin-top:12px;font-weight:500}
 .phone{position:relative}
+.demo .phone.ph-real{width:min(100%,330px)!important;height:auto!important;aspect-ratio:auto!important;background:none!important;box-shadow:none!important;padding:0!important;border-radius:0!important}
+.ph-real img{display:block;width:100%;height:auto}
+.ph-real img[hidden]{display:none}
+.ph-real .hot{position:absolute;left:8%;width:84%;top:54%;height:19%;border:0;background:transparent;border-radius:20px;cursor:var(--cur-hand,pointer)}
+.ph-real .hot:focus-visible{outline:3px solid var(--red-bright);outline-offset:2px}
 .disc{position:absolute;left:28px;right:28px;bottom:30px;display:flex;align-items:center;gap:8px;background:#fff;border-radius:999px;padding:10px 14px;font-size:11px;font-weight:600;color:#8A3FD1;box-shadow:0 6px 20px rgba(0,0,0,.1)}
 .disc b{color:var(--red-bright)}
 .disc span{margin-left:auto;color:#999}
@@ -790,31 +795,10 @@ h3{font-size:clamp(24px,2.6vw,32px);font-weight:600;line-height:1.12;letter-spac
         <p class="lede">The Keyword Card stays short by default. One tap opens the key points.</p>
         <span class="sticker tryit">Tap the card in the phone</span>
       </div>
-      <div class="phone" aria-label="Interactive Gauth answer screen with a Keyword Card, sample content">
-        <div class="scr" id="scr">
-          <div class="sb"><b>9:41</b><i class="island"></i><span>●●● ▮</span></div>
-          <div class="nb"><span aria-hidden="true">‹</span><b>Questions</b><span aria-hidden="true">◎</span></div>
-          <div class="qimg">Which best describes the main cause of World War II?<br>A. Trade disputes&nbsp; B. Colonial rivalry&nbsp; C. Totalitarian expansion</div>
-          <p class="ah">Answer</p>
-          <p class="atx">C. The rivalry between totalitarian expansionist powers in Europe and those in Asia</p>
-          <p class="eh">Explanation</p>
-          <div class="kc" id="kcard" data-open="false">
-            <button class="kh" id="kmore" type="button" aria-expanded="false" aria-controls="kpoints">
-              <span class="th" aria-hidden="true"></span>
-              <span class="kt"><b>Causes of World War II</b><span>World War II was triggered by aggressive expansion…</span></span>
-              <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              <span class="vh" id="kmoretxt">Show key points</span>
-            </button>
-            <ol id="kpoints" hidden>
-              <li>Authoritarian leaders rose in countries hit by the Great Depression.</li>
-              <li>Germany, Italy and Japan pursued aggressive expansion.</li>
-              <li>Appeasement failed to stop them.</li>
-            </ol>
-          </div>
-          <p class="body">The most significant factor was the rise of authoritarian leaders, which led to aggressive expansionist policies in Europe and Asia.</p>
-          <p class="body">Germany invaded Poland in 1939, and Britain and France declared war two days later.</p>
-        </div>
-        <div class="disc"><b>✕</b>Discover more with Gauth AI<span>›</span></div>
+      <div class="phone ph-real" id="kphone" data-open="false" aria-label="Gauth answer screen with a Keyword Card, before and after a tap">
+        <img class="st-a" src="../images/gauth/keyword-card-before-tap.png" alt="Answer screen before the tap: the Keyword Card shows a title and one line, collapsed" width="648" height="1331">
+        <img class="st-b" src="../images/gauth/keyword-card-after-tap.png" alt="Answer screen after the tap: the Keyword Card has opened to a short summary and key points" width="648" height="1330" hidden>
+        <button class="hot" id="kmore" type="button" aria-expanded="false" aria-label="Tap the Keyword Card to open it"></button>
       </div>
     </div>
 
@@ -959,13 +943,15 @@ document.querySelectorAll('#nav-mobile-menu a').forEach(a=>a.addEventListener('c
 
 <script>
 (function(){
-  var card=document.getElementById('kcard'),more=document.getElementById('kmore'),pts=document.getElementById('kpoints'),txt=document.getElementById('kmoretxt');
-  more.addEventListener('click',function(){
-    var open=card.getAttribute('data-open')!=='true';
-    card.setAttribute('data-open',open?'true':'false');
-    more.setAttribute('aria-expanded',open?'true':'false');
-    pts.hidden=!open;txt.textContent=open?'Hide key points':'Show key points';
-  });
+  var ph=document.getElementById('kphone'),more=document.getElementById('kmore');
+  if(ph&&more){var ia=ph.querySelector('.st-a'),ib=ph.querySelector('.st-b');
+    more.addEventListener('click',function(){
+      var open=ph.getAttribute('data-open')!=='true';
+      ph.setAttribute('data-open',open?'true':'false');
+      more.setAttribute('aria-expanded',open?'true':'false');
+      more.setAttribute('aria-label',open?'Tap the Keyword Card to close it':'Tap the Keyword Card to open it');
+      ia.hidden=open;ib.hidden=!open;
+    });}
 
   var mm=document.getElementById('mm');
   if(mm){var nodes=mm.querySelectorAll('.node'),note=document.getElementById('mmnote');
