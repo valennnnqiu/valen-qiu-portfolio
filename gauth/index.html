@@ -233,6 +233,7 @@ h3{font-size:clamp(24px,2.6vw,32px);font-weight:600;line-height:1.12;letter-spac
 .reflfig{margin:48px auto 0;max-width:980px}
 .reflfig img{display:block;width:100%;height:auto}
 .edges{display:flex;flex-direction:column;gap:12px}
+.edge.last{margin-top:28px}
 .edge{background:var(--card);border-radius:var(--r);padding:28px 32px;display:grid;grid-template-columns:28px minmax(0,1fr) minmax(0,1fr);column-gap:20px;row-gap:8px;align-items:center;min-width:0}
 .edge .n{font-family:var(--f-mono);font-size:13px;color:var(--ink-3);align-self:start;padding-top:4px}
 .edge .t{display:flex;flex-direction:column;gap:8px;min-width:0}
@@ -894,13 +895,13 @@ h3{font-size:clamp(24px,2.6vw,32px);font-weight:600;line-height:1.12;letter-spac
         </article>
         <article class="edge">
           <span class="n">03</span>
-          <div class="t"><h4>Off-style images? <span class="red">Neutral only.</span></h4></div>
-          <div class="viz"><img class="proof" src="../images/gauth/off-style-compare.webp" alt="Four cover images for The First Civilizations: a muted painting is approved, while a colorful map, a red World War II poster and a black symbol collage are rejected" loading="lazy" width="2000" height="474"><div class="mini"><span>Neutral: in</span><span>Colorful: out</span></div></div>
-        </article>
-        <article class="edge">
-          <span class="n">04</span>
           <div class="t"><h4>Different subjects? <span class="red">One template each.</span></h4></div>
           <div class="viz"><div class="subj"><div><b>History</b><i style="width:90%"></i><i style="width:70%"></i><i style="width:80%"></i></div><div><b>Economics</b><i style="width:60%"></i><i style="width:95%"></i><i style="width:50%"></i></div></div></div>
+        </article>
+        <article class="edge last">
+          <span class="n">04</span>
+          <div class="t"><h4>Off-style images? <span class="red">Neutral only.</span></h4></div>
+          <div class="viz"><img class="proof" src="../images/gauth/off-style-compare.webp" alt="Four cover images for The First Civilizations: a muted painting is approved, while a colorful map, a red World War II poster and a black symbol collage are rejected" loading="lazy" width="2000" height="474"><div class="mini"><span>Neutral: in</span><span>Colorful: out</span></div></div>
         </article>
       </div>
       </div>
