@@ -76,10 +76,12 @@ h3{font-size:clamp(24px,2.6vw,32px);font-weight:600;line-height:1.12;letter-spac
 .hero .tag .serif{color:var(--acc)}
 .hero .lede{margin-top:28px}
 .hero-art{position:relative;min-width:0}
-.heroimg{width:100%;height:auto;border-radius:22px;box-shadow:0 20px 50px rgba(60,20,20,.12);transform:rotate(-2deg)}
+.hero-phone{position:relative;width:min(100%,300px);margin:0 auto}
+.heroimg{display:block;width:100%;height:auto}
+@media (max-width:900px){.hero-phone{width:min(100%,260px)}.s1{right:-12%;bottom:8%}.s2{left:-12%;top:4%}}
 .hero-art .sticker{position:absolute}
-.s1{right:-2%;bottom:-6%;transform:rotate(5deg)}
-.s2{left:-4%;top:-7%;transform:rotate(-6deg)}
+.s1{right:-30%;bottom:10%;transform:rotate(5deg)}
+.s2{left:-34%;top:6%;transform:rotate(-6deg)}
 .tldr{position:relative;margin-top:80px;display:grid;grid-template-columns:repeat(3,1fr);border-top:2px solid var(--ink)}
 .tldr div{padding:20px 20px 0 0;display:flex;flex-direction:column;gap:6px;min-width:0}
 .tldr dt{font-family:var(--f-mono);font-size:13px;letter-spacing:.02em;color:var(--ink-3)}
@@ -431,9 +433,11 @@ h3{font-size:clamp(24px,2.6vw,32px);font-weight:600;line-height:1.12;letter-spac
         <p class="lede rise d2">An AI vision for how young Canadians will bank in ten years, made with Scotiabank's Digital Product team.</p>
       </div>
       <div class="hero-art">
-        <img class="heroimg" src="../images/scotia/hero.avif" alt="Two phones showing the concept app: a home screen with AI shortcuts, and Insights+ with goal progress" width="1024" height="638">
-        <span class="sticker ink s1 pop">Concept adopted</span>
-        <span class="sticker s2 pop">Pitched to the VP</span>
+        <div class="hero-phone">
+          <img class="heroimg" src="../images/scotia/hero-phone.png" alt="The concept app home screen: account cards, an AI insight about rent due, a credit score and a goal progress bar" width="626" height="1286">
+          <span class="sticker ink s1 pop">Concept adopted</span>
+          <span class="sticker s2 pop">Pitched to the VP</span>
+        </div>
       </div>
     </div>
 
