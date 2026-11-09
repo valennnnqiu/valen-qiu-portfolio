@@ -387,6 +387,8 @@ h3{font-size:clamp(24px,2.6vw,32px);font-weight:600;line-height:1.12;letter-spac
 .iter .yes .lab{background:var(--red);color:var(--on-red)}
 @media (max-width:700px){.iter{grid-template-columns:1fr;gap:12px}.iter figure{display:grid;grid-template-columns:120px minmax(0,1fr);align-items:center}}
 .ba-row.tri{grid-template-columns:repeat(3,1fr)}
+.ba-row.big .ba-box{grid-template-columns:1fr;grid-template-rows:auto 1fr;gap:20px;align-items:start}.ba-row.big .ba-box .shot{width:min(100%,300px);margin:0 auto;align-self:end}
+@media (max-width:760px){.ba-row.big .ba-box{grid-template-columns:1fr}.ba-row.big .ba-box .shot{width:min(100%,240px)}}
 .tri .ba-box{grid-template-columns:1fr;gap:18px;padding:22px;align-items:start}
 .tri .ba-box .shot{width:170px;margin:0 auto}
 .tri .ba-box{grid-template-rows:auto 1fr}.tri .ba-box .shot{align-self:end}
@@ -834,7 +836,7 @@ h3{font-size:clamp(24px,2.6vw,32px);font-weight:600;line-height:1.12;letter-spac
 
     <div class="block">
       <div class="head"><h3>Where should the card go?<br><span class="red">Before the text.</span></h3></div>
-      <div class="ba-row">
+      <div class="ba-row big">
         <div class="ba-box b"><div class="t"><span class="lab">BEFORE</span><p class="cap">Card below the text. Most students never scroll that far.</p></div><div class="shot"><img src="../images/gauth/card-position-before.png" alt="Before: the Keyword Card sits below the answer text, with the follow-up bar covering it and the key points off screen" loading="lazy" width="506" height="1010"></div></div>
         <div class="ba-box a"><div class="t"><span class="lab">AFTER</span><p class="cap">Card on top. The key point comes first.</p></div><div class="shot"><img src="../images/gauth/card-position-after.png" alt="After: the Keyword Card sits above the explanation text, with the key points visible first" loading="lazy" width="506" height="1010"></div></div>
       </div>
