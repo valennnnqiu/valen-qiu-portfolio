@@ -140,6 +140,7 @@ h3{font-size:clamp(24px,2.6vw,32px);font-weight:600;line-height:1.12;letter-spac
 .track li{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;min-width:0}
 .track .dot{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:18px}
 .track .ok .dot{background:var(--ink);color:var(--paper)}
+.track .dot svg{width:24px;height:24px;display:block}
 .track .no .dot{background:var(--tint);border:3px dashed var(--red-bright)}
 .track b{font-size:20px;font-weight:600;letter-spacing:-.01em}
 .track em{font-style:normal;font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
@@ -149,7 +150,7 @@ h3{font-size:clamp(24px,2.6vw,32px);font-weight:600;line-height:1.12;letter-spac
 .track .own{grid-column:2/6;grid-row:1;z-index:0;align-self:stretch;justify-content:flex-end;background:var(--tint);border-radius:22px;margin:-20px -6px -56px;padding-bottom:16px}
 .track .own em{color:var(--red);font-size:14px}
 @media (max-width:600px){.track b{font-size:11px!important}.track .own{margin:-14px -4px -48px;padding-bottom:12px}.track .own em{font-size:10px}}
-@media (max-width:600px){.track .dot{width:32px;height:32px;font-size:14px}.track::before,.track::after{top:15px}.track b{font-size:13px}.track em{font-size:9px;letter-spacing:.02em}}
+@media (max-width:600px){.track .dot svg{width:17px;height:17px}.track .dot{width:32px;height:32px;font-size:14px}.track::before,.track::after{top:15px}.track b{font-size:13px}.track em{font-size:9px;letter-spacing:.02em}}
 .journey{margin-top:56px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
 .journey li{border-radius:22px;padding:24px;display:flex;flex-direction:column;gap:6px;background:var(--paper-2);min-width:0}
 .journey li b{font-size:20px;font-weight:600;letter-spacing:-.02em}
@@ -506,17 +507,20 @@ h3{font-size:clamp(24px,2.6vw,32px);font-weight:600;line-height:1.12;letter-spac
 .scr .body{margin-top:12px;font-weight:500}
 .phone{position:relative}
 .demo .phone.ph-real{width:min(100%,330px)!important;height:auto!important;aspect-ratio:auto!important;background:none!important;box-shadow:none!important;padding:0!important;border-radius:0!important}
-.ph-real img{display:block;width:100%;height:auto}
-.ph-real img[hidden],.ph-real .st-b[hidden],.ph-real .hot[hidden]{display:none}
-.ph-real .st-b{position:relative;aspect-ratio:648/1330}
-.ph-real .scrl{position:absolute;left:4.938%;top:1.88%;width:90.432%;height:96.165%;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;background:#F5F5F7;border-radius:0 0 44px 44px}
+.ph-real .stage{position:relative;aspect-ratio:648/1330}
+.ph-real .scrl{position:absolute;left:4.938%;top:1.88%;width:90.432%;height:96.165%;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;background:#F5F5F7;border-radius:0 0 44px 44px;overscroll-behavior:auto}
 .ph-real .scrl::-webkit-scrollbar{display:none}
-.ph-real .lcw{position:relative;padding-top:23.04%}
+.ph-real .lcw{padding:25.77% 0 25.94%}
+.ph-real .lcw[hidden]{display:none}
 .ph-real .lci{position:relative}
 .ph-real .lcw img{display:block;width:100%;height:auto}
-.ph-real .hdr{position:absolute;left:4.938%;top:1.88%;width:90.432%;height:auto;pointer-events:none}
+.ph-real .sbox{position:absolute;left:4.938%;top:1.88%;width:90.432%;height:96.165%;pointer-events:none}
+.ph-real .sbox img{position:absolute;left:0;width:100%;height:auto;display:block}
+.ph-real .sbox .hdr{top:0}.ph-real .sbox .ftr{bottom:0}
 .ph-real .bz{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none}
-.ph-real .hot2{position:absolute;left:3%;width:94%;top:27.09%;height:9.32%;border:0;background:transparent;border-radius:18px;cursor:var(--cur-hand,pointer)}
+.ph-real .hot2{position:absolute;left:3%;width:94%;border:0;background:transparent;border-radius:18px;cursor:var(--cur-hand,pointer)}
+.ph-real .hot2.ha{top:32.19%;height:8.34%}
+.ph-real .hot2.hb{top:22.95%;height:5.53%}
 .ph-real .hot2:focus-visible,.ph-real .scrl:focus-visible{outline:3px solid var(--red-bright);outline-offset:-3px}
 .ph-real .hot{position:absolute;left:8%;width:84%;top:54%;height:19%;border:0;background:transparent;border-radius:20px;cursor:var(--cur-hand,pointer)}
 .ph-real .hot:focus-visible{outline:3px solid var(--red-bright);outline-offset:2px}
@@ -744,7 +748,7 @@ h3{font-size:clamp(24px,2.6vw,32px);font-weight:600;line-height:1.12;letter-spac
     </div>
     <h3 style="margin-top:112px">Gauth helped with one step. <span class="red">Maya was on her own for four.</span></h3>
     <ol class="track" aria-label="Maya's five study steps">
-      <li class="ok"><span class="dot" aria-hidden="true">✓</span><b>Search</b></li>
+      <li class="ok"><span class="dot" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><b>Search</b></li>
       <li class="no"><span class="dot" aria-hidden="true"></span><b>Read</b></li>
       <li class="no"><span class="dot" aria-hidden="true"></span><b>Understand</b></li>
       <li class="no"><span class="dot" aria-hidden="true"></span><b>Remember</b></li>
@@ -805,17 +809,17 @@ h3{font-size:clamp(24px,2.6vw,32px);font-weight:600;line-height:1.12;letter-spac
         <p class="lede">The Keyword Card stays short by default. One tap opens the key points.</p>
         <span class="sticker tryit">Tap the card in the phone</span>
       </div>
-      <div class="phone ph-real" id="kphone" data-open="false" aria-label="Gauth answer screen with a Keyword Card, before and after a tap">
-        <img class="st-a" src="../images/gauth/keyword-card-before-tap.png" alt="Answer screen before the tap: the Keyword Card shows a title and one line, collapsed" width="648" height="1331">
-        <div class="st-b" hidden>
+      <div class="phone ph-real" id="kphone" data-open="false" aria-label="Gauth answer screen with a Keyword Card. Scroll the screen, and tap the card to open or close it.">
+        <div class="stage">
           <div class="scrl" id="kscroll" tabindex="0" aria-label="Scrollable answer screen">
-            <div class="lcw"><div class="lci"><img src="../images/gauth/keyword-card-after-tap-long.webp" alt="Answer screen after the tap: the Keyword Card is open with a short summary, Historical Background, Key Process / Events, Impact and Consequences, and a link to Gauthpedia. The full answer continues below it." width="586" height="2038">
-              <button class="hot2" id="kless" type="button" aria-label="Tap the Keyword Card to close it"></button></div></div>
+            <div class="lcw lc-a" id="kview-a"><div class="lci"><img src="../images/gauth/kc-before.webp" alt="Answer screen before the tap: the Keyword Card shows a title and one line, then the full answer and its follow-up actions below." width="586" height="1788">
+              <button class="hot2 ha" id="kmore" type="button" aria-expanded="false" aria-label="Tap the Keyword Card to open it"></button></div></div>
+            <div class="lcw lc-b" id="kview-b" hidden><div class="lci"><img src="../images/gauth/kc-after.webp" alt="Answer screen after the tap: the Keyword Card is open with Historical Background, Key Process / Events, Impact and Consequences and a link to Gauthpedia, then the full answer below." width="586" height="2508">
+              <button class="hot2 hb" id="kless" type="button" aria-expanded="true" aria-label="Tap the Keyword Card to close it"></button></div></div>
           </div>
-          <img class="hdr" src="../images/gauth/keyword-card-after-tap-header.png" alt="" width="586" height="135">
+          <div class="sbox" aria-hidden="true"><img class="hdr" src="../images/gauth/kc-header.png" alt="" width="586" height="151"><img class="ftr" src="../images/gauth/kc-footer.png" alt="" width="586" height="152"></div>
           <img class="bz" src="../images/gauth/phone-bezel.png" alt="" width="648" height="1330">
         </div>
-        <button class="hot" id="kmore" type="button" aria-expanded="false" aria-label="Tap the Keyword Card to open it"></button>
       </div>
     </div>
 
@@ -961,12 +965,10 @@ document.querySelectorAll('#nav-mobile-menu a').forEach(a=>a.addEventListener('c
 <script>
 (function(){
   var ph=document.getElementById('kphone'),more=document.getElementById('kmore'),less=document.getElementById('kless');
-  if(ph&&more&&less){var ia=ph.querySelector('.st-a'),ib=ph.querySelector('.st-b'),sc=document.getElementById('kscroll');
+  if(ph&&more&&less){var va=document.getElementById('kview-a'),vb=document.getElementById('kview-b');
     function setOpen(open){
       ph.setAttribute('data-open',open?'true':'false');
-      more.setAttribute('aria-expanded',open?'true':'false');
-      ia.hidden=open;more.hidden=open;ib.hidden=!open;
-      if(open){sc.scrollTop=0;}
+      va.hidden=open;vb.hidden=!open;
     }
     more.addEventListener('click',function(){setOpen(true)});
     less.addEventListener('click',function(){setOpen(false)});}
