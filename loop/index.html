@@ -795,27 +795,27 @@ input[type=range]:focus-visible{outline:3px solid var(--lilac);outline-offset:4p
       <div class="app" aria-label="LOOP plan card for COHR, sample data">
         <div class="app-top"><b>COHR plan</b><span class="tagp">Sample data</span></div>
         <div class="field">
-          <label for="risk">Max loss if stopped out <output id="riskOut" for="risk" class="num">$810</output></label>
-          <input type="range" id="risk" min="405" max="2025" step="405" value="810">
+          <label for="risk">Max loss if stopped out <output id="riskOut" for="risk" class="num">$1,020</output></label>
+          <input type="range" id="risk" min="510" max="2550" step="510" value="1020">
         </div>
         <div class="ruler" id="ruler">
           <div class="axis"></div>
-          <div class="band risk" id="bRisk">−$810</div>
-          <div class="band rew" id="bRew">+$3,240</div>
+          <div class="band risk" id="bRisk">−$1,020</div>
+          <div class="band rew" id="bRew">+$2,580</div>
           <div class="zone" id="zone"></div>
           <div class="now" id="now"></div>
           <span class="nowlab" id="nowlab">785.20</span>
-          <span class="lab" id="labStop" style="color:var(--loss)">Stop 668</span>
-          <span class="lab" id="labZone" style="color:var(--gain);top:0">Zone 685–705</span>
-          <span class="lab" id="labTgt" style="transform:translateX(-100%)">Target 803</span>
+          <span class="lab" id="labStop" style="color:var(--loss)">Stop 680</span>
+          <span class="lab" id="labZone" style="color:var(--gain);top:0">Zone 700–728</span>
+          <span class="lab" id="labTgt" style="transform:translateX(-100%)">Target 800</span>
         </div>
         <div class="kpis">
-          <div><span>Reward / risk</span><b style="color:var(--gain)">4.0</b></div>
+          <div><span>Reward / risk</span><b style="color:var(--gain)">2.5</b></div>
           <div><span>Shares</span><b id="kSh">30</b></div>
-          <div><span>Capital</span><b id="kCap">$20,850</b></div>
+          <div><span>Capital</span><b id="kCap">$21,420</b></div>
         </div>
         <div class="buys" id="buys"></div>
-        <p id="limit" class="calm">● 37.9% of account, inside your 40% limit</p>
+        <p id="limit" class="calm">● 24.5% of account, inside your 40% limit</p>
       </div>
     </div>
   </div>
@@ -943,9 +943,9 @@ document.querySelectorAll('#nav-mobile-menu a').forEach(a=>a.addEventListener('c
   document.querySelectorAll('.lede,.why p,.lt>p,.case p').forEach(lines);
   var steps=[
     {n:"Spot",oh:"You scroll six apps for an hour to find one idea.",op:"Nothing says why a stock is worth a look.",nh:"The momentum board finds COHR and says why.",np:"5 of 7 conditions met. Each one is a plain sentence.",s:"Screen recording: momentum board",img:"../images/loop/step1-momentum.webp",iw:2000,ih:1081,ia:"The LOOP momentum board: held positions with HOLD and SELL, then candidates such as NVDA, COHR, MU, CRDO and SKHY, each with a score out of 7, a breakout price and a stop"},
-    {n:"Decide",oh:"You draw support lines by hand and hope they're right.",op:"A different answer every day.",nh:"The stock page says it plainly: strong, but overheated.",np:"Uptrend, RSI 81. Wait for a pullback to 685–705.",s:"Screen recording: COHR stock page"},
-    {n:"Plan",oh:"The plan lives in your head, with no stop and a size picked by feel.",op:"Around 695, buy some. No stop. Size by mood.",nh:"I pick how much I'll risk, and LOOP works out the rest.",np:"$810 of risk → 30 shares in three buys. Try it below.",s:"Screen recording: creating the plan"},
-    {n:"Wait",oh:"You stare at the screen all day, or set alerts one at a time.",op:"The market owns your attention.",nh:"Today tells me when COHR reaches the zone, and stays quiet otherwise.",np:"First buy: 10 shares at 705.",s:"Screen recording: Today view"},
+    {n:"Decide",oh:"You draw support lines by hand and hope they're right.",op:"A different answer every day.",nh:"The stock page says it plainly: strong, but overheated.",np:"Uptrend, RSI 81. Wait for a pullback to 700–728.",s:"Screen recording: COHR stock page",img:"../images/loop/step2-stock.webp",iw:2000,ih:1081,ia:"The LOOP stock page for COHR: an Uptrend near the 20-day high, a 120-day candlestick chart with support bands, RSI 81, and key levels"},
+    {n:"Plan",oh:"The plan lives in your head, with no stop and a size picked by feel.",op:"Around 715, buy some. No stop. Size by mood.",nh:"I pick how much I'll risk, and LOOP works out the rest.",np:"$1,020 of risk → 30 shares in three buys. Try it below.",s:"Screen recording: creating the plan",img:"../images/loop/step3-plan.gif",iw:400,ih:181,ia:"Recording of the LOOP New trade plan form for COHR: buy zone from 700, stop 680, target 800, size as a percent of the account in three tranches, with a live preview of reward to risk, shares and capital"},
+    {n:"Wait",oh:"You stare at the screen all day, or set alerts one at a time.",op:"The market owns your attention.",nh:"Today tells me when COHR reaches the zone, and stays quiet otherwise.",np:"First buy: 10 shares at 728.",s:"Screen recording: Today view"},
     {n:"Buy",oh:"You chase the move, then forget why you bought.",op:"FOMO wins. The plan is gone.",nh:"I import the statement, and every fill finds its plan.",np:"The off-plan buy gets flagged. No manual tagging.",s:"Screen recording: importing an IBKR statement"},
     {n:"Learn",oh:"A spreadsheet can't tell a plan from an impulse.",op:"So the same mistakes repeat.",nh:"My own trades show whether discipline pays.",np:"Planned trades made $310 more each, in the sample.",s:"Screen recording: Review"}
   ];
@@ -970,22 +970,22 @@ document.querySelectorAll('#nav-mobile-menu a').forEach(a=>a.addEventListener('c
   }
 
   /* plan card */
-  var AVG=695,STOP=668,TGT=803,NOW=785.2,ACCT=55000,LIM=0.40,LO=650,HI=830;
+  var AVG=714,STOP=680,TGT=800,NOW=785.2,ACCT=87500,LIM=0.40,LO=660,HI=830;
   var $=function(id){return document.getElementById(id)};
   function money(v){return '$'+Math.round(v).toLocaleString('en-US')}
   function pos(p){return ((p-LO)/(HI-LO)*100)+'%'}
   function place(){
     $('bRisk').style.left=pos(STOP);$('bRisk').style.width='calc('+pos(AVG)+' - '+pos(STOP)+')';
     $('bRew').style.left=pos(AVG);$('bRew').style.width='calc('+pos(TGT)+' - '+pos(AVG)+')';
-    $('zone').style.left=pos(685);$('zone').style.width='calc('+pos(705)+' - '+pos(685)+')';
+    $('zone').style.left=pos(700);$('zone').style.width='calc('+pos(728)+' - '+pos(700)+')';
     $('now').style.left=pos(NOW);$('nowlab').style.left=pos(NOW);
-    $('labStop').style.left=pos(STOP);$('labZone').style.left='calc('+pos(685)+' + 0px)';$('labTgt').style.left=pos(TGT);
+    $('labStop').style.left=pos(STOP);$('labZone').style.left='calc('+pos(700)+' + 0px)';$('labTgt').style.left=pos(TGT);
   }
   function calc(){
     var r=+$('risk').value,sh=Math.round(r/(AVG-STOP)),t=sh/3,cap=sh*AVG,pct=cap/ACCT;
     $('riskOut').textContent=money(r);$('bRisk').innerHTML='<b>−'+money(r)+'</b>';$('bRew').innerHTML='<b>+'+money(sh*(TGT-AVG))+'</b>';
     $('kSh').textContent=sh;$('kCap').textContent=money(cap);
-    $('buys').innerHTML=[705,695,685].map(function(p){return '<span>'+p+' × '+t+'</span>'}).join('');
+    $('buys').innerHTML=[728,714,700].map(function(p){return '<span>'+p+' × '+t+'</span>'}).join('');
     var l=$('limit');
     if(pct>LIM){l.className='warn';l.textContent=(pct*100).toFixed(1)+'% of account, over your 40% single-stock limit'}
     else{l.className='calm';l.textContent='● '+(pct*100).toFixed(1)+'% of account, inside your 40% limit'}
