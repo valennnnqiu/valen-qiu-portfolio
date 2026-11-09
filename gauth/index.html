@@ -507,7 +507,17 @@ h3{font-size:clamp(24px,2.6vw,32px);font-weight:600;line-height:1.12;letter-spac
 .phone{position:relative}
 .demo .phone.ph-real{width:min(100%,330px)!important;height:auto!important;aspect-ratio:auto!important;background:none!important;box-shadow:none!important;padding:0!important;border-radius:0!important}
 .ph-real img{display:block;width:100%;height:auto}
-.ph-real img[hidden]{display:none}
+.ph-real img[hidden],.ph-real .st-b[hidden],.ph-real .hot[hidden]{display:none}
+.ph-real .st-b{position:relative;aspect-ratio:648/1330}
+.ph-real .scrl{position:absolute;left:4.938%;top:1.88%;width:90.432%;height:96.165%;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;background:#F5F5F7;border-radius:0 0 44px 44px}
+.ph-real .scrl::-webkit-scrollbar{display:none}
+.ph-real .lcw{position:relative;padding-top:23.04%}
+.ph-real .lci{position:relative}
+.ph-real .lcw img{display:block;width:100%;height:auto}
+.ph-real .hdr{position:absolute;left:4.938%;top:1.88%;width:90.432%;height:auto;pointer-events:none}
+.ph-real .bz{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none}
+.ph-real .hot2{position:absolute;left:3%;width:94%;top:27.09%;height:9.32%;border:0;background:transparent;border-radius:18px;cursor:var(--cur-hand,pointer)}
+.ph-real .hot2:focus-visible,.ph-real .scrl:focus-visible{outline:3px solid var(--red-bright);outline-offset:-3px}
 .ph-real .hot{position:absolute;left:8%;width:84%;top:54%;height:19%;border:0;background:transparent;border-radius:20px;cursor:var(--cur-hand,pointer)}
 .ph-real .hot:focus-visible{outline:3px solid var(--red-bright);outline-offset:2px}
 .disc{position:absolute;left:28px;right:28px;bottom:30px;display:flex;align-items:center;gap:8px;background:#fff;border-radius:999px;padding:10px 14px;font-size:11px;font-weight:600;color:#8A3FD1;box-shadow:0 6px 20px rgba(0,0,0,.1)}
@@ -797,7 +807,14 @@ h3{font-size:clamp(24px,2.6vw,32px);font-weight:600;line-height:1.12;letter-spac
       </div>
       <div class="phone ph-real" id="kphone" data-open="false" aria-label="Gauth answer screen with a Keyword Card, before and after a tap">
         <img class="st-a" src="../images/gauth/keyword-card-before-tap.png" alt="Answer screen before the tap: the Keyword Card shows a title and one line, collapsed" width="648" height="1331">
-        <img class="st-b" src="../images/gauth/keyword-card-after-tap.png" alt="Answer screen after the tap: the Keyword Card has opened to a short summary and key points" width="648" height="1330" hidden>
+        <div class="st-b" hidden>
+          <div class="scrl" id="kscroll" tabindex="0" aria-label="Scrollable answer screen">
+            <div class="lcw"><div class="lci"><img src="../images/gauth/keyword-card-after-tap-long.webp" alt="Answer screen after the tap: the Keyword Card is open with a short summary, Historical Background, Key Process / Events, Impact and Consequences, and a link to Gauthpedia. The full answer continues below it." width="586" height="2038">
+              <button class="hot2" id="kless" type="button" aria-label="Tap the Keyword Card to close it"></button></div></div>
+          </div>
+          <img class="hdr" src="../images/gauth/keyword-card-after-tap-header.png" alt="" width="586" height="135">
+          <img class="bz" src="../images/gauth/phone-bezel.png" alt="" width="648" height="1330">
+        </div>
         <button class="hot" id="kmore" type="button" aria-expanded="false" aria-label="Tap the Keyword Card to open it"></button>
       </div>
     </div>
@@ -943,15 +960,16 @@ document.querySelectorAll('#nav-mobile-menu a').forEach(a=>a.addEventListener('c
 
 <script>
 (function(){
-  var ph=document.getElementById('kphone'),more=document.getElementById('kmore');
-  if(ph&&more){var ia=ph.querySelector('.st-a'),ib=ph.querySelector('.st-b');
-    more.addEventListener('click',function(){
-      var open=ph.getAttribute('data-open')!=='true';
+  var ph=document.getElementById('kphone'),more=document.getElementById('kmore'),less=document.getElementById('kless');
+  if(ph&&more&&less){var ia=ph.querySelector('.st-a'),ib=ph.querySelector('.st-b'),sc=document.getElementById('kscroll');
+    function setOpen(open){
       ph.setAttribute('data-open',open?'true':'false');
       more.setAttribute('aria-expanded',open?'true':'false');
-      more.setAttribute('aria-label',open?'Tap the Keyword Card to close it':'Tap the Keyword Card to open it');
-      ia.hidden=open;ib.hidden=!open;
-    });}
+      ia.hidden=open;more.hidden=open;ib.hidden=!open;
+      if(open){sc.scrollTop=0;}
+    }
+    more.addEventListener('click',function(){setOpen(true)});
+    less.addEventListener('click',function(){setOpen(false)});}
 
   var mm=document.getElementById('mm');
   if(mm){var nodes=mm.querySelectorAll('.node'),note=document.getElementById('mmnote');
