@@ -192,10 +192,19 @@ h3{font-size:clamp(24px,2.6vw,32px);font-weight:600;line-height:1.12;letter-spac
 .ba-box .cap{font-size:17px;line-height:1.4;color:var(--ink-2)}
 .ba-box.a .cap{color:var(--ink);font-weight:600}
 .ba-box .shot{width:170px}
+.ba-box.annot{grid-template-columns:1fr;align-items:start;gap:24px}
+.ba-box.annot .shot{width:100%;max-width:560px}
+.annot-fig{position:relative}
+.ba-box .shot .annot-fig img{width:46%;max-width:none;display:block;border-radius:0}
+.annot-fig .an{position:absolute;left:54%;right:0;transform:translateY(-50%);font-weight:700;font-size:clamp(15px,1.7vw,21px);line-height:1.25;color:#343A8F}
+.annot-fig .a1{top:27%}.annot-fig .a2{top:65.5%}
+.annot-fig .ln{position:absolute;height:0;border-top:2px dashed #343A8F;transform:translateY(-1px)}
+.annot-fig .l1{top:27%;left:38%;width:14.5%}
+.annot-fig .l2{top:65.5%;left:30%;width:22.5%}
 .ba-box .shot img,.ba-box .shot video{display:block;width:100%;height:auto;border-radius:16px}
 .lab{align-self:flex-start;font-family:var(--f-mono);font-size:12px;font-weight:600;letter-spacing:.08em;border-radius:999px;padding:5px 12px;background:var(--ink-2);color:var(--paper)}
 .ba-box.a .lab{background:var(--ink);color:var(--paper)}
-@media (max-width:760px){.ba{gap:72px}.ba-row{grid-template-columns:1fr;gap:12px}.ba-box{grid-template-columns:minmax(0,1fr) 120px;padding:20px}.ba-box .shot{width:120px}.ba-box.noshot{grid-template-columns:1fr}}
+@media (max-width:760px){.ba{gap:72px}.ba-row{grid-template-columns:1fr;gap:12px}.ba-box{grid-template-columns:minmax(0,1fr) 120px;padding:20px}.ba-box .shot{width:120px}.ba-box.noshot{grid-template-columns:1fr}.ba-box.annot{grid-template-columns:1fr}.ba-box.annot .shot{width:100%}}
 
 /* design system */
 .lib{background:var(--card);border-radius:var(--r);padding:24px;overflow:hidden}
@@ -622,17 +631,17 @@ h3{font-size:clamp(24px,2.6vw,32px);font-weight:600;line-height:1.12;letter-spac
     </div>
     <div class="ba">
       <div>
-        <div class="ba-why"><span class="k">Call 01</span><h3>Steps over a single page.</h3></div>
+        <div class="ba-why"><span class="k">Call 01</span><h3>Step-by-step settings.</h3></div>
         <div class="ba-row">
           <div class="ba-box b"><div class="t"><span class="lab">BEFORE</span><p class="cap">One form with every setting. Fewer clicks, not easier.</p></div><div class="shot"><img src="../images/scotia/call1-before.png" alt="One-page goal form with every setting" loading="lazy" width="647" height="1332"></div></div>
-          <div class="ba-box a"><div class="t"><span class="lab">AFTER</span><p class="cap">Three steps: name it, set details, personalize.</p></div><div class="shot"><img src="../images/scotia/call1-after.webp" alt="Step one of three: What I'm working towards" loading="lazy"></div></div>
+          <div class="ba-box a"><div class="t"><span class="lab">AFTER</span><p class="cap">Three steps: name it, set details, personalize.</p></div><div class="shot"><video src="../images/scotia/call1-after.mp4" poster="../images/scotia/call1-after-poster.jpg" autoplay muted loop playsinline preload="metadata" width="316" height="636" aria-label="Three-step goal setup: name the goal, set the target amount and date, then personalize insights"></video></div></div>
         </div>
       </div>
       <div>
-        <div class="ba-why"><span class="k">Call 02</span><h3>A savings account before GICs.</h3></div>
+        <div class="ba-why"><span class="k">Call 02</span><h3>Seamlessly connecting goals with financial products.</h3></div>
         <div class="ba-row">
-          <div class="ba-box b"><div class="t"><span class="lab">BEFORE</span><p class="cap">Goals tied to GICs and funds. Complex, hard to trust.</p></div><div class="shot"><img src="../images/scotia/call2-before.webp" alt="Goal confirmation leading with deposit and GIC offers" loading="lazy"></div></div>
-          <div class="ba-box a"><div class="t"><span class="lab">AFTER</span><p class="cap">A savings account first. More behind "Learn more".</p></div><div class="shot"><video src="../images/scotia/call2-after.mp4" poster="../images/scotia/call2-after-poster.jpg" autoplay muted loop playsinline preload="metadata" width="352" height="720" aria-label="Goal confirmation showing the goal first, with one savings recommendation"></video></div></div>
+          <div class="ba-box b"><div class="t"><span class="lab">BEFORE</span><p class="cap">Goals tied to GICs and funds. Complex, hard to trust.</p></div><div class="shot"><img src="../images/scotia/call2-before.png" alt="Goal confirmation leading with a pre-authorized deposit and a Cashable GIC offer" loading="lazy" width="562" height="1155"></div></div>
+          <div class="ba-box a annot"><div class="t"><span class="lab">AFTER</span><p class="cap">A savings account first. More behind "Learn more".</p></div><div class="shot"><div class="annot-fig"><img src="../images/scotia/call2-after.png" alt="Goal confirmation showing the goal first, with one savings account recommendation and a Learn more link" loading="lazy" width="375" height="770"><i class="ln l1" aria-hidden="true"></i><span class="an a1">Visualize goals<br>as confirmation</span><i class="ln l2" aria-hidden="true"></i><span class="an a2">Simplify with<br>“Learn More”</span></div></div></div>
         </div>
       </div>
       <div>
