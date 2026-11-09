@@ -175,17 +175,9 @@ h3{font-size:clamp(24px,2.6vw,32px);font-weight:600;line-height:1.12;letter-spac
 .metric{font-family:var(--f-mono);font-size:13px;font-weight:600;letter-spacing:.04em;background:var(--acc-bright);color:#fff;border-radius:999px;padding:5px 12px}
 .scen-p{font-size:16px;color:var(--ink-2);margin:-8px 0 16px}
 .scen-pic{background:var(--card);border-radius:var(--r);padding:28px;overflow:hidden}
-.scen-pic img{width:100%;height:auto}
+.scen-pic img{width:100%;height:auto;border-radius:var(--r)}
 @media (max-width:700px){.scen-pic{padding:14px}}
 .cgroup+.cgroup{margin-top:112px}
-/* current app screenshots + concept banners */
-.today{margin-top:48px;display:flex;justify-content:center;align-items:flex-start;gap:32px}
-.today figure{margin:0;flex:0 1 280px;min-width:0}
-.today img{display:block;width:100%;height:auto;border-radius:24px;box-shadow:0 14px 34px rgba(60,20,20,.12)}
-.banners{margin-top:112px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-.banners figure{margin:0;border-radius:var(--r);overflow:hidden;min-width:0}
-.banners img{display:block;width:100%;height:auto}
-@media (max-width:700px){.banners{grid-template-columns:1fr;margin-top:72px}.today{gap:16px}}
 /* key calls: before / after, same pattern as the Wander and LOOP case studies */
 .ba{display:flex;flex-direction:column;gap:96px}
 .ba-why{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
@@ -495,10 +487,6 @@ h3{font-size:clamp(24px,2.6vw,32px);font-weight:600;line-height:1.12;letter-spac
       <div class="prob"><span class="k">02 Nothing scoped</span><h3>Every variable was open.</h3><p>Problems, scenarios and tech were ours to define.</p></div>
       <div class="prob"><span class="k">03 Friction today</span><h3>Goals felt far from products.</h3><p>Long flows left goals disconnected from real products.</p></div>
     </div>
-    <div class="today">
-      <figure><img src="../images/scotia/today-advice-goals.png" alt="Scotia app today: Advice+ My Financial Milestones with goals and estimated success rates" loading="lazy" width="350" height="747"></figure>
-      <figure><img src="../images/scotia/today-home.png" alt="Scotia app today: home screen with accounts, credit cards and investments" loading="lazy" width="280" height="598"></figure>
-    </div>
   </div>
 </section>
 
@@ -575,13 +563,13 @@ h3{font-size:clamp(24px,2.6vw,32px);font-weight:600;line-height:1.12;letter-spac
         <span class="k">Insight 01</span>
         <b>Young users think in goals, not products.</b>
         <p>So a new goal starts from what you're working towards.</p>
-        <figure class="ishot"><img src="../images/scotia/insight-goal.webp" alt="New Goal screen: What I'm working towards, with goal chips like New York Trip and Save up for my first house" loading="lazy" width="660" height="1342"></figure>
+        <figure class="ishot"><img src="../images/scotia/insight-goal.png" alt="Scotia Advice+ today: My Financial Milestones with goals and estimated success rates" loading="lazy" width="350" height="747"></figure>
       </li>
       <li>
         <span class="k">Insight 02</span>
         <b>Personalization meant easier transfers.</b>
         <p>Not fancy features like smarter investments, as we’d assumed, but the everyday task fitted to how people really use it.</p>
-        <figure class="ishot"><img src="../images/scotia/insight-transfer.webp" alt="Transfer screen with a smart suggestion to set up a regular deposit" loading="lazy" width="660" height="1338"></figure>
+        <figure class="ishot"><img src="../images/scotia/insight-transfer.png" alt="Scotia home screen today: accounts, credit cards, investments and an Interac e-Transfer shortcut" loading="lazy" width="280" height="598"></figure>
       </li>
     </ol>
   </div>
@@ -599,12 +587,12 @@ h3{font-size:clamp(24px,2.6vw,32px);font-weight:600;line-height:1.12;letter-spac
       <div class="scen">
         <div class="scen-h"><span class="k">Scenario 1</span><h4>Set and track any goal</h4></div>
         <p class="scen-p">Start from what you want, then track it on Insights+.</p>
-        <figure class="scen-pic"><img src="../images/scotia/scenario1-after.webp" alt="New Goal, goal confirmation with an AI recommendation, and Insights+ with goal progress" loading="lazy" width="2060" height="1342"></figure>
+        <figure class="scen-pic"><img src="../images/scotia/banner-achieve-goals.webp" alt="Achieve your personal goals. Goal confirmation with an AI recommendation to set up a regular deposit" loading="lazy" width="1309" height="714"></figure>
       </div>
       <div class="scen">
         <div class="scen-h"><span class="k">Scenario 2</span><h4>Everyday transfers</h4></div>
         <p class="scen-p">An AI insight spots rent day and pre-fills the e-Transfer.</p>
-        <figure class="scen-pic"><img src="../images/scotia/scenario2-after.webp" alt="Home with a Rent Due insight, transfer, confirmation, pre-filled e-Transfer, and confirmation" loading="lazy" width="2320" height="1030"></figure>
+        <figure class="scen-pic"><img src="../images/scotia/banner-smart-insights.webp" alt="Smart Insights. A Rent Due AI insight on the home screen" loading="lazy" width="1309" height="714"></figure>
       </div>
     </div>
 
@@ -613,21 +601,15 @@ h3{font-size:clamp(24px,2.6vw,32px);font-weight:600;line-height:1.12;letter-spac
       <div class="scen">
         <div class="scen-h"><span class="k">Scenario 1</span><h4>Send money by voice</h4></div>
         <p class="scen-p">Say who and how much. The assistant checks, you confirm.</p>
-        <figure class="scen-pic"><img src="../images/scotia/c2-scenario1.webp" alt="Voice request to send $150 to Mike, choosing the right Mike, an e-Transfer card to confirm, and the confirmation" loading="lazy" width="2752" height="1340"></figure>
+        <figure class="scen-pic"><img src="../images/scotia/banner-simplify-tasks.webp" alt="Simplify tasks. Sending $25 to Alex by voice" loading="lazy" width="1309" height="714"></figure>
       </div>
       <div class="scen">
         <div class="scen-h"><span class="k">Scenario 2</span><h4>Cancel a subscription</h4></div>
         <p class="scen-p">It spots unused memberships and cancels one in a tap.</p>
-        <figure class="scen-pic"><img src="../images/scotia/c2-scenario2.webp" alt="Subscription review with a saving suggestion, a Cancel membership card, and the cancellation confirmed" loading="lazy" width="2054" height="1340"></figure>
+        <figure class="scen-pic"><img src="../images/scotia/banner-truly-in-control.webp" alt="Be truly in control. Reviewing subscriptions and cancelling one in the assistant" loading="lazy" width="1309" height="714"></figure>
       </div>
     </div>
 
-    <div class="banners">
-      <figure><img src="../images/scotia/banner-simplify-tasks.webp" alt="Simplify tasks. Easy, made easier. Sending $25 to Alex by voice" loading="lazy" width="1309" height="714"></figure>
-      <figure><img src="../images/scotia/banner-truly-in-control.webp" alt="Be truly in control. Know what goes in and out. Reviewing subscriptions in the assistant" loading="lazy" width="1309" height="714"></figure>
-      <figure><img src="../images/scotia/banner-achieve-goals.webp" alt="Achieve your personal goals. Easier, more controllably, step by step. Goal confirmation with an AI recommendation" loading="lazy" width="1309" height="714"></figure>
-      <figure><img src="../images/scotia/banner-smart-insights.webp" alt="Smart Insights. Get reminders, no need for blah blah. A Rent Due AI insight on the home screen" loading="lazy" width="1309" height="714"></figure>
-    </div>
   </div>
 </section>
 
