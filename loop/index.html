@@ -1080,31 +1080,31 @@ input[type=range]:focus-visible{outline:3px solid var(--lilac);outline-offset:4p
       <div class="head" style="margin:0">
         <span class="pill lilac">Key interaction</span>
         <h3 style="font-size:clamp(28px,3.4vw,44px)">I pick how much I'll risk, and LOOP works out the rest.</h3>
-        <span class="sticker try">Edit any field <svg viewBox="0 0 40 16" aria-hidden="true"><path d="M2 8h32M28 2l7 6-7 6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="sticker try">Fill it in <svg viewBox="0 0 40 16" aria-hidden="true"><path d="M2 8h32M28 2l7 6-7 6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </div>
-      <div class="lpf" id="lpf" aria-label="LOOP plan editor for COHR, sample data. You can edit every field.">
+      <div class="lpf" id="lpf" aria-label="LOOP new trade plan form, sample data. Fill in the fields and the preview works out the shares.">
   <div class="lpf-sec"><span class="badge">◎</span><h2>Trade plans</h2><span class="count">1</span><span class="grow"><span class="btn-ghost btn-small" style="display:inline-flex;align-items:center;height:30px;padding:0 14px;border:1px solid var(--line);border-radius:999px;background:#fff;font-size:13px;font-weight:600">Refresh prices</span><span class="btn-ghost btn-small" style="display:inline-flex;align-items:center;height:30px;padding:0 14px;border:1px solid var(--line);border-radius:999px;background:#fff;font-size:13px;font-weight:600">+ Add</span></span></div>
   <div class="form-card plan-form f2">
-    <div class="f2-head"><b>Edit COHR plan</b><div class="f-btns"><button class="btn-primary btn-small" id="pf-save" type="button">Save</button><button type="button" class="icon-btn f-x" id="pf-x" aria-label="Reset to the example">✕</button></div></div>
+    <div class="f2-head"><b>New trade plan</b><div class="f-btns"><button class="btn-primary btn-small" id="pf-save" type="button">Save</button><button type="button" class="icon-btn f-x" id="pf-x" aria-label="Clear the form">✕</button></div></div>
     <div class="f2-grid">
       <div class="f2-main">
         <div class="f2-sec"><div class="f2-sec-t"><span>1</span>Stock</div>
-          <div class="f-field w-sym"><label class="f-label" for="pf-sym">Symbol<i class="f-req" title="required">*</i></label><div class="f-in"><input id="pf-sym" type="text" style="text-transform:uppercase" value="COHR" disabled></div></div>
+          <div class="f-field w-sym"><label class="f-label" for="pf-sym">Symbol<i class="f-req" title="required">*</i></label><div class="f-in"><input id="pf-sym" type="text" style="text-transform:uppercase" placeholder="e.g. COHR" value="" autocomplete="off"></div></div>
         </div>
         <div class="f2-sec"><div class="f2-sec-t"><span>2</span>Levels</div>
           <div class="f2-row2">
-            <div class="f-field span2"><label class="f-label" for=""><span class="f-dot zone"></span>Buy zone<i class="f-req" title="required">*</i><span class="f-tip" tabindex="0" data-tip="The price range you are willing to buy in, usually the nearest support. One price? Put it in both boxes.">i</span></label><div class="f-pair"><div class="f-in"><span class="f-ad">$</span><input id="pf-lo" type="number" step="any" value="200"></div><span class="f-dash">–</span><div class="f-in"><span class="f-ad">$</span><input id="pf-hi" type="number" step="any" value="230"></div></div></div>
-            <div class="f-field "><label class="f-label" for="pf-stop"><span class="f-dot stop"></span>Stop<i class="f-req" title="required">*</i><span class="f-tip" tabindex="0" data-tip="If price gets here the trade idea is wrong — exit. Put it below support, not inside it.">i</span></label><div class="f-in"><span class="f-ad">$</span><input id="pf-stop" type="number" step="any" value="188"></div></div>
-            <div class="f-field "><label class="f-label" for="pf-tgt"><span class="f-dot tgt"></span>Target<i class="f-req" title="required">*</i><span class="f-tip" tabindex="0" data-tip="First profit-taking level, usually the nearest resistance above.">i</span></label><div class="f-in"><span class="f-ad">$</span><input id="pf-tgt" type="number" step="any" value="300"></div></div>
+            <div class="f-field span2"><label class="f-label" for=""><span class="f-dot zone"></span>Buy zone<i class="f-req" title="required">*</i><span class="f-tip" tabindex="0" data-tip="The price range you are willing to buy in, usually the nearest support. One price? Put it in both boxes.">i</span></label><div class="f-pair"><div class="f-in"><span class="f-ad">$</span><input id="pf-lo" type="number" step="any" placeholder="low" value=""></div><span class="f-dash">–</span><div class="f-in"><span class="f-ad">$</span><input id="pf-hi" type="number" step="any" placeholder="high" value=""></div></div></div>
+            <div class="f-field "><label class="f-label" for="pf-stop"><span class="f-dot stop"></span>Stop<i class="f-req" title="required">*</i><span class="f-tip" tabindex="0" data-tip="If price gets here the trade idea is wrong — exit. Put it below support, not inside it.">i</span></label><div class="f-in"><span class="f-ad">$</span><input id="pf-stop" type="number" step="any" placeholder="e.g. 188" value=""></div></div>
+            <div class="f-field "><label class="f-label" for="pf-tgt"><span class="f-dot tgt"></span>Target<i class="f-req" title="required">*</i><span class="f-tip" tabindex="0" data-tip="First profit-taking level, usually the nearest resistance above.">i</span></label><div class="f-in"><span class="f-ad">$</span><input id="pf-tgt" type="number" step="any" placeholder="e.g. 300" value=""></div></div>
           </div>
         </div>
         <details class="f2-more" open>
           <summary><span class="f2-sec-t" style="margin:0"><span>3</span>Size &amp; timing</span><em id="pfMoreSum"></em></summary>
           <div class="f2-row3" style="margin-top:12px">
-            <div class="f-field span2"><label class="f-label" for="">Size<span class="f-tip" tabindex="0" data-tip="Pick how to size it: by risk (the most you lose at the stop), by % of the account (the final weight you want, what you already hold counts), or by shares (how many you want to end up holding, what you already hold counts). The other numbers are worked out for you.">i</span></label><input type="hidden" id="pf-mode" value="pct"><div class="sz-row"><div class="seg"><button type="button" data-mode="risk">Risk</button><button type="button" data-mode="pct" class="on">% of account</button><button type="button" data-mode="shares">Shares</button></div><div class="f-in sz sz-risk"><span class="f-ad">$</span><input id="pf-risk" type="number" step="any" placeholder="default 3,158" value=""></div><div class="f-in sz sz-pct"><input id="pf-pct" type="number" step="any" placeholder="e.g. 20" value="20"><span class="f-ad">%</span></div><div class="f-in sz sz-shares"><input id="pf-shares" type="number" step="1" placeholder="e.g. 500" value=""><span class="f-ad">sh</span></div></div></div>
+            <div class="f-field span2"><label class="f-label" for="">Size<span class="f-tip" tabindex="0" data-tip="Pick how to size it: by risk (the most you lose at the stop), by % of the account (the final weight you want, what you already hold counts), or by shares (how many you want to end up holding, what you already hold counts). The other numbers are worked out for you.">i</span></label><input type="hidden" id="pf-mode" value="risk"><div class="sz-row"><div class="seg"><button type="button" data-mode="risk" class="on">Risk</button><button type="button" data-mode="pct">% of account</button><button type="button" data-mode="shares">Shares</button></div><div class="f-in sz sz-risk"><span class="f-ad">$</span><input id="pf-risk" type="number" step="any" placeholder="default 3,158" value=""></div><div class="f-in sz sz-pct"><input id="pf-pct" type="number" step="any" placeholder="e.g. 20" value=""><span class="f-ad">%</span></div><div class="f-in sz sz-shares"><input id="pf-shares" type="number" step="1" placeholder="e.g. 500" value=""><span class="f-ad">sh</span></div></div></div>
             <div class="f-field "><label class="f-label" for="">Tranches<span class="f-tip" tabindex="0" data-tip="How many buys to spread across the zone. Scaling in gives a better average.">i</span></label><input type="hidden" id="pf-n" value="3"><div class="seg"><button type="button" data-n="1">1</button><button type="button" data-n="2">2</button><button type="button" data-n="3" class="on">3</button></div></div>
-            <div class="f-field "><label class="f-label" for="">How to add<span class="f-tip" tabindex="0" data-tip="Even: equal slices. Left: bigger as it falls. Right: biggest first, add as it rises.">i</span></label><input type="hidden" id="pf-style" value="left"><div class="seg"><button type="button" data-style="even">Even</button><button type="button" data-style="left" class="on">Left</button><button type="button" data-style="right">Right</button></div></div>
-            <div class="f-field "><label class="f-label" for="pf-exp">Valid until<span class="f-tip" tabindex="0" data-tip="If not executed by this date, the plan is flagged as expired so you re-evaluate.">i</span></label><div class="f-in"><input id="pf-exp" type="date" value="2026-12-09"></div></div>
+            <div class="f-field "><label class="f-label" for="">How to add<span class="f-tip" tabindex="0" data-tip="Even: equal slices. Left: bigger as it falls. Right: biggest first, add as it rises.">i</span></label><input type="hidden" id="pf-style" value="even"><div class="seg"><button type="button" data-style="even" class="on">Even</button><button type="button" data-style="left">Left</button><button type="button" data-style="right">Right</button></div></div>
+            <div class="f-field "><label class="f-label" for="pf-exp">Valid until<span class="f-tip" tabindex="0" data-tip="If not executed by this date, the plan is flagged as expired so you re-evaluate.">i</span></label><div class="f-in"><input id="pf-exp" type="date" value=""></div></div>
           </div>
         </details>
       </div>
@@ -1289,7 +1289,10 @@ document.querySelectorAll('#nav-mobile-menu a').forEach(a=>a.addEventListener('c
 (function(){
   var root=document.getElementById('lpf');if(!root)return;
   var $=function(id){return document.getElementById(id)};
-  var PRICE=225.19,TOTAL=315750,MAXS=40,MAXSEC=60,RISKPCT=1,TODAY='2026-11-09';
+  var TOTAL=315750,MAXS=40,MAXSEC=60,RISKPCT=1;
+  function iso(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+  var NOW=new Date(),TODAY=iso(NOW);function plus30(){var d=new Date(NOW.getFullYear(),NOW.getMonth(),NOW.getDate()+30);return iso(d)}
+  var QUOTES={COHR:225.19};function priceOf(sym){return QUOTES[sym]!=null?QUOTES[sym]:null}
   var num=function(v){var x=parseFloat(v);return isFinite(x)?x:null};
   var fmt=function(n,dp){dp=dp==null?2:dp;return Number(n).toLocaleString('en-US',{minimumFractionDigits:dp,maximumFractionDigits:dp})};
   function ld(s){var a=s.split('-').map(Number);return new Date(a[0],(a[1]||1)-1,a[2]||1)}
@@ -1313,18 +1316,19 @@ document.querySelectorAll('#nav-mobile-menu a').forEach(a=>a.addEventListener('c
     if(!(p.stop<p.lo&&p.lo<=p.hi&&p.hi<p.target))warns.push({c:'err',t:'Levels out of order: need stop < zone low ≤ zone high < target'});
     else if(rr!=null&&rr<1)warns.push({c:'',t:'Reward/risk at zone mid is only '+fmt(rr,2)+' (< 1)'});
     if(shares!=null){var add=shares*mid,w=add/(TOTAL+Math.max(0,add-TOTAL))*100;
-      if(w>MAXS)warns.push({c:'',t:'After execution COHR ≈ '+fmt(w,0)+'% of the account, above the '+MAXS+'% single-stock limit'});}
+      if(w>MAXS)warns.push({c:'',t:'After execution '+p.sym+' ≈ '+fmt(w,0)+'% of the account, above the '+MAXS+'% single-stock limit'});}
     return {mid:mid,rps:rps,shares:shares,mode:mode,style:st,W:W,PX:PX,qty:qty,qW:qW,target:target,rr:rr,warns:warns};
   }
   function ruler(p,c){
-    var vals=[p.stop,p.lo,p.hi,p.target,PRICE],lo=Math.min.apply(null,vals),hi=Math.max.apply(null,vals),pad=(hi-lo)*.04||hi*.02;lo-=pad;hi+=pad;
+    var PRICE=priceOf(p.sym);
+    var vals=[p.stop,p.lo,p.hi,p.target].concat(PRICE!=null?[PRICE]:[]),lo=Math.min.apply(null,vals),hi=Math.max.apply(null,vals),pad=(hi-lo)*.04||hi*.02;lo-=pad;hi+=pad;
     var X=function(v){return(v-lo)/(hi-lo)*100},x=function(v){return X(v).toFixed(2)+'%'},w=function(a,b){return(X(b)-X(a)).toFixed(2)+'%'};
     var rk=c.shares!=null?'−$'+fmt(c.shares*(c.mid-p.stop),0):'−$'+fmt(c.mid-p.stop)+'/sh',rw=c.shares!=null?'+$'+fmt(c.shares*(p.target-c.mid),0):'+$'+fmt(p.target-c.mid)+'/sh';
     return '<div class="pt"><div class="pt-track"></div>'+
       '<div class="pt-risk" style="left:'+x(p.stop)+';width:'+w(p.stop,c.mid)+'"><span>risk '+rk+'</span></div>'+
       '<div class="pt-reward" style="left:'+x(c.mid)+';width:'+w(c.mid,p.target)+'"><span>'+rw+' reward</span></div>'+
       '<div class="pt-zone" style="left:'+x(p.lo)+';width:'+w(p.lo,p.hi)+'"></div>'+
-      '<div class="pt-now" style="left:'+x(PRICE)+'"></div><div class="pt-nowlab" style="left:'+x(PRICE)+'">'+fmt(PRICE)+'</div>'+
+      (PRICE!=null?'<div class="pt-now" style="left:'+x(PRICE)+'"></div><div class="pt-nowlab" style="left:'+x(PRICE)+'">'+fmt(PRICE)+'</div>':'')+
       '<div class="pt-lab stop" style="left:'+x(p.stop)+'"><span class="term" tabindex="0" data-tip="If price gets here, the reason for the trade is gone — exit per plan.">Stop</span> <b>'+fmt(p.stop)+'</b></div>'+
       '<div class="pt-lab zone" style="left:'+x((p.lo+p.hi)/2)+'">Zone <b>'+fmt(p.lo)+'–'+fmt(p.hi)+'</b></div>'+
       '<div class="pt-lab tgt" style="left:'+x(p.target)+'">Target <b>'+fmt(p.target)+'</b></div></div>';
@@ -1334,7 +1338,7 @@ document.querySelectorAll('#nav-mobile-menu a').forEach(a=>a.addEventListener('c
     if(lo!=null&&hi!=null&&lo>hi){var t=lo;lo=hi;hi=t}
     if(lo!=null&&hi==null)hi=lo;if(hi!=null&&lo==null)lo=hi;
     var mode=$('pf-mode').value;
-    return {sym:$('pf-sym').value.trim().toUpperCase(),lo:lo,hi:hi,stop:num($('pf-stop').value),target:num($('pf-tgt').value),risk:$('pf-risk').value,sizeMode:mode,style:$('pf-style').value,sizeVal:(mode==='pct'?$('pf-pct'):$('pf-shares')).value,tranches:+$('pf-n').value||1,expiry:$('pf-exp').value||'2026-12-09'};
+    return {sym:$('pf-sym').value.trim().toUpperCase(),lo:lo,hi:hi,stop:num($('pf-stop').value),target:num($('pf-tgt').value),risk:$('pf-risk').value,sizeMode:mode,style:$('pf-style').value,sizeVal:(mode==='pct'?$('pf-pct'):$('pf-shares')).value,tranches:+$('pf-n').value||1,expiry:$('pf-exp').value||plus30()};
   }
   function preview(){
     var el=$('pfPreview'),f=read(),sum=$('pfMoreSum');
@@ -1361,9 +1365,11 @@ document.querySelectorAll('#nav-mobile-menu a').forEach(a=>a.addEventListener('c
   root.querySelectorAll('[data-n]').forEach(function(b){b.addEventListener('click',function(){$('pf-n').value=b.dataset.n;b.parentNode.querySelectorAll('button').forEach(function(x){x.classList.remove('on')});b.classList.add('on');preview()})});
   root.querySelectorAll('[data-style]').forEach(function(b){b.addEventListener('click',function(){$('pf-style').value=b.dataset.style;b.parentNode.querySelectorAll('button').forEach(function(x){x.classList.remove('on')});b.classList.add('on');preview()})});
   root.querySelectorAll('input').forEach(function(i){i.addEventListener('input',preview);i.addEventListener('change',preview)});
-  var save=$('pf-save');if(save)save.addEventListener('click',function(){var t=save.textContent;save.textContent='Saved ✓';setTimeout(function(){save.textContent=t},1200)});
-  var x=$('pf-x');if(x)x.addEventListener('click',function(){var d={ 'pf-lo':200,'pf-hi':230,'pf-stop':188,'pf-tgt':300,'pf-pct':20,'pf-exp':'2026-12-09','pf-risk':'','pf-shares':''};Object.keys(d).forEach(function(k){$(k).value=d[k]});$('pf-n').value=3;$('pf-style').value='left';root.querySelectorAll('[data-n]').forEach(function(b){b.classList.toggle('on',b.dataset.n==='3')});root.querySelectorAll('[data-style]').forEach(function(b){b.classList.toggle('on',b.dataset.style==='left')});setMode('pct')});
-  setMode('pct');
+  var save=$('pf-save');
+  if(save)save.addEventListener('click',function(){var f=read(),t=save.dataset.t||(save.dataset.t=save.textContent);var miss=!f.sym||f.lo==null||f.stop==null||f.target==null;save.textContent=miss?'Fill the required fields':'Saved ✓';setTimeout(function(){save.textContent=t},1400)});
+  function clearAll(){['pf-sym','pf-lo','pf-hi','pf-stop','pf-tgt','pf-risk','pf-pct','pf-shares'].forEach(function(k){$(k).value=''});$('pf-exp').value=plus30();$('pf-n').value=3;$('pf-style').value='even';root.querySelectorAll('[data-n]').forEach(function(b){b.classList.toggle('on',b.dataset.n==='3')});root.querySelectorAll('[data-style]').forEach(function(b){b.classList.toggle('on',b.dataset.style==='even')});setMode('risk')}
+  var x=$('pf-x');if(x)x.addEventListener('click',clearAll);
+  clearAll();
 })();
 </script>
 </body>
