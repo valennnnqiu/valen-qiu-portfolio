@@ -203,7 +203,12 @@ h3{font-size:clamp(24px,2.6vw,32px);font-weight:600;line-height:1.12;letter-spac
 .slot{margin-top:auto;border:2px dashed var(--line);border-radius:18px;aspect-ratio:16/10;max-width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--ink-3);text-align:center;padding:16px}
 .slot svg{width:36px;height:36px}
 .slot.has-img{border:0;padding:0;aspect-ratio:auto;border-radius:14px;overflow:hidden;box-shadow:0 8px 24px rgba(20,20,20,.12)}
+.slot.has-img{position:relative}
 .slot.has-img img{display:block;width:100%;height:auto}
+.slot .an{position:absolute;border:2px dashed #E5484D;border-radius:8px;pointer-events:none}
+.slot .an b{position:absolute;left:-2px;bottom:calc(100% + 4px);background:#E5484D;color:#fff;font:600 12px/1 var(--f-body,system-ui);letter-spacing:.01em;padding:5px 9px;border-radius:999px;white-space:nowrap}
+.slot .an b.r{left:auto;right:-2px}
+@media (max-width:600px){.slot .an b{font-size:10px;padding:4px 7px}}
 .slot.old{border-color:#E9B796;color:#8C5E43}
 @media (max-width:820px){.pair{grid-template-columns:1fr}}
 
@@ -946,6 +951,14 @@ document.querySelectorAll('#nav-mobile-menu a').forEach(a=>a.addEventListener('c
 (function(){
   function lines(el){var t=el.textContent.trim();var parts=t.split(/(?<=[.!?:])\s+(?=[A-Z$“"])/);if(parts.length<2)return;el.textContent='';parts.forEach(function(x){var sp=document.createElement('span');sp.className='ln';sp.textContent=x;el.appendChild(sp)})}
   document.querySelectorAll('.lede,.why p,.lt>p,.case p').forEach(lines);
+  var AN=[
+    [[2,37.1,96.8,9.4,"5 of 7, and the reasons"]],
+    [[.7,9.7,98.3,10.1,"The status, in plain words","r"],[17.5,83.4,4.8,2.8,"Overheated"]],
+    [[2.4,38.4,43,22.3,"Zone, stop, target"],[66.9,25.7,28.7,23.4,"Risk, reward and size, worked out"]],
+    [[1.3,45,96.7,9.5,"Today says it is in the zone"]],
+    [[50,46.6,23.3,18.5,"60 of 313 filled"],[3.4,88.3,31.5,4.8,"Flagged: outside the plan"]],
+    [[3.8,12.2,38.3,6.9,"No closed trade followed a plan"],[61.5,22,35,11.4,"Only 53% of buys followed a plan"]]
+  ];
   var steps=[
     {n:"Spot",oh:"You scroll six apps for an hour to find one idea.",op:"Nothing says why a stock is worth a look.",nh:"The momentum board finds COHR and says why.",np:"5 of 7 conditions met. Each one is a plain sentence.",s:"Screen recording: momentum board",img:"../images/loop/step1-momentum.webp",iw:2000,ih:1314,ia:"The LOOP momentum board: held positions AMAT and INTC with SELL, then candidates COHR, MU, CRDO, NVDA, SKHY and ALAB, each with a score out of 7, a breakout price and a stop"},
     {n:"Decide",oh:"You draw support lines by hand and hope they're right.",op:"A different answer every day.",nh:"The stock page says it plainly: strong, but overheated.",np:"Uptrend, near the 20-day high, RSI 80. So I set a buy zone of 200–230.",s:"Screen recording: COHR stock page",img:"../images/loop/step2-stock.webp",iw:1996,ih:1518,ia:"The LOOP stock page for COHR: an Uptrend near the 20-day high, a 120-day candlestick chart with support bands, RSI 80, and key levels"},
@@ -960,7 +973,7 @@ document.querySelectorAll('#nav-mobile-menu a').forEach(a=>a.addEventListener('c
     cur=i;var d=steps[i];
     document.getElementById('oldh').textContent=d.oh;document.getElementById('oldp').textContent=d.op;
     document.getElementById('newh').textContent=d.nh;document.getElementById('newp').textContent=d.np;lines(document.getElementById('oldp'));lines(document.getElementById('newp'));
-    var sl=document.getElementById('slot');if(!sl.dataset.ph)sl.dataset.ph=sl.innerHTML;if(d.img){sl.classList.add('has-img');sl.innerHTML='<img src="'+d.img+'" alt="'+d.ia+'" width="'+d.iw+'" height="'+d.ih+'">'}else{sl.classList.remove('has-img');sl.innerHTML=sl.dataset.ph;document.getElementById('slott').textContent=d.s}document.getElementById('oldbig').textContent=d.n;
+    var sl=document.getElementById('slot');if(!sl.dataset.ph)sl.dataset.ph=sl.innerHTML;if(d.img){sl.classList.add('has-img');sl.innerHTML='<img src="'+d.img+'" alt="'+d.ia+'" width="'+d.iw+'" height="'+d.ih+'">'+(AN[i]||[]).map(function(a){return '<i class="an" style="left:'+a[0]+'%;top:'+a[1]+'%;width:'+a[2]+'%;height:'+a[3]+'%"><b'+(a[5]==='r'?' class="r"':'')+'>'+a[4]+'</b></i>'}).join('')}else{sl.classList.remove('has-img');sl.innerHTML=sl.dataset.ph;document.getElementById('slott').textContent=d.s}document.getElementById('oldbig').textContent=d.n;
     document.getElementById('oldn').textContent=(i+1)+' / 6';document.getElementById('newn').textContent=(i+1)+' / 6';
     btns.forEach(function(b,j){b.setAttribute('aria-selected',j===i?'true':'false');b.tabIndex=j===i?0:-1});
     if(focus)btns[i].focus();
