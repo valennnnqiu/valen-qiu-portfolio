@@ -214,7 +214,8 @@ h3{font-size:clamp(24px,2.6vw,32px);font-weight:600;line-height:1.12;letter-spac
 @media (max-width:820px){.pair{grid-template-columns:1fr}}
 
 /* plan card demo (app styling, no motion) */
-.planwrap{margin-top:96px;display:grid;grid-template-columns:.8fr 1.2fr;gap:40px;align-items:center}
+.planwrap{margin-top:96px;display:grid;grid-template-columns:1fr;gap:28px;align-items:start}
+.planwrap .lpf{width:100%}
 .app{background:var(--card);border-radius:22px;border:1px solid #ECE7DC;box-shadow:0 12px 32px rgba(25,24,20,.06);padding:28px;display:flex;flex-direction:column;gap:22px;min-width:0}
 .app-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
 .app-top b{font-size:24px;font-weight:700;letter-spacing:-.01em}
@@ -644,7 +645,278 @@ input[type=range]:focus-visible{outline:3px solid var(--lilac);outline-offset:4p
 .hero h1{margin-left:-.035em}
 /* dark "turn" headline: same, calmer size on every case study */
 @media (min-width:701px){ .turn h2{font-size:clamp(36px,4.6vw,62px)} }
+/* ported plan editor */
+.lpf{--ink:#F4F2EC;--panel:#FFFFFF;--panel-2:#EFEDE4;--hover:#F6F4ED;--line:#E7E2D6;--line-strong:#D6CFBF;--paper:#F0EDE3;--text:#191814;--text-dim:#847F71;--gain:#0B9A57;--gain-dim:#E4F3EA;--loss:#DA3B32;--loss-dim:#FBE4E2;--gold:#1B4D3E;--gold-dim:#E3EEE8;--radius:14px;--radius-sm:9px;--mono:'IBM Plex Mono',ui-monospace,monospace;--disp:'Hanken Grotesk','Noto Sans SC',-apple-system,sans-serif;--ctl:36px;--ctl-sm:30px;--ring:0 0 0 3px rgba(27,77,62,.14);--row-hover:#FAF8F3;--warn:var(--loss);
+  background:var(--ink);color:var(--text);font-family:var(--disp);padding:20px;border-radius:24px;font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased;text-align:left;font-size:16px;line-height:1.4;letter-spacing:0;font-weight:400;max-width:980px;margin:0 auto}
+.lpf h1,.lpf h2,.lpf h3,.lpf p,.lpf b,.lpf span,.lpf em,.lpf i{letter-spacing:0}
+.lpf b{font-weight:600}
+.lpf .lpf-sec{display:flex;align-items:center;gap:12px;margin:0 0 14px}
+.lpf .lpf-sec .badge{width:34px;height:34px;border-radius:10px;background:var(--gold-dim);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:17px}
+.lpf .lpf-sec h2{font-size:17px;margin:0;font-weight:700;font-family:var(--disp)}
+.lpf .lpf-sec .count{font-family:var(--mono);font-size:11px;color:var(--text-dim)}
+.lpf .lpf-sec .grow{margin-left:auto;display:flex;gap:8px}
+.lpf .f2-stage{display:grid;grid-template-columns:28px 1fr 14px 1fr auto;gap:6px;align-items:baseline;font-size:12.5px;padding:3px 0;border-bottom:1px solid var(--line)}
+.lpf .f2-stage:last-child{border-bottom:0}
+.lpf .f2-stage b{font-family:var(--mono);font-weight:600}
+.lpf .f2-stage em{font-style:normal;color:var(--text-dim);font-size:11px;text-align:right}
+.lpf .f2-stages-t{font-size:12px;color:var(--text-dim);margin:10px 0 4px}
+.lpf .f2-sizeline{font-size:12.5px;color:var(--text-dim);margin-top:8px;line-height:1.5}
+.lpf .pc-alert{margin-top:10px}
+.lpf details>summary{list-style:none}
+.lpf input[type=number]::-webkit-inner-spin-button,.lpf input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+.lpf input[type=number]{-moz-appearance:textfield}
+.lpf .term{border-bottom:1px dotted currentColor;cursor:help}
+.lpf .f-tip{flex:none}
+.lpf .f2-side{position:static}
+.lpf-note{font:500 12px/1.4 var(--f-mono,monospace);color:var(--ink-3);text-align:center;margin-top:12px}
+.lpf *{box-sizing:border-box;}
+.lpf .icon-btn{ width:34px; height:34px; border-radius:999px; font-size:15px; }
+.lpf .form-card{
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:16px;
+  }
+.lpf .f-row{ display:flex; align-items:flex-end; gap:16px; }
+.lpf .f-row > .form-grid{ flex:1 1 auto; min-width:0; }
+.lpf .f-btns{ margin-left:auto; display:flex; align-items:center; gap:8px; flex:0 0 auto; }
+.lpf .f-x{ width:36px; height:36px; border-radius:999px; font-size:14px; }
+@media (max-width:760px){
+  .lpf .f-row{ flex-direction:column; align-items:stretch; }
+  .lpf .f-row > .form-grid{ max-width:none; }
+  .lpf .f-btns{ margin-left:0; justify-content:flex-end; }
+}
+.lpf button{
+    font-family:var(--disp); font-weight:600; cursor:pointer; border:none; border-radius:999px;
+    padding:9px 16px; font-size:13px; color:var(--text);
+    transition:background .12s ease, border-color .12s ease, color .12s ease, transform .06s ease;
+  }
+.lpf button:active{ transform:translateY(1px); }
+.lpf button:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
+.lpf button:disabled{ cursor:not-allowed; opacity:0.55; transform:none; }
+.lpf .btn-primary{ background:var(--text); color:var(--panel); }
+.lpf .btn-ghost{ background:var(--panel); border:1px solid var(--line); color:var(--text-dim); }
+.lpf .btn-small{ padding:6px 12px; font-size:12px; }
+.lpf .icon-btn, .lpf .cal-add, .lpf .modal-x, .lpf .pl-del, .lpf .tg-del, .lpf .warn-x, .lpf .lang-toggle, .lpf .del-x{
+    border:none; background:transparent; color:var(--text-dim); cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    transition:background .12s ease, color .12s ease, border-color .12s ease, transform .06s ease;
+  }
+.lpf .icon-btn:active, .lpf .cal-add:active, .lpf .modal-x:active, .lpf .pl-del:active, .lpf .tg-del:active, .lpf .warn-x:active, .lpf .lang-toggle:active, .lpf .del-x:active{ transform:translateY(1px); }
+@media (max-width:560px){
+  .lpf .import-card, .lpf .form-card{ padding:12px; }
+}
+.lpf .plan-form .form-grid{ grid-template-columns: 0.9fr 1.5fr 0.9fr 0.9fr 0.9fr 0.7fr 1fr; max-width:none; }
+@media (max-width:760px){
+  .lpf .plan-form .form-grid{ grid-template-columns:1fr 1fr; }
+}
+.lpf .loss-t{ color:var(--loss); }
+.lpf .gain-t{ color:var(--gain); }
+.lpf .pt{ position:relative; height:92px; margin:16px 2px 6px; }
+.lpf .pt-track{ position:absolute; left:0; right:0; top:45px; height:2px; background:var(--line); border-radius:2px; }
+.lpf .pt-risk, .lpf .pt-reward{ position:absolute; top:30px; height:32px; display:flex; align-items:center; overflow:hidden; white-space:nowrap; font-family:var(--mono); font-size:11.5px; font-weight:600; }
+.lpf .pt-risk{ background:var(--loss-dim); color:var(--loss); border-radius:8px 0 0 8px; justify-content:flex-start; padding-left:10px; border-right:2px solid var(--panel); }
+.lpf .pt-reward{ background:var(--gain-dim); color:var(--gain); border-radius:0 8px 8px 0; justify-content:flex-end; padding-right:10px; }
+.lpf .pt-zone{ position:absolute; top:24px; height:44px; border:1.5px dashed var(--gain); border-radius:7px; background:transparent; pointer-events:none; }
+.lpf .pt-now{ position:absolute; top:20px; height:52px; width:2px; margin-left:-1px; background:var(--text); border-radius:1px; }
+.lpf .pt-nowlab{ position:absolute; top:0; transform:translateX(-50%); background:var(--text); color:var(--panel); font-family:var(--mono); font-size:11px; font-weight:600; padding:2px 8px; border-radius:999px; white-space:nowrap; }
+.lpf .pt-fill{ position:absolute; top:31px; transform:translateX(-50%); font-size:16px; line-height:30px; cursor:default; filter:drop-shadow(0 1px 1px rgba(0,0,0,.15)); }
+.lpf .pt-lab{ position:absolute; top:74px; font-size:11px; color:var(--text-dim); white-space:nowrap; }
+.lpf .pt-lab b{ font-family:var(--mono); font-weight:600; color:var(--text); }
+.lpf .pt-lab.stop{ transform:translateX(-2px); }
+.lpf .pt-lab.stop b{ color:var(--loss); }
+.lpf .pt-lab.zone{ transform:translateX(-50%); }
+.lpf .pt-lab.zone b{ color:var(--gain); }
+.lpf .pt-lab.tgt{ transform:translateX(calc(-100% + 2px)); }
+.lpf .pc-alert{ margin-top:12px; background:#FBF1DF; border-radius:10px; padding:9px 13px; display:flex; flex-direction:column; gap:3px; }
+.lpf .pc-alert div{ font-size:12px; color:#7A5410; padding-left:14px; position:relative; }
+.lpf .pc-alert div::before{ content:''; position:absolute; left:2px; top:7px; width:5px; height:5px; border-radius:999px; background:#B5852A; }
+.lpf .pc-alert div.err{ color:var(--loss); }
+.lpf .pc-alert div.err::before{ background:var(--loss); }
+.lpf .term{ border-bottom:1px dotted currentColor; cursor:help; position:relative; }
+.lpf .term:hover::after, .lpf .term:focus::after{ content:attr(data-tip); position:absolute; left:0; top:calc(100% + 6px); z-index:40; width:240px; white-space:normal;
+    background:var(--text); color:var(--panel); font-family:var(--disp); font-size:12px; font-weight:400; line-height:1.5; letter-spacing:0; text-transform:none; padding:8px 10px; border-radius:8px; box-shadow:0 4px 14px rgba(0,0,0,.15); }
+.lpf .f2 .f-field{ margin-bottom:14px; }
+.lpf .f-label{ display:flex; align-items:center; gap:6px; font-size:13px; font-weight:600; color:var(--text); margin-bottom:6px; }
+.lpf .f-req{ font-style:normal; color:var(--loss); font-weight:700; margin-left:-3px; }
+.lpf .f-opt{ font-size:10.5px; font-weight:600; color:var(--text-dim); background:var(--panel-2); padding:1px 7px; border-radius:999px; }
+.lpf .f-tip{ position:relative; width:15px; height:15px; border-radius:999px; border:1px solid var(--line-strong); color:var(--text-dim); font-family:Georgia,serif; font-style:italic; font-size:10px; font-weight:700; display:inline-flex; align-items:center; justify-content:center; cursor:help; }
+.lpf .f-tip:hover, .lpf .f-tip:focus{ outline:none; }
+.lpf .f-tip:hover::after, .lpf .f-tip:focus::after{ content:attr(data-tip); position:absolute; left:-8px; top:calc(100% + 8px); z-index:60; width:250px; background:var(--text); color:var(--panel);
+    font-family:var(--disp); font-style:normal; font-size:12px; font-weight:400; line-height:1.55; padding:9px 11px; border-radius:9px; box-shadow:0 6px 18px rgba(0,0,0,.18); text-align:left; }
+.lpf .f-dot{ width:8px; height:8px; border-radius:999px; flex:0 0 auto; }
+.lpf .f-dot.zone{ background:var(--gain); }
+.lpf .f-dot.stop{ background:var(--loss); }
+.lpf .f-dot.tgt{ background:var(--text); }
+.lpf .f-in{ display:flex; align-items:center; background:var(--panel); border:1.5px solid var(--line-strong); border-radius:10px; transition:border-color .12s, box-shadow .12s; }
+.lpf .f-in:focus-within{ border-color:var(--gold); box-shadow:0 0 0 3px var(--gold-dim); }
+.lpf .f-in input{ flex:1; min-width:0; border:none; background:transparent; outline:none; padding:10px 12px; font-family:var(--mono); font-size:14px; font-weight:600; color:var(--text); }
+.lpf .f-in input::placeholder{ font-family:var(--disp); font-weight:400; color:var(--text-dim); opacity:.6; font-size:13px; }
+.lpf .f-in input:disabled{ color:var(--text-dim); }
+.lpf .f-ad{ font-family:var(--mono); font-size:13px; color:var(--text-dim); padding:0 0 0 12px; }
+.lpf .f-ad:last-child{ padding:0 12px 0 0; }
+.lpf .f-in .f-ad + input{ padding-left:6px; }
+.lpf .f-pair{ display:flex; align-items:center; gap:6px; }
+.lpf .f-pair .f-in{ flex:1; }
+.lpf .f-dash{ color:var(--text-dim); }
+.lpf .f-hint{ font-size:11.5px; color:var(--text-dim); margin-top:6px; line-height:1.5; }
+.lpf .f2-head{ display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:16px; }
+.lpf .f2-head b{ font-size:16px; }
+.lpf .f2-head span{ font-size:12px; color:var(--text-dim); }
+.lpf .f2-grid{ display:grid; grid-template-columns:minmax(0,1.45fr) minmax(0,1fr); gap:24px; }
+@media (max-width:820px){
+  .lpf .f2-grid{ grid-template-columns:1fr; }
+}
+.lpf .f2-sec{ margin-bottom:6px; }
+.lpf .f2-sec-t{ display:flex; align-items:center; gap:8px; font-size:11.5px; font-weight:700; color:var(--text-dim); text-transform:uppercase; letter-spacing:.05em; margin:4px 0 10px; }
+.lpf .f2-sec-t span{ width:18px; height:18px; border-radius:999px; background:var(--gold-dim); color:var(--gold); font-family:var(--mono); font-size:10.5px; display:inline-flex; align-items:center; justify-content:center; }
+.lpf .f2-row3{ display:grid; grid-template-columns:1.6fr 1fr 1fr; gap:12px; }
+.lpf .f2-row2{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+@media (max-width:560px){
+  .lpf .f2-row3, .lpf .f2-row2{ grid-template-columns:1fr; }
+}
+.lpf .w-sym{ max-width:240px; }
+.lpf .w-sym input{ text-transform:uppercase; font-size:16px; letter-spacing:.04em; }
+.lpf .f2-more{ border-top:1px solid var(--line); padding-top:12px; margin-top:4px; }
+.lpf .f2-more > summary{ list-style:none; cursor:pointer; display:flex; align-items:center; gap:10px; }
+.lpf .f2-more > summary::-webkit-details-marker{ display:none; }
+.lpf .f2-more > summary::after{ content:'▾'; margin-left:auto; color:var(--text-dim); font-size:12px; transition:transform .15s; }
+.lpf .f2-more:not([open]) > summary::after{ transform:rotate(-90deg); }
+.lpf .f2-more > summary em{ font-style:normal; font-family:var(--mono); font-size:11.5px; color:var(--text-dim); }
+.lpf .seg{ display:inline-flex; background:var(--panel-2); border-radius:10px; padding:3px; gap:2px; }
+.lpf .seg button{ background:transparent; border-radius:8px; padding:7px 16px; font-family:var(--mono); font-size:13px; color:var(--text-dim); }
+.lpf .seg button.on{ background:var(--panel); color:var(--text); box-shadow:0 1px 2px rgba(0,0,0,.08); }
+.lpf .f2-side{ background:var(--ink); border-radius:12px; padding:14px 16px; align-self:start; position:sticky; top:16px; }
+.lpf .f2-prev-t{ font-size:11.5px; font-weight:700; color:var(--text-dim); text-transform:uppercase; letter-spacing:.05em; }
+.lpf .f2-side .pt{ margin:12px 0 4px; }
+.lpf .f2-kpis{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:6px; }
+.lpf .f2-kpis > div{ background:var(--panel); border-radius:9px; padding:8px 10px; }
+.lpf .f2-kpis span{ display:block; font-size:10.5px; color:var(--text-dim); font-weight:600; }
+.lpf .f2-kpis b{ display:block; font-family:var(--mono); font-size:16px; margin-top:2px; }
+.lpf .f2-wait{ font-size:12.5px; color:var(--text); line-height:1.6; margin-top:10px; }
+.lpf .f2-wait span{ color:var(--text-dim); font-size:12px; }
+.lpf .f2-wait-bar{ display:flex; height:22px; border-radius:7px; overflow:hidden; margin:4px 0 12px; opacity:.45; }
+.lpf .f2-wait-bar i.r{ flex:1; background:var(--loss-dim); }
+.lpf .f2-wait-bar i.g{ flex:1.6; background:var(--gain-dim); }
+.lpf .f2-actions{ display:flex; align-items:center; gap:10px; margin-top:18px; padding-top:16px; border-top:1px solid var(--line); flex-wrap:wrap; }
+.lpf .f2-actions .muted{ font-size:12px; }
+.lpf .set2 .f2-sec{ padding:4px 0 2px; }
+.lpf #settingsModal .f2-actions{ border-top:none; padding-top:6px; }
+.lpf .set2 .f2-sec:first-child{ border-top:none; }
+@media (min-width:700px){
+  .lpf #settingsModal .set2 .f2-sec{ border-top:none; }
+  .lpf #settingsModal .set2 .f2-sec:nth-child(3){ grid-column:1 / -1; margin-top:8px; padding-top:6px; }
+  .lpf #settingsModal .set2 .f2-sec:nth-child(3){ display:grid; grid-template-columns:1fr 1fr; gap:0 48px; align-items:start; }
+  .lpf #settingsModal .set2 .f2-sec:nth-child(3) .f2-sec-t{ grid-column:1 / -1; }
+}
+.lpf .f2-row3 > *, .lpf .f2-row2 > *, .lpf .f-pair > *{ min-width:0; }
+.lpf .f-in input{ width:100%; }
+.lpf .f2-row2 .span2{ grid-column:1 / -1; }
+.lpf .f2-row2 .span2 .f-pair{ max-width:420px; }
+.lpf .f2-side .pt-lab.zone{ display:none; }
+.lpf .mo-hdr .mo-grid .term{ border-bottom-style:dotted; justify-self:center; }
+.lpf .rd-bar .seg button{ padding:6px 12px; font-family:var(--disp); font-size:12.5px; }
+.lpf .sk-ch-top .seg button{ padding:5px 12px; font-size:12px; }
+.lpf .cmp-top .seg button{ padding:5px 12px; font-size:12px; }
+.lpf .cv-top .seg{ margin-left:auto; }
+.lpf .cv-top .seg button{ padding:5px 12px; font-size:12px; }
+.lpf .form-card.plan-form{ margin-bottom:20px; }
+.lpf .btn-primary, .lpf .btn-ghost{ height:var(--ctl); padding:0 16px; display:inline-flex; align-items:center; justify-content:center; gap:6px;
+    font-size:13px; font-weight:600; line-height:1; border-radius:999px; white-space:nowrap; }
+.lpf .btn-small{ height:var(--ctl-sm); padding:0 13px; font-size:12px; }
+.lpf .btn-primary{ background:var(--text); color:var(--panel); border:1px solid var(--text); }
+.lpf .btn-ghost{ background:var(--panel); color:var(--text); border:1px solid var(--line); }
+.lpf .btn-primary:active:not(:disabled), .lpf .btn-ghost:active:not(:disabled){ transform:translateY(1px); }
+.lpf .btn-ghost:active:not(:disabled){ background:var(--panel-2); }
+.lpf button:disabled, .lpf .btn-primary:disabled, .lpf .btn-ghost:disabled{ opacity:.4; cursor:not-allowed; transform:none; }
+.lpf button:focus-visible, .lpf a:focus-visible, .lpf summary:focus-visible{ outline:none; box-shadow:var(--ring); }
+.lpf .icon-btn{ width:var(--ctl-sm); height:var(--ctl-sm); padding:0; border-radius:999px; font-size:13px; }
+.lpf .sk-in:focus, .lpf .sel-sm:focus, .lpf .f-in:focus-within{ border-color:var(--gold); box-shadow:var(--ring); }
+.lpf .f-in{ border:1px solid var(--line); min-height:var(--ctl); }
+.lpf .f-in:hover{ border-color:var(--line-strong); }
+.lpf .f-in input{ padding:0 12px; height:calc(var(--ctl) - 2px); font-size:13px; }
+.lpf .seg{ height:var(--ctl); padding:3px; border-radius:10px; align-items:stretch; }
+.lpf .seg button, .lpf .rd-bar .seg button, .lpf .sk-ch-top .seg button, .lpf .cv-top .seg button{ height:auto; padding:0 14px; border-radius:8px; font-family:var(--disp); font-size:12.5px; font-weight:600; color:var(--text-dim); }
+.lpf .seg button.on{ background:var(--panel); color:var(--text); box-shadow:0 1px 2px rgba(0,0,0,.08); }
+.lpf .cmp-float .btn-primary, .lpf .cmp-float .btn-ghost{ min-width:96px; }
+.lpf .pc-alert{ background:transparent; padding:0; margin-top:10px; gap:4px; }
+.lpf .pc-alert div, .lpf .pc-alert div.err{ color:var(--loss); font-size:12.5px; padding-left:14px; }
+.lpf .pc-alert div::before, .lpf .pc-alert div.err::before{ background:var(--loss); top:7px; }
+.lpf .pc-alert div.ok{ color:var(--gain); }
+.lpf .pc-alert div.ok::before{ background:var(--gain); }
+.lpf .rd-tbl th .term{ border-bottom-style:dotted; }
+.lpf .field input, .lpf .field select, .lpf .field textarea, .lpf .modal-card input, .lpf .modal-card select, .lpf .modal-card textarea, .lpf .fx-row input, .lpf .import-paste, .lpf .pos-num, .lpf .note-body textarea, .lpf .sk-in, .lpf .sel-sm, .lpf .cv-pick input.sk-in, .lpf .f-in, .lpf .goal-input{
+    background-color:var(--panel); border:1px solid var(--line); border-radius:10px; box-shadow:none; outline:none;
+  }
+.lpf .field input:hover, .lpf .field select:hover, .lpf .field textarea:hover, .lpf .modal-card input:hover, .lpf .modal-card select:hover, .lpf .modal-card textarea:hover, .lpf .fx-row input:hover, .lpf .import-paste:hover, .lpf .pos-num:hover, .lpf .note-body textarea:hover, .lpf .sk-in:hover, .lpf .sel-sm:hover, .lpf .f-in:hover, .lpf .goal-input:hover{ border-color:var(--line-strong); }
+.lpf .field input:focus, .lpf .field select:focus, .lpf .field textarea:focus, .lpf .modal-card input:focus, .lpf .modal-card select:focus, .lpf .modal-card textarea:focus, .lpf .fx-row input:focus, .lpf .import-paste:focus, .lpf .pos-num:focus, .lpf .note-body textarea:focus, .lpf .sk-in:focus, .lpf .sel-sm:focus, .lpf .cv-pick input.sk-in:focus, .lpf .f-in:focus-within, .lpf .goal-input:focus-within{ border-color:var(--gold); background-color:var(--panel); box-shadow:none; outline:none; }
+.lpf .f-in input, .lpf .goal-input input{ background:transparent; border:none; box-shadow:none; border-radius:0; }
+.lpf .f-in input:hover, .lpf .f-in input:focus, .lpf .goal-input input:hover, .lpf .goal-input input:focus{ border:none; box-shadow:none; background:transparent; }
+.lpf button:focus-visible, .lpf a:focus-visible, .lpf summary:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; box-shadow:none; }
+.lpf .f2-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:nowrap; margin-bottom:16px; }
+.lpf .f2-head .f-btns{ margin-left:auto; }
+.lpf .f2-more{ border-top:none; padding-top:0; margin-top:6px; }
+.lpf .f2-more > summary{ border:1px solid var(--line); border-radius:10px; padding:11px 14px; background:var(--panel); transition:border-color .12s ease, background .12s ease; }
+.lpf .f2-more[open] > summary{ border-color:var(--line-strong); margin-bottom:4px; }
+.lpf .f2-more > summary::after{ content:''; width:16px; height:16px; margin-left:auto; flex:0 0 auto; transform:none; transition:transform .15s ease;
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23847F71' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") center/16px no-repeat; }
+.lpf .f2-more:not([open]) > summary::after{ transform:rotate(-90deg); }
+.lpf .plan-form{ --fw:220px; }
+.lpf .plan-form .f-in{ width:var(--fw); max-width:100%; }
+.lpf .plan-form .w-sym{ max-width:none; }
+.lpf .plan-form .f2-row2, .lpf .plan-form .f2-row3{ display:flex; flex-wrap:wrap; align-items:flex-start; gap:0 12px; }
+.lpf .plan-form .f2-row2 .span2{ flex:1 1 100%; }
+.lpf .plan-form .f2-row2 .span2 .f-pair, .lpf .plan-form .f-pair{ max-width:none; }
+.lpf .plan-form .f-pair .f-in{ flex:0 0 auto; }
+@media (max-width:560px){
+  .lpf .plan-form{ --fw:100%; }
+  .lpf .plan-form .f-pair{ flex-wrap:wrap; }
+}
+.lpf .plan-form .f2-row2, .lpf .plan-form .f2-row3{ column-gap:28px; }
+.lpf .plan-form .f-pair{ display:flex; align-items:center; gap:28px; position:relative; }
+.lpf .plan-form .f-pair .f-dash{ position:absolute; left:calc(var(--fw) + 14px); top:50%; transform:translate(-50%,-50%); }
+@media (max-width:560px){
+  .lpf .plan-form .f-pair{ gap:12px; }
+  .lpf .plan-form .f-pair .f-dash{ display:none; }
+}
+.lpf .f2-kpis .term, .lpf .pc-stat .term{ display:inline; width:auto; }
+.lpf .plan-form{ --fw:200px; }
+.lpf .plan-form .f2-grid{ grid-template-columns:minmax(0,1.9fr) minmax(0,1fr); }
+@media (max-width:820px){
+  .lpf .plan-form .f2-grid{ grid-template-columns:1fr; }
+}
+@media (max-width:560px){
+  .lpf .plan-form{ --fw:100%; }
+}
+.lpf .rd-tbl th .term{ display:inline-block; line-height:15px; border-bottom:1px dotted var(--text-dim); }
+.lpf .phelp .f-tip{ display:inline-flex; align-items:center; justify-content:center; line-height:1; }
+.lpf .f-field.bad input{ border-color:var(--loss) !important; }
+.lpf .f-field.bad .f-label{ color:var(--loss); }
+.lpf #settingsModal .f2 .f-field{ margin-bottom:10px; }
+.lpf #settingsModal .set2 .f2-sec{ padding:0; }
+.lpf #settingsModal .set2 .f2-sec-t{ margin-bottom:6px; }
+.lpf #settingsModal .f-hint{ margin-top:4px; line-height:1.4; }
+.lpf button:not(.btn-primary):not(.on):not(.active):not(:disabled):hover{ background:var(--hover); }
+.lpf .sz-row{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+.lpf .sz-row .sz{ flex:1; min-width:120px; max-width:200px; }
+.lpf .f2-sizeline{ margin-top:8px; font-size:12px; color:var(--text-dim); line-height:1.5; }
+.lpf .pt-fill{ height:30px; display:flex; align-items:center; font-size:0; line-height:0; filter:none; }
+.lpf .pt-fill svg{ display:block; }
+.lpf .example-wrap .pc-head .btn-ghost, .lpf .example-wrap .pc-head .icon-btn, .lpf .example-wrap .tg-del, .lpf .example-wrap .watch-row .btn-ghost{ display:none !important; }
+.lpf .empty-card.dark .btn-primary{ background:var(--panel); color:var(--text); border:1px solid var(--panel); }
+.lpf .empty-card.dark .btn-ghost{ background:transparent; color:var(--panel); border:1px solid rgba(255,255,255,.35); }
+.lpf .empty-card.dark .icon-btn{ color:rgba(255,255,255,.7); }
+.lpf .empty-card.dark .btn-primary:hover{ border-color:rgba(255,255,255,.35); }
+.lpf .f2-stages{ margin-top:10px; }
+.lpf .f2-stages-t{ font-size:11px; font-weight:600; color:var(--text-dim); margin-bottom:4px; }
+.lpf .f2-stage{ display:grid; grid-template-columns:26px 1fr 14px 1fr 40px; align-items:baseline; gap:6px; font-size:12.5px; padding:3px 0; border-top:1px solid var(--line); }
+.lpf .f2-stage:first-of-type{ border-top:none; }
+.lpf .f2-stage b{ font-family:var(--mono); font-weight:600; }
+.lpf .f2-stage span{ color:var(--text-dim); font-size:11.5px; }
+.lpf .f2-stage em{ font-style:normal; text-align:right; font-size:11.5px; color:var(--text-dim); font-family:var(--mono); }
+@media (min-width:700px){
+  .lpf #settingsModal .set2 .f2-row2{ grid-template-columns:1fr 1fr 1.25fr; }
+  .lpf #settingsModal .set2 .f2-row2 .f-label{ white-space:nowrap; }
+}
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -807,33 +1079,38 @@ input[type=range]:focus-visible{outline:3px solid var(--lilac);outline-offset:4p
       <div class="head" style="margin:0">
         <span class="pill lilac">Key interaction</span>
         <h3 style="font-size:clamp(28px,3.4vw,44px)">I pick how much I'll risk, and LOOP works out the rest.</h3>
-        <span class="sticker try">Drag the slider <svg viewBox="0 0 40 16" aria-hidden="true"><path d="M2 8h32M28 2l7 6-7 6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="sticker try">Edit any field <svg viewBox="0 0 40 16" aria-hidden="true"><path d="M2 8h32M28 2l7 6-7 6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </div>
-      <div class="app" aria-label="LOOP plan card for COHR, sample data">
-        <div class="app-top"><b>COHR plan</b><span class="tagp">Sample data</span></div>
-        <div class="field">
-          <label for="risk">Max loss if stopped out <output id="riskOut" for="risk" class="num">$6,750</output></label>
-          <input type="range" id="risk" min="3375" max="16875" step="3375" value="6750">
+      <div class="lpf" id="lpf" aria-label="LOOP plan editor for COHR, sample data. You can edit every field.">
+  <div class="lpf-sec"><span class="badge">◎</span><h2>Trade plans</h2><span class="count">1</span><span class="grow"><span class="btn-ghost btn-small" style="display:inline-flex;align-items:center;height:30px;padding:0 14px;border:1px solid var(--line);border-radius:999px;background:#fff;font-size:13px;font-weight:600">Refresh prices</span><span class="btn-ghost btn-small" style="display:inline-flex;align-items:center;height:30px;padding:0 14px;border:1px solid var(--line);border-radius:999px;background:#fff;font-size:13px;font-weight:600">+ Add</span></span></div>
+  <div class="form-card plan-form f2">
+    <div class="f2-head"><b>Edit COHR plan</b><div class="f-btns"><button class="btn-primary btn-small" id="pf-save" type="button">Save</button><button type="button" class="icon-btn f-x" id="pf-x" aria-label="Reset to the example">✕</button></div></div>
+    <div class="f2-grid">
+      <div class="f2-main">
+        <div class="f2-sec"><div class="f2-sec-t"><span>1</span>Stock</div>
+          <div class="f-field w-sym"><label class="f-label" for="pf-sym">Symbol<i class="f-req" title="required">*</i></label><div class="f-in"><input id="pf-sym" type="text" style="text-transform:uppercase" value="COHR" disabled></div></div>
         </div>
-        <div class="ruler" id="ruler">
-          <div class="axis"></div>
-          <div class="band risk" id="bRisk">−$6,750</div>
-          <div class="band rew" id="bRew">+$26,850</div>
-          <div class="zone" id="zone"></div>
-          <div class="now" id="now"></div>
-          <span class="nowlab" id="nowlab">225.19</span>
-          <span class="lab" id="labStop" style="color:var(--loss)">Stop 188</span>
-          <span class="lab" id="labZone" style="color:var(--gain);top:0">Zone 200–230</span>
-          <span class="lab" id="labTgt" style="transform:translateX(-100%)">Target 300</span>
+        <div class="f2-sec"><div class="f2-sec-t"><span>2</span>Levels</div>
+          <div class="f2-row2">
+            <div class="f-field span2"><label class="f-label" for=""><span class="f-dot zone"></span>Buy zone<i class="f-req" title="required">*</i><span class="f-tip" tabindex="0" data-tip="The price range you are willing to buy in, usually the nearest support. One price? Put it in both boxes.">i</span></label><div class="f-pair"><div class="f-in"><span class="f-ad">$</span><input id="pf-lo" type="number" step="any" value="200"></div><span class="f-dash">–</span><div class="f-in"><span class="f-ad">$</span><input id="pf-hi" type="number" step="any" value="230"></div></div></div>
+            <div class="f-field "><label class="f-label" for="pf-stop"><span class="f-dot stop"></span>Stop<i class="f-req" title="required">*</i><span class="f-tip" tabindex="0" data-tip="If price gets here the trade idea is wrong — exit. Put it below support, not inside it.">i</span></label><div class="f-in"><span class="f-ad">$</span><input id="pf-stop" type="number" step="any" value="188"></div></div>
+            <div class="f-field "><label class="f-label" for="pf-tgt"><span class="f-dot tgt"></span>Target<i class="f-req" title="required">*</i><span class="f-tip" tabindex="0" data-tip="First profit-taking level, usually the nearest resistance above.">i</span></label><div class="f-in"><span class="f-ad">$</span><input id="pf-tgt" type="number" step="any" value="300"></div></div>
+          </div>
         </div>
-        <div class="kpis">
-          <div><span>Reward / risk</span><b style="color:var(--gain)">3.98</b></div>
-          <div><span>Shares</span><b id="kSh">300</b></div>
-          <div><span>Capital</span><b id="kCap">$63,150</b></div>
-        </div>
-        <div class="buys" id="buys"></div>
-        <p id="limit" class="calm">● 20.0% of account, inside your 40% limit</p>
+        <details class="f2-more" open>
+          <summary><span class="f2-sec-t" style="margin:0"><span>3</span>Size &amp; timing</span><em id="pfMoreSum"></em></summary>
+          <div class="f2-row3" style="margin-top:12px">
+            <div class="f-field span2"><label class="f-label" for="">Size<span class="f-tip" tabindex="0" data-tip="Pick how to size it: by risk (the most you lose at the stop), by % of the account (the final weight you want, what you already hold counts), or by shares (how many you want to end up holding, what you already hold counts). The other numbers are worked out for you.">i</span></label><input type="hidden" id="pf-mode" value="pct"><div class="sz-row"><div class="seg"><button type="button" data-mode="risk">Risk</button><button type="button" data-mode="pct" class="on">% of account</button><button type="button" data-mode="shares">Shares</button></div><div class="f-in sz sz-risk"><span class="f-ad">$</span><input id="pf-risk" type="number" step="any" placeholder="default 3,158" value=""></div><div class="f-in sz sz-pct"><input id="pf-pct" type="number" step="any" placeholder="e.g. 20" value="20"><span class="f-ad">%</span></div><div class="f-in sz sz-shares"><input id="pf-shares" type="number" step="1" placeholder="e.g. 500" value=""><span class="f-ad">sh</span></div></div></div>
+            <div class="f-field "><label class="f-label" for="">Tranches<span class="f-tip" tabindex="0" data-tip="How many buys to spread across the zone. Scaling in gives a better average.">i</span></label><input type="hidden" id="pf-n" value="3"><div class="seg"><button type="button" data-n="1">1</button><button type="button" data-n="2">2</button><button type="button" data-n="3" class="on">3</button></div></div>
+            <div class="f-field "><label class="f-label" for="">How to add<span class="f-tip" tabindex="0" data-tip="Even: equal slices. Left: bigger as it falls. Right: biggest first, add as it rises.">i</span></label><input type="hidden" id="pf-style" value="left"><div class="seg"><button type="button" data-style="even">Even</button><button type="button" data-style="left" class="on">Left</button><button type="button" data-style="right">Right</button></div></div>
+            <div class="f-field "><label class="f-label" for="pf-exp">Valid until<span class="f-tip" tabindex="0" data-tip="If not executed by this date, the plan is flagged as expired so you re-evaluate.">i</span></label><div class="f-in"><input id="pf-exp" type="date" value="2026-12-09"></div></div>
+          </div>
+        </details>
       </div>
+      <div class="f2-side"><div class="f2-prev-t">Preview</div><div id="pfPreview"></div></div>
+    </div>
+  </div>
+</div>
     </div>
   </div>
 </section>
@@ -994,28 +1271,8 @@ document.querySelectorAll('#nav-mobile-menu a').forEach(a=>a.addEventListener('c
   set(0);
   }
 
-  /* plan card */
-  var AVG=210.5,STOP=188,TGT=300,NOW=225.19,ACCT=315750,LIM=0.40,LO=180,HI=310;
-  var $=function(id){return document.getElementById(id)};
-  function money(v){return '$'+Math.round(v).toLocaleString('en-US')}
-  function pos(p){return ((p-LO)/(HI-LO)*100)+'%'}
-  function place(){
-    $('bRisk').style.left=pos(STOP);$('bRisk').style.width='calc('+pos(AVG)+' - '+pos(STOP)+')';
-    $('bRew').style.left=pos(AVG);$('bRew').style.width='calc('+pos(TGT)+' - '+pos(AVG)+')';
-    $('zone').style.left=pos(200);$('zone').style.width='calc('+pos(230)+' - '+pos(200)+')';
-    $('now').style.left=pos(NOW);$('nowlab').style.left=pos(NOW);
-    $('labStop').style.left=pos(STOP);$('labZone').style.left='calc('+pos(200)+' + 0px)';$('labTgt').style.left=pos(TGT);
-  }
-  function calc(){
-    var r=+$('risk').value,sh=Math.round(r/(AVG-STOP)),t=sh/3,cap=sh*AVG,pct=cap/ACCT;
-    $('riskOut').textContent=money(r);$('bRisk').innerHTML='<b>−'+money(r)+'</b>';$('bRew').innerHTML='<b>+'+money(sh*(TGT-AVG))+'</b>';
-    $('kSh').textContent=sh;$('kCap').textContent=money(cap);
-    $('buys').innerHTML=[[230,.2],[215,.3],[200,.5]].map(function(b){return '<span>'+b[0]+' × '+Math.round(sh*b[1])+'</span>'}).join('');
-    var l=$('limit');
-    if(pct>LIM){l.className='warn';l.textContent=(pct*100).toFixed(1)+'% of account, over your 40% single-stock limit'}
-    else{l.className='calm';l.textContent='● '+(pct*100).toFixed(1)+'% of account, inside your 40% limit'}
-  }
-  place();calc();$('risk').addEventListener('input',calc);
+
+  /* plan editor: see the next script */
 
   /* gentle reveal for content below the first screen; content stays visible at rest */
   if(window.matchMedia&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&'IntersectionObserver' in window){
@@ -1027,5 +1284,86 @@ document.querySelectorAll('#nav-mobile-menu a').forEach(a=>a.addEventListener('c
 })();
 </script>
 
+<script>
+(function(){
+  var root=document.getElementById('lpf');if(!root)return;
+  var $=function(id){return document.getElementById(id)};
+  var PRICE=225.19,TOTAL=315750,MAXS=40,MAXSEC=60,RISKPCT=1,TODAY='2026-11-09';
+  var num=function(v){var x=parseFloat(v);return isFinite(x)?x:null};
+  var fmt=function(n,dp){dp=dp==null?2:dp;return Number(n).toLocaleString('en-US',{minimumFractionDigits:dp,maximumFractionDigits:dp})};
+  function ld(s){var a=s.split('-').map(Number);return new Date(a[0],(a[1]||1)-1,a[2]||1)}
+  function days(a,b){return Math.round((ld(b)-ld(a))/86400000)}
+  function trW(n,st){if(n===1)return[1];var f={left:{2:[.4,.6],3:[.2,.3,.5]},right:{2:[.6,.4],3:[.5,.3,.2]}};if(f[st]&&f[st][n])return f[st][n];return Array(n).fill(1/n)}
+  function trP(p,n,st){if(st==='right'){var step=Math.max(p.hi-p.lo,p.hi*.02);return Array.from({length:n},function(_,i){return p.hi+step*i})}return n===1?[(p.lo+p.hi)/2]:Array.from({length:n},function(_,i){return p.hi-(p.hi-p.lo)*i/(n-1)})}
+  function split(total,W){var left=total;return W.map(function(w,i){var q=i===W.length-1?left:Math.floor(total*w);left-=q;return q})}
+  var STYLE={even:'Even',left:'Left-side',right:'Right-side'};
+  function calc(p){
+    var n=Math.max(1,p.tranches||1),st=p.style||'even',W=trW(n,st),PX=trP(p,n,st);
+    var mid=PX.reduce(function(t,px,i){return t+px*W[i]},0);
+    var riskAmt=num(p.risk);if(riskAmt==null)riskAmt=TOTAL*RISKPCT/100;
+    var rps=mid-p.stop,mode=p.sizeMode||'risk',shares=null,target=null;
+    if(mode==='shares'){var q=num(p.sizeVal);if(q!=null&&q>0){target=Math.floor(q);shares=target}}
+    else if(mode==='pct'){var pc=num(p.sizeVal);if(pc!=null&&pc>0&&mid>0){target=Math.floor(TOTAL*pc/100/mid);shares=target}}
+    else shares=riskAmt!=null&&rps>0?Math.floor(riskAmt/rps):null;
+    var qty=null;if(shares!=null)qty=split(shares,W);
+    var qW=null;if(mode!=='risk'&&target!=null&&target>0)qW=split(target,W);
+    var rr=rps>0?(p.target-mid)/rps:null;
+    var warns=[];
+    if(!(p.stop<p.lo&&p.lo<=p.hi&&p.hi<p.target))warns.push({c:'err',t:'Levels out of order: need stop < zone low ≤ zone high < target'});
+    else if(rr!=null&&rr<1)warns.push({c:'',t:'Reward/risk at zone mid is only '+fmt(rr,2)+' (< 1)'});
+    if(shares!=null){var add=shares*mid,w=add/(TOTAL+Math.max(0,add-TOTAL))*100;
+      if(w>MAXS)warns.push({c:'',t:'After execution COHR ≈ '+fmt(w,0)+'% of the account, above the '+MAXS+'% single-stock limit'});}
+    return {mid:mid,rps:rps,shares:shares,mode:mode,style:st,W:W,PX:PX,qty:qty,qW:qW,target:target,rr:rr,warns:warns};
+  }
+  function ruler(p,c){
+    var vals=[p.stop,p.lo,p.hi,p.target,PRICE],lo=Math.min.apply(null,vals),hi=Math.max.apply(null,vals),pad=(hi-lo)*.04||hi*.02;lo-=pad;hi+=pad;
+    var X=function(v){return(v-lo)/(hi-lo)*100},x=function(v){return X(v).toFixed(2)+'%'},w=function(a,b){return(X(b)-X(a)).toFixed(2)+'%'};
+    var rk=c.shares!=null?'−$'+fmt(c.shares*(c.mid-p.stop),0):'−$'+fmt(c.mid-p.stop)+'/sh',rw=c.shares!=null?'+$'+fmt(c.shares*(p.target-c.mid),0):'+$'+fmt(p.target-c.mid)+'/sh';
+    return '<div class="pt"><div class="pt-track"></div>'+
+      '<div class="pt-risk" style="left:'+x(p.stop)+';width:'+w(p.stop,c.mid)+'"><span>risk '+rk+'</span></div>'+
+      '<div class="pt-reward" style="left:'+x(c.mid)+';width:'+w(c.mid,p.target)+'"><span>'+rw+' reward</span></div>'+
+      '<div class="pt-zone" style="left:'+x(p.lo)+';width:'+w(p.lo,p.hi)+'"></div>'+
+      '<div class="pt-now" style="left:'+x(PRICE)+'"></div><div class="pt-nowlab" style="left:'+x(PRICE)+'">'+fmt(PRICE)+'</div>'+
+      '<div class="pt-lab stop" style="left:'+x(p.stop)+'"><span class="term" tabindex="0" data-tip="If price gets here, the reason for the trade is gone — exit per plan.">Stop</span> <b>'+fmt(p.stop)+'</b></div>'+
+      '<div class="pt-lab zone" style="left:'+x((p.lo+p.hi)/2)+'">Zone <b>'+fmt(p.lo)+'–'+fmt(p.hi)+'</b></div>'+
+      '<div class="pt-lab tgt" style="left:'+x(p.target)+'">Target <b>'+fmt(p.target)+'</b></div></div>';
+  }
+  function read(){
+    var lo=num($('pf-lo').value),hi=num($('pf-hi').value);
+    if(lo!=null&&hi!=null&&lo>hi){var t=lo;lo=hi;hi=t}
+    if(lo!=null&&hi==null)hi=lo;if(hi!=null&&lo==null)lo=hi;
+    var mode=$('pf-mode').value;
+    return {sym:$('pf-sym').value.trim().toUpperCase(),lo:lo,hi:hi,stop:num($('pf-stop').value),target:num($('pf-tgt').value),risk:$('pf-risk').value,sizeMode:mode,style:$('pf-style').value,sizeVal:(mode==='pct'?$('pf-pct'):$('pf-shares')).value,tranches:+$('pf-n').value||1,expiry:$('pf-exp').value||'2026-12-09'};
+  }
+  function preview(){
+    var el=$('pfPreview'),f=read(),sum=$('pfMoreSum');
+    var r=num(f.risk);if(r==null)r=TOTAL*RISKPCT/100;
+    var sizeTxt=f.sizeMode==='pct'&&num(f.sizeVal)!=null?'target '+fmt(num(f.sizeVal),0)+'% of account':f.sizeMode==='shares'&&num(f.sizeVal)!=null?fmt(num(f.sizeVal),0)+' sh':'risk $'+fmt(r,0);
+    sum.textContent=[sizeTxt,f.tranches+' tranche'+(f.tranches>1?'s':''),Math.max(0,days(TODAY,f.expiry))+' days'].join(' · ');
+    var miss=[!f.sym&&'symbol',f.lo==null&&'zone',f.stop==null&&'stop',f.target==null&&'target'].filter(Boolean);
+    if(miss.length){el.innerHTML='<div class="f2-wait"><div class="f2-wait-bar"><i class="r"></i><i class="g"></i></div>Still needed: <b>'+miss.join(', ')+'</b><br><span>Once filled, risk vs reward is drawn here with a suggested size.</span></div>';return}
+    var p=f,c=calc(p),bad=c.warns.find(function(w){return w.c==='err'});
+    var rrc=c.rr==null?'':c.rr>=2?'gain-t':c.rr<1?'loss-t':'';
+    var h=(bad?'':ruler(p,c))+
+      '<div class="f2-kpis"><div><span><span class="term" tabindex="0" data-tip="What you make at the target ÷ what you lose at the stop. Above 1.5 is usually worth it.">Reward / risk</span></span><b class="'+rrc+'">'+(c.rr!=null?fmt(c.rr,2):'—')+'</b></div>'+
+      '<div><span>Shares</span><b>'+(c.shares!=null?fmt(c.shares,0):'—')+'</b></div>'+
+      '<div><span>Capital</span><b>'+(c.shares!=null?'$'+fmt(c.shares*c.mid,0):'—')+'</b></div></div>';
+    if(c.mode!=='risk'&&c.target!=null)h+='<div class="f2-sizeline">'+(c.mode==='pct'?'Target '+fmt(num(p.sizeVal),0)+'% ≈ '+fmt(c.target,0)+' sh':'Target '+fmt(c.target,0)+' sh')+' · you hold 0 · buy '+fmt(c.shares,0)+' more</div>';
+    if(c.shares!=null||c.qW){h+='<div class="f2-stages"><div class="f2-stages-t">'+STYLE[c.style]+' · by stage</div>'+c.PX.map(function(px,i){var q=c.qW?c.qW[i]:c.qty?c.qty[i]:null;return '<div class="f2-stage"><span>#'+(i+1)+'</span><b>'+fmt(px)+'</b><span>×</span><b>'+(q!=null?fmt(q,0):'—')+'</b><em>'+Math.round(c.W[i]*100)+'%</em></div>'}).join('')+'</div>'}
+    if(c.shares!=null&&c.rps>0)h+='<div class="f2-sizeline">Loss at the stop: $'+fmt(c.shares*c.rps,0)+' · '+fmt(c.shares*c.rps/TOTAL*100,1)+'% of the account</div>';
+    var ws=c.warns.filter(function(w){return w.c!=='info'});
+    if(ws.length)h+='<div class="pc-alert" style="margin-top:10px">'+ws.map(function(w){return '<div class="'+w.c+'">'+w.t+'</div>'}).join('')+'</div>';
+    el.innerHTML=h;
+  }
+  function setMode(k){$('pf-mode').value=k;root.querySelectorAll('.sz-row .seg button').forEach(function(b){b.classList.toggle('on',b.dataset.mode===k)});['risk','pct','shares'].forEach(function(x){var e=root.querySelector('.sz-'+x);if(e)e.style.display=x===k?'':'none'});preview()}
+  root.querySelectorAll('.sz-row .seg button').forEach(function(b){b.addEventListener('click',function(){setMode(b.dataset.mode)})});
+  root.querySelectorAll('[data-n]').forEach(function(b){b.addEventListener('click',function(){$('pf-n').value=b.dataset.n;b.parentNode.querySelectorAll('button').forEach(function(x){x.classList.remove('on')});b.classList.add('on');preview()})});
+  root.querySelectorAll('[data-style]').forEach(function(b){b.addEventListener('click',function(){$('pf-style').value=b.dataset.style;b.parentNode.querySelectorAll('button').forEach(function(x){x.classList.remove('on')});b.classList.add('on');preview()})});
+  root.querySelectorAll('input').forEach(function(i){i.addEventListener('input',preview);i.addEventListener('change',preview)});
+  var save=$('pf-save');if(save)save.addEventListener('click',function(){var t=save.textContent;save.textContent='Saved ✓';setTimeout(function(){save.textContent=t},1200)});
+  var x=$('pf-x');if(x)x.addEventListener('click',function(){var d={ 'pf-lo':200,'pf-hi':230,'pf-stop':188,'pf-tgt':300,'pf-pct':20,'pf-exp':'2026-12-09','pf-risk':'','pf-shares':''};Object.keys(d).forEach(function(k){$(k).value=d[k]});$('pf-n').value=3;$('pf-style').value='left';root.querySelectorAll('[data-n]').forEach(function(b){b.classList.toggle('on',b.dataset.n==='3')});root.querySelectorAll('[data-style]').forEach(function(b){b.classList.toggle('on',b.dataset.style==='left')});setMode('pct')});
+  setMode('pct');
+})();
+</script>
 </body>
 </html>
