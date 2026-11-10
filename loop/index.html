@@ -178,14 +178,20 @@ h3{font-size:clamp(24px,2.6vw,32px);font-weight:600;line-height:1.12;letter-spac
 @media (max-width:820px){.roles{grid-template-columns:1fr}}
 
 /* the trade */
-.steps{display:flex;gap:2px;position:sticky;top:84px;z-index:150;width:fit-content;max-width:100%;margin:0 0 18px;padding:5px;background:rgba(255,255,255,.78);-webkit-backdrop-filter:blur(14px) saturate(1.4);backdrop-filter:blur(14px) saturate(1.4);border:1px solid rgba(20,20,20,.08);border-radius:999px;box-shadow:0 6px 22px rgba(20,20,20,.10)}
-@media (max-width:700px){.steps{top:72px;width:100%;overflow-x:auto;scrollbar-width:none}.steps::-webkit-scrollbar{display:none}}
-.steps button{font:inherit;font-size:14px;font-weight:600;border:0;background:transparent;color:var(--ink);border-radius:999px;padding:8px 14px;cursor:var(--cur-hand);display:flex;align-items:center;gap:6px;flex:none;transition:background .2s,color .2s}
-.steps button:hover{background:rgba(20,20,20,.06)}
-.steps button span{font-family:var(--f-mono);font-size:11px;font-weight:500;color:var(--ink-3)}
+.steps{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.steps button{font:inherit;font-size:16px;font-weight:600;border:2px solid var(--ink);background:transparent;color:var(--ink);border-radius:999px;padding:9px 18px;cursor:var(--cur-hand);display:flex;align-items:center;gap:8px}
+.steps button span{font-family:var(--f-mono);font-size:12px;font-weight:500;color:var(--ink-3)}
 .steps button[aria-selected="true"]{background:var(--ink);color:var(--night-fg)}
 .steps button[aria-selected="true"] span{color:var(--lime)}
 .steps button:focus-visible{outline:3px solid var(--lilac);outline-offset:2px}
+.stepnav{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:20px}
+.stepnav .snc{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;color:var(--ink-3)}
+.stepnav .sn{font:inherit;font-size:16px;font-weight:600;border:2px solid var(--ink);background:transparent;color:var(--ink);border-radius:999px;padding:10px 20px;cursor:var(--cur-hand);display:inline-flex;align-items:center;gap:8px;transition:background .2s,color .2s}
+.stepnav .sn:hover{background:var(--ink);color:var(--night-fg)}
+.stepnav .sn.next{background:var(--ink);color:var(--night-fg)}
+.stepnav .sn.next:hover{background:#2a2a2a}
+.stepnav .sn[hidden]{visibility:hidden;display:inline-flex}
+@media (max-width:600px){.stepnav .sn{font-size:14px;padding:9px 14px}.stepnav .snc{display:none}}
 .pair{display:grid;grid-template-columns:1fr;gap:16px}
 .side.old{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:32px;row-gap:12px;align-items:start}
 .side.old>*{grid-column:1}
@@ -407,11 +413,11 @@ input[type=range]:focus-visible{outline:3px solid var(--lilac);outline-offset:4p
 @media (max-width:900px){.dec{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:no-preference){.dec article{transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}.dec article:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(20,20,20,.08)}}
 .dec2{display:flex;flex-direction:column;gap:16px}
-.dec2 article{background:var(--card);border-radius:var(--r);padding:28px 32px;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:32px;align-items:center}
+.dec2 article{background:var(--card);border-radius:var(--r);padding:28px 32px;display:grid;grid-template-columns:1fr;gap:20px;align-items:start}
 .dt{display:flex;flex-direction:column;gap:10px;min-width:0}
 .dt h3{font-size:clamp(22px,2.4vw,30px)}
 .dt p{font-size:16px;color:var(--ink-2);max-width:40ch}
-.vs{display:grid;grid-template-columns:1fr 1fr;gap:10px;min-width:0}
+.vs{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;min-width:0;align-items:stretch}
 .vs figure{margin:0;border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:10px;min-width:0}
 .vs figcaption{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
 .vs .no{background:var(--paper-2)}.vs .no figcaption{color:var(--ink-3)}
@@ -430,8 +436,6 @@ input[type=range]:focus-visible{outline:3px solid var(--lilac);outline-offset:4p
 .vs .bub{font-style:normal;font-size:12px;line-height:1.35;border-radius:12px;padding:6px 10px;max-width:90%}
 .vs .bub.me{align-self:flex-end;background:#E3DED3}.vs .bub.ai{align-self:flex-start;background:#fff;border:1.5px solid #E3DED3}
 .vs .drop2{border:2px dashed #1B4D3E!important;align-items:center;text-align:center;color:#1B4D3E}
-.dec2 article.wideart{grid-template-columns:1fr;gap:20px;align-items:start}
-.wideart .vs{grid-template-columns:minmax(0,.7fr) minmax(0,2.3fr);align-items:stretch}
 .vs .m.pic{padding:0;border:0;overflow:hidden;min-height:0;justify-content:center}
 .vs .m.pic img{display:block;width:100%;height:auto;border-radius:10px}
 .vs .drop2 span{color:var(--ink-2)}
@@ -1062,18 +1066,19 @@ input[type=range]:focus-visible{outline:3px solid var(--lilac);outline-offset:4p
     <div class="steps" role="tablist" aria-label="Trade steps" id="steps"></div>
     <div class="pair" id="pair" role="tabpanel" aria-live="polite">
       <article class="side old">
-        <div class="who"><span class="pill peach" style="background:#fff">The usual way</span><span class="note" id="oldn">1 / 6</span></div>
+        <div class="who"><span class="pill peach" style="background:#fff">The usual way</span></div>
         <h3 id="oldh">You scroll six apps for an hour to find one idea.</h3>
         <p class="body" id="oldp">Nothing says why a stock is worth a look.</p>
         <p class="bigstep" id="oldbig" aria-hidden="true">Spot</p>
       </article>
       <article class="side new">
-        <div class="who"><span class="pill">In LOOP</span><span class="note" id="newn">1 / 6</span></div>
+        <div class="who"><span class="pill">In LOOP</span></div>
         <h3 id="newh">The momentum board finds COHR and says why.</h3>
         <p class="body" id="newp">5 of 7 conditions met. Each one is a plain sentence.</p>
         <div class="slot" id="slot"><svg viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="16" fill="none" stroke="currentColor" stroke-width="2"/><path d="M14 11v14l11-7z" fill="currentColor"/></svg><span id="slott">Screen recording: momentum board</span></div>
       </article>
     </div>
+    <div class="stepnav" id="stepnav"><button type="button" id="prevStep" class="sn"></button><span></span><button type="button" id="nextStep" class="sn next"></button></div>
     </div>
 
     <div class="planwrap" style="margin-top:96px">
@@ -1124,10 +1129,10 @@ input[type=range]:focus-visible{outline:3px solid var(--lilac);outline-offset:4p
     </div>
     <div class="dec2">
       <article>
-        <div class="dt"><span class="k">01</span><h3>Warn, don't block.</h3><p>Passed on hard blocks. Blocked users just open the broker and leave.</p></div>
+        <div class="dt"><span class="k">01</span><h3>Warn, don't block.</h3><p>A plan over your limit gets a red warning, but you can still save it. A hard block only sends people to their broker.</p></div>
         <div class="vs">
-          <figure class="no"><figcaption>Before</figcaption><div class="m"><b>Order blocked</b><span>NBIS would be 42% of your account.</span><i class="bt off">Can't continue</i></div></figure>
-          <figure class="yes"><figcaption>After</figcaption><div class="m"><b>NBIS plan</b><span class="red">Over your 40% limit</span><i class="bt on">Save plan</i></div></figure>
+          <figure class="no"><figcaption>Before</figcaption><div class="m"><b>Order blocked</b><span>NBIS would be 49% of your account, above the 40% limit.</span><i class="bt off">Can't continue</i></div></figure>
+          <figure class="yes"><figcaption>After</figcaption><div class="m"><b>NBIS plan</b><span class="red">After execution NBIS ≈ 49% of the account, above the 40% single-stock limit</span><i class="bt on">Save plan</i></div></figure>
         </div>
       </article>
       <article>
@@ -1137,7 +1142,7 @@ input[type=range]:focus-visible{outline:3px solid var(--lilac);outline-offset:4p
           <figure class="yes"><figcaption>After</figcaption><div class="m"><b>NBIS <em>6 / 7</em></b><span class="grn">✓ Uptrend ✓ Beating SPY ✓ Volume</span><span class="red">Missing: news disagrees</span></div></figure>
         </div>
       </article>
-      <article class="wideart">
+      <article>
         <div class="dt"><span class="k">03</span><h3>Trust before convenience.</h3><p>Passed on syncing accounts. Statements are imported, and data stays on the device.</p></div>
         <div class="vs">
           <figure class="no"><figcaption>Before</figcaption><div class="m"><b>Connect your account</b><span>Sign in to sync positions.</span><i class="bt off">Log in to your broker</i></div></figure>
@@ -1259,9 +1264,11 @@ document.querySelectorAll('#nav-mobile-menu a').forEach(a=>a.addEventListener('c
     document.getElementById('oldh').textContent=d.oh;document.getElementById('oldp').textContent=d.op;
     document.getElementById('newh').textContent=d.nh;document.getElementById('newp').textContent=d.np;lines(document.getElementById('oldp'));lines(document.getElementById('newp'));
     var sl=document.getElementById('slot');if(!sl.dataset.ph)sl.dataset.ph=sl.innerHTML;if(d.img){sl.classList.add('has-img');sl.innerHTML='<img src="'+d.img+'" alt="'+d.ia+'" width="'+d.iw+'" height="'+d.ih+'">'+(AN[i]||[]).map(function(a){return '<i class="an" style="left:'+a[0]+'%;top:'+a[1]+'%;width:'+a[2]+'%;height:'+a[3]+'%"><b'+(a[5]==='r'?' class="r"':'')+'>'+a[4]+'</b></i>'}).join('')}else{sl.classList.remove('has-img');sl.innerHTML=sl.dataset.ph;document.getElementById('slott').textContent=d.s}document.getElementById('oldbig').textContent=d.n;
-    document.getElementById('oldn').textContent=(i+1)+' / 6';document.getElementById('newn').textContent=(i+1)+' / 6';
+    
     btns.forEach(function(b,j){b.setAttribute('aria-selected',j===i?'true':'false');b.tabIndex=j===i?0:-1});
     if(focus)btns[i].focus();
+    var pv=document.getElementById('prevStep'),nx=document.getElementById('nextStep');
+    if(pv){pv.hidden=i===0;pv.textContent='← '+steps[Math.max(0,i-1)].n;nx.textContent=i===5?'Start again ↺':steps[Math.min(5,i+1)].n+' →'}
   }
   steps.forEach(function(d,i){
     var b=document.createElement('button');b.type='button';b.id='step-'+i;b.setAttribute('role','tab');
@@ -1270,6 +1277,10 @@ document.querySelectorAll('#nav-mobile-menu a').forEach(a=>a.addEventListener('c
     tl.appendChild(b);btns.push(b);
   });
   set(0);
+  function go(i){set(i);setTimeout(function(){var sc=document.getElementById('steps');var y=sc.getBoundingClientRect().top+window.pageYOffset-96;window.scrollTo({top:Math.max(0,y),behavior:'auto'})},60)}
+  var pv=document.getElementById('prevStep'),nx=document.getElementById('nextStep');
+  if(pv)pv.addEventListener('click',function(){go(Math.max(0,cur-1))});
+  if(nx)nx.addEventListener('click',function(){go(cur===5?0:cur+1)});
   }
 
 
