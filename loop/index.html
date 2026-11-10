@@ -187,9 +187,12 @@ h3{font-size:clamp(24px,2.6vw,32px);font-weight:600;line-height:1.12;letter-spac
 .stepnav{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:20px}
 .stepnav .snc{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;color:var(--ink-3)}
 .stepnav .sn{font:inherit;font-size:16px;font-weight:600;border:2px solid var(--ink);background:transparent;color:var(--ink);border-radius:999px;padding:10px 20px;cursor:var(--cur-hand);display:inline-flex;align-items:center;gap:8px;transition:background .2s,color .2s}
+.stepnav .sn span{font-family:var(--f-mono);font-size:12px;font-weight:500;color:var(--ink-3)}
 .stepnav .sn:hover{background:var(--ink);color:var(--night-fg)}
-.stepnav .sn.next{background:var(--ink);color:var(--night-fg)}
-.stepnav .sn.next:hover{background:#2a2a2a}
+.stepnav .sn:hover span{color:var(--lime)}
+.stepnav .sn.nxt{background:var(--ink);color:var(--night-fg)}
+.stepnav .sn.nxt span{color:var(--lime)}
+.stepnav .sn.nxt:hover{background:#2a2a2a}
 .stepnav .sn[hidden]{visibility:hidden;display:inline-flex}
 @media (max-width:600px){.vs{grid-template-columns:1fr}.vs .m{min-height:0}.stepnav .sn{font-size:14px;padding:9px 14px}.stepnav .snc{display:none}}
 .pair{display:grid;grid-template-columns:1fr;gap:16px}
@@ -1093,7 +1096,7 @@ input[type=range]:focus-visible{outline:3px solid var(--lilac);outline-offset:4p
         <div class="slot" id="slot"><svg viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="16" fill="none" stroke="currentColor" stroke-width="2"/><path d="M14 11v14l11-7z" fill="currentColor"/></svg><span id="slott">Screen recording: momentum board</span></div>
       </article>
     </div>
-    <div class="stepnav" id="stepnav"><button type="button" id="prevStep" class="sn"></button><span></span><button type="button" id="nextStep" class="sn next"></button></div>
+    <div class="stepnav" id="stepnav"><button type="button" id="prevStep" class="sn"></button><span></span><button type="button" id="nextStep" class="sn nxt"></button></div>
     </div>
 
     <div class="planwrap" style="margin-top:96px">
@@ -1153,7 +1156,7 @@ input[type=range]:focus-visible{outline:3px solid var(--lilac);outline-offset:4p
       <article>
         <div class="dt"><span class="k">02</span><h3>Alerts only when a plan needs you.</h3><p>No ping for every price move. Only when a stock hits your buy zone or stop.</p></div>
         <div class="vs">
-          <figure class="no"><figcaption>Passed on</figcaption><div class="m"><span class="nt">NBIS +2.1% <s>now</s></span><span class="nt">NBIS −1.4% <s>4m</s></span><span class="nt">IONQ +3.0% <s>9m</s></span><span class="nt">NBIS +0.8% <s>12m</s></span></div></figure>
+          <figure class="no"><figcaption>Passed on</figcaption><div class="m pic"><img src="../images/loop/decision-alerts-before.webp?v=20261110" alt="Three alert emails from Interactive Brokers in an inbox: TSLA, MU and COHR Last Price alerts, all at once" width="1284" height="724"></div></figure>
           <figure class="yes"><figcaption>Chose</figcaption><div class="m"><span class="nt on"><span><i class="dot"></i>NBIS reached your zone</span><s>224.10</s></span><span>Nothing else needs you today.</span></div></figure>
         </div>
       </article>
@@ -1290,7 +1293,7 @@ document.querySelectorAll('#nav-mobile-menu a').forEach(a=>a.addEventListener('c
     btns.forEach(function(b,j){b.setAttribute('aria-selected',j===i?'true':'false');b.tabIndex=j===i?0:-1});
     if(focus)btns[i].focus();
     var pv=document.getElementById('prevStep'),nx=document.getElementById('nextStep');
-    if(pv){pv.hidden=i===0;pv.textContent='← '+steps[Math.max(0,i-1)].n;nx.textContent=i===5?'Start again ↺':steps[Math.min(5,i+1)].n+' →'}
+    if(pv){pv.hidden=i===0;pv.innerHTML='← <span>0'+Math.max(1,i)+'</span>'+steps[Math.max(0,i-1)].n;nx.innerHTML=i===5?'Start again ↺':'<span>0'+(i+2)+'</span>'+steps[Math.min(5,i+1)].n+' →'}
   }
   steps.forEach(function(d,i){
     var b=document.createElement('button');b.type='button';b.id='step-'+i;b.setAttribute('role','tab');
