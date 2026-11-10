@@ -191,7 +191,7 @@ h3{font-size:clamp(24px,2.6vw,32px);font-weight:600;line-height:1.12;letter-spac
 .stepnav .sn.next{background:var(--ink);color:var(--night-fg)}
 .stepnav .sn.next:hover{background:#2a2a2a}
 .stepnav .sn[hidden]{visibility:hidden;display:inline-flex}
-@media (max-width:600px){.stepnav .sn{font-size:14px;padding:9px 14px}.stepnav .snc{display:none}}
+@media (max-width:600px){.vs{grid-template-columns:1fr}.vs .m{min-height:0}.stepnav .sn{font-size:14px;padding:9px 14px}.stepnav .snc{display:none}}
 .pair{display:grid;grid-template-columns:1fr;gap:16px}
 .side.old{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:32px;row-gap:12px;align-items:start}
 .side.old>*{grid-column:1}
@@ -422,7 +422,7 @@ input[type=range]:focus-visible{outline:3px solid var(--lilac);outline-offset:4p
 .vs figcaption{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
 .vs .no{background:var(--paper-2)}.vs .no figcaption{color:var(--ink-3)}
 .vs .yes{background:var(--card);border:2px solid var(--ink)}
-.vs .yes figcaption{color:var(--ink)}
+.vs .yes figcaption{align-self:flex-start;background:var(--lime);color:var(--ink);border-radius:999px;padding:2px 10px}
 .vs .m{flex:1;display:flex;flex-direction:column;justify-content:center;gap:6px;border-radius:12px;padding:12px;min-height:118px}
 .vs .no .m{background:var(--paper);border:1.5px solid #D6CFBF;color:#A39D8E}
 .vs .yes .m{border:1.5px solid #ECE7DC}
@@ -437,6 +437,21 @@ input[type=range]:focus-visible{outline:3px solid var(--lilac);outline-offset:4p
 .vs .bub.me{align-self:flex-end;background:#E3DED3}.vs .bub.ai{align-self:flex-start;background:#fff;border:1.5px solid #E3DED3}
 .vs .drop2{border:2px dashed #1B4D3E!important;align-items:center;text-align:center;color:#1B4D3E}
 .vs .m.pic{padding:0;border:0;overflow:hidden;min-height:0;justify-content:center}
+.vs .fld{display:flex;justify-content:space-between;align-items:center;font-size:12px;border:1.5px solid #D6CFBF;border-radius:8px;padding:5px 8px}
+.vs .fld u{text-decoration:none;font-family:var(--f-mono);font-weight:600}
+.vs .yes .fld.on{border-color:#1B4D3E;color:var(--ink)}
+.vs .nt{display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:12px;background:#fff;border-radius:8px;padding:5px 8px}
+.vs .no .nt{background:#EFEBE3}
+.vs .nt s,.vs .row s{text-decoration:none;font-family:var(--f-mono)}
+.vs .nt.on{background:var(--gain-bg);color:var(--ink);font-weight:600;padding:8px}
+.vs .nt.on span{display:flex;align-items:center;gap:6px}
+.vs .dot{display:block;width:8px;height:8px;border-radius:50%;background:var(--gain-2);flex:none}
+.vs .row{display:flex;justify-content:space-between;gap:6px;font-size:12px}
+.vs .no .row{border-bottom:1px solid #E3DED3;padding-bottom:4px}
+.vs .yes .row{font-weight:600;font-size:13px}
+.vs .grn{color:var(--gain)}.vs .red2{color:var(--loss)}
+.vs .meter{height:8px;border-radius:999px;background:#EFEDE4;overflow:hidden;display:block}
+.vs .meter i{display:block;height:100%;border-radius:999px}
 .vs .m.pic img{display:block;width:100%;height:auto;border-radius:10px}
 .vs .drop2 span{color:var(--ink-2)}
 @media (max-width:820px){.dec2 article{grid-template-columns:1fr;gap:18px;padding:22px}}
@@ -1125,28 +1140,35 @@ input[type=range]:focus-visible{outline:3px solid var(--lilac);outline-offset:4p
   <div class="wrap">
     <div class="head">
       <span class="pill">Key decisions</span>
-      <h2 class="big">Three calls that shaped LOOP.</h2>
+      <h2 class="big">Four calls that shaped LOOP.</h2>
     </div>
     <div class="dec2">
       <article>
-        <div class="dt"><span class="k">01</span><h3>Warn, don't block.</h3><p>A plan over your limit gets a red warning, but you can still save it. A hard block only sends people to their broker.</p></div>
+        <div class="dt"><span class="k">01</span><h3>Set your max loss, not your share count.</h3><p>LOOP asks how much you can lose, then works out how many shares to buy.</p></div>
         <div class="vs">
-          <figure class="no"><figcaption>Before</figcaption><div class="m"><b>Order blocked</b><span>NBIS would be 49% of your account, above the 40% limit.</span><i class="bt off">Can't continue</i></div></figure>
-          <figure class="yes"><figcaption>After</figcaption><div class="m"><b>NBIS plan</b><span class="red">After execution NBIS ≈ 49% of the account, above the 40% single-stock limit</span><i class="bt on">Save plan</i></div></figure>
+          <figure class="no"><figcaption>Passed on</figcaption><div class="m"><b>Buy NBIS</b><span class="fld">Shares <u>100</u></span><span>Max loss: not shown</span><i class="bt off">Place order</i></div></figure>
+          <figure class="yes"><figcaption>Chose</figcaption><div class="m"><b>NBIS plan</b><span class="fld on">Max loss <u>$540</u></span><span class="grn">→ 60 shares · 3 buys</span><span>Reward / risk 4.0</span></div></figure>
         </div>
       </article>
       <article>
-        <div class="dt"><span class="k">02</span><h3>Reasons, not answers.</h3><p>Passed on an AI chat. With money at stake, a black box is the riskiest thing a screen can show.</p></div>
+        <div class="dt"><span class="k">02</span><h3>Alerts only when a plan needs you.</h3><p>No ping for every price move. Only when a stock hits your buy zone or stop.</p></div>
         <div class="vs">
-          <figure class="no"><figcaption>Before</figcaption><div class="m"><i class="bub me">Should I buy NBIS?</i><i class="bub ai">Yes. It will likely rise 12% this week.</i></div></figure>
-          <figure class="yes"><figcaption>After</figcaption><div class="m"><b>NBIS <em>6 / 7</em></b><span class="grn">✓ Uptrend ✓ Beating SPY ✓ Volume</span><span class="red">Missing: news disagrees</span></div></figure>
+          <figure class="no"><figcaption>Passed on</figcaption><div class="m"><span class="nt">NBIS +2.1% <s>now</s></span><span class="nt">NBIS −1.4% <s>4m</s></span><span class="nt">IONQ +3.0% <s>9m</s></span><span class="nt">NBIS +0.8% <s>12m</s></span></div></figure>
+          <figure class="yes"><figcaption>Chose</figcaption><div class="m"><span class="nt on"><span><i class="dot"></i>NBIS reached your zone</span><s>224.10</s></span><span>Nothing else needs you today.</span></div></figure>
         </div>
       </article>
       <article>
-        <div class="dt"><span class="k">03</span><h3>Trust before convenience.</h3><p>Passed on syncing accounts. Statements are imported, and data stays on the device.</p></div>
+        <div class="dt"><span class="k">03</span><h3>Every trade ties back to a plan.</h3><p>So Review can show which trades were planned and which were impulse.</p></div>
         <div class="vs">
-          <figure class="no"><figcaption>Before</figcaption><div class="m"><b>Connect your account</b><span>Sign in to sync positions.</span><i class="bt off">Log in to your broker</i></div></figure>
-          <figure class="yes"><figcaption>After</figcaption><div class="m pic"><img src="../images/loop/decision-import.webp?v=20261109c" alt="The LOOP import screen: Drop your IBKR statement (CSV), or click to choose a file, with a Try demo data button" width="2000" height="565"></div></figure>
+          <figure class="no"><figcaption>Passed on</figcaption><div class="m"><span class="row">May 12 · NBIS <s>+$310</s></span><span class="row">May 14 · IONQ <s>−$420</s></span><span class="row">May 15 · RGTI <s>−$180</s></span><span class="row">May 19 · NBIS <s>+$540</s></span></div></figure>
+          <figure class="yes"><figcaption>Chose</figcaption><div class="m"><span class="row">Planned <s class="grn">+$1,240</s></span><span class="meter"><i style="width:72%;background:var(--gain-2)"></i></span><span class="row">Impulse <s class="red2">−$860</s></span><span class="meter"><i style="width:50%;background:var(--loss-2)"></i></span></div></figure>
+        </div>
+      </article>
+      <article>
+        <div class="dt"><span class="k">04</span><h3>Import statements, don't link accounts.</h3><p>No broker login needed. Your data stays on your device.</p></div>
+        <div class="vs">
+          <figure class="no"><figcaption>Passed on</figcaption><div class="m"><b>Connect your account</b><span>Sign in to sync positions.</span><i class="bt off">Log in to your broker</i></div></figure>
+          <figure class="yes"><figcaption>Chose</figcaption><div class="m pic"><img src="../images/loop/decision-import.webp?v=20261109c" alt="The LOOP import screen: Drop your IBKR statement (CSV), or click to choose a file, with a Try demo data button" width="2000" height="565"></div></figure>
         </div>
       </article>
     </div>
@@ -1240,7 +1262,7 @@ document.querySelectorAll('#nav-mobile-menu a').forEach(a=>a.addEventListener('c
 <script>
 (function(){
   function lines(el){var t=el.textContent.trim();var parts=t.split(/(?<=[.!?:])\s+(?=[A-Z$“"])/);if(parts.length<2)return;el.textContent='';parts.forEach(function(x){var sp=document.createElement('span');sp.className='ln';sp.textContent=x;el.appendChild(sp)})}
-  document.querySelectorAll('.lede,.why p,.lt>p,.case p').forEach(lines);
+  document.querySelectorAll('.lede,.why p,.lt>p,.case p,.dt p').forEach(lines);
   var AN=[
     [[2,37.1,96.8,9.4,"5 of 7, and the reasons"]],
     [[.7,9.7,98.3,10.1,"The status, in plain words","r"],[17.5,83.4,4.8,2.8,"Overheated"]],
