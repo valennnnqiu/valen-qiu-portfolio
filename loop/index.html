@@ -441,8 +441,18 @@ input[type=range]:focus-visible{outline:3px solid var(--lilac);outline-offset:4p
 .vs .drop2{border:2px dashed #1B4D3E!important;align-items:center;text-align:center;color:#1B4D3E}
 .vs .m .imgslot2{flex:1;min-height:110px;border:2px dashed #D6CFBF;border-radius:10px;display:grid;place-items:center;font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#A39D8E}
 .vs .m{aspect-ratio:3/2;min-height:0}
+.vs .no .m{background:transparent;border:0}
+.vs .yes .m{border:0;background:#fff}
+.vs .m.pic img{width:100%;height:auto;object-fit:initial;border-radius:0;display:block}
+.vs .m.pic{overflow:hidden}
+.vs .pw{position:relative;display:block;width:100%}
+.vs .pw .an{position:absolute;border:2px dashed #E5484D;border-radius:8px;pointer-events:none}
+.vs .pw .an b{position:absolute;left:-2px;bottom:calc(100% + 3px);background:#E5484D;color:#fff;font:600 11px/1 var(--f-display);padding:4px 8px;border-radius:999px;white-space:nowrap}
+.vs .pw .an b.below{bottom:auto;top:calc(100% + 3px)}
+.vs .hl3{position:relative;border:2px dashed #E5484D;border-radius:8px;padding:12px 10px 8px;display:flex;flex-direction:column;gap:6px;margin-top:10px}
+.vs .hl3 .hl3t{position:absolute;left:-2px;bottom:calc(100% + 3px);background:#E5484D;color:#fff;font:600 11px/1 var(--f-display);padding:4px 8px;border-radius:999px;white-space:nowrap;display:block}
 .vs .m.pic{padding:0;border:0;overflow:hidden;min-height:0;justify-content:center;align-items:center}
-.vs .m.pic img{width:100%;height:100%;object-fit:contain;object-position:center;border-radius:10px}
+
 .vs .tk{position:relative;height:16px;border-top:2px solid #C9C2B2;margin-top:10px}
 .vs .tk i{position:absolute;top:-9px;width:2px;height:16px;background:#A39D8E}
 .vs .lv{display:flex;justify-content:space-between;gap:6px}
@@ -1167,28 +1177,28 @@ input[type=range]:focus-visible{outline:3px solid var(--lilac);outline-offset:4p
         <div class="dt"><span class="k">01</span><h3>Show the cost before the trade.</h3><p>AI's plan card listed prices. I made it lead with how much you could lose.</p></div>
         <div class="vs">
           <figure class="no"><figcaption>AI's first pass</figcaption><div class="m"><b>COHR <em style="color:#A39D8E">$225.19</em></b><span class="tk"><i style="left:4%"></i><i style="left:18%"></i><i style="left:34%"></i><i style="left:96%"></i></span><span class="lv"><s>188</s><s>200–230</s><s>300</s></span><span class="lv"><s>R/R 3.98 · 322 sh</s></span></div></figure>
-          <figure class="yes"><figcaption>My redesign</figcaption><div class="m pic"><img src="../images/loop/decision-cost-after.webp?v=20261111c" alt="The LOOP plan card for COHR: the risk of 4,995 dollars is shown first, then the zone, the reward, size, filled shares and the three buys" width="1282" height="840"></div></figure>
+          <figure class="yes"><figcaption>My redesign</figcaption><div class="m pic"><span class="pw"><img src="../images/loop/decision-cost-after.webp?v=20261111d" alt="The LOOP plan card for COHR: the risk of 4,995 dollars is shown first, then the zone, the reward, size, filled shares and the three buys" width="1268" height="825"><i class="an" style="left:6.9%;top:25.8%;width:17.3%;height:8.1%"><b>Risk comes first</b></i></span></div></figure>
         </div>
       </article>
       <article>
         <div class="dt"><span class="k">02</span><h3>Support and resistance, already drawn.</h3><p>Most apps leave you to draw the lines yourself. LOOP marks support, resistance and your stop for you.</p></div>
         <div class="vs">
-          <figure class="no"><figcaption>Most apps</figcaption><div class="m pic"><img src="../images/loop/decision-levels-before.webp?v=20261111" alt="A plain Key levels list for a stock: resistance 189, the current price 189, support 182 with Buy here, and the stop at 170, as separate rows" width="1952" height="612"></div></figure>
-          <figure class="yes"><figcaption>LOOP</figcaption><div class="m pic"><img src="../images/loop/decision-levels-after.webp?v=20261111c" alt="The LOOP Key levels card for COHR: support at 209, resistance at 247, 270 and 290, the current price 225 and the stop at 188 on one line, with strength and reasons below" width="1354" height="554"></div></figure>
+          <figure class="no"><figcaption>Most apps</figcaption><div class="m pic"><img src="../images/loop/decision-levels-before.webp?v=20261111d" alt="A plain Key levels list for a stock: resistance 189, the current price 189, support 182 with Buy here, and the stop at 170, as separate rows" width="1921" height="589"></div></figure>
+          <figure class="yes"><figcaption>LOOP</figcaption><div class="m pic"><span class="pw"><img src="../images/loop/decision-levels-after.webp?v=20261111d" alt="The LOOP Key levels card for COHR: support at 209, resistance at 247, 270 and 290, the current price 225 and the stop at 188 on one line, with strength and reasons below" width="1326" height="522"><i class="an" style="left:4.7%;top:28.7%;width:90.7%;height:22%"><b>Every level, already drawn</b></i><i class="an" style="left:2.6%;top:65%;width:94.6%;height:25%"><b class="below">With the reason</b></i></span></div></figure>
         </div>
       </article>
       <article>
         <div class="dt"><span class="k">03</span><h3>One rule for every warning.</h3><p>AI gave each warning its own style. I made them one red dot, so red always means something is wrong.</p></div>
         <div class="vs">
           <figure class="no"><figcaption>AI's first pass</figcaption><div class="m"><span class="bx r">⚠ Limit: NBIS 42%, above 40%</span><span class="bx a">Earnings 10/30 inside the plan</span><span class="bx g">Note: 10 sh added outside plan</span></div></figure>
-          <figure class="yes"><figcaption>My redesign</figcaption><div class="m"><span class="red">NBIS is over your 40% limit</span><span class="red">Earnings 10/30 inside the plan</span><span class="red">Added outside the plan: 10 sh</span></div></figure>
+          <figure class="yes"><figcaption>My redesign</figcaption><div class="m"><div class="hl3"><b class="hl3t">One red dot for all</b><span class="red">NBIS is over your 40% limit</span><span class="red">Earnings 10/30 inside the plan</span><span class="red">Added outside the plan: 10 sh</span></div></div></figure>
         </div>
       </article>
       <article>
         <div class="dt"><span class="k">04</span><h3>One next step, not a checklist.</h3><p>AI's onboarding was three steps plus an optional API key. I cut it to one: drop in a statement, no broker login.</p></div>
         <div class="vs">
-          <figure class="no"><figcaption>AI's first pass</figcaption><div class="m pic"><img src="../images/loop/decision-onboarding-before.webp?v=20261111" alt="AI's first onboarding card: Getting started, Step 1 of 3, Import an IBKR statement, with Import and Try demo data first buttons, a three-step trail, and an optional Finnhub key link" width="1738" height="1002"></div></figure>
-          <figure class="yes"><figcaption>My redesign</figcaption><div class="m pic"><img src="../images/loop/decision-import2.webp?v=20261111" alt="The LOOP import screen: a dark bar reading 1 of 3, Import an IBKR statement, then a drop zone for the CSV with a Try demo data button" width="1386" height="648"></div></figure>
+          <figure class="no"><figcaption>AI's first pass</figcaption><div class="m pic"><img src="../images/loop/decision-onboarding-before.webp?v=20261111d" alt="AI's first onboarding card: Getting started, Step 1 of 3, Import an IBKR statement, with Import and Try demo data first buttons, a three-step trail, and an optional Finnhub key link" width="1728" height="975"></div></figure>
+          <figure class="yes"><figcaption>My redesign</figcaption><div class="m pic"><span class="pw"><img src="../images/loop/decision-import2.webp?v=20261111d" alt="The LOOP import screen: a dark bar reading 1 of 3, Import an IBKR statement, then a drop zone for the CSV with a Try demo data button" width="1360" height="626"><i class="an" style="left:30.9%;top:40%;width:38.2%;height:45.5%"><b>One step. Drop a file.</b></i></span></div></figure>
         </div>
       </article>
     </div>
