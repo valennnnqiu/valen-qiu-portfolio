@@ -440,6 +440,20 @@ input[type=range]:focus-visible{outline:3px solid var(--lilac);outline-offset:4p
 .vs .bub.me{align-self:flex-end;background:#E3DED3}.vs .bub.ai{align-self:flex-start;background:#fff;border:1.5px solid #E3DED3}
 .vs .drop2{border:2px dashed #1B4D3E!important;align-items:center;text-align:center;color:#1B4D3E}
 .vs .m.pic{padding:0;border:0;overflow:hidden;min-height:0;justify-content:center}
+.vs .tk{position:relative;height:16px;border-top:2px solid #C9C2B2;margin-top:10px}
+.vs .tk i{position:absolute;top:-9px;width:2px;height:16px;background:#A39D8E}
+.vs .lv{display:flex;justify-content:space-between;gap:6px}
+.vs .lv s{text-decoration:none;font-family:var(--f-mono);font-size:11px}
+.vs .bnd{display:flex;height:32px;border-radius:8px;overflow:hidden}
+.vs .bnd s{text-decoration:none;display:flex;align-items:center;padding:0 8px;font-family:var(--f-mono);font-size:12px;font-weight:600}
+.vs .bnd .l{flex:1;background:var(--loss-bg);color:var(--loss)}
+.vs .bnd .g{flex:3.2;background:var(--gain-bg);color:var(--gain);justify-content:flex-end}
+.vs .m .bx{font-size:11.5px;border-radius:8px;padding:5px 8px}
+.vs .bx.r{background:#FBE4E2;border:1.5px solid #E9A29C;color:#8E2A24}
+.vs .bx.a{background:#FFF1D6;border:1.5px solid #E8C27A;color:#7A5410}
+.vs .bx.g{background:#E4F3EA;border:1.5px solid #9CCFB2;color:#1F5C3B}
+.vs .m .ck{display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:11.5px;border:1px solid #D6CFBF;border-radius:8px;padding:4px 8px;background:#fff}
+.vs .ck em{font-style:normal;font-size:11px;background:#E3DED3;border-radius:6px;padding:1px 6px;white-space:nowrap}
 .vs .fld{display:flex;justify-content:space-between;align-items:center;font-size:12px;border:1.5px solid #D6CFBF;border-radius:8px;padding:5px 8px}
 .vs .fld u{text-decoration:none;font-family:var(--f-mono);font-weight:600}
 .vs .yes .fld.on{border-color:#1B4D3E;color:var(--ink)}
@@ -1143,35 +1157,35 @@ input[type=range]:focus-visible{outline:3px solid var(--lilac);outline-offset:4p
   <div class="wrap">
     <div class="head">
       <span class="pill">Key decisions</span>
-      <h2 class="big">Four calls that shaped LOOP.</h2>
+      <h2 class="big">Four calls I made on top of AI.</h2>
     </div>
     <div class="dec2">
       <article>
-        <div class="dt"><span class="k">01</span><h3>Set your max loss, not your share count.</h3><p>LOOP asks how much you can lose, then works out how many shares to buy.</p></div>
+        <div class="dt"><span class="k">01</span><h3>Show the cost before the trade.</h3><p>AI's plan card listed prices. I made it lead with how much you could lose.</p></div>
         <div class="vs">
-          <figure class="no"><figcaption>Passed on</figcaption><div class="m"><b>Buy NBIS</b><span class="fld">Shares <u>100</u></span><span>Max loss: not shown</span><i class="bt off">Place order</i></div></figure>
-          <figure class="yes"><figcaption>Chose</figcaption><div class="m"><b>NBIS plan</b><span class="fld on">Max loss <u>$540</u></span><span class="grn">→ 60 shares · 3 buys</span><span>Reward / risk 4.0</span></div></figure>
+          <figure class="no"><figcaption>AI's first pass</figcaption><div class="m"><b>NBIS <em style="color:#A39D8E">$226.00</em></b><span class="tk"><i style="left:4%"></i><i style="left:18%"></i><i style="left:34%"></i><i style="left:96%"></i></span><span class="lv"><s>215</s><s>220–228</s><s>260</s></span><span class="lv"><s>R/R 4.0 · 60 sh</s></span></div></figure>
+          <figure class="yes"><figcaption>My redesign</figcaption><div class="m"><b>NBIS plan</b><span class="fld on">Max loss <u>$540</u></span><span class="bnd"><s class="l">−$540</s><s class="g">+$2,160</s></span></div></figure>
         </div>
       </article>
       <article>
-        <div class="dt"><span class="k">02</span><h3>Alerts only when a plan needs you.</h3><p>No ping for every price move. Only when a stock hits your buy zone or stop.</p></div>
+        <div class="dt"><span class="k">02</span><h3>Alerts only when a plan needs you.</h3><p>Most trading apps ping on every move. LOOP only speaks up at your buy zone or stop.</p></div>
         <div class="vs">
-          <figure class="no"><figcaption>Passed on</figcaption><div class="m pic"><img src="../images/loop/decision-alerts-before.webp?v=20261110" alt="Three alert emails from Interactive Brokers in an inbox: TSLA, MU and COHR Last Price alerts, all at once" width="1284" height="724"></div></figure>
-          <figure class="yes"><figcaption>Chose</figcaption><div class="m"><span class="nt on"><span><i class="dot"></i>NBIS reached your zone</span><s>224.10</s></span><span>Nothing else needs you today.</span></div></figure>
+          <figure class="no"><figcaption>Most apps</figcaption><div class="m pic"><img src="../images/loop/decision-alerts-before.webp?v=20261110" alt="Three alert emails from Interactive Brokers in an inbox: TSLA, MU and COHR Last Price alerts, all at once" width="1284" height="724"></div></figure>
+          <figure class="yes"><figcaption>LOOP</figcaption><div class="m"><span class="nt on"><span><i class="dot"></i>NBIS reached your zone</span><s>224.10</s></span><span>Nothing else needs you today.</span></div></figure>
         </div>
       </article>
       <article>
-        <div class="dt"><span class="k">03</span><h3>Every trade ties back to a plan.</h3><p>So Review can show which trades were planned and which were impulse.</p></div>
+        <div class="dt"><span class="k">03</span><h3>One rule for every warning.</h3><p>AI gave each warning its own style. I made them one red dot, so red always means something is wrong.</p></div>
         <div class="vs">
-          <figure class="no"><figcaption>Passed on</figcaption><div class="m"><span class="row">May 12 · NBIS <s>+$310</s></span><span class="row">May 14 · IONQ <s>−$420</s></span><span class="row">May 15 · RGTI <s>−$180</s></span><span class="row">May 19 · NBIS <s>+$540</s></span></div></figure>
-          <figure class="yes"><figcaption>Chose</figcaption><div class="m"><span class="row">Planned <s class="grn">+$1,240</s></span><span class="meter"><i style="width:72%;background:var(--gain-2)"></i></span><span class="row">Impulse <s class="red2">−$860</s></span><span class="meter"><i style="width:50%;background:var(--loss-2)"></i></span></div></figure>
+          <figure class="no"><figcaption>AI's first pass</figcaption><div class="m"><span class="bx r">⚠ Limit: NBIS 42%, above 40%</span><span class="bx a">Earnings 10/30 inside the plan</span><span class="bx g">Note: 10 sh added outside plan</span></div></figure>
+          <figure class="yes"><figcaption>My redesign</figcaption><div class="m"><span class="red">NBIS is over your 40% limit</span><span class="red">Earnings 10/30 inside the plan</span><span class="red">Added outside the plan: 10 sh</span></div></figure>
         </div>
       </article>
       <article>
-        <div class="dt"><span class="k">04</span><h3>Import statements, don't link accounts.</h3><p>No broker login needed. Your data stays on your device.</p></div>
+        <div class="dt"><span class="k">04</span><h3>One next step, not a checklist.</h3><p>AI's onboarding was a four-step list. I cut it to one step: drop in a statement, no broker login.</p></div>
         <div class="vs">
-          <figure class="no"><figcaption>Passed on</figcaption><div class="m"><b>Connect your account</b><span>Sign in to sync positions.</span><i class="bt off">Log in to your broker</i></div></figure>
-          <figure class="yes"><figcaption>Chose</figcaption><div class="m pic"><img src="../images/loop/decision-import.webp?v=20261109c" alt="The LOOP import screen: Drop your IBKR statement (CSV), or click to choose a file, with a Try demo data button" width="2000" height="565"></div></figure>
+          <figure class="no"><figcaption>AI's first pass</figcaption><div class="m"><b>Get started <em style="color:#A39D8E">0 / 4</em></b><span class="ck">1 · Import a statement <em>Import</em></span><span class="ck">2 · Set your limits <em>Settings</em></span><span class="ck">3 · Make a plan <em>+ Add</em></span></div></figure>
+          <figure class="yes"><figcaption>My redesign</figcaption><div class="m pic"><img src="../images/loop/decision-import.webp?v=20261109c" alt="The LOOP import screen: Drop your IBKR statement (CSV), or click to choose a file, with a Try demo data button" width="2000" height="565"></div></figure>
         </div>
       </article>
     </div>
@@ -1218,7 +1232,7 @@ input[type=range]:focus-visible{outline:3px solid var(--lilac);outline-offset:4p
           <div class="pr"><em>With AI</em><div class="trk"><s class="f">Frame</s><span class="loops"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div></div>
           <figcaption><span>Same time</span><span><i class="key"></i> one build · test · fix loop</span></figcaption>
         </figure></div></li>
-      <li><span>03</span><div class="lt"><b>Next, turn a tool people love into a business.</b><p>Ten testers rely on it. The real test is whether many people will, and pay for it. That's what we're working on now.</p></div></li>
+      <li><span>03</span><div class="lt"><b>Ten happy testers is barely step one.</b><p>Friends love it. Will many people rely on it, and pay? That's next.</p></div></li>
     </ol>
     <div class="foot"><span>Personal tool. Not investment advice. Walkthrough numbers are sample data.</span></div>
   </div>
