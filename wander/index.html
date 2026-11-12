@@ -142,6 +142,7 @@ h3.lg{font-size:clamp(28px,3.4vw,44px)}
 /* problem */
 .hs{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:48px;align-items:center;background:var(--card);border-radius:var(--r);padding:40px}
 .hs .slot{aspect-ratio:16/10}
+.hs .pimg{display:block;width:100%;max-width:480px;height:auto;margin-inline:auto}
 .signal{display:flex;flex-direction:column;justify-content:center;min-width:0}
 .signal b{display:block;font-size:clamp(64px,8vw,120px);font-weight:700;line-height:.9;letter-spacing:-.06em;color:var(--pink-t);font-variant-numeric:tabular-nums}
 .signal p{margin-top:16px;font-size:clamp(20px,2vw,26px);font-weight:600;letter-spacing:-.02em;line-height:1.2}
@@ -796,7 +797,7 @@ h3{letter-spacing:-.02em}
       <p class="lede">Wander helps people in Toronto meet up in real life. Joining was easy. Knowing what to do next wasn’t.</p>
     </div>
     <div class="hs">
-      <div class="slot">Image: the old feed</div>
+      <img class="pimg" src="../images/wander/problem-feed.webp" alt="The old Wander feed card for Toronto Clubbing, with users saying they only said hi and never planned a hangout" width="770" height="766" loading="lazy">
       <div class="signal">
         <b>76.4%</b>
         <p>of users joined a group.</p>
