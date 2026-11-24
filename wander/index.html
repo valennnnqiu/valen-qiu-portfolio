@@ -252,6 +252,7 @@ h3.lg{font-size:clamp(28px,3.4vw,44px)}
 .scr::-webkit-scrollbar{display:none}
 .phimg .scr{display:flex;padding:0;overflow:hidden}
 .phimg .slot{flex:1;border-radius:40px;border:0;background:var(--sand)}
+.phimg .scr img{display:block;width:100%;height:100%;object-fit:cover;object-position:top}
 .sb{display:flex;justify-content:space-between;align-items:center;padding:14px 10px 6px;font-size:13px}
 .sb .island{width:86px;height:24px;border-radius:999px;background:var(--ink)}
 .sb span{font-size:9px;letter-spacing:1px}
@@ -481,10 +482,10 @@ h3.lg{font-size:clamp(28px,3.4vw,44px)}
 .opts .feat{gap:8px}
 .opts .lab{text-transform:uppercase}
 .opts .fshot{padding:16px 8px 8px}
-.opts .phone.mp{width:62%}
+.opts .phone.mp{width:80%}
 .opts .feat.on{box-shadow:inset 0 0 0 2px var(--pink)}
 .opts .feat.on .lab{background:var(--pink);color:var(--ink)}
-@media (max-width:700px){.opts{grid-template-columns:1fr}.opts .phone.mp{width:50%}}
+@media (max-width:700px){.opts{grid-template-columns:1fr}.opts .phone.mp{width:60%}}
 .edge .ep{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--pink-t);margin-top:6px}
 .edges+.block,.proc+.block{margin-top:112px}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
@@ -904,9 +905,9 @@ h3{letter-spacing:-.02em}
       <p class="lede">It needed a new backend. I convinced the CEO it was worth it.</p>
     </div>
     <div class="opts">
-      <article class="feat"><div class="ft"><span class="lab">Assistant</span></div><div class="fshot"><div class="phone mp phimg" aria-label="Assistant"><div class="scr"><span class="slot">Image: V2 card with AI explainer below</span></div></div></div></article>
-      <article class="feat"><div class="ft"><span class="lab">Matchmaker AI</span></div><div class="fshot"><div class="phone mp phimg" aria-label="Matchmaker AI"><div class="scr"><span class="slot">Image: AI-picked match list</span></div></div></div></article>
-      <article class="feat on"><div class="ft"><span class="lab">A friend who asks first</span></div><div class="fshot"><div class="phone mp phimg" aria-label="A friend who asks first"><div class="scr"><span class="slot">Image: AI question card with chips</span></div></div></div></article>
+      <article class="feat"><div class="ft"><span class="lab">Assistant</span></div><div class="fshot"><div class="phone mp phimg" aria-label="Assistant"><div class="scr"><img src="../images/wander/decision-assistant.webp" alt="The Assistant version: an event feed with an AI helper bar at the bottom" width="786" height="1704" loading="lazy"></div></div></div></article>
+      <article class="feat"><div class="ft"><span class="lab">Matchmaker AI</span></div><div class="fshot"><div class="phone mp phimg" aria-label="Matchmaker AI"><div class="scr"><img src="../images/wander/decision-matchmaker.webp" alt="The Matchmaker version: one AI-picked event card with a line about who is hosting" width="786" height="1704" loading="lazy"></div></div></div></article>
+      <article class="feat on"><div class="ft"><span class="lab">A friend who asks first</span></div><div class="fshot"><div class="phone mp phimg" aria-label="A friend who asks first"><div class="scr"><img src="../images/wander/decision-friend.webp" alt="The Friend version: the AI asks what you want to do this week, then offers one event" width="786" height="1704" loading="lazy"></div></div></div></article>
     </div>
     <div class="block">
     <div class="head">
