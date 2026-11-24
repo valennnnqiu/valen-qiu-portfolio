@@ -582,6 +582,9 @@ h3.lg{font-size:clamp(28px,3.4vw,44px)}
 /* Show plans vs ask first: two-up comparison */
 .opts.pair2{grid-template-columns:repeat(2,minmax(0,1fr))}
 .opts.pair2 .phone.mp{width:44%}
+.opts.pair2 .phone.mp.phimg{background:var(--ink);padding:6px;border-radius:40px;aspect-ratio:9/18.5}
+.opts.pair2 .phone.mp.phimg .scr{background:var(--card);border-radius:32px;overflow:hidden;display:flex}
+.opts.pair2 .scr video{display:block;width:100%;height:100%;object-fit:cover;object-position:top}
 .opts .cap2{text-align:center;font-size:17px;color:var(--ink-2);padding:0 8px 12px}
 @media (max-width:700px){.opts.pair2{grid-template-columns:1fr}.opts.pair2 .cap2{font-size:16px}}
 .opts .ft p{font-size:17px;color:var(--ink-2);max-width:none}
@@ -919,7 +922,7 @@ h3{letter-spacing:-.02em}
     </div>
     <div class="opts pair2">
       <article class="feat"><div class="ft"><span class="lab">Show cards first</span></div><div class="fshot"><div class="phone mp phimg" aria-label="Show cards first"><div class="scr"><span class="slot">GIF: a list of event cards, user scrolls past</span></div></div></div><p class="cap2">Users scroll, compare, and leave.</p></article>
-      <article class="feat on"><div class="ft"><span class="lab">Ask first, then show</span></div><div class="fshot"><div class="phone mp phimg" aria-label="Ask first, then show"><div class="scr"><span class="slot">GIF: question with two real plans, user taps one, its card appears</span></div></div></div><p class="cap2">One tap, then the card that fits.</p></article>
+      <article class="feat on"><div class="ft"><span class="lab">Ask first, then show</span></div><div class="fshot"><div class="phone mp phimg" aria-label="Ask first, then show"><div class="scr"><video muted loop playsinline autoplay preload="metadata" poster="../images/wander/ask-first-poster.webp" aria-label="The AI asks what you want to do this week, the user taps Indoor cycling, and one matching event card appears" width="720" height="1546"><source src="../images/wander/ask-first.mp4?v=20261124a" type="video/mp4"></video></div></div></div><p class="cap2">One tap, then the card that fits.</p></article>
     </div>
     </div>
     <div class="block">
